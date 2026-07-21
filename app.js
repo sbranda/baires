@@ -8,7 +8,7 @@ const DESTINOS = [
   {
     nombre: "Tigre", km: 32, categoria: "rio",
     nota: "Delta, lanchas colectivas y puerto de frutos.",
-    historia: "Nació a fines del siglo XIX como puerto de recreo de la alta sociedad porteña, con clubes de remo y regatas de renombre internacional. Hoy es la puerta de entrada al Delta del Paraná.",
+    historia: "El área fue habitada originalmente por comunidades guaraníes que aprovechaban la riqueza del delta para la pesca y la caza. Hacia fines del siglo XIX, con la llegada del ferrocarril, Tigre se transformó en el destino de recreo preferido de la alta sociedad porteña, que instaló clubes de remo y organizó regatas de nivel internacional en los brazos del río. Durante buena parte del siglo XX el turismo masivo se trasladó hacia la costa atlántica y Tigre atravesó una etapa de menor protagonismo, hasta que desde los años 90 recuperó su lugar como destino de fin de semana gracias a la puesta en valor del Puerto de Frutos, los museos y las excursiones en lancha. Hoy sigue siendo la puerta de entrada más conocida al Delta del Paraná, un ecosistema único de islas habitadas todo el año por sus propios pobladores.",
     datoCurioso: "El nombre viene de los yaguaretés que los colonizadores llamaban \"tigres\"; habitaron la zona hasta que fueron cazados a principios del siglo XX.",
     comoLlegar: "Tren Mitre desde Retiro hasta estación Tigre, o Panamericana ramal Tigre.",
     cuandoIr: "Todo el año; primavera y otoño para caminatas, verano para lanchas y playas de río.",
@@ -29,7 +29,7 @@ const DESTINOS = [
   {
     nombre: "San Isidro", km: 28, categoria: "pueblo",
     nota: "Catedral, casco histórico y costa del río.",
-    historia: "Fue zona de quintas de fin de semana de familias porteñas desde el siglo XIX y conserva el trazado colonial alrededor de la Catedral. Fue cuna de escritores como Victoria Ocampo.",
+    historia: "Formó parte de las tierras otorgadas a los primeros colonizadores del Río de la Plata, y desde el siglo XVIII se pobló como zona de quintas y chacras para familias porteñas acomodadas. La actual Catedral, construida a fines del siglo XIX en estilo neogótico, se convirtió en el centro simbólico del pueblo, alrededor del cual creció el casco histórico. A comienzos del siglo XX consolidó su perfil residencial y cultural, con intelectuales y artistas que encontraron en sus quintas un refugio tranquilo cerca de la ciudad; la escritora Victoria Ocampo, fundadora de la revista Sur, tuvo allí una de sus residencias. Con las décadas, el partido se expandió hacia el norte y hoy combina el trazado colonial de su centro con zonas residenciales de alto poder adquisitivo y una intensa vida cultural y deportiva.",
     datoCurioso: "La Quinta Los Ombúes, hoy Museo Pueyrredón, perteneció a la familia del general Juan Martín de Pueyrredón y aún conserva árboles centenarios de la época colonial.",
     comoLlegar: "Tren Mitre línea San Isidro desde Retiro, o Av. del Libertador en auto.",
     cuandoIr: "Todo el año; fines de semana hay más movimiento en la peatonal.",
@@ -50,7 +50,7 @@ const DESTINOS = [
   {
     nombre: "Luján", km: 65, categoria: "pueblo",
     nota: "Basílica y peregrinación, turismo religioso.",
-    historia: "Debe su nombre a la leyenda de la Virgen de Luján, venerada en la Basílica desde el siglo XVII. Se convirtió en el centro de peregrinación católica más importante de Argentina.",
+    historia: "El nombre del pueblo está ligado a una leyenda: en 1630, una carreta que transportaba una imagen de la Virgen se detuvo sin motivo aparente y no volvió a moverse hasta que bajaron la imagen, que quedó como patrona del lugar. Alrededor de esa devoción creció durante los siglos siguientes un poblado que se convirtió en el centro de peregrinación católica más importante del país. La actual Basílica, de estilo neogótico, es la tercera construida en el predio: las dos anteriores no resistieron el paso del tiempo, lo que reforzó entre los fieles la necesidad de un templo a la altura de la devoción popular. Hoy Luján recibe millones de peregrinos por año, sobre todo durante la tradicional caminata de octubre desde Buenos Aires, además de visitantes que se acercan por su patrimonio histórico y sus museos.",
     datoCurioso: "La actual Basílica es la tercera construida en el lugar; las dos anteriores se derrumbaron, lo que reforzó entre los fieles la necesidad de un templo a la altura de la devoción.",
     comoLlegar: "Ruta Nacional 7 o Acceso Oeste, aprox. 1 hora en auto; también hay micros directos.",
     cuandoIr: "Todo el año; primer domingo de octubre es la gran peregrinación juvenil.",
@@ -71,7 +71,7 @@ const DESTINOS = [
   {
     nombre: "Cañuelas", km: 65, categoria: "campo",
     nota: "Estancias y turismo rural cerca de la ciudad.",
-    historia: "Pueblo fundado a mediados del siglo XIX en torno a la actividad ganadera, todavía conserva el perfil de \"puerta de la pampa\" con estancias que reciben visitantes desde hace generaciones.",
+    historia: "El partido se conformó a mediados del siglo XIX en pleno auge de la actividad ganadera de la llanura pampeana, cuando las estancias comenzaron a organizarse como unidades productivas a gran escala. Durante décadas fue un nudo ferroviario clave para el transporte de hacienda hacia los mercados de Buenos Aires, lo que impulsó el crecimiento del pueblo alrededor de la estación. Con el tiempo, muchas estancias fueron reconvirtiendo parte de su actividad hacia el turismo rural, ofreciendo a los visitantes una experiencia de campo con doma, jineteada y gastronomía criolla. Hoy Cañuelas es uno de los destinos de turismo rural más elegidos cerca de la Ciudad de Buenos Aires, gracias a su cercanía y a la tradición ganadera que todavía se respira en la zona.",
     datoCurioso: "Fue durante décadas un nudo ferroviario importante; la vieja estación de trenes hoy funciona como centro cultural del partido.",
     comoLlegar: "Autopista Ricchieri y luego Ruta 205, alrededor de 1 hora en auto.",
     cuandoIr: "Primavera y otoño para actividades de campo al aire libre.",
@@ -92,7 +92,7 @@ const DESTINOS = [
   {
     nombre: "La Plata", km: 56, categoria: "ciudad",
     nota: "Catedral, bosque y trazado urbano único.",
-    historia: "Ciudad fundada en 1882 como nueva capital de la provincia, diseñada desde cero con un trazado urbanístico único en diagonales y plazas cada seis cuadras.",
+    historia: "La ciudad fue fundada en 1882 por el entonces gobernador Dardo Rocha, luego de que Buenos Aires se federalizara y la provincia necesitara una nueva capital. Se la diseñó desde cero como una ciudad moderna para la época, con un trazado en diagonales y una plaza cada seis cuadras que buscaba garantizar espacios verdes accesibles. La construcción de sus edificios emblemáticos, como la Catedral y el Museo de Ciencias Naturales, se pensó como una vidriera del progreso argentino de fines del siglo XIX, en sintonía con el auge agroexportador del país. Con los años, la instalación de la Universidad Nacional de La Plata a comienzos del siglo XX consolidó su perfil de ciudad universitaria, una identidad que conserva hasta hoy y que convive con su rol administrativo como capital provincial.",
     datoCurioso: "El trazado fue pensado para que ningún punto de la ciudad quedara a más de 700 metros de un espacio verde, algo poco común para una ciudad de fines del siglo XIX.",
     comoLlegar: "Autopista Buenos Aires-La Plata, o tren Roca desde Constitución.",
     cuandoIr: "Todo el año; el Bosque es lindo en otoño y primavera.",
@@ -113,7 +113,7 @@ const DESTINOS = [
   {
     nombre: "Zárate", km: 90, categoria: "rio",
     nota: "Costanera sobre el Paraná y puente Zárate-Brazo Largo.",
-    historia: "Ciudad portuaria sobre el Paraná de las Palmas, históricamente ligada a la industria naval y frigorífica. El puente Zárate-Brazo Largo, inaugurado en 1977, la conectó definitivamente con Entre Ríos.",
+    historia: "La zona se organizó como pueblo a mediados del siglo XIX en torno a la actividad portuaria sobre el Paraná de las Palmas, aprovechando su ubicación estratégica para el comercio fluvial. Durante buena parte del siglo XX, Zárate se consolidó como polo industrial, con astilleros y frigoríficos que emplearon a buena parte de su población y definieron su identidad obrera. La construcción del complejo de puentes Zárate-Brazo Largo, inaugurado en 1977, marcó un antes y un después al conectar la ciudad de forma directa con Entre Ríos y la Mesopotamia. Hoy combina ese pasado industrial y portuario con un perfil más turístico centrado en su costanera y en el paisaje del delta bonaerense.",
     datoCurioso: "Al momento de su inauguración, el complejo de puentes Zárate-Brazo Largo fue uno de los más largos de Sudamérica construidos sobre un sistema de islas y ríos.",
     comoLlegar: "Ruta Panamericana ramal Escobar hasta Zárate, o tren desde Retiro.",
     cuandoIr: "Primavera y verano para disfrutar la costanera.",
@@ -134,7 +134,7 @@ const DESTINOS = [
   {
     nombre: "Capilla del Señor", km: 90, categoria: "pueblo",
     nota: "Pueblo colonial declarado lugar histórico.",
-    historia: "Pueblo fundado en el siglo XVIII, declarado lugar histórico nacional por conservar casi intacto su trazado y arquitectura colonial, algo poco común en la provincia.",
+    historia: "El poblado se organizó en torno a una capilla construida en el siglo XVIII, de la que tomó su nombre, en una zona de estancias y postas que servían de descanso a los viajeros que iban hacia el norte de la provincia. A diferencia de otros pueblos bonaerenses que modernizaron su arquitectura con el correr de las décadas, Capilla del Señor conservó casi intacto su trazado colonial, lo que llevó a que en 1974 fuera declarado lugar histórico nacional. Ese reconocimiento ayudó a preservar sus casonas y calles empedradas, que hoy atraen a quienes buscan una postal poco común dentro de la provincia. El pueblo mantiene además su vínculo con las estancias de la zona, que combinan producción agropecuaria con recepción de visitantes.",
     datoCurioso: "Fue declarado \"lugar histórico nacional\" en 1974, uno de los primeros pueblos bonaerenses en recibir esa distinción.",
     comoLlegar: "Ruta 8 hasta Pilar, luego rutas provinciales hacia Capilla del Señor.",
     cuandoIr: "Todo el año; fines de semana hay más oferta gastronómica.",
@@ -155,7 +155,7 @@ const DESTINOS = [
   {
     nombre: "San Antonio de Areco", km: 113, categoria: "pueblo",
     nota: "Capital de la tradición gaucha, museos y talabarterías.",
-    historia: "Fundado en el siglo XVIII a orillas del río Areco, es reconocido como la cuna de la tradición gaucha argentina, inmortalizada en la novela \"Don Segundo Sombra\" de Ricardo Güiraldes.",
+    historia: "Fundado en el siglo XVIII a orillas del río Areco, el pueblo creció al amparo de las estancias ganaderas que dominaban la región pampeana. A comienzos del siglo XX, el escritor Ricardo Güiraldes, hijo de una familia de estancieros de la zona, inmortalizó la vida de los gauchos locales en su novela \"Don Segundo Sombra\", que convirtió al pueblo en un símbolo de la tradición criolla argentina. Ese legado se institucionalizó décadas después con la creación del Museo Gauchesco que lleva su nombre y con la declaración del Día de la Tradición, que desde mediados del siglo XX se celebra cada noviembre con desfiles y jineteadas. Hoy San Antonio de Areco es reconocido como la capital nacional de la tradición gaucha, con una comunidad de talabarteros y plateros que mantiene vivos oficios artesanales de larga data.",
     datoCurioso: "Güiraldes escribió gran parte de esa novela inspirado en los gauchos que conoció en la estancia de su familia, cerca del pueblo.",
     comoLlegar: "Ruta Nacional 8, alrededor de 1h30 en auto; también hay micros directos.",
     cuandoIr: "Todo el año; el Día de la Tradición en noviembre reúne desfiles gauchos.",
@@ -177,7 +177,7 @@ const DESTINOS = [
   {
     nombre: "Mercedes", km: 100, categoria: "campo",
     nota: "Puerta de acceso a estancias y turismo rural.",
-    historia: "Ciudad fundada en 1752, históricamente un centro de comercio agropecuario y punto de partida hacia las estancias del oeste bonaerense.",
+    historia: "La ciudad fue fundada en 1752 como parte de la expansión de la frontera productiva hacia el oeste de la provincia, en una zona que combinaba tierras fértiles con rutas de comercio hacia el interior del país. Durante el siglo XIX se consolidó como centro de comercio agropecuario y punto de partida del histórico Camino Real, que conectaba Buenos Aires con las provincias del oeste. Ese rol de nodo comercial y de tránsito se mantuvo con la llegada del ferrocarril, que reforzó su importancia como centro de servicios para las estancias de la zona. Hoy Mercedes conserva ese perfil como puerta de acceso al turismo rural del oeste bonaerense.",
     datoCurioso: "Fue durante mucho tiempo un punto clave del Camino Real hacia el oeste, y hoy conserva ese rol como acceso a buena parte de las estancias bonaerenses.",
     comoLlegar: "Ruta Nacional 7, aproximadamente 1h30 en auto.",
     cuandoIr: "Primavera y otoño para recorrer el campo.",
@@ -198,7 +198,7 @@ const DESTINOS = [
   {
     nombre: "Chascomús", km: 125, categoria: "rio",
     nota: "Laguna, costanera y pesca deportiva.",
-    historia: "Fundada en 1779 alrededor de la laguna homónima, fue escenario de hechos históricos de las luchas por la independencia y hoy es reconocida por la pesca deportiva.",
+    historia: "La ciudad fue fundada en 1779 junto a la laguna homónima, en un punto estratégico para el control del territorio y de las rutas hacia el sur de la provincia. Durante las luchas civiles del siglo XIX, la zona fue escenario de un levantamiento conocido como \"la revolución de los libres del sur\", en 1839, un episodio clave de la resistencia al gobierno de Juan Manuel de Rosas. Con el correr de las décadas, la ciudad desarrolló su identidad en torno a la laguna, que se convirtió en un centro de pesca deportiva reconocido a nivel nacional. Hoy Chascomús combina ese patrimonio histórico con una fuerte impronta de turismo de naturaleza, gracias a la costanera y a la reserva que rodea la laguna.",
     datoCurioso: "La laguna fue escenario en 1839 de un combate conocido como \"la revolución de los libres del sur\", durante las luchas civiles del siglo XIX.",
     comoLlegar: "Ruta 2 rumbo a la costa, aproximadamente 1h30 en auto.",
     cuandoIr: "Verano para actividades náuticas, primavera para pesca.",
@@ -219,7 +219,7 @@ const DESTINOS = [
   {
     nombre: "Baradero", km: 150, categoria: "rio",
     nota: "Playas de río y fiesta nacional del remo.",
-    historia: "Ciudad fundada en el siglo XIX sobre el río Baradero, célebre por sus playas de río y por ser sede de la Fiesta Nacional del Remo desde 1974.",
+    historia: "El poblado se organizó en el siglo XIX alrededor del río Baradero, aprovechando sus playas naturales y su cercanía con el Paraná para el comercio fluvial. Con el correr de las décadas, la ciudad desarrolló una fuerte tradición vinculada al remo y a los deportes náuticos, que encontró su punto culminante en 1974 con la creación de la Fiesta Nacional del Remo. Ese evento consolidó a Baradero como una de las sedes más importantes del remo amateur del país y atrajo un turismo enfocado en las actividades sobre el río. Hoy la ciudad combina ese perfil deportivo con un turismo de playas de río, popular entre quienes buscan un balneario cercano a Buenos Aires sin llegar hasta la costa atlántica.",
     datoCurioso: "La Fiesta Nacional del Remo convirtió a Baradero en una de las sedes más importantes del remo amateur en Argentina.",
     comoLlegar: "Ruta Panamericana ramal Baradero, unas 2 horas en auto.",
     cuandoIr: "Verano para playas de río; enero por la Fiesta Nacional del Remo.",
@@ -240,7 +240,7 @@ const DESTINOS = [
   {
     nombre: "San Pedro", km: 165, categoria: "rio",
     nota: "Costa del Paraná, quintas de duraznos.",
-    historia: "Ciudad fundada en el siglo XVIII, conocida históricamente por sus quintas de duraznos y por la Fiesta Nacional del Durazno que se celebra desde mediados del siglo XX.",
+    historia: "Fundada en el siglo XVIII sobre la costa del Paraná, la ciudad desarrolló desde temprano una economía basada en la fruticultura, gracias a la fertilidad de sus tierras ribereñas. Las quintas de duraznos se convirtieron en la actividad más identificada con la zona durante el siglo XX, al punto de dar origen en 1955 a la Fiesta Nacional del Durazno, que todavía hoy se celebra cada verano. Ese perfil agrícola convivió siempre con su costado ribereño, con un puerto histórico y una costanera que fueron ganando protagonismo turístico con el correr de las décadas. Hoy San Pedro combina el turismo de playas de río con la actividad frutícola que la distingue dentro de la región del Paraná.",
     datoCurioso: "La Fiesta Nacional del Durazno, que se celebra desde 1955, hizo de San Pedro un símbolo de la producción frutícola bonaerense sobre el Paraná.",
     comoLlegar: "Ruta Panamericana ramal Escobar/San Pedro, unas 2 horas en auto.",
     cuandoIr: "Verano para la costa; enero por la Fiesta Nacional del Durazno.",
@@ -261,7 +261,7 @@ const DESTINOS = [
   {
     nombre: "Chivilcoy", km: 160, categoria: "campo",
     nota: "Ciudad agrícola con arquitectura de antaño.",
-    historia: "Ciudad fundada en 1854, con fuerte identidad agrícola y una arquitectura urbana de principios del siglo XX bien conservada en su casco céntrico.",
+    historia: "La ciudad fue fundada en 1854 en el marco de la expansión de la frontera agrícola bonaerense hacia el oeste, en tierras que resultaron muy fértiles para el cultivo de cereales. Ese auge agrícola de fines del siglo XIX financió buena parte de la arquitectura urbana que todavía puede verse en su casco céntrico, y llevó a que la ciudad fuera una de las primeras del interior bonaerense en contar con alumbrado eléctrico. Durante el siglo XX, Chivilcoy consolidó su perfil como centro de servicios para la producción agropecuaria de la región, un rol que mantiene hasta la actualidad. Hoy es una ciudad tranquila que conserva ese pasado agrícola en su arquitectura y en la identidad de sus habitantes.",
     datoCurioso: "Fue una de las primeras ciudades del interior bonaerense en tener alumbrado eléctrico, a fines del siglo XIX, gracias al auge agrícola de la zona.",
     comoLlegar: "Ruta Nacional 5, aproximadamente 2 horas en auto.",
     cuandoIr: "Todo el año, clima templado en primavera y otoño.",
@@ -282,7 +282,7 @@ const DESTINOS = [
   {
     nombre: "Dolores", km: 200, categoria: "pueblo",
     nota: "Casco histórico y museos camino a la costa.",
-    historia: "Fundada en 1818, fue uno de los primeros pueblos de la provincia tras la independencia y hoy es una parada tradicional en el camino a la costa atlántica.",
+    historia: "Fundada en 1818, poco después de la declaración de la independencia argentina, Dolores fue uno de los primeros pueblos organizados en el sur de la provincia de Buenos Aires. En 1839 fue escenario de un levantamiento contra el gobierno de Juan Manuel de Rosas, un episodio que le dio un lugar destacado en la historia política del siglo XIX bonaerense. Con el correr de las décadas, la ciudad se consolidó como centro de servicios para la zona rural circundante y como parada obligada en el camino hacia los balnearios de la costa atlántica. Hoy Dolores combina ese patrimonio histórico, visible en su casco urbano y en museos como el de Autos Antiguos, con su rol tradicional de última parada bonaerense antes de llegar al mar.",
     datoCurioso: "En 1839 fue escenario de un levantamiento contra Juan Manuel de Rosas, uno de los primeros del interior bonaerense, con un lugar destacado en la historia política provincial.",
     comoLlegar: "Ruta 2 camino a la costa atlántica, unas 2h30 en auto.",
     cuandoIr: "Buena parada camino a la costa en cualquier época.",
