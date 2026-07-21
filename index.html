@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Destinos Buenos Aires - Guía por distancia</title>
+  <meta name="description" content="Encontrá pueblos y ciudades turísticas de la provincia de Buenos Aires según la distancia que quieras viajar." />
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#101913" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Destinos BA" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div>
+      <div class="eyebrow">Provincia de Buenos Aires</div>
+      <h1>¿A cuántos km<br />querés llegar?</h1>
+      <p class="subtitle">
+        Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.
+      </p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-head-label">Distancia máxima</span>
+        <div class="panel-head-value">
+          <span id="distancia-valor">200</span>
+          <span>km</span>
+        </div>
+      </div>
+      <input type="range" id="slider" min="20" max="700" step="10" value="200" aria-label="Distancia máxima en kilómetros" />
+      <div class="ruler" id="ruler"></div>
+    </div>
+
+    <div class="chips" id="filtros"></div>
+
+    <div class="contador" id="contador"></div>
+    <div class="vacio" id="vacio">No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.</div>
+    <div class="lista" id="lista"></div>
+
+    <p class="footer-note">
+      Distancias aproximadas por ruta desde CABA · Datos de referencia, verificá antes de viajar.
+    </p>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
