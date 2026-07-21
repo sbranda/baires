@@ -1,4 +1,4 @@
-const CACHE_NAME = "destinos-ba-v4";
+const CACHE_NAME = "destinos-ba-v5";
 const ASSETS = [
   "./",
   "./index.html",
