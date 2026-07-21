@@ -594,6 +594,27 @@ const DESTINOS = [
     tips: ["El trekking al Cerro Ventana requiere buen estado físico y calzado de montaña", "Consultar el estado del sendero antes de salir, se cierra en días de mucho viento", "Villa Ventana es una buena base más tranquila que el pueblo principal"],
     presupuesto: "Medio: cabañas y comida regional son el gasto principal, el acceso a los senderos suele ser gratuito o de bajo costo.",
   },
+  {
+    nombre: "Carhué", km: 520, categoria: "rio",
+    nota: "Termas sobre el lago Epecuén y el pueblo fantasma de Villa Epecuén.",
+    historia: "Carhué se fundó en 1876 como fortín de la línea de frontera de la época, en el límite entre la provincia de Buenos Aires y La Pampa. A pocos kilómetros, sobre la orilla del lago Epecuén, se desarrolló desde 1920 la Villa Epecuén, un balneario termal que en sus mejores años recibió miles de turistas atraídos por las propiedades curativas del agua, comparables a las del Mar Muerto. En 1985 una crecida rompió el dique de contención y el lago inundó por completo la villa, que quedó bajo el agua durante más de veinte años. Cuando el agua bajó, dejó al descubierto las ruinas fantasmales del pueblo, que hoy es uno de los sitios más visitados de la región.",
+    datoCurioso: "En enero de 2017, 1.941 personas tomadas de la mano flotaron juntas en el lago Epecuén y batieron un récord Guinness, gracias a la altísima salinidad del agua que permite flotar sin esfuerzo.",
+    comoLlegar: "Ruta Provincial 60 desde Bolívar y Guaminí, aproximadamente 6 horas en auto desde CABA; también hay micros de larga distancia.",
+    cuandoIr: "Todo el año para las termas; el verano suma la pileta al aire libre con agua del lago.",
+    duracion: "Fin de semana.",
+    comoMoverse: "El centro de Carhué se recorre a pie; para las ruinas de Villa Epecuén, a unos 7 km, conviene auto o excursión organizada.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Ruinas de Villa Epecuén, el pueblo fantasma que quedó bajo el lago." },
+      { momento: "Mediodía", actividad: "Almuerzo en el centro de Carhué." },
+      { momento: "Tarde", actividad: "Piletas termales sobre el lago Epecuén." },
+    ],
+    otrosAtractivos: ["Ruinas de Villa Epecuén, el pueblo fantasma", "Museo Regional Dr. Adolfo Alsina", "Obras del arquitecto Francisco Salamone en la zona", "Avistaje de aves en la costa del lago"],
+    eventos: ["Aniversario de la ciudad", "Temporada termal de verano con pileta al aire libre"],
+    dondeComer: ["Restaurantes del centro de Carhué", "Confiterías cerca de la costanera del lago"],
+    dondeAlojarse: ["Hoteles con spa termal propio", "Cabañas y campings junto al lago"],
+    tips: ["Las ruinas de Villa Epecuén se recorren mejor con calzado cerrado, el terreno es irregular", "Reservar el ingreso a las termas, sobre todo los fines de semana", "Es un viaje largo desde CABA, conviene planearlo como fin de semana completo o combinarlo con Sierra de la Ventana"],
+    presupuesto: "Medio: el ingreso a las termas y el alojamiento con spa son el gasto principal; las ruinas de Epecuén son de acceso libre o de muy bajo costo.",
+  },
 ];
 
 const CATEGORIAS = [
