@@ -1,159 +1,249 @@
 // ---------------------------------------------------------------------------
-// Datos: localidades turísticas de la provincia de Buenos Aires
-// Distancia aproximada por ruta desde la Ciudad de Buenos Aires (CABA), en km.
-// La guía de cada destino es orientativa; conviene chequear detalles antes de viajar.
+// Datos: localidades turísticas de la provincia de Buenos Aires a hasta 200 km
+// de la Ciudad de Buenos Aires (CABA), por ruta.
+// Las guías son orientativas (historia resumida, presupuesto estimado, etc.)
+// y conviene chequear detalles puntuales antes de viajar.
 // ---------------------------------------------------------------------------
 const DESTINOS = [
-  { nombre: "Tigre", km: 32, categoria: "rio", nota: "Delta, lanchas colectivas y puerto de frutos.",
+  {
+    nombre: "Tigre", km: 32, categoria: "rio",
+    nota: "Delta, lanchas colectivas y puerto de frutos.",
+    historia: "Nació a fines del siglo XIX como puerto de recreo de la alta sociedad porteña, con clubes de remo y regatas de renombre internacional. Hoy es la puerta de entrada al Delta del Paraná.",
     comoLlegar: "Tren Mitre desde Retiro hasta estación Tigre, o Panamericana ramal Tigre.",
     cuandoIr: "Todo el año; primavera y otoño para caminatas, verano para lanchas y playas de río.",
-    duracion: "Día completo o fin de semana.",
-    puntos: ["Paseo en lancha colectiva por los ríos del delta", "Puerto de Frutos: artesanías y ferias", "Museo de Arte Tigre", "Parque de la Costa para ir con niños"] },
-  { nombre: "San Isidro", km: 28, categoria: "pueblo", nota: "Catedral, casco histórico y costa del río.",
+    duracion: "Día completo, ideal para no apurar el paseo en lancha.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Tren hasta Tigre y lancha colectiva por los brazos del delta." },
+      { momento: "Tarde", actividad: "Puerto de Frutos (artesanías y ferias) y almuerzo frente al río." },
+      { momento: "Noche", actividad: "Cena en el Paseo Victorica con vista al río Luján, o vuelta a CABA." },
+    ],
+    dondeComer: ["Puestos de pescado de río en el Puerto de Frutos", "Restaurantes con terraza en el Paseo Victorica", "Confiterías históricas cerca del Museo de Arte Tigre"],
+    dondeAlojarse: ["Hosterías de islas del delta, solo accesibles en lancha", "Hoteles boutique sobre el Paseo Victorica", "Cabañas de fin de semana en Tigre pueblo"],
+    tips: ["Comprar el pase de lancha en la estación fluvial, no en agencias de calle", "Ir en semana para evitar las multitudes del Puerto de Frutos", "Llevar protector solar y agua, hay poca sombra en la lancha", "Reservar excursiones a islas con anticipación en temporada alta"],
+    presupuesto: "Medio: el tren y la lancha colectiva son económicos; el gasto mayor suele ser el almuerzo y las artesanías.",
+  },
+  {
+    nombre: "San Isidro", km: 28, categoria: "pueblo",
+    nota: "Catedral, casco histórico y costa del río.",
+    historia: "Fue zona de quintas de fin de semana de familias porteñas desde el siglo XIX y conserva el trazado colonial alrededor de la Catedral. Fue cuna de escritores como Victoria Ocampo.",
     comoLlegar: "Tren Mitre línea San Isidro desde Retiro, o Av. del Libertador en auto.",
-    cuandoIr: "Todo el año, fines de semana hay más actividad en la peatonal.",
-    duracion: "Medio día.",
-    puntos: ["Catedral neogótica y plaza Mitre", "Peatonal Ituzaingó con bares y ferias", "Museo Pueyrredón", "Hipódromo de San Isidro"] },
-  { nombre: "Luján", km: 65, categoria: "pueblo", nota: "Basílica y peregrinación, turismo religioso.",
+    cuandoIr: "Todo el año; fines de semana hay más movimiento en la peatonal.",
+    duracion: "Medio día, combina bien con Tigre.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Catedral de San Isidro, Plaza Mitre y peatonal Ituzaingó." },
+      { momento: "Tarde", actividad: "Quinta Los Ombúes (Museo Pueyrredón) y costanera del río." },
+      { momento: "Noche", actividad: "Bares de Villa Adelina o regreso en tren a CABA." },
+    ],
+    dondeComer: ["Bares de la peatonal Ituzaingó con patios al aire libre", "Parrillas tradicionales cerca de la estación", "Cafeterías de especialidad en el microcentro"],
+    dondeAlojarse: ["Hoteles boutique cerca de la costa", "Cadenas internacionales sobre la Panamericana"],
+    tips: ["Ir un fin de semana para las ferias artesanales de la peatonal", "El Hipódromo tiene carreras algunos sábados, vale chequear cartelera", "Buen combo con Tigre en el mismo día por la cercanía", "Caminar hasta la costanera para el atardecer"],
+    presupuesto: "Bajo a medio: al estar tan cerca de CABA, alcanza con el boleto de tren y algo de comida.",
+  },
+  {
+    nombre: "Luján", km: 65, categoria: "pueblo",
+    nota: "Basílica y peregrinación, turismo religioso.",
+    historia: "Debe su nombre a la leyenda de la Virgen de Luján, venerada en la Basílica desde el siglo XVII. Se convirtió en el centro de peregrinación católica más importante de Argentina.",
     comoLlegar: "Ruta Nacional 7 o Acceso Oeste, aprox. 1 hora en auto; también hay micros directos.",
     cuandoIr: "Todo el año; primer domingo de octubre es la gran peregrinación juvenil.",
     duracion: "Medio día.",
-    puntos: ["Basílica de Luján", "Complejo Museográfico Enrique Udaondo", "Paseo costero junto al río Luján", "Zoo Lujan (opcional, con debate sobre bienestar animal)"] },
-  { nombre: "Cañuelas", km: 65, categoria: "campo", nota: "Estancias y turismo rural cerca de la ciudad.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Basílica de Luján y su museo de ofrendas." },
+      { momento: "Mediodía", actividad: "Almuerzo cerca de la plaza principal." },
+      { momento: "Tarde", actividad: "Complejo Museográfico Enrique Udaondo y costa del río Luján." },
+    ],
+    dondeComer: ["Restaurantes de comida casera alrededor de la Basílica", "Confiterías con rosquitas y dulces regionales", "Parrillas sobre la ruta de acceso"],
+    dondeAlojarse: ["Hoteles económicos cerca de la Basílica, orientados a peregrinos", "Hosterías de campo en las afueras"],
+    tips: ["Evitar el primer domingo de octubre si no se busca la peregrinación masiva (o ir justamente por eso)", "La entrada a la Basílica es libre, se agradecen donaciones", "Combinar con una estancia cercana para un día de campo", "Llevar calzado cómodo, se camina bastante"],
+    presupuesto: "Bajo: los principales atractivos religiosos son gratuitos, el gasto es sobre todo comida y traslado.",
+  },
+  {
+    nombre: "Cañuelas", km: 65, categoria: "campo",
+    nota: "Estancias y turismo rural cerca de la ciudad.",
+    historia: "Pueblo fundado a mediados del siglo XIX en torno a la actividad ganadera, todavía conserva el perfil de \"puerta de la pampa\" con estancias que reciben visitantes desde hace generaciones.",
     comoLlegar: "Autopista Ricchieri y luego Ruta 205, alrededor de 1 hora en auto.",
     cuandoIr: "Primavera y otoño para actividades de campo al aire libre.",
     duracion: "Día completo.",
-    puntos: ["Día de campo en estancias con doma y folklore", "Laguna de Cañuelas", "Gastronomía criolla y asado", "Cabalgatas"] },
-  { nombre: "La Plata", km: 56, categoria: "ciudad", nota: "Catedral, bosque y trazado urbano único.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Llegada a la estancia y recorrida a caballo o en sulky." },
+      { momento: "Mediodía", actividad: "Asado criollo con folklore en vivo." },
+      { momento: "Tarde", actividad: "Doma, jineteada, mate y tortas fritas antes de volver." },
+    ],
+    dondeComer: ["El almuerzo suele estar incluido en el día de campo de la estancia", "Restaurantes de pueblo en el centro de Cañuelas"],
+    dondeAlojarse: ["Estancias con hospedaje para pasar la noche", "Alojamientos de pueblo para quienes van solo de paso"],
+    tips: ["Reservar el día de campo con anticipación, sobre todo fines de semana", "Preguntar si el paquete incluye traslado desde CABA", "Llevar ropa cómoda y protector solar para actividades a caballo", "Ideal para grupos o familias, suele haber descuento por cantidad"],
+    presupuesto: "Medio a alto: el día de campo en estancia (traslado, comida y actividades) suele ser el gasto principal.",
+  },
+  {
+    nombre: "La Plata", km: 56, categoria: "ciudad",
+    nota: "Catedral, bosque y trazado urbano único.",
+    historia: "Ciudad fundada en 1882 como nueva capital de la provincia, diseñada desde cero con un trazado urbanístico único en diagonales y plazas cada seis cuadras.",
     comoLlegar: "Autopista Buenos Aires-La Plata, o tren Roca desde Constitución.",
     cuandoIr: "Todo el año; el Bosque es lindo en otoño y primavera.",
     duracion: "Día completo.",
-    puntos: ["Catedral de La Plata", "Museo de Ciencias Naturales", "Paseo del Bosque", "República de los Niños"] },
-  { nombre: "Zárate", km: 90, categoria: "rio", nota: "Costanera sobre el Paraná y puente Zárate-Brazo Largo.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Catedral de La Plata y Plaza Moreno." },
+      { momento: "Mediodía", actividad: "Almuerzo cerca de Plaza San Martín o Diagonal 74." },
+      { momento: "Tarde", actividad: "Museo de Ciencias Naturales y Paseo del Bosque." },
+    ],
+    dondeComer: ["Bares notables del casco urbano", "Zona gastronómica de calle 8 o Pasaje Dardo Rocha", "Cervecerías artesanales cerca de la zona universitaria"],
+    dondeAlojarse: ["Hoteles del centro cerca de Plaza Moreno", "Hostels orientados a estudiantes, típico de ciudad universitaria"],
+    tips: ["Subir a las torres de la Catedral si hay visita habilitada ese día", "El Museo de Ciencias Naturales suele tener fila, conviene ir temprano", "La Plata se recorre fácil a pie o en bici por su trazado en cuadrícula", "Aprovechar la vida universitaria: hay bares con buena relación precio-calidad"],
+    presupuesto: "Bajo a medio: varios atractivos (catedral, museo, paseo del bosque) tienen entrada gratuita o muy accesible.",
+  },
+  {
+    nombre: "Zárate", km: 90, categoria: "rio",
+    nota: "Costanera sobre el Paraná y puente Zárate-Brazo Largo.",
+    historia: "Ciudad portuaria sobre el Paraná de las Palmas, históricamente ligada a la industria naval y frigorífica. El puente Zárate-Brazo Largo, inaugurado en 1977, la conectó definitivamente con Entre Ríos.",
     comoLlegar: "Ruta Panamericana ramal Escobar hasta Zárate, o tren desde Retiro.",
     cuandoIr: "Primavera y verano para disfrutar la costanera.",
     duracion: "Medio día.",
-    puntos: ["Costanera y muelle sobre el Paraná", "Puente Zárate-Brazo Largo", "Museo histórico municipal", "Pesca de costa"] },
-  { nombre: "Capilla del Señor", km: 90, categoria: "pueblo", nota: "Pueblo colonial declarado lugar histórico.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Costanera y muelle sobre el Paraná." },
+      { momento: "Mediodía", actividad: "Almuerzo de pescado de río en la costa." },
+      { momento: "Tarde", actividad: "Museo histórico municipal y mirador del puente Zárate-Brazo Largo." },
+    ],
+    dondeComer: ["Restaurantes de pescado sobre la costanera", "Parrillas del centro de la ciudad"],
+    dondeAlojarse: ["Hoteles de paso, ya que suele visitarse en el día", "Opciones de cadena sobre la ruta de acceso"],
+    tips: ["Ir en auto si se quiere cruzar el puente hacia Entre Ríos de paseo", "La costanera es agradable para caminar al atardecer", "Buena parada intermedia si se sigue viaje hacia Entre Ríos o Rosario"],
+    presupuesto: "Bajo: el paseo por la costanera y el museo son gratuitos, el gasto principal es la comida.",
+  },
+  {
+    nombre: "Capilla del Señor", km: 90, categoria: "pueblo",
+    nota: "Pueblo colonial declarado lugar histórico.",
+    historia: "Pueblo fundado en el siglo XVIII, declarado lugar histórico nacional por conservar casi intacto su trazado y arquitectura colonial, algo poco común en la provincia.",
     comoLlegar: "Ruta 8 hasta Pilar, luego rutas provinciales hacia Capilla del Señor.",
-    cuandoIr: "Todo el año; fines de semana con más oferta gastronómica.",
+    cuandoIr: "Todo el año; fines de semana hay más oferta gastronómica.",
     duracion: "Medio día.",
-    puntos: ["Casco histórico con casonas coloniales", "Plaza Belgrano", "Estancias cercanas para almorzar", "Paseos en sulky"] },
-  { nombre: "San Antonio de Areco", km: 113, categoria: "pueblo", nota: "Capital de la tradición gaucha, museos y talabarterías.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Casco histórico y Plaza Belgrano." },
+      { momento: "Mediodía", actividad: "Almuerzo en alguna casona convertida en restaurante." },
+      { momento: "Tarde", actividad: "Paseo en sulky por el pueblo o visita a una estancia cercana." },
+    ],
+    dondeComer: ["Casonas coloniales convertidas en restaurantes de comida regional", "Confiterías de pueblo con productos caseros"],
+    dondeAlojarse: ["Posadas boutique dentro del casco histórico", "Estancias cercanas con hospedaje"],
+    tips: ["Ir en día de semana para recorrerlo con tranquilidad", "Buen combo con San Antonio de Areco (suma kilómetros pero vale la pena)", "Sacar fotos de las fachadas coloniales, de las mejor conservadas de la provincia", "Preguntar por ferias de artesanos de algunos fines de semana"],
+    presupuesto: "Bajo a medio: el paseo por el pueblo es gratuito, el gasto principal es comida y algún paseo en sulky.",
+  },
+  {
+    nombre: "San Antonio de Areco", km: 113, categoria: "pueblo",
+    nota: "Capital de la tradición gaucha, museos y talabarterías.",
+    historia: "Fundado en el siglo XVIII a orillas del río Areco, es reconocido como la cuna de la tradición gaucha argentina, inmortalizada en la novela \"Don Segundo Sombra\" de Ricardo Güiraldes.",
     comoLlegar: "Ruta Nacional 8, alrededor de 1h30 en auto; también hay micros directos.",
     cuandoIr: "Todo el año; el Día de la Tradición en noviembre reúne desfiles gauchos.",
     duracion: "Día completo o fin de semana.",
-    puntos: ["Museo Gauchesco Ricardo Güiraldes", "Talabarterías y plateros artesanales", "Puente Viejo sobre el río Areco", "Estancias con jineteada"] },
-  { nombre: "Mercedes", km: 100, categoria: "campo", nota: "Puerta de acceso a estancias y turismo rural.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Museo Gauchesco Ricardo Güiraldes y Puente Viejo sobre el río Areco." },
+      { momento: "Mediodía", actividad: "Almuerzo en una pulpería o restaurante de campo." },
+      { momento: "Tarde", actividad: "Talabarterías y platerías artesanales del centro." },
+      { momento: "Noche (si te quedás)", actividad: "Cena en una estancia con espectáculo de folklore." },
+    ],
+    dondeComer: ["Pulperías históricas del centro", "Parrillas junto al río Areco", "Panaderías artesanales con dulces regionales"],
+    dondeAlojarse: ["Estancias tradicionales con actividades incluidas", "Posadas boutique en el casco histórico"],
+    tips: ["El Día de la Tradición (noviembre) tiene desfiles gauchos, pero también mucha gente", "Las talabarterías son de las mejores del país para comprar recuerdos de cuero", "Quedarse una noche en estancia permite disfrutarlo con más calma", "Reservar el almuerzo en pulperías populares los fines de semana"],
+    presupuesto: "Medio: el paseo por el pueblo es económico, sube si se suma una estancia con actividades o pernocte.",
+  },
+  {
+    nombre: "Mercedes", km: 100, categoria: "campo",
+    nota: "Puerta de acceso a estancias y turismo rural.",
+    historia: "Ciudad fundada en 1752, históricamente un centro de comercio agropecuario y punto de partida hacia las estancias del oeste bonaerense.",
     comoLlegar: "Ruta Nacional 7, aproximadamente 1h30 en auto.",
     cuandoIr: "Primavera y otoño para recorrer el campo.",
     duracion: "Medio día.",
-    puntos: ["Catedral de Mercedes", "Estancias con actividades rurales", "Gastronomía de campo", "Reserva natural cercana"] },
-  { nombre: "Chascomús", km: 125, categoria: "rio", nota: "Laguna, costanera y pesca deportiva.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Catedral de Mercedes y centro histórico." },
+      { momento: "Mediodía", actividad: "Almuerzo de campo en una estancia cercana." },
+      { momento: "Tarde", actividad: "Reserva natural o actividades rurales según la estancia elegida." },
+    ],
+    dondeComer: ["Restaurantes de comida casera del centro", "Almuerzos incluidos en el día de campo de las estancias"],
+    dondeAlojarse: ["Estancias con hospedaje para pasar la noche", "Hoteles de paso en el centro de la ciudad"],
+    tips: ["Consultar con anticipación qué estancias reciben visitantes de día", "Buena opción de turismo rural sin llegar hasta Cañuelas o Areco", "Llevar ropa para actividades al aire libre"],
+    presupuesto: "Medio: similar a Cañuelas, el gasto principal está en el día de campo si se elige esa actividad.",
+  },
+  {
+    nombre: "Chascomús", km: 125, categoria: "rio",
+    nota: "Laguna, costanera y pesca deportiva.",
+    historia: "Fundada en 1779 alrededor de la laguna homónima, fue escenario de hechos históricos de las luchas por la independencia y hoy es reconocida por la pesca deportiva.",
     comoLlegar: "Ruta 2 rumbo a la costa, aproximadamente 1h30 en auto.",
     cuandoIr: "Verano para actividades náuticas, primavera para pesca.",
     duracion: "Día completo.",
-    puntos: ["Laguna de Chascomús y costanera", "Pesca de pejerrey", "Museo Pampeano", "Catedral de Chascomús"] },
-  { nombre: "Baradero", km: 150, categoria: "rio", nota: "Playas de río y fiesta nacional del remo.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Costanera de la laguna y Museo Pampeano." },
+      { momento: "Mediodía", actividad: "Almuerzo de pescado de laguna en la costa." },
+      { momento: "Tarde", actividad: "Pesca de pejerrey o paseo en kayak por la laguna." },
+    ],
+    dondeComer: ["Restaurantes de pescado sobre la costanera", "Confiterías del centro histórico"],
+    dondeAlojarse: ["Cabañas frente a la laguna", "Hoteles del centro de la ciudad"],
+    tips: ["Llevar equipo de pesca propio o alquilar en la zona", "La costanera es un buen lugar para el atardecer", "Combina bien como parada camino a la costa atlántica"],
+    presupuesto: "Bajo a medio: el paseo por la costanera es gratis, sube si se suma pesca con guía o cabaña.",
+  },
+  {
+    nombre: "Baradero", km: 150, categoria: "rio",
+    nota: "Playas de río y fiesta nacional del remo.",
+    historia: "Ciudad fundada en el siglo XIX sobre el río Baradero, célebre por sus playas de río y por ser sede de la Fiesta Nacional del Remo desde 1974.",
     comoLlegar: "Ruta Panamericana ramal Baradero, unas 2 horas en auto.",
     cuandoIr: "Verano para playas de río; enero por la Fiesta Nacional del Remo.",
     duracion: "Fin de semana.",
-    puntos: ["Playas sobre el río Baradero", "Fiesta Nacional del Remo", "Camping y balnearios", "Costanera con paseos"] },
-  { nombre: "San Pedro", km: 165, categoria: "rio", nota: "Costa del Paraná, quintas de duraznos.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Playa y actividades náuticas sobre el río Baradero." },
+      { momento: "Mediodía", actividad: "Almuerzo en un balneario o restaurante de la costa." },
+      { momento: "Tarde", actividad: "Costanera y, si coincide con enero, la Fiesta Nacional del Remo." },
+    ],
+    dondeComer: ["Balnearios con restaurante sobre el río", "Parrillas del centro de la ciudad"],
+    dondeAlojarse: ["Campings organizados sobre la costa", "Cabañas y hosterías familiares"],
+    tips: ["Ir en enero si interesa la Fiesta Nacional del Remo, aunque hay más gente", "Reservar camping o cabaña con anticipación en temporada alta", "Buena opción de \"playa\" cercana sin llegar a la costa atlántica"],
+    presupuesto: "Bajo a medio: las playas de río son de acceso libre, el gasto es camping/cabaña y comida.",
+  },
+  {
+    nombre: "San Pedro", km: 165, categoria: "rio",
+    nota: "Costa del Paraná, quintas de duraznos.",
+    historia: "Ciudad fundada en el siglo XVIII, conocida históricamente por sus quintas de duraznos y por la Fiesta Nacional del Durazno que se celebra desde mediados del siglo XX.",
     comoLlegar: "Ruta Panamericana ramal Escobar/San Pedro, unas 2 horas en auto.",
     cuandoIr: "Verano para la costa; enero por la Fiesta Nacional del Durazno.",
     duracion: "Fin de semana.",
-    puntos: ["Costanera y playas sobre el Paraná", "Quintas de duraznos visitables en temporada", "Museo Almirante Brown", "Pesca deportiva"] },
-  { nombre: "Chivilcoy", km: 160, categoria: "campo", nota: "Ciudad agrícola con arquitectura de antaño.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Costanera y playas sobre el Paraná." },
+      { momento: "Mediodía", actividad: "Almuerzo de pescado de río." },
+      { momento: "Tarde", actividad: "Quinta de duraznos en temporada (dic-ene) o Museo Almirante Brown." },
+    ],
+    dondeComer: ["Restaurantes de pescado en la costanera", "Puestos de dulces y conservas de durazno en temporada"],
+    dondeAlojarse: ["Cabañas y hosterías sobre la costa", "Campings organizados"],
+    tips: ["La cosecha de duraznos es en diciembre-enero, fuera de esa fecha no hay visita a quintas", "Reservar alojamiento con anticipación en enero por la fiesta del durazno", "Buena opción para combinar playa de río y pesca deportiva"],
+    presupuesto: "Bajo a medio: similar a Baradero, el mayor gasto es alojamiento en temporada alta.",
+  },
+  {
+    nombre: "Chivilcoy", km: 160, categoria: "campo",
+    nota: "Ciudad agrícola con arquitectura de antaño.",
+    historia: "Ciudad fundada en 1854, con fuerte identidad agrícola y una arquitectura urbana de principios del siglo XX bien conservada en su casco céntrico.",
     comoLlegar: "Ruta Nacional 5, aproximadamente 2 horas en auto.",
     cuandoIr: "Todo el año, clima templado en primavera y otoño.",
     duracion: "Medio día.",
-    puntos: ["Catedral y plaza central", "Museo de Bellas Artes", "Arquitectura de principios del siglo XX", "Estancias cercanas"] },
-  { nombre: "Dolores", km: 200, categoria: "pueblo", nota: "Casco histórico y museos camino a la costa.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Catedral y plaza central." },
+      { momento: "Mediodía", actividad: "Almuerzo en el centro de la ciudad." },
+      { momento: "Tarde", actividad: "Museo de Bellas Artes y paseo por la arquitectura histórica." },
+    ],
+    dondeComer: ["Restaurantes de comida casera del centro", "Parrillas tradicionales"],
+    dondeAlojarse: ["Hoteles del centro de la ciudad", "Estancias cercanas para turismo rural"],
+    tips: ["Buen destino para quienes buscan una ciudad tranquila, sin \"gran atractivo\" puntual", "Combinar con alguna estancia cercana para sumar actividades de campo", "La arquitectura del centro se disfruta caminando sin apuro"],
+    presupuesto: "Bajo: pocos atractivos pagos, el gasto principal es la comida.",
+  },
+  {
+    nombre: "Dolores", km: 200, categoria: "pueblo",
+    nota: "Casco histórico y museos camino a la costa.",
+    historia: "Fundada en 1818, fue uno de los primeros pueblos de la provincia tras la independencia y hoy es una parada tradicional en el camino a la costa atlántica.",
     comoLlegar: "Ruta 2 camino a la costa atlántica, unas 2h30 en auto.",
     cuandoIr: "Buena parada camino a la costa en cualquier época.",
     duracion: "Medio día.",
-    puntos: ["Museo de Autos Antiguos", "Casco histórico y plaza", "Catedral de Dolores", "Paseo de compras artesanales"] },
-  { nombre: "Nueve de Julio", km: 260, categoria: "campo", nota: "Laguna de Gómez y llanura pampeana profunda.",
-    comoLlegar: "Ruta Nacional 5, aproximadamente 3 horas en auto.",
-    cuandoIr: "Primavera y verano para actividades en la laguna.",
-    duracion: "Fin de semana.",
-    puntos: ["Laguna de Gómez, pesca y deportes náuticos", "Plaza 25 de Mayo, una de las más grandes del país", "Camping junto a la laguna", "Museo histórico"] },
-  { nombre: "Junín", km: 260, categoria: "ciudad", nota: "Laguna urbana y punto de partida hacia el oeste.",
-    comoLlegar: "Ruta Nacional 7, aproximadamente 3 horas en auto.",
-    cuandoIr: "Todo el año.",
-    duracion: "Medio día.",
-    puntos: ["Laguna de Junín", "Museo Casa de la Cultura", "Costanera para caminar o andar en bici", "Centro comercial peatonal"] },
-  { nombre: "Azul", km: 300, categoria: "sierra", nota: "Ciudad serrana, arquitectura de Salamone.",
-    comoLlegar: "Ruta Nacional 3 o Ruta 226, aproximadamente 3h30 en auto.",
-    cuandoIr: "Primavera y otoño para recorrer la zona serrana.",
-    duracion: "Fin de semana.",
-    puntos: ["Obras del arquitecto Salamone en la región", "Catedral de Azul", "Reserva del Paraje Cinco Cerros", "Sierras Bayas cercanas"] },
-  { nombre: "San Clemente del Tuyú", km: 320, categoria: "playa", nota: "Playas familiares y parque temático marino.",
-    comoLlegar: "Ruta 2 y luego Ruta 11, aproximadamente 3h30 en auto.",
-    cuandoIr: "Enero y febrero en temporada alta; marzo con menos gente.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Mundo Marino, parque temático con fauna acuática", "Playas extensas y tranquilas", "Reserva faro Punta Rasa", "Paseo de compras costero"] },
-  { nombre: "Pinamar", km: 340, categoria: "playa", nota: "Médanos, bosque implantado y playas de moda.",
-    comoLlegar: "Ruta 2 y Ruta 11, aproximadamente 4 horas en auto; hay micros y vuelos en temporada.",
-    cuandoIr: "Enero y febrero en temporada alta; fines de semana largos en primavera.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Playas y balnearios de diseño", "Bosque de médanos con bicicleta o a pie", "Zona gastronómica y de compras", "Excursión a Cariló en bici"] },
-  { nombre: "Cariló", km: 355, categoria: "playa", nota: "Bosque frente al mar, el balneario más exclusivo.",
-    comoLlegar: "Ruta 2 y Ruta 11 hasta Pinamar, luego unos minutos más al sur.",
-    cuandoIr: "Enero y febrero, o fines de semana largos de primavera y otoño.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Playas dentro del bosque de pinos y acacias", "Circuito de compras de diseño", "Bicisendas entre las dunas", "Avistaje de aves en el bosque"] },
-  { nombre: "Santa Teresita", km: 340, categoria: "playa", nota: "Playas extensas y ambiente familiar.",
-    comoLlegar: "Ruta 2 y Ruta 11, aproximadamente 4 horas en auto.",
-    cuandoIr: "Enero y febrero en temporada alta.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Playas anchas ideales para familias", "Paseo Jorge Bucay junto al mar", "Avenida costanera con locales gastronómicos", "Pesca desde la escollera"] },
-  { nombre: "Villa Gesell", km: 370, categoria: "playa", nota: "Peatonal, médanos y vida nocturna costera.",
-    comoLlegar: "Ruta 2 y Ruta 11, aproximadamente 4h30 en auto.",
-    cuandoIr: "Enero y febrero en temporada alta; marzo para menos multitudes.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Peatonal Av. 3 con locales y artesanos", "Médanos vivos del Faro Querandí", "Playas extensas", "Vida nocturna en temporada"] },
-  { nombre: "Tandil", km: 350, categoria: "sierra", nota: "Sierras, trekking y la icónica Piedra Movediza.",
-    comoLlegar: "Ruta 226, aproximadamente 4h30 en auto; también hay micros y vuelos.",
-    cuandoIr: "Primavera y otoño para trekking; Semana Santa por las celebraciones religiosas.",
-    duracion: "Fin de semana.",
-    puntos: ["Cerro y réplica de la Piedra Movediza", "Parque Independencia", "Fábricas de embutidos y quesos artesanales", "Trekking en Sierra del Tigre"] },
-  { nombre: "Mar del Plata", km: 400, categoria: "playa", nota: "La Feliz: playas, puerto y vida urbana costera.",
-    comoLlegar: "Ruta 2, aproximadamente 4h30 en auto; también micros, tren y vuelos.",
-    cuandoIr: "Enero y febrero en temporada alta; fines de semana largos todo el año.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Playas Bristol y Varese", "Puerto y lobos marinos", "Torre Tanque y Villa Victoria Ocampo", "Vida nocturna y casino"] },
-  { nombre: "Balcarce", km: 445, categoria: "sierra", nota: "Sierras y museo del automovilismo.",
-    comoLlegar: "Ruta 226 desde Tandil o Ruta 55 desde Mar del Plata, aproximadamente 5 horas desde CABA.",
-    cuandoIr: "Primavera y otoño para las sierras.",
-    duracion: "Fin de semana.",
-    puntos: ["Museo Juan Manuel Fangio", "Sierras y cascadas cercanas", "Producción de papa y granja", "Circuito de golf"] },
-  { nombre: "Miramar", km: 450, categoria: "playa", nota: "Bosque, playas tranquilas y golf.",
-    comoLlegar: "Ruta 2 hasta Mar del Plata y luego Ruta 11, aproximadamente 5 horas en auto.",
-    cuandoIr: "Enero y febrero en temporada alta; buen destino tranquilo fuera de esas fechas.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Vivero Florentino Ameghino", "Playas tranquilas", "Cancha de golf frente al mar", "Paseo por el bosque parque"] },
-  { nombre: "Necochea", km: 470, categoria: "playa", nota: "Playas anchas y desembocadura del río Quequén.",
-    comoLlegar: "Ruta 2 y luego Ruta 88, aproximadamente 5h30 en auto.",
-    cuandoIr: "Enero y febrero en temporada alta.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Playas junto al río Quequén", "Parque Miguel Lillo, uno de los bosques más grandes de la costa", "Puerto Quequén", "Cabalgatas por la costa"] },
-  { nombre: "Sierra de la Ventana", km: 530, categoria: "sierra", nota: "Cerros, arroyos y el histórico Cerro Ventana.",
-    comoLlegar: "Ruta 3 y Ruta 76, aproximadamente 6 horas en auto; también hay tren y micros.",
-    cuandoIr: "Primavera y otoño para trekking, evitando el calor extremo del verano.",
-    duracion: "Fin de semana.",
-    puntos: ["Trekking al Cerro Ventana", "Arroyo Sauce Grande para refrescarse", "Cerro Tres Picos, el más alto de la provincia", "Pueblo de Villa Ventana"] },
-  { nombre: "Bahía Blanca", km: 650, categoria: "ciudad", nota: "Puerto y puerta de entrada a la Patagonia.",
-    comoLlegar: "Ruta 3, aproximadamente 7 horas en auto; también hay vuelos y trenes.",
-    cuandoIr: "Todo el año; suele usarse como escala hacia la Patagonia.",
-    duracion: "Medio día o de paso.",
-    puntos: ["Museo del Puerto de Ingeniero White", "Teatro Municipal", "Base Naval Puerto Belgrano cercana", "Plaza Rivadavia"] },
-  { nombre: "Monte Hermoso", km: 630, categoria: "playa", nota: "Playas de arena fina, casi en el límite provincial.",
-    comoLlegar: "Ruta 3 y luego Ruta 78, aproximadamente 7 horas en auto.",
-    cuandoIr: "Enero y febrero en temporada alta.",
-    duracion: "Fin de semana o semana.",
-    puntos: ["Playas de arena fina únicas por su orientación", "Avistaje de puesta de sol sobre el mar", "Reserva natural de la desembocadura", "Pesca de costa"] },
+    itinerario: [
+      { momento: "Mañana", actividad: "Museo de Autos Antiguos, uno de los más importantes del país." },
+      { momento: "Mediodía", actividad: "Almuerzo en el centro histórico." },
+      { momento: "Tarde", actividad: "Catedral, plaza principal y compras de artesanías." },
+    ],
+    dondeComer: ["Restaurantes y confiterías del centro histórico", "Parrillas sobre la ruta de acceso"],
+    dondeAlojarse: ["Hoteles de paso, ideal para quienes siguen viaje a la costa", "Hosterías del centro para quienes se quedan"],
+    tips: ["Es la última parada \"de provincia\" antes de los balnearios de la costa", "El Museo de Autos Antiguos es infaltable para los fanáticos de los clásicos", "Buen lugar para cargar combustible y descansar en un viaje más largo"],
+    presupuesto: "Bajo: mayormente una parada de paso, el gasto es comida y la entrada accesible al museo.",
+  },
 ];
 
 const CATEGORIAS = [
@@ -166,7 +256,7 @@ const CATEGORIAS = [
   { id: "ciudad", label: "Ciudad", icon: "gauge" },
 ];
 
-const MAX_KM = 700;
+const MAX_KM = 200;
 
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
@@ -182,6 +272,10 @@ const ICONS = {
   clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
   sparkles: '<path d="m12 3-1.9 5.8L4 11l6.1 2.2L12 19l1.9-5.8L20 11l-6.1-2.2Z"/>',
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  scroll: '<path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>',
+  utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+  bed: '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
+  wallet: '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>',
 };
 
 function icon(name, size = 14, color = "currentColor") {
@@ -189,7 +283,7 @@ function icon(name, size = 14, color = "currentColor") {
 }
 
 // --- Estado -----------------------------------------------------------------
-let distancia = 200;
+let distancia = 100;
 let categoria = "todas";
 
 const el = {
@@ -208,7 +302,6 @@ function render() {
   el.distanciaValor.textContent = distancia;
   el.slider.value = distancia;
 
-  // Regla de ruta
   const enRuta = DESTINOS.filter((d) => categoria === "todas" || d.categoria === categoria);
   const progresoPct = Math.min((distancia / MAX_KM) * 100, 100);
   el.ruler.innerHTML = `
@@ -225,7 +318,6 @@ function render() {
     <div class="ruler-label ruler-label-right">${MAX_KM} km</div>
   `;
 
-  // Filtros
   el.filtros.innerHTML = CATEGORIAS.map(
     (c) => `
     <button class="chip ${categoria === c.id ? "chip-activo" : ""}" data-cat="${c.id}">
@@ -239,7 +331,6 @@ function render() {
     });
   });
 
-  // Resultados
   const resultados = DESTINOS.filter((d) => d.km <= distancia)
     .filter((d) => categoria === "todas" || d.categoria === categoria)
     .sort((a, b) => a.km - b.km);
@@ -280,6 +371,15 @@ function render() {
   }
 }
 
+function seccionLista(iconName, titulo, items) {
+  return `
+    <div class="modal-subhead">${icon(iconName, 14)} ${titulo}</div>
+    <ul class="modal-lista">
+      ${items.map((it) => `<li>${it}</li>`).join("")}
+    </ul>
+  `;
+}
+
 function abrirModal(d) {
   el.modal.innerHTML = `
     <div class="modal-top">
@@ -288,6 +388,10 @@ function abrirModal(d) {
     </div>
     <h2 class="modal-title">${d.nombre}</h2>
     <p class="modal-nota">${d.nota}</p>
+
+    <div class="modal-subhead">${icon("scroll", 14)} Un poco de historia</div>
+    <p class="modal-parrafo">${d.historia}</p>
+
     <div class="modal-info">
       <div class="info-row">
         ${icon("car", 16, "#7C9473")}
@@ -311,10 +415,18 @@ function abrirModal(d) {
         </div>
       </div>
     </div>
-    <div class="modal-subhead">${icon("sparkles", 14)} Qué hacer</div>
-    <ul class="modal-puntos">
-      ${d.puntos.map((p) => `<li>${p}</li>`).join("")}
+
+    <div class="modal-subhead">${icon("sparkles", 14)} Itinerario sugerido</div>
+    <ul class="modal-timeline">
+      ${d.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
     </ul>
+
+    ${seccionLista("utensils", "Dónde comer", d.dondeComer)}
+    ${seccionLista("bed", "Dónde alojarse", d.dondeAlojarse)}
+    ${seccionLista("map-pin", "Tips locales", d.tips)}
+
+    <div class="modal-subhead">${icon("wallet", 14)} Presupuesto estimado</div>
+    <p class="modal-parrafo modal-presupuesto">${d.presupuesto}</p>
   `;
   el.modalOverlay.classList.add("visible");
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
