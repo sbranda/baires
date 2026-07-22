@@ -1353,6 +1353,22 @@ function normalizar(texto) {
     .trim();
 }
 
+function textoBuscableDestino(d) {
+  return [d.nombre, d.nota, d.datoCurioso, ...(d.otrosAtractivos || []), ...(d.eventos || [])].join(" ");
+}
+
+const cacheTextoBuscable = new Map();
+
+function coincideBusqueda(d, busquedaNormalizada) {
+  if (!busquedaNormalizada) return true;
+  let texto = cacheTextoBuscable.get(d.nombre);
+  if (!texto) {
+    texto = normalizar(textoBuscableDestino(d));
+    cacheTextoBuscable.set(d.nombre, texto);
+  }
+  return texto.includes(busquedaNormalizada);
+}
+
 const FAVORITOS_KEY = "destinos-ba-favoritos";
 
 function cargarFavoritos() {
@@ -1525,11 +1541,12 @@ function renderMapa(resultados) {
 }
 
 function calcularResultadosFiltrados() {
+  const busquedaNormalizada = normalizar(busqueda);
   return DESTINOS.filter((d) => d.km <= distancia)
     .filter((d) => categoria === "todas" || d.categoria === categoria)
     .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
     .filter((d) => !soloVisitados || visitados.has(d.nombre))
-    .filter((d) => !busqueda || normalizar(d.nombre).includes(normalizar(busqueda)));
+    .filter((d) => coincideBusqueda(d, busquedaNormalizada));
 }
 
 function render() {
