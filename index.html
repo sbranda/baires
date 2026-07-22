@@ -14,13 +14,26 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Destinos BA" />
 
+  <script>
+    (function () {
+      try {
+        var guardado = localStorage.getItem("destinos-ba-tema");
+        var tema = guardado || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        if (tema === "light") document.documentElement.setAttribute("data-theme", "light");
+      } catch (err) {}
+    })();
+  </script>
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <div>
+    <div class="header-row">
       <div class="eyebrow">Provincia de Buenos Aires</div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar a tema claro" aria-pressed="false"></button>
+    </div>
+    <div>
       <h1>¿A cuántos km<br />querés llegar?</h1>
       <p class="subtitle">
         Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.
@@ -50,13 +63,13 @@
       <div class="ruler" id="ruler"></div>
     </div>
 
-    <div class="chips" id="filtros"></div>
+    <div class="chips" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
 
-    <div class="vista-toggle" id="vista-toggle">
-      <button class="vista-btn vista-activo" data-vista="lista">Lista</button>
-      <button class="vista-btn" data-vista="mapa">Mapa</button>
+    <div class="vista-toggle" id="vista-toggle" role="group" aria-label="Tipo de vista">
+      <button class="vista-btn vista-activo" data-vista="lista" aria-pressed="true">Lista</button>
+      <button class="vista-btn" data-vista="mapa" aria-pressed="false">Mapa</button>
     </div>
-    <div class="contador" id="contador"></div>
+    <div class="contador" id="contador" aria-live="polite"></div>
     <div class="vacio" id="vacio">No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.</div>
     <div class="lista" id="lista"></div>
     <div class="mapa-wrap" id="mapa-wrap" style="display:none">
@@ -70,7 +83,7 @@
   </div>
 
   <div class="modal-overlay" id="modal-overlay">
-    <div class="modal" id="modal"></div>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el"></div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

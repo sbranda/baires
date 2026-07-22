@@ -1296,6 +1296,8 @@ const ICONS = {
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
   copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
   scroll: '<path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>',
   utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
   bed: '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
@@ -1462,7 +1464,9 @@ function renderMapa(resultados) {
 
 function render() {
   el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
-    btn.classList.toggle("vista-activo", btn.dataset.vista === vista);
+    const activo = btn.dataset.vista === vista;
+    btn.classList.toggle("vista-activo", activo);
+    btn.setAttribute("aria-pressed", activo ? "true" : "false");
   });
 
   el.distanciaValor.textContent = distancia;
@@ -1485,12 +1489,12 @@ function render() {
   `;
 
   el.filtros.innerHTML =
-    `<button class="chip chip-fav ${soloFavoritos ? "chip-activo" : ""}" data-fav-toggle="1">
+    `<button class="chip chip-fav ${soloFavoritos ? "chip-activo" : ""}" data-fav-toggle="1" aria-pressed="${soloFavoritos ? "true" : "false"}">
       ${icon("star", 14, "currentColor", soloFavoritos ? "currentColor" : "none")} Favoritos
     </button>` +
     CATEGORIAS.map(
       (c) => `
-    <button class="chip ${categoria === c.id ? "chip-activo" : ""}" data-cat="${c.id}">
+    <button class="chip ${categoria === c.id ? "chip-activo" : ""}" data-cat="${c.id}" aria-pressed="${categoria === c.id ? "true" : "false"}">
       ${icon(c.icon, 14)} ${c.label}
     </button>`
     ).join("");
@@ -1583,6 +1587,7 @@ function seccionLista(iconName, titulo, items) {
 }
 
 function abrirModal(d) {
+  elementoFocoPrevio = document.activeElement;
   const render_estrella = () => {
     const esFav = favoritos.has(d.nombre);
     const btn = el.modal.querySelector("#modal-fav");
@@ -1602,7 +1607,7 @@ function abrirModal(d) {
         <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
       </div>
     </div>
-    <h2 class="modal-title">${d.nombre}</h2>
+    <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
     <p class="modal-nota">${d.nota}</p>
 
     <div class="modal-subhead">${icon("scroll", 14)} Un poco de historia</div>
@@ -1658,6 +1663,7 @@ function abrirModal(d) {
   `;
   el.modalOverlay.classList.add("visible");
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
+  document.getElementById("modal-close").focus();
   render_estrella();
   document.getElementById("modal-fav").addEventListener("click", () => {
     toggleFavorito(d.nombre);
@@ -1743,12 +1749,23 @@ function copiarConFallback(texto, callback) {
   }
 }
 
+let elementoFocoPrevio = null;
+
 function cerrarModal() {
   el.modalOverlay.classList.remove("visible");
+  if (elementoFocoPrevio && typeof elementoFocoPrevio.focus === "function") {
+    elementoFocoPrevio.focus();
+  }
 }
 
 el.modalOverlay.addEventListener("click", (e) => {
   if (e.target === el.modalOverlay) cerrarModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.modalOverlay.classList.contains("visible")) {
+    cerrarModal();
+  }
 });
 
 el.slider.addEventListener("input", (e) => {
@@ -1767,6 +1784,43 @@ el.buscadorForm.addEventListener("submit", (e) => {
   el.buscador.blur();
   render();
 });
+
+// --- Tema claro/oscuro -------------------------------------------------------
+const THEME_KEY = "destinos-ba-tema";
+const btnTema = document.getElementById("theme-toggle");
+
+function temaActual() {
+  return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+}
+
+function actualizarBotonTema() {
+  if (!btnTema) return;
+  const esClaro = temaActual() === "light";
+  btnTema.innerHTML = icon(esClaro ? "moon" : "sun", 18);
+  btnTema.setAttribute("aria-label", esClaro ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+  btnTema.setAttribute("aria-pressed", esClaro ? "true" : "false");
+}
+
+function aplicarTema(tema) {
+  if (tema === "light") {
+    document.documentElement.setAttribute("data-theme", "light");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+  try {
+    localStorage.setItem(THEME_KEY, tema);
+  } catch (err) {
+    console.warn("No se pudo guardar la preferencia de tema:", err);
+  }
+  actualizarBotonTema();
+}
+
+if (btnTema) {
+  btnTema.addEventListener("click", () => {
+    aplicarTema(temaActual() === "light" ? "dark" : "light");
+  });
+  actualizarBotonTema();
+}
 
 render();
 
