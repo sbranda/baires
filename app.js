@@ -1316,6 +1316,7 @@ const ICONS = {
   sparkles: '<path d="m12 3-1.9 5.8L4 11l6.1 2.2L12 19l1.9-5.8L20 11l-6.1-2.2Z"/>',
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
   copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  share: '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
@@ -1936,6 +1937,7 @@ function abrirModal(d) {
         <button id="modal-itinerario" aria-label="Agregar al itinerario"></button>
         <button id="modal-visitado" aria-label="Marcar como visitado"></button>
         <button id="modal-fav" aria-label="Agregar a favoritos"></button>
+        <button id="modal-share" aria-label="Compartir guía">${icon("share", 20)}</button>
         <button id="modal-copy" aria-label="Copiar guía">${icon("copy", 20)}</button>
         <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
       </div>
@@ -2026,6 +2028,7 @@ function abrirModal(d) {
     toggleComparacion(d.nombre);
     render_comparar_btn();
   });
+  document.getElementById("modal-share").addEventListener("click", () => compartirGuia(d));
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
   cargarClimaModal(d);
@@ -2379,6 +2382,23 @@ function generarTextoGuia(d) {
   lineas.push("");
   lineas.push("— Destinos Buenos Aires (guía por distancia)");
   return lineas.join("\n");
+}
+
+async function compartirGuia(d) {
+  const texto = generarTextoGuia(d);
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: `${d.nombre} — Destinos Buenos Aires`, text: texto });
+    } catch (err) {
+      // El usuario cerró el selector de apps sin elegir ninguna: no es un error real, no hacemos nada.
+      if (err && err.name !== "AbortError") {
+        console.warn("No se pudo compartir con la Web Share API, copio al portapapeles como alternativa:", err);
+        copiarGuia(d);
+      }
+    }
+  } else {
+    copiarGuia(d);
+  }
 }
 
 function copiarGuia(d) {

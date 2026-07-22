@@ -755,6 +755,15 @@ input:focus-visible {
   color: var(--rust);
 }
 
+#modal-share {
+  color: var(--wheat-dim);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #modal-copy {
   color: var(--wheat-dim);
   width: 40px;
