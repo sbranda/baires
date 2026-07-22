@@ -1698,25 +1698,44 @@ function abrirModal(d) {
 // --- Foto real del destino, vía la API pública de Wikipedia (sin necesidad de cuenta o key) ---
 const cacheImagenesWikipedia = {};
 
-async function buscarImagenWikipedia(nombre) {
-  const intentos = [nombre, `${nombre}, Buenos Aires`, `${nombre} (Buenos Aires)`];
-  for (const intento of intentos) {
-    try {
-      const resp = await fetch(`https://es.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(intento)}`);
-      if (!resp.ok) continue;
-      const data = await resp.json();
-      if (data.type === "disambiguation") continue;
-      if (data.thumbnail && data.thumbnail.source) {
-        return {
-          src: (data.originalimage && data.originalimage.source) || data.thumbnail.source,
-          pageUrl: (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || `https://es.wikipedia.org/wiki/${encodeURIComponent(intento)}`,
-        };
-      }
-    } catch (err) {
-      continue;
+async function obtenerResumenWikipedia(titulo) {
+  try {
+    const resp = await fetch(`https://es.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(titulo)}`);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    if (data.type === "disambiguation") return null;
+    if (data.thumbnail && data.thumbnail.source) {
+      return {
+        src: (data.originalimage && data.originalimage.source) || data.thumbnail.source,
+        pageUrl: (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || `https://es.wikipedia.org/wiki/${encodeURIComponent(titulo)}`,
+      };
     }
+    return null;
+  } catch (err) {
+    return null;
   }
-  return null;
+}
+
+async function buscarImagenWikipedia(nombre) {
+  // Primero se busca el título real del artículo (en vez de adivinarlo), usando el buscador
+  // de texto completo de Wikipedia, y luego se pide el resumen (con foto) de esos candidatos.
+  try {
+    const urlBusqueda = `https://es.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(nombre + " Buenos Aires Argentina")}`;
+    const respBusqueda = await fetch(urlBusqueda);
+    if (respBusqueda.ok) {
+      const dataBusqueda = await respBusqueda.json();
+      const candidatos = (dataBusqueda.query && dataBusqueda.query.search) || [];
+      for (const candidato of candidatos) {
+        const resumen = await obtenerResumenWikipedia(candidato.title);
+        if (resumen) return resumen;
+      }
+    }
+  } catch (err) {
+    // sigue con el intento directo de todos modos
+  }
+
+  // Intento directo por si el buscador no devolvió nada útil
+  return obtenerResumenWikipedia(nombre);
 }
 
 function pintarFotoModal(contenedor, resultado) {
