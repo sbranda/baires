@@ -1370,6 +1370,25 @@ el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
   });
 });
 
+// Puntos reales sobre la costa (de norte a sur) para trazar una línea de costa aproximada
+const COSTA_ATLANTICA = [
+  { lat: -33.6779, lng: -59.6683 }, // San Pedro, sobre el Paraná (referencia norte)
+  { lat: -34.0973, lng: -59.0281 }, // Zárate
+  { lat: -34.4264, lng: -58.5796 }, // Tigre
+  { lat: -35.5716, lng: -58.0126 }, // Chascomús (hacia la bahía de Samborombón)
+  { lat: -36.3556, lng: -56.7238 }, // San Clemente del Tuyú
+  { lat: -36.5333, lng: -56.6997 }, // Santa Teresita
+  { lat: -37.1067, lng: -56.8617 }, // Pinamar
+  { lat: -37.2632, lng: -56.9733 }, // Villa Gesell
+  { lat: -38.0055, lng: -57.5426 }, // Mar del Plata
+  { lat: -38.2680, lng: -57.8397 }, // Miramar
+  { lat: -38.5545, lng: -58.7396 }, // Necochea
+  { lat: -38.9847, lng: -61.2925 }, // Monte Hermoso
+  { lat: -38.7196, lng: -62.2724 }, // Bahía Blanca
+  { lat: -40.5486, lng: -62.1633 }, // Bahía San Blas
+  { lat: -40.7972, lng: -62.9819 }, // Carmen de Patagones
+];
+
 function proyectar(destinos) {
   const puntos = [...destinos.map((d) => ({ lat: d.lat, lng: d.lng })), CABA_COORDS];
   let latMin = Math.min(...puntos.map((p) => p.lat));
@@ -1388,6 +1407,10 @@ function proyectar(destinos) {
   return {
     W,
     H,
+    latMin,
+    latMax,
+    lngMin,
+    lngMax,
     proyectarPunto: (lat, lng) => ({
       x: ((lng - lngMin) / (lngMax - lngMin)) * W,
       y: ((latMax - lat) / (latMax - latMin)) * H,
@@ -1396,13 +1419,31 @@ function proyectar(destinos) {
 }
 
 function renderMapa(resultados) {
-  const { W, H, proyectarPunto } = proyectar(resultados);
+  const { W, H, proyectarPunto, latMin, latMax, lngMin, lngMax } = proyectar(resultados);
   el.mapaSvg.setAttribute("viewBox", `0 0 ${W.toFixed(2)} ${H}`);
   el.mapaSvg.style.aspectRatio = `${W.toFixed(2)} / ${H}`;
+
+  // Grilla de referencia cada 2 grados de latitud/longitud
+  let grilla = "";
+  for (let lat = Math.ceil(latMin / 2) * 2; lat < latMax; lat += 2) {
+    const y = proyectarPunto(lat, lngMin).y;
+    grilla += `<line x1="0" y1="${y.toFixed(2)}" x2="${W.toFixed(2)}" y2="${y.toFixed(2)}" class="mapa-grilla"></line>`;
+    grilla += `<text x="1" y="${(y - 0.8).toFixed(2)}" class="mapa-grilla-label">${Math.abs(lat)}°S</text>`;
+  }
+  for (let lng = Math.ceil(lngMin / 2) * 2; lng < lngMax; lng += 2) {
+    const x = proyectarPunto(latMin, lng).x;
+    grilla += `<line x1="${x.toFixed(2)}" y1="0" x2="${x.toFixed(2)}" y2="${H}" class="mapa-grilla"></line>`;
+  }
+
+  // Línea de costa aproximada, calculada con coordenadas reales de balnearios y ciudades ribereñas
+  const costaPuntos = COSTA_ATLANTICA.map((p) => proyectarPunto(p.lat, p.lng));
+  const costaPath = costaPuntos.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(" ");
 
   const caba = proyectarPunto(CABA_COORDS.lat, CABA_COORDS.lng);
   let html = `
     <rect x="0" y="0" width="${W.toFixed(2)}" height="${H}" class="mapa-fondo"></rect>
+    ${grilla}
+    <path d="${costaPath}" class="mapa-costa"></path>
     <circle cx="${caba.x.toFixed(2)}" cy="${caba.y.toFixed(2)}" r="1.6" class="mapa-caba-punto"></circle>
     <text x="${caba.x.toFixed(2)}" y="${(caba.y - 2.6).toFixed(2)}" class="mapa-caba-label">CABA</text>
   `;

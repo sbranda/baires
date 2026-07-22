@@ -279,6 +279,25 @@ input[type="range"] {
   fill: #16221a;
 }
 
+.mapa-grilla {
+  stroke: #24352a;
+  stroke-width: 0.15;
+}
+
+.mapa-grilla-label {
+  fill: #3a4d3f;
+  font-size: 2px;
+  font-family: "Inter", sans-serif;
+}
+
+.mapa-costa {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 0.4;
+  stroke-dasharray: 1.2 0.8;
+  opacity: 0.7;
+}
+
 .mapa-caba-punto {
   fill: var(--wheat);
   stroke: var(--bg);
