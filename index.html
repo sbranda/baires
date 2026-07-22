@@ -15,6 +15,7 @@
   <meta name="apple-mobile-web-app-title" content="Destinos BA" />
 
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
   <div class="container">
@@ -59,7 +60,7 @@
     <div class="vacio" id="vacio">No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.</div>
     <div class="lista" id="lista"></div>
     <div class="mapa-wrap" id="mapa-wrap" style="display:none">
-      <svg id="mapa-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+      <div id="mapa-leaflet" class="mapa-leaflet"></div>
       <div class="mapa-leyenda" id="mapa-leyenda"></div>
     </div>
 
@@ -72,6 +73,7 @@
     <div class="modal" id="modal"></div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

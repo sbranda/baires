@@ -268,64 +268,49 @@ input[type="range"] {
   margin-bottom: 8px;
 }
 
-#mapa-svg {
+.mapa-leaflet {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 420px;
   border-radius: 6px;
+  background: #16221a;
 }
 
-.mapa-fondo {
-  fill: #16221a;
-}
-
-.mapa-grilla {
-  stroke: #24352a;
-  stroke-width: 0.15;
-}
-
-.mapa-grilla-label {
-  fill: #3a4d3f;
-  font-size: 2px;
-  font-family: "Inter", sans-serif;
-}
-
-.mapa-costa {
-  fill: none;
-  stroke: var(--green);
-  stroke-width: 0.4;
-  stroke-dasharray: 1.2 0.8;
-  opacity: 0.7;
-}
-
-.mapa-caba-punto {
-  fill: var(--wheat);
-  stroke: var(--bg);
-  stroke-width: 0.4;
-}
-
-.mapa-caba-label {
-  fill: var(--wheat);
-  font-size: 3px;
+.mapa-caba-tooltip {
+  background: var(--wheat);
+  color: var(--bg);
+  border: none;
   font-family: "Oswald", sans-serif;
-  text-anchor: middle;
+  font-weight: 600;
+  font-size: 0.7rem;
+  padding: 2px 6px;
 }
 
-.mapa-punto {
-  cursor: pointer;
-  stroke: var(--bg);
-  stroke-width: 0.3;
+.mapa-caba-tooltip::before {
+  border-top-color: var(--wheat);
 }
 
-.mapa-punto:active,
-.mapa-punto:hover {
-  stroke: var(--offwhite);
-  stroke-width: 0.5;
+.leaflet-popup-content-wrapper {
+  background: var(--bg-card);
+  color: var(--offwhite);
+  border-radius: 8px;
 }
 
-.mapa-punto-fav {
-  stroke: var(--rust);
-  stroke-width: 0.6;
+.leaflet-popup-content {
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+}
+
+.leaflet-popup-content strong {
+  font-family: "Oswald", sans-serif;
+  color: var(--wheat);
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-card);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--wheat-dim);
 }
 
 .mapa-leyenda {

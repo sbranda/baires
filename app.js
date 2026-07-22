@@ -1356,7 +1356,6 @@ const el = {
   vistaToggle: document.getElementById("vista-toggle"),
   lista: document.getElementById("lista"),
   mapaWrap: document.getElementById("mapa-wrap"),
-  mapaSvg: document.getElementById("mapa-svg"),
   mapaLeyenda: document.getElementById("mapa-leyenda"),
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
@@ -1370,98 +1369,63 @@ el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
   });
 });
 
-// Puntos reales sobre la costa (de norte a sur) para trazar una línea de costa aproximada
-const COSTA_ATLANTICA = [
-  { lat: -33.6779, lng: -59.6683 }, // San Pedro, sobre el Paraná (referencia norte)
-  { lat: -34.0973, lng: -59.0281 }, // Zárate
-  { lat: -34.4264, lng: -58.5796 }, // Tigre
-  { lat: -35.5716, lng: -58.0126 }, // Chascomús (hacia la bahía de Samborombón)
-  { lat: -36.3556, lng: -56.7238 }, // San Clemente del Tuyú
-  { lat: -36.5333, lng: -56.6997 }, // Santa Teresita
-  { lat: -37.1067, lng: -56.8617 }, // Pinamar
-  { lat: -37.2632, lng: -56.9733 }, // Villa Gesell
-  { lat: -38.0055, lng: -57.5426 }, // Mar del Plata
-  { lat: -38.2680, lng: -57.8397 }, // Miramar
-  { lat: -38.5545, lng: -58.7396 }, // Necochea
-  { lat: -38.9847, lng: -61.2925 }, // Monte Hermoso
-  { lat: -38.7196, lng: -62.2724 }, // Bahía Blanca
-  { lat: -40.5486, lng: -62.1633 }, // Bahía San Blas
-  { lat: -40.7972, lng: -62.9819 }, // Carmen de Patagones
-];
+let leafletMap = null;
+let leafletMarcadores = [];
+let leafletCabaMarcador = null;
 
-function proyectar(destinos) {
-  const puntos = [...destinos.map((d) => ({ lat: d.lat, lng: d.lng })), CABA_COORDS];
-  let latMin = Math.min(...puntos.map((p) => p.lat));
-  let latMax = Math.max(...puntos.map((p) => p.lat));
-  let lngMin = Math.min(...puntos.map((p) => p.lng));
-  let lngMax = Math.max(...puntos.map((p) => p.lng));
-  const latPad = Math.max((latMax - latMin) * 0.1, 0.4);
-  const lngPad = Math.max((lngMax - lngMin) * 0.1, 0.4);
-  latMin -= latPad;
-  latMax += latPad;
-  lngMin -= lngPad;
-  lngMax += lngPad;
-  const cosLat = Math.cos(((latMin + latMax) / 2) * (Math.PI / 180));
-  const H = 100;
-  const W = Math.max(H * (((lngMax - lngMin) * cosLat) / (latMax - latMin)), 40);
-  return {
-    W,
-    H,
-    latMin,
-    latMax,
-    lngMin,
-    lngMax,
-    proyectarPunto: (lat, lng) => ({
-      x: ((lng - lngMin) / (lngMax - lngMin)) * W,
-      y: ((latMax - lat) / (latMax - latMin)) * H,
-    }),
-  };
+function initLeafletMap() {
+  if (leafletMap) return;
+  leafletMap = L.map("mapa-leaflet", { scrollWheelZoom: false }).setView(
+    [CABA_COORDS.lat, CABA_COORDS.lng],
+    6
+  );
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(leafletMap);
 }
 
 function renderMapa(resultados) {
-  const { W, H, proyectarPunto, latMin, latMax, lngMin, lngMax } = proyectar(resultados);
-  el.mapaSvg.setAttribute("viewBox", `0 0 ${W.toFixed(2)} ${H}`);
-  el.mapaSvg.style.aspectRatio = `${W.toFixed(2)} / ${H}`;
+  initLeafletMap();
+  leafletMap.invalidateSize();
 
-  // Grilla de referencia cada 2 grados de latitud/longitud
-  let grilla = "";
-  for (let lat = Math.ceil(latMin / 2) * 2; lat < latMax; lat += 2) {
-    const y = proyectarPunto(lat, lngMin).y;
-    grilla += `<line x1="0" y1="${y.toFixed(2)}" x2="${W.toFixed(2)}" y2="${y.toFixed(2)}" class="mapa-grilla"></line>`;
-    grilla += `<text x="1" y="${(y - 0.8).toFixed(2)}" class="mapa-grilla-label">${Math.abs(lat)}°S</text>`;
+  leafletMarcadores.forEach((m) => leafletMap.removeLayer(m));
+  leafletMarcadores = [];
+
+  if (!leafletCabaMarcador) {
+    leafletCabaMarcador = L.circleMarker([CABA_COORDS.lat, CABA_COORDS.lng], {
+      radius: 8,
+      color: "#101913",
+      weight: 1.5,
+      fillColor: "#F2E8CF",
+      fillOpacity: 1,
+    })
+      .addTo(leafletMap)
+      .bindTooltip("CABA", { permanent: true, direction: "top", className: "mapa-caba-tooltip" });
   }
-  for (let lng = Math.ceil(lngMin / 2) * 2; lng < lngMax; lng += 2) {
-    const x = proyectarPunto(latMin, lng).x;
-    grilla += `<line x1="${x.toFixed(2)}" y1="0" x2="${x.toFixed(2)}" y2="${H}" class="mapa-grilla"></line>`;
-  }
-
-  // Línea de costa aproximada, calculada con coordenadas reales de balnearios y ciudades ribereñas
-  const costaPuntos = COSTA_ATLANTICA.map((p) => proyectarPunto(p.lat, p.lng));
-  const costaPath = costaPuntos.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(" ");
-
-  const caba = proyectarPunto(CABA_COORDS.lat, CABA_COORDS.lng);
-  let html = `
-    <rect x="0" y="0" width="${W.toFixed(2)}" height="${H}" class="mapa-fondo"></rect>
-    ${grilla}
-    <path d="${costaPath}" class="mapa-costa"></path>
-    <circle cx="${caba.x.toFixed(2)}" cy="${caba.y.toFixed(2)}" r="1.6" class="mapa-caba-punto"></circle>
-    <text x="${caba.x.toFixed(2)}" y="${(caba.y - 2.6).toFixed(2)}" class="mapa-caba-label">CABA</text>
-  `;
 
   resultados.forEach((d) => {
-    const p = proyectarPunto(d.lat, d.lng);
     const color = CATEGORIA_COLOR[d.categoria] || "#C1440E";
-    const esFav = favoritos.has(d.nombre);
-    html += `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="1.35" fill="${color}" class="mapa-punto ${esFav ? "mapa-punto-fav" : ""}" data-nombre="${d.nombre}"><title>${d.nombre} · ${d.km} km</title></circle>`;
+    const esFavorito = favoritos.has(d.nombre);
+    const marcador = L.circleMarker([d.lat, d.lng], {
+      radius: esFavorito ? 8 : 6,
+      color: esFavorito ? "#C1440E" : "#101913",
+      weight: esFavorito ? 2 : 1,
+      fillColor: color,
+      fillOpacity: 0.9,
+    }).addTo(leafletMap);
+    marcador.bindPopup(`<strong>${d.nombre}</strong><br>${d.km} km desde CABA`);
+    marcador.on("click", () => abrirModal(d));
+    leafletMarcadores.push(marcador);
   });
 
-  el.mapaSvg.innerHTML = html;
-  el.mapaSvg.querySelectorAll(".mapa-punto").forEach((c) => {
-    c.addEventListener("click", () => {
-      const destino = DESTINOS.find((x) => x.nombre === c.dataset.nombre);
-      abrirModal(destino);
-    });
-  });
+  if (resultados.length > 0) {
+    const bounds = L.latLngBounds([
+      [CABA_COORDS.lat, CABA_COORDS.lng],
+      ...resultados.map((d) => [d.lat, d.lng]),
+    ]);
+    leafletMap.fitBounds(bounds, { padding: [24, 24] });
+  }
 
   const categoriasPresentes = [...new Set(resultados.map((d) => d.categoria))];
   el.mapaLeyenda.innerHTML = categoriasPresentes
