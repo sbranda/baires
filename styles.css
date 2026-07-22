@@ -158,18 +158,24 @@ input[type="range"] {
 .ruler-label-right { right: 0; }
 
 .buscador-wrap {
-  margin-bottom: 12px;
+  margin: 20px 0 24px;
+}
+
+.buscador-form {
+  display: flex;
+  gap: 8px;
 }
 
 .buscador {
-  width: 100%;
-  padding: 10px 14px;
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
   border-radius: 8px;
   background: var(--bg-card);
   border: 1px solid var(--bg-card-border);
   color: var(--offwhite);
   font-family: "Inter", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .buscador::placeholder {
@@ -179,6 +185,21 @@ input[type="range"] {
 .buscador:focus {
   outline: none;
   border-color: var(--rust);
+}
+
+.buscador-btn {
+  flex-shrink: 0;
+  width: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--rust);
+  color: var(--offwhite);
+}
+
+.buscador-btn:active {
+  background: var(--rust-dim);
 }
 
 .chips {

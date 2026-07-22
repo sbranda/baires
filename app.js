@@ -1001,6 +1001,7 @@ const el = {
   slider: document.getElementById("slider"),
   ruler: document.getElementById("ruler"),
   buscador: document.getElementById("buscador"),
+  buscadorForm: document.getElementById("form-buscar"),
   filtros: document.getElementById("filtros"),
   contador: document.getElementById("contador"),
   lista: document.getElementById("lista"),
@@ -1217,6 +1218,13 @@ el.slider.addEventListener("input", (e) => {
 
 el.buscador.addEventListener("input", (e) => {
   busqueda = e.target.value;
+  render();
+});
+
+el.buscadorForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  busqueda = el.buscador.value;
+  el.buscador.blur();
   render();
 });
 
