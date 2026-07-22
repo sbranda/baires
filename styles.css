@@ -203,6 +203,35 @@ input[type="range"] {
 .ruler-label-left { left: 0; }
 .ruler-label-right { right: 0; }
 
+.ubicacion-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-top: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+}
+
+.ubicacion-btn.activo {
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.ubicacion-nota {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  color: var(--wheat-dim);
+  text-align: center;
+}
+
 .buscador-wrap {
   margin: 20px 0 24px;
 }

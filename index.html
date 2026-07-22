@@ -35,10 +35,13 @@
     </div>
     <div>
       <h1>¿A cuántos km<br />querés llegar?</h1>
-      <p class="subtitle">
+      <p class="subtitle" id="subtitulo-origen">
         Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.
       </p>
     </div>
+
+    <button id="ubicacion-btn" class="ubicacion-btn"></button>
+    <p class="ubicacion-nota" id="ubicacion-nota" style="display:none"></p>
 
     <div class="buscador-wrap">
       <form id="form-buscar" class="buscador-form">
@@ -89,7 +92,7 @@
       <div class="mapa-leyenda" id="mapa-leyenda"></div>
     </div>
 
-    <p class="footer-note">
+    <p class="footer-note" id="footer-nota-distancia">
       Distancias aproximadas por ruta desde CABA · Datos de referencia, verificá antes de viajar.
     </p>
   </div>

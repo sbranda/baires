@@ -1337,10 +1337,10 @@ function ordenarResultados(lista) {
       const labelA = CATEGORIAS.find((c) => c.id === a.categoria)?.label || a.categoria;
       const labelB = CATEGORIAS.find((c) => c.id === b.categoria)?.label || b.categoria;
       const cmpCategoria = labelA.localeCompare(labelB, "es");
-      return cmpCategoria !== 0 ? cmpCategoria : a.km - b.km;
+      return cmpCategoria !== 0 ? cmpCategoria : kmDesdeOrigen(a) - kmDesdeOrigen(b);
     });
   } else {
-    copia.sort((a, b) => a.km - b.km);
+    copia.sort((a, b) => kmDesdeOrigen(a) - kmDesdeOrigen(b));
   }
   return copia;
 }
@@ -1435,6 +1435,30 @@ let visitados = cargarVisitados();
 
 const CABA_COORDS = { lat: -34.6037, lng: -58.3816 };
 
+// --- Origen de las distancias: CABA por defecto, o la ubicación real del usuario ---
+let origen = { lat: CABA_COORDS.lat, lng: CABA_COORDS.lng, nombre: "CABA", esUbicacionUsuario: false };
+
+function distanciaHaversine(lat1, lng1, lat2, lng2) {
+  const R = 6371; // radio de la Tierra en km
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function kmDesdeOrigen(d) {
+  if (!origen.esUbicacionUsuario) return d.km;
+  return Math.round(distanciaHaversine(origen.lat, origen.lng, d.lat, d.lng));
+}
+
+function etiquetaDistancia(d) {
+  const km = kmDesdeOrigen(d);
+  return origen.esUbicacionUsuario ? `${km} km en línea recta desde tu ubicación` : `${km} km desde CABA`;
+}
+
 const CATEGORIA_COLOR = {
   playa: "#4E86A6",
   sierra: "#8C6B4F",
@@ -1448,6 +1472,10 @@ let vista = "lista";
 
 const el = {
   distanciaValor: document.getElementById("distancia-valor"),
+  ubicacionBtn: document.getElementById("ubicacion-btn"),
+  ubicacionNota: document.getElementById("ubicacion-nota"),
+  subtituloOrigen: document.getElementById("subtitulo-origen"),
+  footerNotaDistancia: document.getElementById("footer-nota-distancia"),
   slider: document.getElementById("slider"),
   ruler: document.getElementById("ruler"),
   buscador: document.getElementById("buscador"),
@@ -1474,7 +1502,7 @@ el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
 
 let leafletMap = null;
 let leafletMarcadores = [];
-let leafletCabaMarcador = null;
+let leafletOrigenMarcador = null;
 
 function initLeafletMap() {
   if (leafletMap) return;
@@ -1495,17 +1523,22 @@ function renderMapa(resultados) {
   leafletMarcadores.forEach((m) => leafletMap.removeLayer(m));
   leafletMarcadores = [];
 
-  if (!leafletCabaMarcador) {
-    leafletCabaMarcador = L.circleMarker([CABA_COORDS.lat, CABA_COORDS.lng], {
-      radius: 8,
-      color: "#101913",
-      weight: 1.5,
-      fillColor: "#F2E8CF",
-      fillOpacity: 1,
-    })
-      .addTo(leafletMap)
-      .bindTooltip("CABA", { permanent: true, direction: "top", className: "mapa-caba-tooltip" });
+  if (leafletOrigenMarcador) {
+    leafletMap.removeLayer(leafletOrigenMarcador);
   }
+  leafletOrigenMarcador = L.circleMarker([origen.lat, origen.lng], {
+    radius: 8,
+    color: "#101913",
+    weight: 1.5,
+    fillColor: "#F2E8CF",
+    fillOpacity: 1,
+  })
+    .addTo(leafletMap)
+    .bindTooltip(origen.esUbicacionUsuario ? "Vos" : "CABA", {
+      permanent: true,
+      direction: "top",
+      className: "mapa-caba-tooltip",
+    });
 
   resultados.forEach((d) => {
     const color = CATEGORIA_COLOR[d.categoria] || "#C1440E";
@@ -1517,14 +1550,14 @@ function renderMapa(resultados) {
       fillColor: color,
       fillOpacity: 0.9,
     }).addTo(leafletMap);
-    marcador.bindPopup(`<strong>${d.nombre}</strong><br>${d.km} km desde CABA`);
+    marcador.bindPopup(`<strong>${d.nombre}</strong><br>${etiquetaDistancia(d)}`);
     marcador.on("click", () => abrirModal(d));
     leafletMarcadores.push(marcador);
   });
 
   if (resultados.length > 0) {
     const bounds = L.latLngBounds([
-      [CABA_COORDS.lat, CABA_COORDS.lng],
+      [origen.lat, origen.lng],
       ...resultados.map((d) => [d.lat, d.lng]),
     ]);
     leafletMap.fitBounds(bounds, { padding: [24, 24] });
@@ -1542,7 +1575,7 @@ function renderMapa(resultados) {
 
 function calcularResultadosFiltrados() {
   const busquedaNormalizada = normalizar(busqueda);
-  return DESTINOS.filter((d) => d.km <= distancia)
+  return DESTINOS.filter((d) => kmDesdeOrigen(d) <= distancia)
     .filter((d) => categoria === "todas" || d.categoria === categoria)
     .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
     .filter((d) => !soloVisitados || visitados.has(d.nombre))
@@ -1566,9 +1599,10 @@ function render() {
     <div class="ruler-progress" style="width:${progresoPct}%"></div>
     ${enRuta
       .map((d) => {
-        const left = (d.km / MAX_KM) * 100;
-        const activo = d.km <= distancia;
-        return `<div class="ruler-dot ${activo ? "activo" : ""}" style="left:${left}%" title="${d.nombre} · ${d.km} km"></div>`;
+        const kmD = kmDesdeOrigen(d);
+        const left = Math.min((kmD / MAX_KM) * 100, 100);
+        const activo = kmD <= distancia;
+        return `<div class="ruler-dot ${activo ? "activo" : ""}" style="left:${left}%" title="${d.nombre} · ${kmD} km"></div>`;
       })
       .join("")}
     <div class="ruler-label ruler-label-left">0 km</div>
@@ -1651,7 +1685,7 @@ function render() {
         </div>
         <button class="card-open" data-nombre="${d.nombre}">
           <div class="card-km">
-            <span class="card-km-num">${d.km}</span>
+            <span class="card-km-num">${kmDesdeOrigen(d)}</span>
             <span class="card-km-unit">km</span>
           </div>
           <div class="card-body">
@@ -1716,7 +1750,7 @@ function abrirModal(d) {
 
   el.modal.innerHTML = `
     <div class="modal-top">
-      <div class="modal-km-badge">${d.km} km desde CABA</div>
+      <div class="modal-km-badge">${etiquetaDistancia(d)}</div>
       <div class="modal-top-actions">
         <button id="modal-visitado" aria-label="Marcar como visitado"></button>
         <button id="modal-fav" aria-label="Agregar a favoritos"></button>
@@ -1785,7 +1819,7 @@ function abrirModal(d) {
     <p class="modal-parrafo modal-presupuesto">${d.presupuesto}</p>
 
     <div class="modal-subhead">${icon("car", 14)} Costo estimado de combustible y peajes</div>
-    <div class="modal-costo" id="modal-costo" data-km="${d.km}"></div>
+    <div class="modal-costo" id="modal-costo" data-km="${kmDesdeOrigen(d)}"></div>
   `;
   el.modalOverlay.classList.add("visible");
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
@@ -2081,7 +2115,7 @@ function renderizarCostoModal(d) {
 
 function generarTextoGuia(d) {
   const lineas = [];
-  lineas.push(`${d.nombre} — ${d.km} km desde CABA`);
+  lineas.push(`${d.nombre} — ${etiquetaDistancia(d)}`);
   lineas.push(d.nota);
   lineas.push("");
   lineas.push("HISTORIA");
@@ -2212,6 +2246,89 @@ el.sorpresaBtn.addEventListener("click", () => {
   const elegido = candidatos[Math.floor(Math.random() * candidatos.length)];
   abrirModal(elegido);
 });
+
+// --- Ubicación real del usuario (opcional, en vez de CABA) ------------------
+function actualizarTextosOrigen() {
+  if (el.subtituloOrigen) {
+    el.subtituloOrigen.textContent = origen.esUbicacionUsuario
+      ? "Elegí una distancia desde tu ubicación actual y descubrí pueblos y ciudades turísticas dentro de ese radio."
+      : "Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.";
+  }
+  if (el.footerNotaDistancia) {
+    el.footerNotaDistancia.textContent = origen.esUbicacionUsuario
+      ? "Distancias en línea recta desde tu ubicación (no por ruta) · Datos de referencia, verificá antes de viajar."
+      : "Distancias aproximadas por ruta desde CABA · Datos de referencia, verificá antes de viajar.";
+  }
+}
+
+function actualizarBotonUbicacion() {
+  if (!el.ubicacionBtn) return;
+  if (origen.esUbicacionUsuario) {
+    el.ubicacionBtn.innerHTML = `${icon("map-pin", 16)} Usando tu ubicación (volver a CABA)`;
+    el.ubicacionBtn.classList.add("activo");
+  } else {
+    el.ubicacionBtn.innerHTML = `${icon("map-pin", 16)} Usar mi ubicación en vez de CABA`;
+    el.ubicacionBtn.classList.remove("activo");
+  }
+}
+
+function mostrarNotaUbicacion(mensaje) {
+  if (!el.ubicacionNota) return;
+  if (!mensaje) {
+    el.ubicacionNota.style.display = "none";
+    el.ubicacionNota.textContent = "";
+    return;
+  }
+  el.ubicacionNota.style.display = "block";
+  el.ubicacionNota.textContent = mensaje;
+}
+
+function usarCaba() {
+  origen = { lat: CABA_COORDS.lat, lng: CABA_COORDS.lng, nombre: "CABA", esUbicacionUsuario: false };
+  mostrarNotaUbicacion("");
+  actualizarBotonUbicacion();
+  actualizarTextosOrigen();
+  render();
+}
+
+function solicitarUbicacion() {
+  if (!navigator.geolocation) {
+    mostrarNotaUbicacion("Tu navegador no permite acceder a la ubicación.");
+    return;
+  }
+  const original = el.ubicacionBtn.innerHTML;
+  el.ubicacionBtn.innerHTML = `${icon("compass", 16)} Buscando tu ubicación...`;
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      origen = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+        nombre: "tu ubicación",
+        esUbicacionUsuario: true,
+      };
+      mostrarNotaUbicacion("Las distancias ahora son en línea recta desde donde estás, no por ruta.");
+      actualizarBotonUbicacion();
+      actualizarTextosOrigen();
+      render();
+    },
+    () => {
+      el.ubicacionBtn.innerHTML = original;
+      mostrarNotaUbicacion("No pudimos acceder a tu ubicación. Revisá los permisos del navegador e intentá de nuevo.");
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 5 * 60 * 1000 }
+  );
+}
+
+if (el.ubicacionBtn) {
+  actualizarBotonUbicacion();
+  el.ubicacionBtn.addEventListener("click", () => {
+    if (origen.esUbicacionUsuario) {
+      usarCaba();
+    } else {
+      solicitarUbicacion();
+    }
+  });
+}
 
 // --- Tema claro/oscuro -------------------------------------------------------
 const THEME_KEY = "destinos-ba-tema";
