@@ -1691,6 +1691,9 @@ function abrirModal(d) {
 
     <div class="modal-subhead">${icon("wallet", 14)} Presupuesto estimado</div>
     <p class="modal-parrafo modal-presupuesto">${d.presupuesto}</p>
+
+    <div class="modal-subhead">${icon("car", 14)} Costo estimado de combustible y peajes</div>
+    <div class="modal-costo" id="modal-costo" data-km="${d.km}"></div>
   `;
   el.modalOverlay.classList.add("visible");
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
@@ -1703,6 +1706,7 @@ function abrirModal(d) {
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
   cargarClimaModal(d);
+  renderizarCostoModal(d);
 }
 
 // --- Foto real del destino, vía la API pública de Wikipedia (sin necesidad de cuenta o key) ---
@@ -1880,6 +1884,102 @@ async function cargarClimaModal(d) {
   if (contenedorActual && contenedorActual.dataset.nombre === d.nombre) {
     pintarClima(contenedorActual, data);
   }
+}
+
+// --- Calculadora de costo estimado de combustible y peajes ------------------
+const COSTO_KEY = "destinos-ba-costo-viaje";
+
+function cargarPreferenciasCosto() {
+  try {
+    const raw = localStorage.getItem(COSTO_KEY);
+    if (raw) {
+      const datos = JSON.parse(raw);
+      return {
+        precioLitro: Number(datos.precioLitro) || 2050,
+        consumo: Number(datos.consumo) || 10,
+        peajeCada100km: Number(datos.peajeCada100km) || 1500,
+      };
+    }
+  } catch (err) {
+    console.warn("No se pudieron leer las preferencias de costo guardadas:", err);
+  }
+  // Valores de referencia: nafta súper YPF CABA ~$2050/litro (julio 2026),
+  // consumo promedio de un auto mediano, y un peaje estimado orientativo.
+  return { precioLitro: 2050, consumo: 10, peajeCada100km: 1500 };
+}
+
+function guardarPreferenciasCosto(prefs) {
+  try {
+    localStorage.setItem(COSTO_KEY, JSON.stringify(prefs));
+  } catch (err) {
+    console.warn("No se pudieron guardar las preferencias de costo:", err);
+  }
+}
+
+let prefsCosto = cargarPreferenciasCosto();
+
+function calcularCostoViaje(kmIda, prefs) {
+  const distanciaTotal = kmIda * 2; // ida y vuelta
+  const litros = prefs.consumo > 0 ? distanciaTotal / prefs.consumo : 0;
+  const costoCombustible = litros * prefs.precioLitro;
+  const costoPeajes = (distanciaTotal / 100) * prefs.peajeCada100km;
+  return { distanciaTotal, costoCombustible, costoPeajes, costoTotal: costoCombustible + costoPeajes };
+}
+
+function formatearARS(numero) {
+  return numero.toLocaleString("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 });
+}
+
+function renderizarCostoModal(d) {
+  const contenedor = document.getElementById("modal-costo");
+  if (!contenedor) return;
+  const km = Number(contenedor.dataset.km);
+
+  contenedor.innerHTML = `
+    <div class="costo-inputs">
+      <label class="costo-input-wrap">
+        <span>Precio nafta (ARS/litro)</span>
+        <input type="number" id="costo-precio" min="0" step="1" value="${prefsCosto.precioLitro}" inputmode="decimal" />
+      </label>
+      <label class="costo-input-wrap">
+        <span>Consumo (km/litro)</span>
+        <input type="number" id="costo-consumo" min="1" step="0.5" value="${prefsCosto.consumo}" inputmode="decimal" />
+      </label>
+      <label class="costo-input-wrap">
+        <span>Peaje estimado (ARS cada 100 km)</span>
+        <input type="number" id="costo-peaje" min="0" step="50" value="${prefsCosto.peajeCada100km}" inputmode="decimal" />
+      </label>
+    </div>
+    <div class="costo-resultado" id="costo-resultado"></div>
+    <div class="costo-nota">Estimado de ida y vuelta (${km * 2} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes varían mucho según la ruta.</div>
+  `;
+
+  const actualizarResultado = () => {
+    const resultado = calcularCostoViaje(km, prefsCosto);
+    document.getElementById("costo-resultado").innerHTML = `
+      <div class="costo-fila"><span>Combustible</span><strong>${formatearARS(resultado.costoCombustible)}</strong></div>
+      <div class="costo-fila"><span>Peajes</span><strong>${formatearARS(resultado.costoPeajes)}</strong></div>
+      <div class="costo-fila costo-total"><span>Total estimado</span><strong>${formatearARS(resultado.costoTotal)}</strong></div>
+    `;
+  };
+
+  document.getElementById("costo-precio").addEventListener("input", (e) => {
+    prefsCosto.precioLitro = Number(e.target.value) || 0;
+    guardarPreferenciasCosto(prefsCosto);
+    actualizarResultado();
+  });
+  document.getElementById("costo-consumo").addEventListener("input", (e) => {
+    prefsCosto.consumo = Number(e.target.value) || 0;
+    guardarPreferenciasCosto(prefsCosto);
+    actualizarResultado();
+  });
+  document.getElementById("costo-peaje").addEventListener("input", (e) => {
+    prefsCosto.peajeCada100km = Number(e.target.value) || 0;
+    guardarPreferenciasCosto(prefsCosto);
+    actualizarResultado();
+  });
+
+  actualizarResultado();
 }
 
 function generarTextoGuia(d) {

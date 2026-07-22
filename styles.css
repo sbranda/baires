@@ -747,6 +747,87 @@ input:focus-visible {
   text-align: right;
 }
 
+.modal-costo {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.19);
+  padding: 14px;
+  margin-bottom: 8px;
+}
+
+.costo-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.costo-input-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.costo-input-wrap span {
+  font-size: 0.8rem;
+  color: var(--wheat-dim);
+}
+
+.costo-input-wrap input {
+  width: 100px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  min-height: 36px;
+  border-radius: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  color: var(--offwhite);
+  text-align: right;
+}
+
+.costo-resultado {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--bg-card-border);
+}
+
+.costo-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--wheat-dim);
+}
+
+.costo-fila strong {
+  color: var(--offwhite);
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+
+.costo-total {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--bg-card-border);
+  font-size: 0.95rem;
+  color: var(--wheat);
+}
+
+.costo-total strong {
+  color: var(--rust);
+  font-size: 1.2rem;
+}
+
+.costo-nota {
+  margin-top: 12px;
+  font-size: 0.7rem;
+  color: var(--wheat-dim);
+  line-height: 1.4;
+}
+
 .modal-info {
   display: flex;
   flex-direction: column;
