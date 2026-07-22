@@ -1398,9 +1398,11 @@ function proyectar(destinos) {
 function renderMapa(resultados) {
   const { W, H, proyectarPunto } = proyectar(resultados);
   el.mapaSvg.setAttribute("viewBox", `0 0 ${W.toFixed(2)} ${H}`);
+  el.mapaSvg.style.aspectRatio = `${W.toFixed(2)} / ${H}`;
 
   const caba = proyectarPunto(CABA_COORDS.lat, CABA_COORDS.lng);
   let html = `
+    <rect x="0" y="0" width="${W.toFixed(2)}" height="${H}" class="mapa-fondo"></rect>
     <circle cx="${caba.x.toFixed(2)}" cy="${caba.y.toFixed(2)}" r="1.6" class="mapa-caba-punto"></circle>
     <text x="${caba.x.toFixed(2)}" y="${(caba.y - 2.6).toFixed(2)}" class="mapa-caba-label">CABA</text>
   `;
