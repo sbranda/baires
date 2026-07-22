@@ -282,8 +282,17 @@ input:focus-visible {
   color: var(--on-accent);
 }
 
-.contador {
+.contador-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 8px;
+  column-gap: 16px;
   margin-bottom: 12px;
+}
+
+.contador {
   font-size: 0.875rem;
   color: var(--green);
 }
@@ -292,7 +301,6 @@ input:focus-visible {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
 }
 
 .orden-label {
@@ -302,11 +310,11 @@ input:focus-visible {
 }
 
 .orden-select {
-  flex: 1;
+  width: auto;
   font-family: "Inter", sans-serif;
   font-size: 0.85rem;
-  padding: 8px 10px;
-  min-height: 40px;
+  padding: 6px 8px;
+  min-height: 36px;
   border-radius: 6px;
   background: var(--bg-card);
   border: 1px solid var(--bg-card-border);
