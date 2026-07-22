@@ -943,15 +943,49 @@ const ICONS = {
   wallet: '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>',
   lightbulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.5 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
   compass: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
 };
 
-function icon(name, size = 14, color = "currentColor") {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ""}</svg>`;
+function icon(name, size = 14, color = "currentColor", fill = "none") {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="${fill}" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ""}</svg>`;
 }
 
 // --- Estado -----------------------------------------------------------------
 let distancia = 400;
 let categoria = "todas";
+let soloFavoritos = false;
+
+const FAVORITOS_KEY = "destinos-ba-favoritos";
+
+function cargarFavoritos() {
+  try {
+    const raw = localStorage.getItem(FAVORITOS_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (err) {
+    console.warn("No se pudieron leer los favoritos guardados:", err);
+    return new Set();
+  }
+}
+
+function guardarFavoritos() {
+  try {
+    localStorage.setItem(FAVORITOS_KEY, JSON.stringify([...favoritos]));
+  } catch (err) {
+    console.warn("No se pudieron guardar los favoritos:", err);
+  }
+}
+
+function toggleFavorito(nombre) {
+  if (favoritos.has(nombre)) {
+    favoritos.delete(nombre);
+  } else {
+    favoritos.add(nombre);
+  }
+  guardarFavoritos();
+  render();
+}
+
+let favoritos = cargarFavoritos();
 
 const el = {
   distanciaValor: document.getElementById("distancia-valor"),
@@ -985,21 +1019,33 @@ function render() {
     <div class="ruler-label ruler-label-right">${MAX_KM} km</div>
   `;
 
-  el.filtros.innerHTML = CATEGORIAS.map(
-    (c) => `
+  el.filtros.innerHTML =
+    `<button class="chip chip-fav ${soloFavoritos ? "chip-activo" : ""}" data-fav-toggle="1">
+      ${icon("star", 14, "currentColor", soloFavoritos ? "currentColor" : "none")} Favoritos
+    </button>` +
+    CATEGORIAS.map(
+      (c) => `
     <button class="chip ${categoria === c.id ? "chip-activo" : ""}" data-cat="${c.id}">
       ${icon(c.icon, 14)} ${c.label}
     </button>`
-  ).join("");
-  el.filtros.querySelectorAll(".chip").forEach((btn) => {
+    ).join("");
+  el.filtros.querySelectorAll(".chip[data-cat]").forEach((btn) => {
     btn.addEventListener("click", () => {
       categoria = btn.dataset.cat;
       render();
     });
   });
+  const favToggleBtn = el.filtros.querySelector("[data-fav-toggle]");
+  if (favToggleBtn) {
+    favToggleBtn.addEventListener("click", () => {
+      soloFavoritos = !soloFavoritos;
+      render();
+    });
+  }
 
   const resultados = DESTINOS.filter((d) => d.km <= distancia)
     .filter((d) => categoria === "todas" || d.categoria === categoria)
+    .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
     .sort((a, b) => a.km - b.km);
 
   el.contador.textContent = `${resultados.length} ${resultados.length === 1 ? "destino encontrado" : "destinos encontrados"}`;
@@ -1007,33 +1053,45 @@ function render() {
   if (resultados.length === 0) {
     el.lista.style.display = "none";
     el.vacio.style.display = "block";
+    el.vacio.textContent = soloFavoritos
+      ? "Todavía no marcaste ningún destino como favorito."
+      : "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.";
   } else {
     el.vacio.style.display = "none";
     el.lista.style.display = "flex";
     el.lista.innerHTML = resultados
-      .map(
-        (d) => `
-      <button class="card" data-nombre="${d.nombre}">
-        <div class="card-km">
-          <span class="card-km-num">${d.km}</span>
-          <span class="card-km-unit">km</span>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row">
-            <h3>${d.nombre}</h3>
-            ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
+      .map((d) => {
+        const esFavorito = favoritos.has(d.nombre);
+        return `
+      <div class="card">
+        <button class="card-fav ${esFavorito ? "activo" : ""}" data-fav="${d.nombre}" aria-label="${esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}">
+          ${icon("star", 18, "currentColor", esFavorito ? "currentColor" : "none")}
+        </button>
+        <button class="card-open" data-nombre="${d.nombre}">
+          <div class="card-km">
+            <span class="card-km-num">${d.km}</span>
+            <span class="card-km-unit">km</span>
           </div>
-          <p>${d.nota}</p>
-          <span class="card-link">Ver guía →</span>
-        </div>
-      </button>`
-      )
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>${d.nombre}</h3>
+              ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
+            </div>
+            <p>${d.nota}</p>
+            <span class="card-link">Ver guía →</span>
+          </div>
+        </button>
+      </div>`;
+      })
       .join("");
-    el.lista.querySelectorAll(".card").forEach((card) => {
+    el.lista.querySelectorAll(".card-open").forEach((card) => {
       card.addEventListener("click", () => {
         const destino = DESTINOS.find((d) => d.nombre === card.dataset.nombre);
         abrirModal(destino);
       });
+    });
+    el.lista.querySelectorAll(".card-fav").forEach((btn) => {
+      btn.addEventListener("click", () => toggleFavorito(btn.dataset.fav));
     });
   }
 }
@@ -1048,10 +1106,23 @@ function seccionLista(iconName, titulo, items) {
 }
 
 function abrirModal(d) {
+  const render_estrella = () => {
+    const esFav = favoritos.has(d.nombre);
+    const btn = el.modal.querySelector("#modal-fav");
+    if (btn) {
+      btn.classList.toggle("activo", esFav);
+      btn.innerHTML = icon("star", 20, "currentColor", esFav ? "currentColor" : "none");
+      btn.setAttribute("aria-label", esFav ? "Quitar de favoritos" : "Agregar a favoritos");
+    }
+  };
+
   el.modal.innerHTML = `
     <div class="modal-top">
       <div class="modal-km-badge">${d.km} km desde CABA</div>
-      <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
+      <div class="modal-top-actions">
+        <button id="modal-fav" aria-label="Agregar a favoritos"></button>
+        <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
+      </div>
     </div>
     <h2 class="modal-title">${d.nombre}</h2>
     <p class="modal-nota">${d.nota}</p>
@@ -1109,6 +1180,11 @@ function abrirModal(d) {
   `;
   el.modalOverlay.classList.add("visible");
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
+  render_estrella();
+  document.getElementById("modal-fav").addEventListener("click", () => {
+    toggleFavorito(d.nombre);
+    render_estrella();
+  });
 }
 
 function cerrarModal() {
