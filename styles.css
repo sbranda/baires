@@ -157,6 +157,30 @@ input[type="range"] {
 .ruler-label-left { left: 0; }
 .ruler-label-right { right: 0; }
 
+.buscador-wrap {
+  margin-bottom: 12px;
+}
+
+.buscador {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  color: var(--offwhite);
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+}
+
+.buscador::placeholder {
+  color: var(--wheat-dim);
+}
+
+.buscador:focus {
+  outline: none;
+  border-color: var(--rust);
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;

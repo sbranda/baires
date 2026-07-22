@@ -954,6 +954,15 @@ function icon(name, size = 14, color = "currentColor", fill = "none") {
 let distancia = 400;
 let categoria = "todas";
 let soloFavoritos = false;
+let busqueda = "";
+
+function normalizar(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
 
 const FAVORITOS_KEY = "destinos-ba-favoritos";
 
@@ -991,6 +1000,7 @@ const el = {
   distanciaValor: document.getElementById("distancia-valor"),
   slider: document.getElementById("slider"),
   ruler: document.getElementById("ruler"),
+  buscador: document.getElementById("buscador"),
   filtros: document.getElementById("filtros"),
   contador: document.getElementById("contador"),
   lista: document.getElementById("lista"),
@@ -1046,6 +1056,7 @@ function render() {
   const resultados = DESTINOS.filter((d) => d.km <= distancia)
     .filter((d) => categoria === "todas" || d.categoria === categoria)
     .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
+    .filter((d) => !busqueda || normalizar(d.nombre).includes(normalizar(busqueda)))
     .sort((a, b) => a.km - b.km);
 
   el.contador.textContent = `${resultados.length} ${resultados.length === 1 ? "destino encontrado" : "destinos encontrados"}`;
@@ -1053,9 +1064,13 @@ function render() {
   if (resultados.length === 0) {
     el.lista.style.display = "none";
     el.vacio.style.display = "block";
-    el.vacio.textContent = soloFavoritos
-      ? "Todavía no marcaste ningún destino como favorito."
-      : "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.";
+    if (busqueda) {
+      el.vacio.textContent = `No encontramos ningún destino que coincida con "${busqueda}" dentro de los filtros elegidos.`;
+    } else if (soloFavoritos) {
+      el.vacio.textContent = "Todavía no marcaste ningún destino como favorito.";
+    } else {
+      el.vacio.textContent = "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.";
+    }
   } else {
     el.vacio.style.display = "none";
     el.lista.style.display = "flex";
@@ -1197,6 +1212,11 @@ el.modalOverlay.addEventListener("click", (e) => {
 
 el.slider.addEventListener("input", (e) => {
   distancia = Number(e.target.value);
+  render();
+});
+
+el.buscador.addEventListener("input", (e) => {
+  busqueda = e.target.value;
   render();
 });
 
