@@ -51,9 +51,19 @@
 
     <div class="chips" id="filtros"></div>
 
-    <div class="contador" id="contador"></div>
+    <div class="contador-row">
+      <div class="contador" id="contador"></div>
+      <div class="vista-toggle" id="vista-toggle">
+        <button class="vista-btn vista-activo" data-vista="lista">Lista</button>
+        <button class="vista-btn" data-vista="mapa">Mapa</button>
+      </div>
+    </div>
     <div class="vacio" id="vacio">No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.</div>
     <div class="lista" id="lista"></div>
+    <div class="mapa-wrap" id="mapa-wrap" style="display:none">
+      <svg id="mapa-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="mapa-leyenda" id="mapa-leyenda"></div>
+    </div>
 
     <p class="footer-note">
       Distancias aproximadas por ruta desde CABA · Datos de referencia, verificá antes de viajar.

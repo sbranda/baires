@@ -6,7 +6,7 @@
 // ---------------------------------------------------------------------------
 const DESTINOS = [
   {
-    nombre: "Tigre", km: 32, categoria: "rio",
+    nombre: "Tigre", km: 32, categoria: "rio", lat: -34.4264, lng: -58.5796,
     nota: "Delta, lanchas colectivas y puerto de frutos.",
     historia: "El área fue habitada originalmente por comunidades guaraníes que aprovechaban la riqueza del delta para la pesca y la caza. Hacia fines del siglo XIX, con la llegada del ferrocarril, Tigre se transformó en el destino de recreo preferido de la alta sociedad porteña, que instaló clubes de remo y organizó regatas de nivel internacional en los brazos del río. Durante buena parte del siglo XX el turismo masivo se trasladó hacia la costa atlántica y Tigre atravesó una etapa de menor protagonismo, hasta que desde los años 90 recuperó su lugar como destino de fin de semana gracias a la puesta en valor del Puerto de Frutos, los museos y las excursiones en lancha. Hoy sigue siendo la puerta de entrada más conocida al Delta del Paraná, un ecosistema único de islas habitadas todo el año por sus propios pobladores.",
     datoCurioso: "El nombre viene de los yaguaretés que los colonizadores llamaban \"tigres\"; habitaron la zona hasta que fueron cazados a principios del siglo XX.",
@@ -27,7 +27,7 @@ const DESTINOS = [
     presupuesto: "Medio: el tren y la lancha colectiva son económicos; el gasto mayor suele ser el almuerzo y las artesanías.",
   },
   {
-    nombre: "San Isidro", km: 28, categoria: "pueblo",
+    nombre: "San Isidro", km: 28, categoria: "pueblo", lat: -34.4708, lng: -58.5085,
     nota: "Catedral, casco histórico y costa del río.",
     historia: "Formó parte de las tierras otorgadas a los primeros colonizadores del Río de la Plata, y desde el siglo XVIII se pobló como zona de quintas y chacras para familias porteñas acomodadas. La actual Catedral, construida a fines del siglo XIX en estilo neogótico, se convirtió en el centro simbólico del pueblo, alrededor del cual creció el casco histórico. A comienzos del siglo XX consolidó su perfil residencial y cultural, con intelectuales y artistas que encontraron en sus quintas un refugio tranquilo cerca de la ciudad; la escritora Victoria Ocampo, fundadora de la revista Sur, tuvo allí una de sus residencias. Con las décadas, el partido se expandió hacia el norte y hoy combina el trazado colonial de su centro con zonas residenciales de alto poder adquisitivo y una intensa vida cultural y deportiva.",
     datoCurioso: "La Quinta Los Ombúes, hoy Museo Pueyrredón, perteneció a la familia del general Juan Martín de Pueyrredón y aún conserva árboles centenarios de la época colonial.",
@@ -48,7 +48,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: al estar tan cerca de CABA, alcanza con el boleto de tren y algo de comida.",
   },
   {
-    nombre: "Luján", km: 65, categoria: "pueblo",
+    nombre: "Luján", km: 65, categoria: "pueblo", lat: -34.5703, lng: -59.105,
     nota: "Basílica y peregrinación, turismo religioso.",
     historia: "El nombre del pueblo está ligado a una leyenda: en 1630, una carreta que transportaba una imagen de la Virgen se detuvo sin motivo aparente y no volvió a moverse hasta que bajaron la imagen, que quedó como patrona del lugar. Alrededor de esa devoción creció durante los siglos siguientes un poblado que se convirtió en el centro de peregrinación católica más importante del país. La actual Basílica, de estilo neogótico, es la tercera construida en el predio: las dos anteriores no resistieron el paso del tiempo, lo que reforzó entre los fieles la necesidad de un templo a la altura de la devoción popular. Hoy Luján recibe millones de peregrinos por año, sobre todo durante la tradicional caminata de octubre desde Buenos Aires, además de visitantes que se acercan por su patrimonio histórico y sus museos.",
     datoCurioso: "La actual Basílica es la tercera construida en el lugar; las dos anteriores se derrumbaron, lo que reforzó entre los fieles la necesidad de un templo a la altura de la devoción.",
@@ -69,7 +69,7 @@ const DESTINOS = [
     presupuesto: "Bajo: los principales atractivos religiosos son gratuitos, el gasto es sobre todo comida y traslado.",
   },
   {
-    nombre: "Cañuelas", km: 65, categoria: "campo",
+    nombre: "Cañuelas", km: 65, categoria: "campo", lat: -35.0517, lng: -58.7622,
     nota: "Estancias y turismo rural cerca de la ciudad.",
     historia: "El partido se conformó a mediados del siglo XIX en pleno auge de la actividad ganadera de la llanura pampeana, cuando las estancias comenzaron a organizarse como unidades productivas a gran escala. Durante décadas fue un nudo ferroviario clave para el transporte de hacienda hacia los mercados de Buenos Aires, lo que impulsó el crecimiento del pueblo alrededor de la estación. Con el tiempo, muchas estancias fueron reconvirtiendo parte de su actividad hacia el turismo rural, ofreciendo a los visitantes una experiencia de campo con doma, jineteada y gastronomía criolla. Hoy Cañuelas es uno de los destinos de turismo rural más elegidos cerca de la Ciudad de Buenos Aires, gracias a su cercanía y a la tradición ganadera que todavía se respira en la zona.",
     datoCurioso: "Según la tradición popular, el dulce de leche se inventó por casualidad en 1829 en la Estancia La Caledonia, cerca de Cañuelas, cuando se dejó hervir de más una olla de leche lechada.",
@@ -90,7 +90,7 @@ const DESTINOS = [
     presupuesto: "Medio a alto: el día de campo en estancia (traslado, comida y actividades) suele ser el gasto principal.",
   },
   {
-    nombre: "La Plata", km: 56, categoria: "ciudad",
+    nombre: "La Plata", km: 56, categoria: "ciudad", lat: -34.9215, lng: -57.9545,
     nota: "Catedral, bosque y trazado urbano único.",
     historia: "La ciudad fue fundada en 1882 por el entonces gobernador Dardo Rocha, luego de que Buenos Aires se federalizara y la provincia necesitara una nueva capital. Se la diseñó desde cero como una ciudad moderna para la época, con un trazado en diagonales y una plaza cada seis cuadras que buscaba garantizar espacios verdes accesibles. La construcción de sus edificios emblemáticos, como la Catedral y el Museo de Ciencias Naturales, se pensó como una vidriera del progreso argentino de fines del siglo XIX, en sintonía con el auge agroexportador del país. Con los años, la instalación de la Universidad Nacional de La Plata a comienzos del siglo XX consolidó su perfil de ciudad universitaria, una identidad que conserva hasta hoy y que convive con su rol administrativo como capital provincial.",
     datoCurioso: "El trazado fue pensado para que ningún punto de la ciudad quedara a más de 700 metros de un espacio verde, algo poco común para una ciudad de fines del siglo XIX.",
@@ -111,7 +111,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: varios atractivos (catedral, museo, paseo del bosque) tienen entrada gratuita o muy accesible.",
   },
   {
-    nombre: "Zárate", km: 90, categoria: "rio",
+    nombre: "Zárate", km: 90, categoria: "rio", lat: -34.0973, lng: -59.0281,
     nota: "Costanera sobre el Paraná y puente Zárate-Brazo Largo.",
     historia: "La zona se organizó como pueblo a mediados del siglo XIX en torno a la actividad portuaria sobre el Paraná de las Palmas, aprovechando su ubicación estratégica para el comercio fluvial. Durante buena parte del siglo XX, Zárate se consolidó como polo industrial, con astilleros y frigoríficos que emplearon a buena parte de su población y definieron su identidad obrera. La construcción del complejo de puentes Zárate-Brazo Largo, inaugurado en 1977, marcó un antes y un después al conectar la ciudad de forma directa con Entre Ríos y la Mesopotamia. Hoy combina ese pasado industrial y portuario con un perfil más turístico centrado en su costanera y en el paisaje del delta bonaerense.",
     datoCurioso: "Al momento de su inauguración, el complejo de puentes Zárate-Brazo Largo fue uno de los más largos de Sudamérica construidos sobre un sistema de islas y ríos.",
@@ -132,7 +132,7 @@ const DESTINOS = [
     presupuesto: "Bajo: el paseo por la costanera y el museo son gratuitos, el gasto principal es la comida.",
   },
   {
-    nombre: "Capilla del Señor", km: 90, categoria: "pueblo",
+    nombre: "Capilla del Señor", km: 90, categoria: "pueblo", lat: -34.3494, lng: -59.0839,
     nota: "Pueblo colonial declarado lugar histórico.",
     historia: "El poblado se organizó en torno a una capilla construida en el siglo XVIII, de la que tomó su nombre, en una zona de estancias y postas que servían de descanso a los viajeros que iban hacia el norte de la provincia. A diferencia de otros pueblos bonaerenses que modernizaron su arquitectura con el correr de las décadas, Capilla del Señor conservó casi intacto su trazado colonial, lo que llevó a que en 1994 fuera declarado Bien de Interés Histórico Nacional, el primer \"Pueblo Histórico\" del país con esa distinción. Ese reconocimiento ayudó a preservar sus casonas y calles empedradas, que hoy atraen a quienes buscan una postal poco común dentro de la provincia. El pueblo mantiene además su vínculo con las estancias de la zona, que combinan producción agropecuaria con recepción de visitantes.",
     datoCurioso: "Antes de ser Papa, Jorge Bergoglio se reunió con la comunidad católica del pueblo en el templo parroquial, poco después de ordenarse sacerdote; hoy un pasaje del centro lleva su nombre en su honor.",
@@ -153,7 +153,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el paseo por el pueblo es gratuito, el gasto principal es comida y algún paseo en sulky.",
   },
   {
-    nombre: "San Antonio de Areco", km: 113, categoria: "pueblo",
+    nombre: "San Antonio de Areco", km: 113, categoria: "pueblo", lat: -34.2597, lng: -59.477,
     nota: "Capital de la tradición gaucha, museos y talabarterías.",
     historia: "Fundado en el siglo XVIII a orillas del río Areco, el pueblo creció al amparo de las estancias ganaderas que dominaban la región pampeana. A comienzos del siglo XX, el escritor Ricardo Güiraldes, hijo de una familia de estancieros de la zona, inmortalizó la vida de los gauchos locales en su novela \"Don Segundo Sombra\", que convirtió al pueblo en un símbolo de la tradición criolla argentina. Ese legado se institucionalizó décadas después con la creación del Museo Gauchesco que lleva su nombre y con la declaración del Día de la Tradición, que desde mediados del siglo XX se celebra cada noviembre con desfiles y jineteadas. Hoy San Antonio de Areco es reconocido como la capital nacional de la tradición gaucha, con una comunidad de talabarteros y plateros que mantiene vivos oficios artesanales de larga data.",
     datoCurioso: "Güiraldes escribió gran parte de esa novela inspirado en los gauchos que conoció en la estancia de su familia, cerca del pueblo.",
@@ -175,7 +175,7 @@ const DESTINOS = [
     presupuesto: "Medio: el paseo por el pueblo es económico, sube si se suma una estancia con actividades o pernocte.",
   },
   {
-    nombre: "Mercedes", km: 100, categoria: "campo",
+    nombre: "Mercedes", km: 100, categoria: "campo", lat: -34.6501, lng: -59.4315,
     nota: "Puerta de acceso a estancias y turismo rural.",
     historia: "La ciudad fue fundada en 1752 como parte de la expansión de la frontera productiva hacia el oeste de la provincia, en una zona que combinaba tierras fértiles con rutas de comercio hacia el interior del país. Durante el siglo XIX se consolidó como centro de comercio agropecuario y punto de partida del histórico Camino Real, que conectaba Buenos Aires con las provincias del oeste. Ese rol de nodo comercial y de tránsito se mantuvo con la llegada del ferrocarril, que reforzó su importancia como centro de servicios para las estancias de la zona. Hoy Mercedes conserva ese perfil como puerta de acceso al turismo rural del oeste bonaerense.",
     datoCurioso: "Fue durante mucho tiempo un punto clave del Camino Real hacia el oeste, y hoy conserva ese rol como acceso a buena parte de las estancias bonaerenses.",
@@ -196,7 +196,7 @@ const DESTINOS = [
     presupuesto: "Medio: similar a Cañuelas, el gasto principal está en el día de campo si se elige esa actividad.",
   },
   {
-    nombre: "Chascomús", km: 125, categoria: "rio",
+    nombre: "Chascomús", km: 125, categoria: "rio", lat: -35.5716, lng: -58.0126,
     nota: "Laguna, costanera y pesca deportiva.",
     historia: "La ciudad fue fundada en 1779 junto a la laguna homónima, en un punto estratégico para el control del territorio y de las rutas hacia el sur de la provincia. Durante las luchas civiles del siglo XIX, la zona fue escenario de un levantamiento conocido como \"la revolución de los libres del sur\", en 1839, un episodio clave de la resistencia al gobierno de Juan Manuel de Rosas. Con el correr de las décadas, la ciudad desarrolló su identidad en torno a la laguna, que se convirtió en un centro de pesca deportiva reconocido a nivel nacional. Hoy Chascomús combina ese patrimonio histórico con una fuerte impronta de turismo de naturaleza, gracias a la costanera y a la reserva que rodea la laguna.",
     datoCurioso: "La Sociedad de Negros de Chascomús, fundada en 1862 por la hermandad afrodescendiente de la ciudad para celebrar sus bailes y religiosidad, fue reconocida por la UNESCO en 2012 por su valor histórico y cultural.",
@@ -217,7 +217,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el paseo por la costanera es gratis, sube si se suma pesca con guía o cabaña.",
   },
   {
-    nombre: "Baradero", km: 150, categoria: "rio",
+    nombre: "Baradero", km: 150, categoria: "rio", lat: -33.8103, lng: -59.5006,
     nota: "Playas de río y fiesta nacional del remo.",
     historia: "El poblado se organizó en el siglo XIX alrededor del río Baradero, aprovechando sus playas naturales y su cercanía con el Paraná para el comercio fluvial. Con el correr de las décadas, la ciudad desarrolló una fuerte tradición vinculada al remo y a los deportes náuticos, que encontró su punto culminante en 1974 con la creación de la Fiesta Nacional del Remo. Ese evento consolidó a Baradero como una de las sedes más importantes del remo amateur del país y atrajo un turismo enfocado en las actividades sobre el río. Hoy la ciudad combina ese perfil deportivo con un turismo de playas de río, popular entre quienes buscan un balneario cercano a Buenos Aires sin llegar hasta la costa atlántica.",
     datoCurioso: "La Fiesta Nacional del Remo convirtió a Baradero en una de las sedes más importantes del remo amateur en Argentina.",
@@ -238,7 +238,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: las playas de río son de acceso libre, el gasto es camping/cabaña y comida.",
   },
   {
-    nombre: "San Pedro", km: 165, categoria: "rio",
+    nombre: "San Pedro", km: 165, categoria: "rio", lat: -33.6779, lng: -59.6683,
     nota: "Costa del Paraná, quintas de duraznos.",
     historia: "Fundada en el siglo XVIII sobre la costa del Paraná, la ciudad desarrolló desde temprano una economía basada en la fruticultura, gracias a la fertilidad de sus tierras ribereñas. Las quintas de duraznos se convirtieron en la actividad más identificada con la zona durante el siglo XX, al punto de dar origen en 1955 a la Fiesta Nacional del Durazno, que todavía hoy se celebra cada verano. Ese perfil agrícola convivió siempre con su costado ribereño, con un puerto histórico y una costanera que fueron ganando protagonismo turístico con el correr de las décadas. Hoy San Pedro combina el turismo de playas de río con la actividad frutícola que la distingue dentro de la región del Paraná.",
     datoCurioso: "A 20 km de la ciudad, en Vuelta de Obligado, se libró en 1845 uno de los combates más recordados de la historia argentina: la resistencia criolla al bloqueo naval de Francia y Gran Bretaña sobre el río Paraná.",
@@ -259,7 +259,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: similar a Baradero, el mayor gasto es alojamiento en temporada alta.",
   },
   {
-    nombre: "Chivilcoy", km: 160, categoria: "campo",
+    nombre: "Chivilcoy", km: 160, categoria: "campo", lat: -34.8975, lng: -60.0165,
     nota: "Ciudad agrícola con arquitectura de antaño.",
     historia: "La ciudad fue fundada en 1854 en el marco de la expansión de la frontera agrícola bonaerense hacia el oeste, en tierras que resultaron muy fértiles para el cultivo de cereales. Ese auge agrícola de fines del siglo XIX financió buena parte de la arquitectura urbana que todavía puede verse en su casco céntrico, y llevó a que la ciudad fuera una de las primeras del interior bonaerense en contar con alumbrado eléctrico. Durante el siglo XX, Chivilcoy consolidó su perfil como centro de servicios para la producción agropecuaria de la región, un rol que mantiene hasta la actualidad. Hoy es una ciudad tranquila que conserva ese pasado agrícola en su arquitectura y en la identidad de sus habitantes.",
     datoCurioso: "Fue una de las primeras ciudades del interior bonaerense en tener alumbrado eléctrico, a fines del siglo XIX, gracias al auge agrícola de la zona.",
@@ -280,7 +280,7 @@ const DESTINOS = [
     presupuesto: "Bajo: pocos atractivos pagos, el gasto principal es la comida.",
   },
   {
-    nombre: "Dolores", km: 200, categoria: "pueblo",
+    nombre: "Dolores", km: 200, categoria: "pueblo", lat: -36.3132, lng: -57.6799,
     nota: "Casco histórico y museos camino a la costa.",
     historia: "Fundada en 1818, poco después de la declaración de la independencia argentina, Dolores fue uno de los primeros pueblos organizados en el sur de la provincia de Buenos Aires. En 1839 fue escenario de un levantamiento contra el gobierno de Juan Manuel de Rosas, un episodio que le dio un lugar destacado en la historia política del siglo XIX bonaerense. Con el correr de las décadas, la ciudad se consolidó como centro de servicios para la zona rural circundante y como parada obligada en el camino hacia los balnearios de la costa atlántica. Hoy Dolores combina ese patrimonio histórico, visible en su casco urbano y en museos como el de Autos Antiguos, con su rol tradicional de última parada bonaerense antes de llegar al mar.",
     datoCurioso: "En 1839 fue escenario de un levantamiento contra Juan Manuel de Rosas, uno de los primeros del interior bonaerense, con un lugar destacado en la historia política provincial.",
@@ -301,7 +301,7 @@ const DESTINOS = [
     presupuesto: "Bajo si es solo una parada de paso (comida y museo); sube a medio-alto si se suma una entrada o una noche en el complejo termal.",
   },
   {
-    nombre: "Nueve de Julio", km: 260, categoria: "campo",
+    nombre: "Nueve de Julio", km: 260, categoria: "campo", lat: -35.4444, lng: -60.8829,
     nota: "Laguna de Gómez y llanura pampeana profunda.",
     historia: "La ciudad se fundó en 1863 como fortín de la línea de frontera de la época, en pleno proceso de expansión de la frontera productiva hacia el oeste pampeano. Con el tiempo, la llegada del ferrocarril consolidó su rol como centro de servicios para una vasta zona agrícola y ganadera. La Laguna de Gómez, en el borde de la ciudad, se convirtió con las décadas en el gran atractivo recreativo del partido. Hoy Nueve de Julio combina su identidad de ciudad agrícola pampeana con un fuerte perfil de turismo de naturaleza en torno a la laguna.",
     datoCurioso: "La Plaza 25 de Mayo de Nueve de Julio, de 16 hectáreas, está considerada una de las plazas más grandes de Sudamérica.",
@@ -322,7 +322,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el acceso a la laguna es libre, el gasto principal es cabaña y comida.",
   },
   {
-    nombre: "Junín", km: 260, categoria: "ciudad",
+    nombre: "Junín", km: 260, categoria: "ciudad", lat: -34.5838, lng: -60.9463,
     nota: "Laguna urbana y punto de partida hacia el oeste.",
     historia: "La ciudad nació en 1827 como fortín militar en la línea de frontera de la época, en el marco de la expansión del territorio productivo hacia el oeste pampeano. Con la llegada del ferrocarril a fines del siglo XIX se transformó en un nudo ferroviario clave del interior bonaerense. Eva Perón vivió parte de su infancia y adolescencia en Junín antes de mudarse a Buenos Aires, un dato que la ciudad conserva en su memoria histórica. Hoy Junín combina ese pasado con un perfil de ciudad de servicios y una laguna urbana que es su principal espacio de recreación.",
     datoCurioso: "Eva Duarte, luego Eva Perón, vivió su adolescencia en Junín antes de partir a Buenos Aires para iniciar su carrera artística.",
@@ -343,7 +343,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Azul", km: 300, categoria: "sierra",
+    nombre: "Azul", km: 300, categoria: "sierra", lat: -36.7767, lng: -59.8585,
     nota: "Ciudad serrana, arquitectura de Salamone.",
     historia: "Fundada en 1832 como fortín de frontera, Azul creció al amparo de la actividad ganadera de la llanura pampeana y de las sierras que la rodean. Durante la primera mitad del siglo XX, el arquitecto ítalo-argentino Francisco Salamone dejó en la región un conjunto de obras monumentales de estilo art decó que hoy son parte del patrimonio arquitectónico bonaerense. La ciudad conservó además su perfil de centro de servicios para el campo circundante. Hoy Azul combina ese patrimonio arquitectónico con paisajes serranos poco conocidos fuera de la región.",
     datoCurioso: "El matadero municipal y el cementerio de Azul, obras de Francisco Salamone, se visitan hoy como piezas de arquitectura monumental más que por su función original.",
@@ -364,7 +364,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "San Clemente del Tuyú", km: 320, categoria: "playa",
+    nombre: "San Clemente del Tuyú", km: 320, categoria: "playa", lat: -36.3556, lng: -56.7238,
     nota: "Playas familiares y parque temático marino.",
     historia: "San Clemente del Tuyú se fundó en 1935 como parte de la expansión de balnearios al norte de Mar del Plata, sobre tierras que antes eran estancias ganaderas. Su desarrollo turístico se consolidó con un perfil familiar y de precios accesibles, distinto al de otros balnearios más exclusivos de la zona. En 1978 se inauguró Mundo Marino, que la convirtió en un destino de referencia para el turismo con niños en toda la costa atlántica. Hoy combina ese parque temático con playas extensas y la reserva de Punta Rasa, en el extremo norte del partido.",
     datoCurioso: "Punta Rasa, en el extremo norte de San Clemente, es el punto donde se juntan el Río de la Plata y el Océano Atlántico, y su faro marca esa transición.",
@@ -385,7 +385,7 @@ const DESTINOS = [
     presupuesto: "Medio: comparado con otros balnearios de la zona suele ser más accesible; el mayor gasto es la entrada a Mundo Marino.",
   },
   {
-    nombre: "Pinamar", km: 340, categoria: "playa",
+    nombre: "Pinamar", km: 340, categoria: "playa", lat: -37.1067, lng: -56.8617,
     nota: "Médanos, bosque implantado y playas de moda.",
     historia: "Pinamar se fundó en 1943 sobre un proyecto del arquitecto Jorge Bunge, que ideó una ciudad balnearia integrada al paisaje de médanos y bosques implantados, a diferencia del trazado en cuadrícula de otros balnearios. Ese diseño original, con calles curvas que respetan la forma natural de las dunas, todavía define la identidad urbana de la ciudad. Con las décadas se convirtió en uno de los balnearios más elegidos por la clase media y alta porteña, con una fuerte oferta gastronómica y de diseño. Hoy combina ese perfil urbano cuidado con extensas playas y el bosque que le da nombre.",
     datoCurioso: "El nombre Pinamar combina \"pino\" y \"mar\", en referencia a los bosques de pinos implantados sobre los médanos para fijar la arena.",
@@ -406,7 +406,7 @@ const DESTINOS = [
     presupuesto: "Medio a alto: es uno de los balnearios más caros de la costa atlántica en enero.",
   },
   {
-    nombre: "Cariló", km: 355, categoria: "playa",
+    nombre: "Cariló", km: 355, categoria: "playa", lat: -37.1667, lng: -56.8931,
     nota: "Bosque frente al mar, el balneario más exclusivo.",
     historia: "Cariló nació en la década de 1930 como un loteo forestado dentro de un bosque de pinos y acacias, pensado desde el inicio como un balneario exclusivo y de baja densidad. A diferencia de otros balnearios de la zona, conservó desde su origen la prohibición de talar árboles y construir sobre las calles de arena, lo que le dio su identidad boscosa característica. Con las décadas se consolidó como uno de los destinos de verano más caros y buscados por la elite porteña. Hoy combina ese perfil exclusivo con playas tranquilas dentro del bosque.",
     datoCurioso: "En Cariló está prohibido asfaltar la mayoría de las calles internas del bosque, que se mantienen de arena para preservar el paisaje original.",
@@ -427,7 +427,7 @@ const DESTINOS = [
     presupuesto: "Alto: es uno de los balnearios más caros de la provincia.",
   },
   {
-    nombre: "Santa Teresita", km: 340, categoria: "playa",
+    nombre: "Santa Teresita", km: 340, categoria: "playa", lat: -36.5333, lng: -56.6997,
     nota: "Playas extensas y ambiente familiar.",
     historia: "Santa Teresita se desarrolló a partir de la década de 1940 como un balneario pensado para el turismo familiar de sectores medios, en contraste con el perfil más exclusivo de otros balnearios cercanos como Pinamar. Su costanera y sus playas extensas se consolidaron como el gran atractivo del partido de La Costa. Con el tiempo se convirtió en uno de los destinos preferidos por familias que buscan playas accesibles y buena infraestructura. Hoy combina ese perfil familiar con una oferta gastronómica y comercial extendida a lo largo de la costa.",
     datoCurioso: "Uno de los paseos más conocidos de la costanera de Santa Teresita lleva el nombre del escritor Jorge Bucay, en honor a su vínculo con la ciudad.",
@@ -448,7 +448,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: uno de los balnearios más accesibles en precio de la zona.",
   },
   {
-    nombre: "Villa Gesell", km: 370, categoria: "playa",
+    nombre: "Villa Gesell", km: 370, categoria: "playa", lat: -37.2632, lng: -56.9733,
     nota: "Peatonal, médanos y vida nocturna costera.",
     historia: "Villa Gesell nació en 1931 por iniciativa de Carlos Idaho Gesell, quien forestó los médanos con pinos y acacias para fijar la arena y fundó una villa balnearia con una fuerte impronta bohemia y cultural desde sus inicios. Ese espíritu se mantuvo durante buena parte del siglo XX, cuando la ciudad se convirtió en un polo de encuentro para artistas, músicos y jóvenes. Con el tiempo sumó una infraestructura turística más masiva sin perder del todo esa identidad particular. Hoy combina extensos médanos, playas y una vida nocturna intensa en temporada alta.",
     datoCurioso: "Carlos Gesell no solo fundó la villa: también trajo a la Argentina los primeros ejemplares de pino marítimo y acacia para forestar los médanos de la zona.",
@@ -469,7 +469,7 @@ const DESTINOS = [
     presupuesto: "Medio: variado según zona, con opciones más económicas que en Pinamar o Cariló.",
   },
   {
-    nombre: "Tandil", km: 350, categoria: "sierra",
+    nombre: "Tandil", km: 350, categoria: "sierra", lat: -37.3217, lng: -59.1332,
     nota: "Sierras, trekking y la icónica Piedra Movediza.",
     historia: "Tandil fue fundada en 1823 como fortín de la línea de frontera de la época, en las sierras que hoy le dan su identidad paisajística. La ciudad creció al amparo de la actividad ganadera y, más tarde, de la industria de embutidos y quesos que la hizo famosa en todo el país. La Piedra Movediza original, ícono de la ciudad durante más de un siglo, se desprendió y cayó en 1912; hoy una réplica ocupa su lugar en el mismo cerro. Hoy Tandil combina ese patrimonio con un fuerte turismo de sierras, trekking y gastronomía regional.",
     datoCurioso: "La Piedra Movediza original se balanceaba sobre el cerro sin caer durante generaciones, hasta que se desprendió en 1912; la que se ve hoy es una réplica colocada décadas después.",
@@ -490,7 +490,7 @@ const DESTINOS = [
     presupuesto: "Medio: cabañas y gastronomía regional suelen ser el gasto principal.",
   },
   {
-    nombre: "Mar del Plata", km: 400, categoria: "playa",
+    nombre: "Mar del Plata", km: 400, categoria: "playa", lat: -38.0055, lng: -57.5426,
     nota: "La Feliz: playas, puerto y vida urbana costera.",
     historia: "Mar del Plata nació en la década de 1870 alrededor de un saladero, pero a fines del siglo XIX la elite porteña la convirtió en su balneario de veraneo por excelencia, con mansiones y hoteles de lujo. En las décadas siguientes se transformó en un destino de turismo masivo para sectores populares y de clase media, un proceso que la marcó como \"la ciudad feliz\" de las vacaciones argentinas. Su puerto, uno de los más importantes del país, mantuvo siempre una identidad pesquera e industrial paralela al perfil turístico. Hoy combina esa doble identidad, entre balneario popular y ciudad portuaria, con una intensa vida cultural durante todo el año.",
     datoCurioso: "El puerto de Mar del Plata alberga una de las colonias de lobos marinos más visitadas del país, que se puede observar de cerca desde el muelle de pescadores.",
@@ -511,7 +511,7 @@ const DESTINOS = [
     presupuesto: "Medio: hay opciones para todos los presupuestos, desde hostels hasta hoteles de lujo.",
   },
   {
-    nombre: "Balcarce", km: 445, categoria: "sierra",
+    nombre: "Balcarce", km: 445, categoria: "sierra", lat: -37.8481, lng: -58.2531,
     nota: "Sierras y museo del automovilismo.",
     historia: "Balcarce fue fundada en 1873 en una zona de sierras y tierras fértiles del sudeste bonaerense, que con el tiempo se convirtió en una de las principales productoras de papa del país. La ciudad ganó fama nacional como cuna de Juan Manuel Fangio, el piloto argentino pentacampeón mundial de Fórmula 1, cuyo museo hoy es el gran atractivo turístico local. Ese perfil combina con el paisaje serrano de la zona, con cerros, arroyos y cascadas poco conocidos fuera de la región. Hoy Balcarce recibe tanto a fanáticos del automovilismo como a quienes buscan naturaleza y tranquilidad.",
     datoCurioso: "El Museo Fangio funciona en el edificio de un antiguo garaje familiar y exhibe autos originales que compitieron y ganaron campeonatos mundiales de Fórmula 1.",
@@ -532,7 +532,7 @@ const DESTINOS = [
     presupuesto: "Medio.",
   },
   {
-    nombre: "Miramar", km: 450, categoria: "playa",
+    nombre: "Miramar", km: 450, categoria: "playa", lat: -38.268, lng: -57.8397,
     nota: "Bosque, playas tranquilas y golf.",
     historia: "Miramar se fundó en 1888 como uno de los primeros balnearios de la costa atlántica bonaerense, incluso antes de que Mar del Plata consolidara su expansión hacia el sur. Con el tiempo se ganó fama como un destino más tranquilo y familiar, con un extenso vivero forestal que la distingue de otros balnearios de médanos abiertos. Su cercanía con yacimientos paleontológicos sobre los acantilados también le dio un perfil científico particular. Hoy combina playas tranquilas, golf y naturaleza con un ritmo mucho más calmo que el de Mar del Plata.",
     datoCurioso: "Los acantilados al sur de Miramar son un sitio paleontológico reconocido, donde se han encontrado fósiles de megafauna sudamericana como gliptodontes y perezosos gigantes.",
@@ -553,7 +553,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Necochea", km: 470, categoria: "playa",
+    nombre: "Necochea", km: 470, categoria: "playa", lat: -38.5545, lng: -58.7396,
     nota: "Playas anchas y desembocadura del río Quequén.",
     historia: "Necochea se fundó en 1881 como uno de los primeros balnearios al sur de Buenos Aires, aprovechando la desembocadura del río Quequén y sus extensas playas. El Parque Miguel Lillo, forestado a comienzos del siglo XX, se convirtió en uno de los bosques artificiales más grandes de la costa atlántica y en el gran pulmón verde de la ciudad. Con las décadas, Necochea desarrolló un perfil propio, menos masivo que Mar del Plata, con foco en la naturaleza y los deportes acuáticos. Hoy combina playas anchas, el puerto de Quequén y cabalgatas sobre la costa.",
     datoCurioso: "El Parque Miguel Lillo tiene más de 600 hectáreas de bosque implantado, lo que lo convierte en uno de los más extensos de la costa atlántica bonaerense.",
@@ -574,7 +574,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Sierra de la Ventana", km: 530, categoria: "sierra",
+    nombre: "Sierra de la Ventana", km: 530, categoria: "sierra", lat: -38.1519, lng: -61.7936,
     nota: "Cerros, arroyos y el histórico Cerro Ventana.",
     historia: "La zona se desarrolló a comienzos del siglo XX alrededor de la estación de ferrocarril, que trajo a las primeras familias veraniegas atraídas por el paisaje serrano, muy distinto al resto de la llanura pampeana. El Cerro Tres Picos, el más alto de la provincia de Buenos Aires, y el Cerro Ventana, con su abertura natural característica, se convirtieron en el gran atractivo de trekking de la región. Con el tiempo, la localidad vecina de Villa Ventana sumó un perfil más boscoso y tranquilo, dentro del mismo sistema serrano. Hoy la comarca combina trekking, arroyos y un ritmo mucho más pausado que el de la costa atlántica.",
     datoCurioso: "El Cerro Ventana debe su nombre a una abertura natural en la roca, cerca de la cima, a través de la cual se puede ver el paisaje del otro lado.",
@@ -595,7 +595,7 @@ const DESTINOS = [
     presupuesto: "Medio: cabañas y comida regional son el gasto principal, el acceso a los senderos suele ser gratuito o de bajo costo.",
   },
   {
-    nombre: "Carhué", km: 520, categoria: "rio",
+    nombre: "Carhué", km: 520, categoria: "rio", lat: -37.1811, lng: -62.7328,
     nota: "Termas sobre el lago Epecuén y el pueblo fantasma de Villa Epecuén.",
     historia: "Carhué se fundó en 1876 como fortín de la línea de frontera de la época, en el límite entre la provincia de Buenos Aires y La Pampa. A pocos kilómetros, sobre la orilla del lago Epecuén, se desarrolló desde 1920 la Villa Epecuén, un balneario termal que en sus mejores años recibió miles de turistas atraídos por las propiedades curativas del agua, comparables a las del Mar Muerto. En 1985 una crecida rompió el dique de contención y el lago inundó por completo la villa, que quedó bajo el agua durante más de veinte años. Cuando el agua bajó, dejó al descubierto las ruinas fantasmales del pueblo, que hoy es uno de los sitios más visitados de la región.",
     datoCurioso: "En enero de 2017, 1.941 personas tomadas de la mano flotaron juntas en el lago Epecuén y batieron un récord Guinness, gracias a la altísima salinidad del agua que permite flotar sin esfuerzo.",
@@ -616,7 +616,7 @@ const DESTINOS = [
     presupuesto: "Medio: el ingreso a las termas y el alojamiento con spa son el gasto principal; las ruinas de Epecuén son de acceso libre o de muy bajo costo.",
   },
   {
-    nombre: "General Belgrano", km: 160, categoria: "rio",
+    nombre: "General Belgrano", km: 160, categoria: "rio", lat: -35.7592, lng: -58.5019,
     nota: "Termas del Salado, el complejo termal más cercano a CABA.",
     historia: "General Belgrano nació en 1871 alrededor de la estación de tren \"Salado\", sobre el río homónimo, en una zona de campos fértiles del sur bonaerense. Durante décadas fue conocido principalmente como un destino de pesca y descanso junto al río, sin mayor desarrollo turístico. En 2012 la inauguración de las Termas del Salado, alimentadas por aguas descubiertas en los años 40 tras una perforación petrolera fallida, cambió por completo su perfil y lo convirtió en el complejo termal más cercano a la Ciudad de Buenos Aires. Hoy combina ese atractivo termal con el ritmo tranquilo de pueblo y el paisaje del río Salado.",
     datoCurioso: "Las aguas de las Termas del Salado se descubrieron por casualidad en la década de 1940, durante una perforación petrolera que no encontró petróleo pero sí una vertiente termal a 965 metros de profundidad.",
@@ -637,7 +637,7 @@ const DESTINOS = [
     presupuesto: "Medio: la entrada a las termas varía según edad y residencia, y es el gasto principal del paseo.",
   },
   {
-    nombre: "Tapalqué", km: 270, categoria: "campo",
+    nombre: "Tapalqué", km: 270, categoria: "campo", lat: -36.3554, lng: -60.0225,
     nota: "Pueblo gauchesco con complejo termal propio.",
     historia: "Tapalqué fue creada en su emplazamiento actual en 1863 por decreto del gobernador Mariano Saavedra, sobre un área que antes había sido asiento de guarniciones y fortines militares de la línea de frontera. Su nombre proviene del mapuche y hace referencia a los totorales que bordean el arroyo homónimo. Con el tiempo se consolidó como un pueblo de tradición gauchesca en el corazón de la llanura pampeana. En los últimos años sumó un complejo de aguas termales que renovó su perfil turístico, sin perder el ritmo tranquilo de pueblo de campo.",
     datoCurioso: "El Cantón Tapalqué Viejo, un antiguo fortín a 25 km del centro, fue escenario de enfrentamientos entre indígenas y criollos y hoy conserva la pulpería San Gervasio, fundada en 1850.",
@@ -658,7 +658,7 @@ const DESTINOS = [
     presupuesto: "Medio: el ingreso a las termas es el gasto principal del paseo.",
   },
   {
-    nombre: "Uribelarrea", km: 90, categoria: "pueblo",
+    nombre: "Uribelarrea", km: 90, categoria: "pueblo", lat: -35.1167, lng: -58.7167,
     nota: "Pueblo de campo con historia lechera y gran oferta gastronómica.",
     historia: "Uribelarrea nació a fines del siglo XIX en tierras donadas por su fundador, quien además dotó al naciente pueblo de escuelas, estación de ferrocarril, telégrafo y correo. Con la llegada del tren en 1892 y la inmigración italiana y española, se convirtió en un importante polo lechero, con más de un centenar de tambos y queserías que abastecían a Buenos Aires. Tras un largo período de decadencia a mediados del siglo XX, el pueblo fue redescubierto en las últimas décadas como destino de escapadas de fin de semana, gracias a su estética detenida en el tiempo. Hoy combina ese pasado rural con una gran oferta gastronómica que lo convirtió en uno de los pueblos de campo más visitados cerca de CABA.",
     datoCurioso: "Por su aspecto de época, Uribelarrea fue locación de películas como \"Juan Moreira\" de Leonardo Favio y \"Evita\" de Alan Parker, que dejó como legado los vitrales de la iglesia del pueblo.",
@@ -679,7 +679,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el paseo por el pueblo es gratuito, el gasto principal es la comida.",
   },
   {
-    nombre: "Pergamino", km: 230, categoria: "ciudad",
+    nombre: "Pergamino", km: 230, categoria: "ciudad", lat: -33.8969, lng: -60.5731,
     nota: "Capital Nacional de la Semilla, cultura y agroindustria.",
     historia: "Pergamino nació a fines del siglo XVI como fortín en el camino real hacia el Alto Perú, y fue declarada ciudad en 1895. Su ubicación en plena pampa ondulada la convirtió en un centro agrícola de referencia, con estaciones experimentales y empresas semilleras que en 1997 le valieron el título de Capital Nacional de la Semilla. Hoy combina ese perfil agroindustrial con una oferta cultural activa y doce pueblos rurales que forman parte del partido.",
     datoCurioso: "Pergamino es sede del INTA (Instituto Nacional de Tecnología Agropecuaria), que atiende las necesidades agrícolas de 44 partidos bonaerenses a través de un radar meteorológico propio.",
@@ -700,7 +700,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Pehuajó", km: 365, categoria: "campo",
+    nombre: "Pehuajó", km: 365, categoria: "campo", lat: -35.8022, lng: -61.8956,
     nota: "El pueblo de Manuelita la Tortuga, lagunas y tranquilidad.",
     historia: "Pehuajó nació en 1889 al calor de la llegada del ferrocarril, en una zona de esteros que le dio nombre en guaraní (\"estero profundo cenagoso\"). Con el tiempo se consolidó como un centro de servicios para la economía agrícola ganadera del noroeste bonaerense. La localidad se hizo popular en todo el país gracias a \"Manuelita, la tortuga\", la canción infantil de María Elena Walsh que lleva su nombre. Hoy combina ese cariño popular con lagunas para pesca y un trazado urbano tranquilo.",
     datoCurioso: "La canción \"Manuelita\" de María Elena Walsh, sobre una tortuga que viaja a París y vuelve a Pehuajó, inspiró también una película animada que representó a la Argentina en los Premios Oscar de 1999.",
@@ -721,7 +721,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Trenque Lauquen", km: 444, categoria: "campo",
+    nombre: "Trenque Lauquen", km: 444, categoria: "campo", lat: -35.9667, lng: -62.7333,
     nota: "Laguna redonda y pesca de pejerrey en el oeste bonaerense.",
     historia: "Trenque Lauquen se fundó en 1876 como centro de operaciones militares durante la expansión de la frontera hacia el oeste pampeano, bajo las órdenes del entonces ministro de Guerra Adolfo Alsina. Su nombre significa \"laguna redonda\" en mapuche, en referencia al espejo de agua que le dio origen. Con el tiempo se convirtió en un importante centro de servicios agropecuarios del oeste bonaerense, en la confluencia de dos rutas nacionales clave. Hoy combina ese rol de ciudad de campo con lagunas reconocidas por la pesca deportiva.",
     datoCurioso: "La laguna Hinojo Grande, a unos 25 km del centro, es reconocida por sus pejerreyes de hasta 500 gramos y atrae pescadores de todo el país.",
@@ -742,7 +742,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Coronel Suárez", km: 580, categoria: "campo",
+    nombre: "Coronel Suárez", km: 580, categoria: "campo", lat: -37.4514, lng: -61.9378,
     nota: "Capital del polo y estancias del sudoeste bonaerense.",
     historia: "Coronel Suárez nació en 1871 como fortín militar durante la expansión de la frontera hacia el sur, sobre el arroyo Sauce Corto. Con el correr de las décadas se consolidó como un centro agropecuario del sudoeste bonaerense, con una fuerte tradición en la cría de caballos de polo que la catapultó a la cima de ese deporte a nivel mundial. La localidad también reúne artesanos-joyeros especializados en platería fina de diseño gauchesco. Hoy combina ese perfil rural y deportivo con estancias que reciben visitantes para cabalgatas y días de campo.",
     datoCurioso: "Coronel Suárez formó a algunos de los mejores jugadores de polo del mundo, y sus estancias todavía crían caballos para ese deporte.",
@@ -763,7 +763,7 @@ const DESTINOS = [
     presupuesto: "Medio a alto: las estancias y actividades de polo suelen ser el gasto principal.",
   },
   {
-    nombre: "Pigüé", km: 580, categoria: "sierra",
+    nombre: "Pigüé", km: 580, categoria: "sierra", lat: -37.5993, lng: -62.3979,
     nota: "Pueblo de herencia francesa entre las sierras de Ventania.",
     historia: "Pigüé fue fundada en 1884 por un grupo de familias provenientes de la región francesa de L'Aveyron, acompañadas por inmigrantes españoles e italianos, lo que le dio una identidad europea poco común en la llanura pampeana. Ese origen todavía se refleja en su arquitectura, sus tradiciones y su gastronomía. Rodeada por los cordones serranos de Curamalal y Bravard, dentro del sistema de Ventania, se convirtió con el tiempo en un destino de naturaleza y turismo rural. Hoy combina ese patrimonio francés con senderos, arroyos y miradores serranos.",
     datoCurioso: "El origen francés de Pigüé se conserva en instituciones como el Teatro Español, la Sociedad Italiana y la Sociedad Francesa, que mantienen su arquitectura de época.",
@@ -784,7 +784,7 @@ const DESTINOS = [
     presupuesto: "Medio.",
   },
   {
-    nombre: "Tres Arroyos", km: 550, categoria: "playa",
+    nombre: "Tres Arroyos", km: 550, categoria: "playa", lat: -38.3739, lng: -60.2761,
     nota: "Herencia danesa, plazas europeas y el balneario de Claromecó.",
     historia: "Tres Arroyos fue fundada en 1884 sobre un trazado urbanístico diseñado por Dardo Rocha, el mismo fundador de La Plata, inspirado en un estilo europeo de plazas simétricas. La ciudad debe su nombre a la confluencia de tres arroyos que desembocan en el Océano Atlántico. A fines del siglo XIX recibió una fuerte inmigración danesa y neerlandesa, que dejó su huella en la gastronomía y las tradiciones locales. Hoy combina ese patrimonio europeo con el balneario de Claromecó, su playa principal, a pocos kilómetros del centro.",
     datoCurioso: "La gastronomía de Tres Arroyos combina la tradición pampeana con recetas danesas y neerlandesas, como el kringle, un pan dulce trenzado típico de la colectividad escandinava.",
@@ -805,7 +805,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Bahía Blanca", km: 650, categoria: "ciudad",
+    nombre: "Bahía Blanca", km: 650, categoria: "ciudad", lat: -38.7196, lng: -62.2724,
     nota: "Puerto, cultura y puerta de entrada a la Patagonia.",
     historia: "Bahía Blanca fue fundada en 1828 como fortín militar para asegurar el dominio del territorio del sur bonaerense. Su ubicación estratégica junto al mar la convirtió con el tiempo en uno de los puertos más importantes de Argentina, con una fuerte identidad industrial y naval. La llegada de inmigrantes europeos a fines del siglo XIX y principios del XX dejó su huella en barrios como el Barrio Inglés y en instituciones culturales como el Teatro Municipal. Hoy combina ese perfil portuario e industrial con una intensa vida universitaria y cultural, y funciona como puerta de entrada a la Patagonia.",
     datoCurioso: "El Museo del Puerto, en Ingeniero White, funciona en un antiguo edificio de la aduana y cuenta la historia de los inmigrantes que llegaron a trabajar en el puerto.",
@@ -826,7 +826,7 @@ const DESTINOS = [
     presupuesto: "Medio: hay opciones para todos los presupuestos, típico de una ciudad grande.",
   },
   {
-    nombre: "Monte Hermoso", km: 630, categoria: "playa",
+    nombre: "Monte Hermoso", km: 630, categoria: "playa", lat: -38.9847, lng: -61.2925,
     nota: "Playas de arena fina, casi en el límite provincial.",
     historia: "Monte Hermoso se fundó en la década de 1940 como balneario del sudoeste bonaerense, en un tramo de costa con una orientación poco común que hace que el sol salga y se ponga sobre el mar. Su desarrollo fue más tardío y a menor escala que el de los balnearios del centro de la provincia, lo que le dio un perfil más tranquilo y familiar. Con el tiempo se convirtió en el balneario de referencia para quienes viven en el sur bonaerense y en Bahía Blanca. Hoy combina playas de arena fina con una fuerte identidad de pueblo costero.",
     datoCurioso: "Por su orientación geográfica particular, Monte Hermoso es uno de los pocos lugares de la costa argentina donde se puede ver tanto la salida como la puesta de sol sobre el mar.",
@@ -847,7 +847,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Carmen de Patagones", km: 900, categoria: "ciudad",
+    nombre: "Carmen de Patagones", km: 900, categoria: "ciudad", lat: -40.7972, lng: -62.9819,
     nota: "La ciudad más austral de la provincia, casco colonial junto al río Negro.",
     historia: "Carmen de Patagones fue fundada en 1779 por orden del rey Carlos III de España, como parte de la estrategia para asegurar la soberanía española en el extremo sur del territorio. En 1827, sus pobladores (chacareros, artesanos, comerciantes y milicianos, entre ellos afrodescendientes) resistieron durante días una invasión naval brasileña, sin apoyo del gobierno central, en un episodio que se recuerda como una gesta local. Con el correr de las décadas se consolidó como la ciudad más austral de la provincia de Buenos Aires, unida a Viedma, capital de Río Negro, por el río Negro. Hoy conserva uno de los cascos históricos mejor preservados del país, declarado Poblado Histórico Nacional en 2003.",
     datoCurioso: "Las cuevas maragatas, excavadas en la arenisca de las barrancas del río Negro, sirvieron de vivienda a los primeros pobladores del siglo XIX y hoy recuerdan, por su forma, a las viviendas hobbit de la ficción.",
@@ -868,7 +868,7 @@ const DESTINOS = [
     presupuesto: "Medio: el mayor gasto suele ser el traslado, dado lo lejos que está de CABA.",
   },
   {
-    nombre: "Isla Martín García", km: 70, categoria: "rio",
+    nombre: "Isla Martín García", km: 70, categoria: "rio", lat: -34.1825, lng: -58.2531,
     nota: "Solo se llega en barco: historia, penal político y la única frontera seca con Uruguay.",
     historia: "Descubierta en 1516 por la expedición española de Juan Díaz de Solís, la isla fue disputada durante siglos entre España y Portugal por su posición estratégica en el Río de la Plata. A partir de 1900 funcionó como presidio político-militar y lazareto, y por sus celdas pasaron figuras como Hipólito Yrigoyen, Marcelo T. de Alvear, Juan Domingo Perón y Arturo Frondizi. En 1973 el Tratado del Río de la Plata reconoció la soberanía argentina sobre la isla, y en 1988 fue declarada Reserva de Usos Múltiples. Hoy es la única frontera seca entre Argentina y Uruguay, y combina naturaleza, historia y un pueblo casi congelado en el tiempo.",
     datoCurioso: "El llamado \"Barrio Chino\" de la isla, con casas abandonadas cubiertas de vegetación, no tiene relación con inmigración china: el nombre surgió por su aspecto laberíntico y abigarrado.",
@@ -889,7 +889,7 @@ const DESTINOS = [
     presupuesto: "Medio: el gasto principal es el pasaje en barco, que suele incluir la visita guiada y el almuerzo.",
   },
   {
-    nombre: "Bahía San Blas", km: 980, categoria: "playa",
+    nombre: "Bahía San Blas", km: 980, categoria: "playa", lat: -40.5486, lng: -62.1633,
     nota: "El extremo sur bonaerense: paraíso de la pesca embarcada y las ostras.",
     historia: "Bahía San Blas se desarrolló como villa balnearia sobre la Isla del Jabalí, en el extremo sur de la provincia de Buenos Aires, gracias a la riqueza pesquera de sus aguas protegidas. Con el tiempo se consolidó como uno de los destinos de pesca deportiva más reconocidos del país, con miles de salidas de pesca embarcada por temporada. La bahía y sus islas fueron declaradas Reserva Natural de Uso Múltiple por su valor como humedal y zona de nidificación de aves playeras. Hoy combina la pesca deportiva con una gastronomía marinera centrada en las ostras, producidas en la vecina localidad de Los Pocitos.",
     datoCurioso: "Los Pocitos, a pocos kilómetros de Bahía San Blas, es conocida como la \"Capital de las Ostras\" por su producción ostrícola, uno de los platos insignia de la zona.",
@@ -910,7 +910,7 @@ const DESTINOS = [
     presupuesto: "Medio: el gasto principal es la excursión de pesca embarcada y el traslado, dado lo lejos que está de CABA.",
   },
   {
-    nombre: "Navarro", km: 125, categoria: "rio",
+    nombre: "Navarro", km: 125, categoria: "rio", lat: -35.0044, lng: -59.2716,
     nota: "Laguna, historia patria y empanadas bonaerenses.",
     historia: "Navarro nació a fines del siglo XVIII como un fortín de la línea de frontera bonaerense, en tierras que entonces se conocían como \"los pagos de Navarro\" en homenaje al capitán Miguel Navarro, compañero de Juan de Garay. El pueblo fue escenario de uno de los episodios más sombríos de la historia argentina: en 1828, tras ser derrotado por las fuerzas de Juan Lavalle, el entonces gobernador Manuel Dorrego fue fusilado en las afueras del pueblo. Con el correr de las décadas, los trabajos sobre la laguna local fueron transformando ese episodio trágico en un destino de descanso y pesca. Hoy Navarro combina ese patrimonio histórico con una laguna de 180 hectáreas que es su gran atractivo recreativo.",
     datoCurioso: "El fusilamiento de Manuel Dorrego en 1828 ocurrió en el mismo lugar donde hoy se encuentra el Parque Histórico y Biográfico Manuel Dorrego, que recuerda ese episodio clave de las luchas civiles del siglo XIX.",
@@ -931,7 +931,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el paseo por la laguna y el parque histórico son gratuitos, el gasto principal es comida.",
   },
   {
-    nombre: "Lobos", km: 100, categoria: "rio",
+    nombre: "Lobos", km: 100, categoria: "rio", lat: -35.1889, lng: -59.0961,
     nota: "Laguna, estancias de polo y la casa natal de Perón.",
     historia: "La zona se pobló desde 1779 alrededor del Fortín San Pedro de los Lobos, construido por orden del virrey Vértiz para reforzar la línea de frontera con los pueblos originarios. En 1802 se estableció Ranchos de Lobos, una de las primeras estancias de la región, que dio origen al poblado. El partido cobró un lugar especial en la historia argentina al ser la cuna de Juan Domingo Perón, nacido allí en 1895. Con el tiempo, Lobos se consolidó como un destino de descanso en torno a su laguna, con estancias de nivel internacional y una fuerte tradición ganadera y láctea.",
     datoCurioso: "La Casa Natal de Juan Domingo Perón, hoy convertida en museo, es uno de los sitios históricos más visitados del partido y recuerda el nacimiento del expresidente en 1895.",
@@ -952,7 +952,7 @@ const DESTINOS = [
     presupuesto: "Medio: el paseo por el pueblo y la laguna es accesible, sube si se suma una estancia de alta gama.",
   },
   {
-    nombre: "San Andrés de Giles", km: 100, categoria: "pueblo",
+    nombre: "San Andrés de Giles", km: 100, categoria: "pueblo", lat: -34.4436, lng: -59.4423,
     nota: "Camino Real, pulperías y la última reunión de Rosas y Quiroga.",
     historia: "San Andrés de Giles fue fundado en 1806 sobre el antiguo Camino Real que unía Buenos Aires con el Alto Perú, en un cruce de postas y estancias del noroeste bonaerense. La cercana Estancia La Merced, conocida como Posta de Figueroa y construida en 1750, fue escenario del último encuentro entre Juan Manuel de Rosas y Facundo Quiroga en 1834, poco antes del asesinato de este último. El pueblo también fue la cuna del expresidente argentino Héctor J. Cámpora, cuya casa natal se conserva como sitio histórico. Hoy combina ese patrimonio con una vida de pueblo tranquila y una fuerte identidad gastronómica en sus pulperías.",
     datoCurioso: "La Posta de Figueroa, a pocos kilómetros del centro, fue el lugar del último encuentro entre Rosas y Quiroga en 1834, antes de que este último fuera asesinado camino a Córdoba.",
@@ -973,7 +973,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Carmen de Areco", km: 140, categoria: "pueblo",
+    nombre: "Carmen de Areco", km: 140, categoria: "pueblo", lat: -34.3535, lng: -59.8309,
     nota: "Fiesta Nacional del Pastel, herencia irlandesa y la Torre del Silencio.",
     historia: "Carmen de Areco se fundó en 1812 a partir de un fortín levantado a fines del siglo XVIII sobre el río Areco, en la misma línea de frontera que dio origen a Lobos, Navarro y Luján. La llegada de inmigrantes irlandeses durante el siglo XIX dejó una huella particular en la zona, visible todavía en apellidos, tradiciones y en la arquitectura de estancias y capillas. Con el tiempo, el partido desarrolló una fuerte identidad gastronómica en torno al pastel criollo, que hoy se celebra cada año con una fiesta de alcance nacional. Hoy Carmen de Areco combina ese patrimonio con los pueblos rurales de Gouin y Tres Sargentos, ambos parte del mismo circuito turístico.",
     datoCurioso: "La Torre del Silencio, una construcción de altura inusual en medio del cementerio local, es uno de los sitios más enigmáticos del pueblo: su función original nunca quedó del todo esclarecida.",
@@ -994,7 +994,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Suipacha", km: 126, categoria: "pueblo",
+    nombre: "Suipacha", km: 126, categoria: "pueblo", lat: -34.7692, lng: -59.6761,
     nota: "La Ruta del Queso, con tradición vasca, y el Festival del Osobuco.",
     historia: "Suipacha tomó su nombre en homenaje a la primera victoria militar de las fuerzas patrias en 1810, ocurrida en el Alto Perú, un triunfo que se recuerda en el Monolito Histórico de la plaza principal. La llegada de inmigrantes vascos a fines del siglo XIX y principios del XX dejó una fuerte tradición quesera en la zona, que durante décadas se mantuvo como una actividad familiar y artesanal. En 2008, un grupo de productores locales se organizó para potenciar esa tradición como atractivo turístico y creó la Ruta del Queso, hoy el gran sello distintivo del partido. Hoy Suipacha combina ese perfil gastronómico con el ritmo tranquilo de un pueblo de la pampa ondulada.",
     datoCurioso: "El nombre del pueblo conmemora la Batalla de Suipacha de 1810, la primera victoria militar patriota de las guerras de independencia, aunque ese combate ocurrió a miles de kilómetros, en el actual territorio de Bolivia.",
@@ -1015,7 +1015,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Chacabuco", km: 195, categoria: "campo",
+    nombre: "Chacabuco", km: 195, categoria: "campo", lat: -34.6403, lng: -60.4703,
     nota: "Laguna de Rocha, pesca y paisaje agreste en el noroeste bonaerense.",
     historia: "Chacabuco se fundó en 1865 y tomó su nombre en homenaje a la batalla de Chacabuco de 1817, un combate decisivo para la independencia de Chile y Perú, aunque ocurrido a miles de kilómetros de este partido bonaerense. Con la llegada del ferrocarril, la ciudad se consolidó como centro de servicios de una amplia zona agrícola y ganadera del noroeste de la provincia. La Laguna de Rocha, formada por un ensanchamiento del río Salado a 30 km del centro, se convirtió con el tiempo en el gran atractivo natural del partido. Hoy Chacabuco combina ese perfil agrícola tranquilo con la pesca deportiva y el paisaje agreste de sus lagunas.",
     datoCurioso: "El nombre de la ciudad, igual que el de la batalla que recuerda, no tiene relación geográfica directa con la zona: honra un combate librado en 1817 en la cordillera de los Andes, a más de mil kilómetros de distancia.",
@@ -1036,7 +1036,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el acceso a la laguna es libre y gratuito, el gasto principal es traslado y comida.",
   },
   {
-    nombre: "San Bernardo", km: 360, categoria: "playa",
+    nombre: "San Bernardo", km: 360, categoria: "playa", lat: -36.6833, lng: -56.6981,
     nota: "La ciudad del sol y la familia, con playas jóvenes y vida nocturna.",
     historia: "San Bernardo del Tuyú se desarrolló a partir de fines de la década de 1930, en simultáneo con el crecimiento turístico de todo el partido de La Costa. Su cercanía con Mar de Ajó y otras localidades balnearias la convirtió en un polo de encuentro para jóvenes desde mediados del siglo XX, un perfil que mantiene hasta hoy. La caldera del vapor \"Mar del Sur\", encallado en 1924 por un temporal, quedó como testimonio de los naufragios frecuentes en esta costa antes de que se consolidara el turismo. Hoy San Bernardo es conocida como \"la ciudad del sol y la familia\", con una oferta que combina playas familiares y una activa vida nocturna.",
     datoCurioso: "La caldera de hierro del vapor argentino Mar del Sur, encallado en la costa en 1924, todavía puede verse asomando entre las olas cerca de Costa Azul, al norte de San Bernardo.",
@@ -1057,7 +1057,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: una de las opciones más accesibles del partido de La Costa.",
   },
   {
-    nombre: "Adolfo Gonzáles Chaves", km: 600, categoria: "campo",
+    nombre: "Adolfo Gonzáles Chaves", km: 600, categoria: "campo", lat: -38.0281, lng: -60.1006,
     nota: "Otro capítulo de la ruta Salamone, en el sudeste bonaerense.",
     historia: "La localidad nació en 1886 alrededor de una estación del Ferrocarril del Sud, en tierras donadas dos décadas más tarde por el hacendado y político Adolfo Gonzales Chaves, que le dio su nombre. El partido se creó en 1916 con tierras cedidas por Juárez, Tres Arroyos y Necochea. En la segunda mitad de la década de 1930, el plan de obras públicas del arquitecto Francisco Salamone dejó en la ciudad tres edificios monumentales de estilo art decó que hoy forman parte del circuito turístico dedicado a su obra. Hoy Gonzales Chaves combina ese patrimonio arquitectónico con una economía basada en la producción de girasol y otros granos.",
     datoCurioso: "La torre del Palacio Municipal, obra de Salamone, se inspiró en el pabellón de turismo de la Exposición de Artes Decorativas de París de 1937, adaptando técnicas estructurales de vanguardia para la época.",
@@ -1078,7 +1078,7 @@ const DESTINOS = [
     presupuesto: "Bajo.",
   },
   {
-    nombre: "Escobar", km: 50, categoria: "rio",
+    nombre: "Escobar", km: 50, categoria: "rio", lat: -34.3479, lng: -58.7923,
     nota: "Temaikén, el bioparque más grande de Latinoamérica, y la Capital Nacional de la Flor.",
     historia: "Belén de Escobar se desarrolló desde fines del siglo XIX como un centro de producción de flores y frutas sobre el Paraná de las Palmas, gracias a la fertilidad de sus tierras y su cercanía con el puerto fluvial. La llegada de inmigrantes japoneses en 1929 dejó una huella particular en la horticultura local, visible hoy en el Jardín Japonés del pueblo. En 1964 la ciudad fue declarada Capital Nacional de la Flor, en reconocimiento a esa tradición floricultora que todavía se conserva en la Ruta de la Flor. En 2001 se inauguró Temaikén, hoy el bioparque más importante de Latinoamérica, que consolidó a Escobar como uno de los destinos de fin de semana más visitados cerca de CABA.",
     datoCurioso: "El nombre Temaikén significa \"tierra de vida\" en lengua tehuelche, y el bioparque recrea ambientes de la Patagonia, la Mesopotamia y África para más de 500 especies.",
@@ -1099,7 +1099,7 @@ const DESTINOS = [
     presupuesto: "Medio: Temaikén es el gasto principal del paseo.",
   },
   {
-    nombre: "Campana", km: 80, categoria: "rio",
+    nombre: "Campana", km: 80, categoria: "rio", lat: -34.1633, lng: -58.9592,
     nota: "Reserva natural, paseos en lancha y una bodega junto al río.",
     historia: "Campana se desarrolló desde fines del siglo XIX como un polo industrial sobre el Paraná de las Palmas, con una de las primeras destilerías de petróleo del país y, más tarde, una planta siderúrgica de escala nacional. Esa identidad industrial convive con un perfil menos conocido de ecoturismo, gracias a la Reserva Natural Otamendi, uno de los últimos remanentes de pastizal pampeano y bosque ribereño de la zona. En los últimos años sumó además un circuito de turismo enológico con viñedos junto al río, poco habitual para una ciudad de este perfil. Hoy Campana combina ese pasado obrero con paseos náuticos y observación de aves.",
     datoCurioso: "La Reserva Natural Otamendi, de 3.000 hectáreas, protege uno de los pocos remanentes de pastizal pampeano original de la zona y es un punto clave para el avistaje de aves migratorias.",
@@ -1120,7 +1120,7 @@ const DESTINOS = [
     presupuesto: "Medio.",
   },
   {
-    nombre: "Pilar", km: 54, categoria: "pueblo",
+    nombre: "Pilar", km: 54, categoria: "pueblo", lat: -34.4586, lng: -58.9142,
     nota: "El Cenotafio de Malvinas y estancias de día de campo.",
     historia: "El partido de Pilar se formó a comienzos del siglo XIX en torno a una capilla dedicada a la Virgen del Pilar, en tierras que combinaban estancias y chacras cercanas a Buenos Aires. Durante buena parte del siglo XX mantuvo un perfil rural, hasta que la llegada de countries y barrios cerrados a partir de los años 90 transformó buena parte de su paisaje. En 1992 se inauguró allí el Cenotafio de Malvinas, una réplica exacta del cementerio militar británico de Darwin en las Islas Malvinas, construida para homenajear a los combatientes argentinos caídos en el conflicto de 1982. Hoy Pilar combina ese sitio de memoria con estancias de turismo rural y una intensa vida de countries y centros comerciales.",
     datoCurioso: "El Cenotafio de Malvinas reproduce, en forma y medidas exactas, el cementerio militar de Darwin habilitado por el Reino Unido en la Isla Soledad, con 649 cruces blancas que llevan el nombre de cada soldado argentino caído.",
@@ -1141,7 +1141,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el Cenotafio es gratuito, el día de campo en estancia es el gasto principal.",
   },
   {
-    nombre: "Berisso", km: 65, categoria: "rio",
+    nombre: "Berisso", km: 65, categoria: "rio", lat: -34.8736, lng: -57.8828,
     nota: "Capital Provincial del Inmigrante y el Vino de la Costa.",
     historia: "Berisso creció a fines del siglo XIX y principios del XX alrededor de los frigoríficos que se instalaron en su puerto sobre el Río de la Plata, lo que atrajo a una enorme oleada de inmigrantes europeos que llegaron a trabajar en esas plantas. Esa diversidad, con más de 26 colectividades representadas, le valió el título de Capital Provincial del Inmigrante y dio origen en 1976 a la Fiesta Provincial del Inmigrante, una de las celebraciones étnicas más grandes del país. La ciudad también ocupa un lugar central en la historia política argentina: desde allí partió buena parte de la movilización obrera del 17 de octubre de 1945, un hito fundacional del peronismo. Hoy Berisso combina ese pasado industrial y migrante con el cultivo artesanal del Vino de la Costa, elaborado con uva Isabella en las islas del Río de la Plata.",
     datoCurioso: "El Vino de la Costa se elabora con la uva americana Isabella, cultivada en las tierras bajas de Isla Paulino, una tradición que trajeron los inmigrantes italianos y que hoy se recupera como producto artesanal de la zona.",
@@ -1162,7 +1162,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: la fiesta del inmigrante tiene actividades gratuitas, el gasto principal es la gastronomía.",
   },
   {
-    nombre: "Ayacucho", km: 300, categoria: "campo",
+    nombre: "Ayacucho", km: 300, categoria: "campo", lat: -37.1489, lng: -58.4919,
     nota: "Capital Nacional del Ternero, y el único lugar real del Martín Fierro.",
     historia: "El partido de Ayacucho se creó en 1865 sobre tierras separadas de Tandil, Mar Chiquita y Vecino, y tomó su nombre en homenaje a la batalla de Ayacucho de 1824, la última librada por la independencia sudamericana, aunque ocurrida a miles de kilómetros en el Perú. La ciudad fue fundada oficialmente en 1866 por gestión del hacendado José Zoilo Miguens. Es el único lugar real mencionado a lo largo de todo el poema \"Martín Fierro\", de José Hernández, lo que le da un lugar especial en la literatura gauchesca argentina. Hoy Ayacucho es conocida como la Capital Nacional del Ternero, gracias a una economía basada en la cría de ganado.",
     datoCurioso: "Ayacucho es el único lugar geográfico real que se menciona a lo largo de todo el poema \"Martín Fierro\", la obra cumbre de la literatura gauchesca argentina.",
@@ -1183,7 +1183,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Rauch", km: 277, categoria: "campo",
+    nombre: "Rauch", km: 277, categoria: "campo", lat: -36.7783, lng: -58.0489,
     nota: "El histórico Puente Silva y balnearios sobre el arroyo Chapaleofú.",
     historia: "El partido de Rauch se creó en 1865 por gestión del juez de paz Francisco Mauricio Letamendi, en una zona surcada por los arroyos Chapaleofú, De los Huesos y Langueyú que desaguan hacia el río Salado. La ciudad desarrolló desde entonces una economía agrícola-ganadera, hoy acompañada por una estación experimental del INTA dedicada a la investigación de la cuenca del Salado. El Puente Silva, construido en 1875 sobre el arroyo Chapaleofú, es uno de los testimonios más antiguos de la infraestructura rural de la zona y fue declarado monumento de significación histórica. Hoy Rauch combina ese perfil rural con espacios recreativos junto a sus arroyos.",
     datoCurioso: "El Puente Silva, también llamado Puente de Bovedilla, se construyó en 1875 y todavía se conserva como monumento histórico sobre el arroyo Chapaleofú.",
@@ -1204,7 +1204,7 @@ const DESTINOS = [
     presupuesto: "Bajo.",
   },
   {
-    nombre: "Olavarría", km: 372, categoria: "sierra",
+    nombre: "Olavarría", km: 372, categoria: "sierra", lat: -36.8927, lng: -60.3225,
     nota: "Canteras, el vitral más grande de Latinoamérica y bodegas boutique.",
     historia: "Olavarría se desarrolló desde fines del siglo XIX en torno a la explotación de las canteras de piedra caliza de las Sierras Bayas, que impulsaron una potente industria cementera todavía vigente en la región. La llegada de inmigrantes de distintas colectividades, sumada a colonias agrícolas como San Miguel, Hinojo y Nievas, le dio a la zona una fuerte identidad religiosa y comunitaria. Esa devoción se expresa hoy en más de veinte templos y en la peregrinación a la Virgen de la Loma durante Semana Santa. Hoy Olavarría combina ese perfil industrial y religioso con paisajes de sierras y viñedos boutique en las localidades rurales del partido.",
     datoCurioso: "En las Sierras Bayas se encuentra el vitral más grande de Latinoamérica, una obra de gran escala vinculada a la historia productiva de las canteras de la zona.",
@@ -1225,7 +1225,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "General Madariaga", km: 340, categoria: "campo",
+    nombre: "General Madariaga", km: 340, categoria: "campo", lat: -37.0044, lng: -57.1425,
     nota: "El Pago Gaucho, parada clásica camino a Pinamar y Villa Gesell.",
     historia: "General Madariaga se fundó en 1907 en el sudeste de la provincia, en tierras dedicadas históricamente a la ganadería y rodeadas de montes de tala y lagunas. Su cercanía con los balnearios de Pinamar y Villa Gesell la convirtió con el tiempo en una parada obligada camino a la costa, aunque conservó un perfil rural propio bajo el apodo de \"Pago Gaucho\". La tradición campera se mantiene viva en sus fogones, desfiles y jineteadas, y en talleres de artesanos dedicados sobre todo a la platería. Hoy combina ese patrimonio gauchesco con la pesca deportiva en sus lagunas Los Horcones y Salada Grande.",
     datoCurioso: "La laguna Salada Grande, de casi 5.500 hectáreas, es un espejo de agua salada rodeado de montes de tala donde conviven nutrias, carpinchos, garzas y cisnes.",
@@ -1332,6 +1332,19 @@ function toggleFavorito(nombre) {
 
 let favoritos = cargarFavoritos();
 
+const CABA_COORDS = { lat: -34.6037, lng: -58.3816 };
+
+const CATEGORIA_COLOR = {
+  playa: "#4E86A6",
+  sierra: "#8C6B4F",
+  rio: "#4E8C6B",
+  campo: "#A69A3D",
+  pueblo: "#C1440E",
+  ciudad: "#C9BFA1",
+};
+
+let vista = "lista";
+
 const el = {
   distanciaValor: document.getElementById("distancia-valor"),
   slider: document.getElementById("slider"),
@@ -1340,13 +1353,88 @@ const el = {
   buscadorForm: document.getElementById("form-buscar"),
   filtros: document.getElementById("filtros"),
   contador: document.getElementById("contador"),
+  vistaToggle: document.getElementById("vista-toggle"),
   lista: document.getElementById("lista"),
+  mapaWrap: document.getElementById("mapa-wrap"),
+  mapaSvg: document.getElementById("mapa-svg"),
+  mapaLeyenda: document.getElementById("mapa-leyenda"),
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
   modal: document.getElementById("modal"),
 };
 
+el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    vista = btn.dataset.vista;
+    render();
+  });
+});
+
+function proyectar(destinos) {
+  const puntos = [...destinos.map((d) => ({ lat: d.lat, lng: d.lng })), CABA_COORDS];
+  let latMin = Math.min(...puntos.map((p) => p.lat));
+  let latMax = Math.max(...puntos.map((p) => p.lat));
+  let lngMin = Math.min(...puntos.map((p) => p.lng));
+  let lngMax = Math.max(...puntos.map((p) => p.lng));
+  const latPad = Math.max((latMax - latMin) * 0.1, 0.4);
+  const lngPad = Math.max((lngMax - lngMin) * 0.1, 0.4);
+  latMin -= latPad;
+  latMax += latPad;
+  lngMin -= lngPad;
+  lngMax += lngPad;
+  const cosLat = Math.cos(((latMin + latMax) / 2) * (Math.PI / 180));
+  const H = 100;
+  const W = Math.max(H * (((lngMax - lngMin) * cosLat) / (latMax - latMin)), 40);
+  return {
+    W,
+    H,
+    proyectarPunto: (lat, lng) => ({
+      x: ((lng - lngMin) / (lngMax - lngMin)) * W,
+      y: ((latMax - lat) / (latMax - latMin)) * H,
+    }),
+  };
+}
+
+function renderMapa(resultados) {
+  const { W, H, proyectarPunto } = proyectar(resultados);
+  el.mapaSvg.setAttribute("viewBox", `0 0 ${W.toFixed(2)} ${H}`);
+
+  const caba = proyectarPunto(CABA_COORDS.lat, CABA_COORDS.lng);
+  let html = `
+    <circle cx="${caba.x.toFixed(2)}" cy="${caba.y.toFixed(2)}" r="1.6" class="mapa-caba-punto"></circle>
+    <text x="${caba.x.toFixed(2)}" y="${(caba.y - 2.6).toFixed(2)}" class="mapa-caba-label">CABA</text>
+  `;
+
+  resultados.forEach((d) => {
+    const p = proyectarPunto(d.lat, d.lng);
+    const color = CATEGORIA_COLOR[d.categoria] || "#C1440E";
+    const esFav = favoritos.has(d.nombre);
+    html += `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="1.35" fill="${color}" class="mapa-punto ${esFav ? "mapa-punto-fav" : ""}" data-nombre="${d.nombre}"><title>${d.nombre} · ${d.km} km</title></circle>`;
+  });
+
+  el.mapaSvg.innerHTML = html;
+  el.mapaSvg.querySelectorAll(".mapa-punto").forEach((c) => {
+    c.addEventListener("click", () => {
+      const destino = DESTINOS.find((x) => x.nombre === c.dataset.nombre);
+      abrirModal(destino);
+    });
+  });
+
+  const categoriasPresentes = [...new Set(resultados.map((d) => d.categoria))];
+  el.mapaLeyenda.innerHTML = categoriasPresentes
+    .map((catId) => {
+      const cat = CATEGORIAS.find((c) => c.id === catId);
+      const color = CATEGORIA_COLOR[catId] || "#C1440E";
+      return `<div class="mapa-leyenda-item"><span class="mapa-leyenda-dot" style="background:${color}"></span>${cat ? cat.label : catId}</div>`;
+    })
+    .join("");
+}
+
 function render() {
+  el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
+    btn.classList.toggle("vista-activo", btn.dataset.vista === vista);
+  });
+
   el.distanciaValor.textContent = distancia;
   el.slider.value = distancia;
 
@@ -1400,6 +1488,7 @@ function render() {
 
   if (resultados.length === 0) {
     el.lista.style.display = "none";
+    el.mapaWrap.style.display = "none";
     el.vacio.style.display = "block";
     if (busqueda) {
       el.vacio.textContent = `No encontramos ningún destino que coincida con "${busqueda}" dentro de los filtros elegidos.`;
@@ -1408,8 +1497,14 @@ function render() {
     } else {
       el.vacio.textContent = "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.";
     }
+  } else if (vista === "mapa") {
+    el.vacio.style.display = "none";
+    el.lista.style.display = "none";
+    el.mapaWrap.style.display = "block";
+    renderMapa(resultados);
   } else {
     el.vacio.style.display = "none";
+    el.mapaWrap.style.display = "none";
     el.lista.style.display = "flex";
     el.lista.innerHTML = resultados
       .map((d) => {
