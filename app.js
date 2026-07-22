@@ -1289,6 +1289,1241 @@ const DESTINOS = [
   },
 ];
 
+// --- Traducción al inglés del contenido de cada destino ---------------------
+// Se completa de a poco, destino por destino (clave = "nombre" en español,
+// que se mantiene igual en los dos idiomas ya que son nombres propios).
+// Si un destino todavía no tiene traducción, textoDestino() devuelve el
+// contenido en español como respaldo, para no romper nada mientras se traduce.
+const DESTINOS_EN = {
+  "Tigre": {
+    nota: "Delta, passenger boats, and the fruit market port.",
+    historia: "The area was originally home to Guaraní communities who took advantage of the delta's richness for fishing and hunting. Toward the end of the 19th century, with the arrival of the railway, Tigre became the favorite leisure destination of Buenos Aires high society, which built rowing clubs and held international-level regattas along the river's branches. For much of the 20th century, mass tourism shifted toward the Atlantic coast and Tigre went through a quieter period, until the 1990s, when it regained its place as a weekend destination thanks to the revival of the Puerto de Frutos market, its museums, and boat tours. Today it remains the best-known gateway to the Paraná Delta, a unique ecosystem of islands inhabited year-round by their own residents.",
+    datoCurioso: "The name comes from the jaguars (\"tigres\" to the colonizers) that once roamed the area, hunted until they disappeared in the early 20th century.",
+    comoLlegar: "Mitre train line from Retiro to Tigre station, or the Panamericana highway, Tigre branch.",
+    cuandoIr: "Year-round; spring and fall for walks, summer for boat rides and river beaches.",
+    duracion: "A full day, so you don't have to rush the boat ride.",
+    comoMoverse: "The town is walkable; reaching the delta islands requires a boat (shared or private tour), since there are no bridges or roads.",
+    itinerario: [
+      { momento: "Morning", actividad: "Train to Tigre and a shared boat ride along the delta's branches." },
+      { momento: "Afternoon", actividad: "Puerto de Frutos market (crafts and fairs) and lunch by the river." },
+      { momento: "Evening", actividad: "Dinner at Paseo Victorica overlooking the Luján River, or head back to CABA." },
+    ],
+    otrosAtractivos: ["Mate Museum", "Naval Museum of the Nation", "Parque de la Costa amusement park and Aquafan water park", "Río Luján Nature Reserve"],
+    eventos: ["Carnival parade along Paseo Victorica, February", "River Festival, summer", "Rowing regattas on the Luján River, March"],
+    dondeComer: ["River fish stalls at Puerto de Frutos", "Restaurants with terraces along Paseo Victorica", "Historic cafés near the Tigre Art Museum"],
+    dondeAlojarse: ["Delta island inns, reachable only by boat", "Boutique hotels along Paseo Victorica", "Weekend cabins in Tigre town"],
+    tips: ["Buy the shared boat ticket at the river station, not from street agencies", "Go on a weekday to avoid crowds at Puerto de Frutos", "Bring sunscreen and water, there's little shade on the boat", "Book island excursions ahead of time in high season"],
+    presupuesto: "Medium: the train and shared boat are affordable; the biggest expense is usually lunch and crafts.",
+  },
+  "San Isidro": {
+    nota: "Cathedral, historic center, and the riverside.",
+    historia: "It was part of the land granted to the first colonizers of the Río de la Plata, and from the 18th century it was settled as an area of country homes for well-off Buenos Aires families. The current cathedral, built in neo-Gothic style in the late 19th century, became the symbolic heart of the town, around which the historic center grew. In the early 20th century it developed its residential and cultural identity, with intellectuals and artists who found a quiet retreat close to the city in its estates; writer Victoria Ocampo, founder of Sur magazine, had one of her homes here. Over the decades the district expanded northward, and today it combines the colonial layout of its center with upscale residential areas and an active cultural and sports scene.",
+    datoCurioso: "The Quinta Los Ombúes estate, now the Pueyrredón Museum, belonged to the family of General Juan Martín de Pueyrredón and still has centuries-old trees from colonial times.",
+    comoLlegar: "Mitre train, San Isidro line, from Retiro, or Av. del Libertador by car.",
+    cuandoIr: "Year-round; weekends are livelier along the pedestrian street.",
+    duracion: "Half a day, pairs well with Tigre.",
+    comoMoverse: "Easy to walk from the train station; local buses run to the riverside, or you can bike along the Ribera.",
+    itinerario: [
+      { momento: "Morning", actividad: "San Isidro Cathedral, Plaza Mitre, and Ituzaingó pedestrian street." },
+      { momento: "Afternoon", actividad: "Quinta Los Ombúes (Pueyrredón Museum) and the riverside." },
+      { momento: "Evening", actividad: "Bars in Villa Adelina, or head back to CABA by train." },
+    ],
+    otrosAtractivos: ["Villa Ocampo, Victoria Ocampo's house-museum in Beccar", "Contemporary Art Museum (MACBA)", "Ribera Norte Municipal Nature Park", "San Isidro Golf Club"],
+    eventos: ["Races at the Hipódromo, check the weekend schedule", "Craft fair on the Ribera, weekends", "San Isidro Labrador patron saint festival, May"],
+    dondeComer: ["Bars along Ituzaingó pedestrian street with open-air patios", "Traditional grills near the station", "Specialty cafés downtown"],
+    dondeAlojarse: ["Boutique hotels near the coast", "International chain hotels along the Panamericana"],
+    tips: ["Go on a weekend for the craft fairs on the pedestrian street", "Villa Ocampo offers guided tours Friday through Sunday and holidays", "The Hipódromo has races some Saturdays, worth checking the calendar", "Pairs well with Tigre on the same day given how close they are"],
+    presupuesto: "Low to medium: being so close to CABA, a train ticket and some food is enough.",
+  },
+  "Luján": {
+    nota: "Basilica and pilgrimage, religious tourism.",
+    historia: "The town's name is tied to a legend: in 1630, a cart carrying an image of the Virgin Mary stopped without apparent reason and wouldn't move again until the image was taken down, which then became the area's patron saint. Around that devotion, a settlement grew over the following centuries that became the country's most important Catholic pilgrimage site. The current neo-Gothic basilica is the third built on the site: the two previous ones didn't survive the passage of time, which reinforced among the faithful the need for a temple worthy of the people's devotion. Today Luján receives millions of pilgrims a year, especially during the traditional October walk from Buenos Aires, in addition to visitors drawn by its historic heritage and museums.",
+    datoCurioso: "The current basilica is the third built on the site; the previous two collapsed, which reinforced among the faithful the need for a temple worthy of that devotion.",
+    comoLlegar: "National Route 7 or Acceso Oeste, about 1 hour by car; direct buses are also available.",
+    cuandoIr: "Year-round; the first Sunday of October is the big youth pilgrimage.",
+    duracion: "Half a day.",
+    comoMoverse: "The historic center is easy to walk; a car is useful for reaching nearby estancias.",
+    itinerario: [
+      { momento: "Morning", actividad: "Luján Basilica and its museum of offerings." },
+      { momento: "Midday", actividad: "Lunch near the main square." },
+      { momento: "Afternoon", actividad: "Enrique Udaondo Museum Complex and the Luján riverside." },
+    ],
+    otrosAtractivos: ["Carlos Keen, a food-focused village 14 km from downtown", "San Benito Abbey, a monastery in Jáuregui known for handmade sweets", "Transport Museum (part of the Udaondo Complex)", "Ameghino Park"],
+    eventos: ["Youth pilgrimage on foot from CABA, first Sunday of October", "Feast of the Virgin, May 8", "Indigenous peoples' pilgrimage, May"],
+    dondeComer: ["Home-style restaurants around the Basilica", "Cafés with regional pastries and sweets", "Grills along the access road"],
+    dondeAlojarse: ["Budget hotels near the Basilica, aimed at pilgrims", "Country inns on the outskirts"],
+    tips: ["Avoid the first Sunday of October if you're not after the mass pilgrimage (or go for exactly that reason)", "Entry to the Basilica is free, donations are welcome", "Pair it with a nearby estancia for a day in the countryside", "Wear comfortable shoes, there's a fair amount of walking"],
+    presupuesto: "Low: the main religious sites are free, the expense is mostly food and transport.",
+  },
+  "Cañuelas": {
+    nota: "Estancias and rural tourism close to the city.",
+    historia: "The district took shape in the mid-19th century during the boom of cattle ranching on the pampas, when estancias began organizing as large-scale production units. For decades it was a key railway hub for moving livestock to Buenos Aires markets, which drove the town's growth around the station. Over time, many estancias converted part of their activity to rural tourism, offering visitors a countryside experience with horse breaking, rodeo, and Creole food. Today Cañuelas is one of the most popular rural tourism destinations near Buenos Aires City, thanks to its proximity and the ranching tradition still felt in the area.",
+    datoCurioso: "According to popular tradition, dulce de leche was invented by accident in 1829 at Estancia La Caledonia, near Cañuelas, when a pot of sweetened milk was left boiling too long.",
+    comoLlegar: "Ricchieri highway and then Route 205, about 1 hour by car.",
+    cuandoIr: "Spring and fall for outdoor countryside activities.",
+    duracion: "A full day.",
+    comoMoverse: "It's a rural area: getting between estancias requires your own car or the transport each estancia offers.",
+    itinerario: [
+      { momento: "Morning", actividad: "Arrival at the estancia and a ride on horseback or in a sulky." },
+      { momento: "Midday", actividad: "Creole barbecue with live folk music." },
+      { momento: "Afternoon", actividad: "Horse breaking, rodeo, mate, and fried pastries before heading back." },
+    ],
+    otrosAtractivos: ["Cañuelas Lagoon", "Municipal History Museum", "Old train station (now a cultural center)", "Municipal nature reserve"],
+    eventos: ["Provincial Calf Festival, October", "Cañuelas rural expo", "Creole parade for the district's anniversary"],
+    dondeComer: ["Lunch is usually included in the estancia's day-in-the-country package", "Small-town restaurants in downtown Cañuelas"],
+    dondeAlojarse: ["Estancias offering overnight stays", "Town lodging for those just passing through"],
+    tips: ["Book the day in the country ahead of time, especially on weekends", "Ask whether the package includes transport from CABA", "Wear comfortable clothes and sunscreen for horseback activities", "Great for groups or families, often with group discounts"],
+    presupuesto: "Medium to high: the estancia day trip (transport, food, and activities) is usually the main expense.",
+  },
+  "La Plata": {
+    nota: "Cathedral, woods, and a one-of-a-kind city layout.",
+    historia: "The city was founded in 1882 by then-governor Dardo Rocha, after Buenos Aires was federalized and the province needed a new capital. It was designed from scratch as a modern city for its time, with diagonal streets and a plaza every six blocks meant to guarantee accessible green spaces. Its landmark buildings, like the Cathedral and the Natural History Museum, were meant as a showcase of Argentine progress in the late 19th century, in step with the country's agro-export boom. Over the years, the founding of the National University of La Plata in the early 20th century cemented its identity as a university city, one it still holds today alongside its administrative role as the provincial capital.",
+    datoCurioso: "The layout was designed so that no point in the city would be more than 700 meters from a green space, unusual for a late-19th-century city.",
+    comoLlegar: "Buenos Aires-La Plata highway, or the Roca train line from Constitución.",
+    cuandoIr: "Year-round; the Woods (Bosque) are lovely in fall and spring.",
+    duracion: "A full day.",
+    comoMoverse: "The downtown grid is easy to walk or bike thanks to its checkerboard layout; there's a public bike-share system.",
+    itinerario: [
+      { momento: "Morning", actividad: "La Plata Cathedral and Plaza Moreno." },
+      { momento: "Midday", actividad: "Lunch near Plaza San Martín or Diagonal 74." },
+      { momento: "Afternoon", actividad: "Natural History Museum and a walk through the Bosque park." },
+    ],
+    otrosAtractivos: ["Casa Curutchet, the only Le Corbusier building in Latin America and a UNESCO World Heritage Site", "Pasaje Dardo Rocha cultural center, home to MACLA and MUMART", "Teatro Argentino and the Bosque Planetarium", "Astronomical Observatory"],
+    eventos: ["City founding anniversary, November 19", "Student Festival, September", "Design fairs at Pasaje Dardo Rocha, year-round"],
+    dondeComer: ["Well-known bars downtown", "Calle 8 dining strip or Pasaje Dardo Rocha", "Craft breweries near the university area"],
+    dondeAlojarse: ["Downtown hotels near Plaza Moreno", "Hostels geared toward students, typical of a university city"],
+    tips: ["Climb the Cathedral towers if tours are running that day", "Casa Curutchet requires a reservation, book ahead", "The Natural History Museum tends to have lines, go early", "La Plata is easy to explore on foot or by bike thanks to its grid layout"],
+    presupuesto: "Low to medium: several attractions (cathedral, museum, the Bosque) are free or very affordable.",
+  },
+  "Zárate": {
+    nota: "Riverside walk on the Paraná and the Zárate-Brazo Largo bridge.",
+    historia: "The area developed as a town in the mid-19th century around port activity on the Paraná de las Palmas river, taking advantage of its strategic location for river trade. For much of the 20th century, Zárate became an industrial hub, with shipyards and meatpacking plants that employed much of its population and shaped its working-class identity. The Zárate-Brazo Largo bridge complex, opened in 1977, was a turning point, connecting the city directly with Entre Ríos and the Mesopotamia region. Today it combines that industrial and port past with a more tourism-oriented profile centered on its riverside walk and the landscape of the Buenos Aires delta.",
+    datoCurioso: "When it opened, the Zárate-Brazo Largo bridge complex was one of the longest in South America built over a system of islands and rivers.",
+    comoLlegar: "Panamericana highway, Escobar branch, to Zárate, or train from Retiro.",
+    cuandoIr: "Spring and summer to enjoy the riverside walk.",
+    duracion: "Half a day.",
+    comoMoverse: "The downtown and riverside are walkable; crossing the bridge into Entre Ríos requires a car.",
+    itinerario: [
+      { momento: "Morning", actividad: "Riverside walk and pier on the Paraná." },
+      { momento: "Midday", actividad: "River fish for lunch by the coast." },
+      { momento: "Afternoon", actividad: "Municipal history museum and the Zárate-Brazo Largo bridge lookout." },
+    ],
+    otrosAtractivos: ["Paraná de las Palmas nature reserve", "Municipal park", "Historic port and industrial area", "Río Santiago shipyard (occasional tours)"],
+    eventos: ["Immigrants' Festival", "Regatta on the Paraná de las Palmas", "City anniversary, August"],
+    dondeComer: ["Fish restaurants along the riverside", "Grills in the city center"],
+    dondeAlojarse: ["Stopover hotels, since it's usually visited in a day", "Chain options along the access road"],
+    tips: ["Drive if you want to cross the bridge into Entre Ríos for a day trip", "The riverside walk is pleasant at sunset", "A good stopover if continuing on to Entre Ríos or Rosario"],
+    presupuesto: "Low: the riverside walk and museum are free, the main cost is food.",
+  },
+  "Capilla del Señor": {
+    nota: "A colonial village declared a national historic site.",
+    historia: "The village grew around a chapel built in the 18th century, which gave it its name, in an area of estancias and staging posts that gave travelers heading north through the province a place to rest. Unlike other Buenos Aires towns that modernized their architecture over the decades, Capilla del Señor kept its colonial layout almost intact, which led to it being declared a National Historic Heritage Site in 1994, the country's first \"Historic Town\" with that distinction. That recognition helped preserve its old houses and cobblestone streets, which today attract visitors looking for an uncommon postcard scene within the province. The town also keeps its ties to nearby estancias, which combine farming with hosting visitors.",
+    datoCurioso: "Before becoming Pope, Jorge Bergoglio met with the town's Catholic community at the parish church shortly after being ordained a priest; today a downtown passage is named after him in his honor.",
+    comoLlegar: "Route 8 to Pilar, then provincial roads to Capilla del Señor.",
+    cuandoIr: "Year-round; weekends have more dining options.",
+    duracion: "Half a day.",
+    comoMoverse: "The town is small and can be walked entirely in under an hour; a car is useful for nearby estancias.",
+    itinerario: [
+      { momento: "Morning", actividad: "Historic center and Plaza Belgrano." },
+      { momento: "Midday", actividad: "Lunch at a colonial house turned restaurant." },
+      { momento: "Afternoon", actividad: "A horse-drawn carriage ride through town, or a visit to a nearby estancia." },
+    ],
+    otrosAtractivos: ["Pulpería Los Ombúes, one of the oldest in the country", "Los Cardales, a neighboring village in the same district with a train station dating to 1902", "Criollo Museum", "Historic estancias in the area"],
+    eventos: ["Patron saint festivities, September 14, the province's oldest religious celebration", "Craft fair, some weekends", "Historic carriage parade"],
+    dondeComer: ["Colonial houses turned regional-food restaurants", "Small-town cafés with homemade goods"],
+    dondeAlojarse: ["Boutique inns within the historic center", "Nearby estancias with lodging"],
+    tips: ["Go on a weekday to explore it at a relaxed pace", "Hot-air balloon rides over the area are available, worth booking ahead", "Take photos of the colonial façades, among the best preserved in the province", "Ask about craft fairs on some weekends"],
+    presupuesto: "Low to medium: walking the town is free, the main expense is food and maybe a carriage ride.",
+  },
+  "San Antonio de Areco": {
+    nota: "Capital of gaucho tradition, museums, and leatherworkers.",
+    historia: "Founded in the 18th century on the banks of the Areco River, the town grew under the wing of the cattle estancias that dominated the pampas region. In the early 20th century, writer Ricardo Güiraldes, son of a local ranching family, immortalized the life of local gauchos in his novel \"Don Segundo Sombra,\" which turned the town into a symbol of Argentine Creole tradition. That legacy was institutionalized decades later with the creation of the Gauchesco Museum bearing his name and the declaration of Tradition Day, celebrated every November since the mid-20th century with parades and rodeo shows. Today San Antonio de Areco is recognized as the national capital of gaucho tradition, with a community of leatherworkers and silversmiths keeping centuries-old crafts alive.",
+    datoCurioso: "Güiraldes wrote much of that novel inspired by the gauchos he met at his family's estancia near the town.",
+    comoLlegar: "National Route 8, about 1h30 by car; direct buses are also available.",
+    cuandoIr: "Year-round; Tradition Day in November brings gaucho parades.",
+    duracion: "A full day or a weekend.",
+    comoMoverse: "The historic center is easy to walk; a car or an estancia's own transport is needed for ranches farther from town.",
+    itinerario: [
+      { momento: "Morning", actividad: "Ricardo Güiraldes Gauchesco Museum and the Puente Viejo bridge over the Areco River." },
+      { momento: "Midday", actividad: "Lunch at a pulpería or country restaurant." },
+      { momento: "Afternoon", actividad: "Leatherwork and silversmith shops downtown." },
+      { momento: "Evening (if staying)", actividad: "Dinner at an estancia with a folk music show." },
+    ],
+    otrosAtractivos: ["Parque Criollo", "Draghi Cultural Center and Museum (silverwork)", "Nuestra Señora del Rosario Church", "Puente Viejo bridge (1857)"],
+    eventos: ["Tradition Day, second weekend of November", "Silverwork and leatherwork exhibition", "Creole Festival"],
+    dondeComer: ["Historic pulperías downtown", "Grills along the Areco River", "Bakeries with regional sweets"],
+    dondeAlojarse: ["Traditional estancias with activities included", "Boutique inns in the historic center"],
+    tips: ["Tradition Day (November) has gaucho parades, but also large crowds", "The leatherwork shops are some of the best in the country for leather souvenirs", "Staying overnight at an estancia lets you enjoy it at a calmer pace", "Book lunch at popular pulperías in advance on weekends"],
+    presupuesto: "Medium: walking the town is affordable, it goes up if you add an estancia with activities or an overnight stay.",
+  },
+  "Mercedes": {
+    nota: "Gateway to estancias and rural tourism.",
+    historia: "The city was founded in 1752 as part of the expansion of the productive frontier toward the west of the province, in an area combining fertile land with trade routes into the interior. During the 19th century it became a center of agricultural trade and the starting point of the historic Camino Real, which connected Buenos Aires with the western provinces. That role as a commercial and transit hub continued with the arrival of the railway, which reinforced its importance as a service center for area estancias. Today Mercedes keeps that profile as a gateway to rural tourism in the western part of the province.",
+    datoCurioso: "For a long time it was a key point on the Camino Real heading west, and it still plays that role as an access point to many Buenos Aires estancias.",
+    comoLlegar: "National Route 7, about 1h30 by car.",
+    cuandoIr: "Spring and fall for exploring the countryside.",
+    duracion: "Half a day.",
+    comoMoverse: "Downtown is walkable; a car is needed to reach the district's estancias.",
+    itinerario: [
+      { momento: "Morning", actividad: "Mercedes Cathedral and historic center." },
+      { momento: "Midday", actividad: "Country lunch at a nearby estancia." },
+      { momento: "Afternoon", actividad: "Nature reserve or rural activities depending on the chosen estancia." },
+    ],
+    otrosAtractivos: ["Regional History Museum", "Mercedes Lagoon", "Nuestra Señora de las Mercedes Church", "Nearby nature reserve"],
+    eventos: ["Mercedes rural expo", "Local Tradition Festival", "Founding anniversary"],
+    dondeComer: ["Home-style restaurants downtown", "Lunches included in estancia day packages"],
+    dondeAlojarse: ["Estancias offering overnight stays", "Stopover hotels downtown"],
+    tips: ["Check ahead which estancias take day visitors", "A good rural tourism option without going all the way to Cañuelas or Areco", "Bring clothes suited for outdoor activities"],
+    presupuesto: "Medium: similar to Cañuelas, the main expense is the day in the country if you choose that activity.",
+  },
+  "Chascomús": {
+    nota: "Lagoon, riverside walk, and sport fishing.",
+    historia: "The city was founded in 1779 next to the lagoon of the same name, at a strategic point for controlling the territory and the routes south. During the civil wars of the 19th century, the area was the site of an 1839 uprising known as \"the revolt of the free men of the south,\" a key episode of resistance against Juan Manuel de Rosas's government. Over the decades, the city built its identity around the lagoon, which became a nationally recognized sport-fishing spot. Today Chascomús combines that historic heritage with a strong nature-tourism profile, thanks to its lakeside walk and the reserve surrounding the lagoon.",
+    datoCurioso: "The Sociedad de Negros de Chascomús, founded in 1862 by the city's Afro-descendant brotherhood to celebrate its dances and faith, was recognized by UNESCO in 2012 for its historic and cultural value.",
+    comoLlegar: "Route 2 toward the coast, about 1h30 by car.",
+    cuandoIr: "Summer for water activities, spring for fishing.",
+    duracion: "A full day.",
+    comoMoverse: "Downtown and the lakeside walk are easy on foot; renting gear at local clubs is best for fishing or kayaking.",
+    itinerario: [
+      { momento: "Morning", actividad: "Lagoon walkway and the Pampas Museum." },
+      { momento: "Midday", actividad: "Lake fish for lunch by the coast." },
+      { momento: "Afternoon", actividad: "Silverside fishing or a kayak trip on the lagoon." },
+    ],
+    otrosAtractivos: ["Municipal Palace, a Francisco Salamone building (1939)", "Sociedad de Negros de Chascomús, recognized by UNESCO in 2012", "Los Libres del Sur Park", "Lagoon nature reserve"],
+    eventos: ["Provincial Silverside Fish Festival, October/November", "Regatta on the lagoon", "Founding anniversary, April"],
+    dondeComer: ["Fish restaurants along the lakeside walk", "Cafés in the historic center"],
+    dondeAlojarse: ["Cabins facing the lagoon", "Hotels downtown"],
+    tips: ["Bring your own fishing gear or rent it locally", "The lakeside walk is a great spot at sunset", "A good stopover on the way to the Atlantic coast"],
+    presupuesto: "Low to medium: the lakeside walk is free, it goes up if you add guided fishing or a cabin stay.",
+  },
+  "Baradero": {
+    nota: "River beaches and the national rowing festival.",
+    historia: "The town formed in the 19th century around the Baradero River, taking advantage of its natural beaches and closeness to the Paraná for river trade. Over the decades, the city built a strong tradition around rowing and water sports, which peaked in 1974 with the creation of the National Rowing Festival. That event made Baradero one of the country's top amateur rowing venues and drew tourism focused on river activities. Today the city combines that sporting profile with river-beach tourism, popular among those looking for a getaway near Buenos Aires without going all the way to the Atlantic coast.",
+    datoCurioso: "The National Rowing Festival made Baradero one of Argentina's leading amateur rowing venues.",
+    comoLlegar: "Panamericana highway, Baradero branch, about 2 hours by car.",
+    cuandoIr: "Summer for river beaches; January for the National Rowing Festival.",
+    duracion: "A weekend.",
+    comoMoverse: "Downtown is walkable; a car or bike helps for reaching the beaches and resorts.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach and water activities on the Baradero River." },
+      { momento: "Midday", actividad: "Lunch at a beach resort or riverside restaurant." },
+      { momento: "Afternoon", actividad: "Riverside walk, and the National Rowing Festival if it's January." },
+    ],
+    otrosAtractivos: ["Municipal History Museum", "Riverside nature reserve", "Rowing club", "Municipal beach resorts"],
+    eventos: ["National Rowing Festival, January", "Carnival parade", "Spring Festival"],
+    dondeComer: ["Beach resorts with restaurants by the river", "Grills in the city center"],
+    dondeAlojarse: ["Organized campgrounds along the coast", "Family-run cabins and inns"],
+    tips: ["Go in January for the National Rowing Festival, though it's more crowded", "Book a campsite or cabin ahead in high season", "A good nearby \"beach\" option without going to the Atlantic coast"],
+    presupuesto: "Low to medium: river beaches are free to access, the expense is camping/cabins and food.",
+  },
+  "San Pedro": {
+    nota: "Paraná coastline and peach orchards.",
+    historia: "Founded in the 18th century on the Paraná coast, the city developed an economy based on fruit growing early on, thanks to the fertility of its riverside land. Peach orchards became the activity most associated with the area during the 20th century, to the point that they gave rise in 1955 to the National Peach Festival, still held every summer. That farming identity always coexisted with its riverside side, with a historic port and a coastal walk that gained tourist appeal over the decades. Today San Pedro combines river-beach tourism with the fruit-growing activity that sets it apart within the Paraná region.",
+    datoCurioso: "20 km from the city, at Vuelta de Obligado, one of the most remembered battles in Argentine history was fought in 1845: Creole resistance to the naval blockade by France and Great Britain on the Paraná River.",
+    comoLlegar: "Panamericana highway, Escobar/San Pedro branch, about 2 hours by car.",
+    cuandoIr: "Summer for the coast; January for the National Peach Festival.",
+    duracion: "A weekend.",
+    comoMoverse: "The historic center is walkable; a car is useful for reaching the peach orchards.",
+    itinerario: [
+      { momento: "Morning", actividad: "Riverside walk and beaches on the Paraná." },
+      { momento: "Midday", actividad: "River fish for lunch." },
+      { momento: "Afternoon", actividad: "A peach orchard in season (Dec-Jan) or the Almirante Brown Museum." },
+    ],
+    otrosAtractivos: ["Vuelta de Obligado, site of the 1845 naval battle against the Anglo-French blockade", "Riverside nature reserve", "Local fruit market port", "Almirante Brown Museum"],
+    eventos: ["National Peach Festival, January", "Regatta on the Paraná", "Carnival parade"],
+    dondeComer: ["Fish restaurants on the riverside walk", "Peach sweets and preserves stalls in season"],
+    dondeAlojarse: ["Cabins and inns along the coast", "Organized campgrounds"],
+    tips: ["Peach harvest is in December-January, orchards aren't open to visit outside that window", "Book lodging ahead in January for the peach festival", "A good option for combining river beaches with sport fishing"],
+    presupuesto: "Low to medium: similar to Baradero, the biggest cost is lodging in high season.",
+  },
+  "Chivilcoy": {
+    nota: "A farming city with old-time architecture.",
+    historia: "The city was founded in 1854 as part of the expansion of the Buenos Aires farming frontier westward, on land that turned out to be very fertile for growing grain. That late-19th-century agricultural boom funded much of the urban architecture still visible downtown, and made the city one of the first in the Buenos Aires interior to have electric lighting. During the 20th century, Chivilcoy solidified its role as a service center for the region's farming production, a role it still holds today. It's now a quiet city that keeps that agricultural past in its architecture and in its residents' identity.",
+    datoCurioso: "It was one of the first cities in the Buenos Aires interior to have electric lighting, in the late 19th century, thanks to the area's agricultural boom.",
+    comoLlegar: "National Route 5, about 2 hours by car.",
+    cuandoIr: "Year-round, mild weather in spring and fall.",
+    duracion: "Half a day.",
+    comoMoverse: "Downtown is easy to walk; a car is useful for nearby estancias.",
+    itinerario: [
+      { momento: "Morning", actividad: "Cathedral and the main square." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Fine Arts Museum and a walk through the historic architecture." },
+    ],
+    otrosAtractivos: ["Plaza San Martín", "An old flour mill turned museum", "Nearby nature reserve", "Fine Arts Museum"],
+    eventos: ["Chivilcoy rural expo", "Provincial Rural Worker's Festival", "Founding anniversary, January"],
+    dondeComer: ["Home-style restaurants downtown", "Traditional grills"],
+    dondeAlojarse: ["Downtown hotels", "Nearby estancias for rural tourism"],
+    tips: ["A good pick for a quiet city without one single \"must-see\" attraction", "Pair it with a nearby estancia to add countryside activities", "The downtown architecture is best enjoyed on an unhurried walk"],
+    presupuesto: "Low: few paid attractions, the main expense is food.",
+  },
+  "Dolores": {
+    nota: "Historic center and museums on the way to the coast.",
+    historia: "Founded in 1818, shortly after Argentina's declaration of independence, Dolores was one of the first towns organized in the south of Buenos Aires province. In 1839 it was the site of an uprising against Juan Manuel de Rosas's government, an episode that gave it a notable place in 19th-century Buenos Aires political history. Over the decades, the city became a service center for the surrounding rural area and a mandatory stop on the way to the Atlantic coast resorts. Today Dolores combines that historic heritage, visible in its downtown and in museums like the Antique Car Museum, with its traditional role as the last Buenos Aires stop before reaching the sea.",
+    datoCurioso: "In 1839 it was the site of an uprising against Juan Manuel de Rosas, one of the first in the Buenos Aires interior, giving it a notable place in provincial political history.",
+    comoLlegar: "Route 2 toward the Atlantic coast, about 2h30 by car.",
+    cuandoIr: "A good stop on the way to the coast at any time of year.",
+    duracion: "Half a day.",
+    comoMoverse: "The historic center is walkable; it's a typical rest stop for those driving on to the coast.",
+    itinerario: [
+      { momento: "Morning", actividad: "Antique Car Museum, one of the most important in the country." },
+      { momento: "Midday", actividad: "Lunch in the historic center." },
+      { momento: "Afternoon", actividad: "Cathedral, main square, and craft shopping, or an afternoon at Parque Termal Dolores." },
+    ],
+    otrosAtractivos: ["Parque Termal Dolores, with salt and fresh thermal-water pools", "Museo Libres del Sur", "Parque Sarmiento", "Dolores Cathedral"],
+    eventos: ["Founding anniversary, October", "Patron saint festival", "Classic car show linked to the museum"],
+    dondeComer: ["Restaurants and cafés in the historic center", "Grills along the access road"],
+    dondeAlojarse: ["Thermal resort with its own salt and fresh-water pools", "Stopover hotels, ideal for those continuing to the coast", "Downtown inns for those staying longer"],
+    tips: ["It's the last \"inland\" stop before the coastal resorts", "The Antique Car Museum is a must for classic car fans", "The thermal park charges a day-pass fee for non-guests, plus included access if you stay at its hotels", "A good place to refuel and rest on a longer trip"],
+    presupuesto: "Low if it's just a stopover (food and museum); rises to medium-high if you add a day pass or a night at the thermal complex.",
+  },
+  "Nueve de Julio": {
+    nota: "Laguna de Gómez and deep pampas plains.",
+    historia: "The city was founded in 1863 as a frontier outpost of the era, amid the expansion of the productive frontier toward the western pampas. Over time, the arrival of the railway cemented its role as a service center for a vast farming and ranching region. Laguna de Gómez, on the edge of the city, became over the decades the district's great recreational attraction. Today Nueve de Julio combines its identity as a pampas farming city with a strong nature-tourism profile centered on the lagoon.",
+    datoCurioso: "Nueve de Julio's Plaza 25 de Mayo, at 16 hectares, is considered one of the largest town squares in South America.",
+    comoLlegar: "National Route 5, about 3 hours by car.",
+    cuandoIr: "Spring and summer for lagoon activities.",
+    duracion: "A weekend.",
+    comoMoverse: "Downtown is walkable; a car or bike is useful for the lagoon, on the edge of the city.",
+    itinerario: [
+      { momento: "Morning", actividad: "Laguna de Gómez, fishing and water activities." },
+      { momento: "Midday", actividad: "Lunch on the lagoon's shore." },
+      { momento: "Afternoon", actividad: "Plaza 25 de Mayo and the historic center." },
+    ],
+    otrosAtractivos: ["Lagoon yacht club", "Municipal history museum", "Municipal campground by the lagoon", "Silverside fishing area"],
+    eventos: ["Founding anniversary, July", "Nueve de Julio rural expo", "Regattas on the lagoon"],
+    dondeComer: ["Restaurants on the lagoon's shore", "Grills downtown"],
+    dondeAlojarse: ["Cabins facing the lagoon", "Downtown hotels"],
+    tips: ["Bring fishing gear or rent it locally", "The lagoon has sandy beaches good for summer", "A good stop to break up a longer trip into western Buenos Aires province"],
+    presupuesto: "Low to medium: access to the lagoon is free, the main expense is a cabin and food.",
+  },
+  "Junín": {
+    nota: "An urban lagoon and a gateway to the west.",
+    historia: "The city was born in 1827 as a military outpost on the frontier line of the era, as part of the westward expansion of productive land. With the railway's arrival in the late 19th century, it became a key rail hub in the Buenos Aires interior. Eva Perón spent part of her childhood and teenage years in Junín before moving to Buenos Aires, a fact the city keeps in its historical memory. Today Junín combines that past with a service-city profile and an urban lagoon that's its main recreational space.",
+    datoCurioso: "Eva Duarte, later Eva Perón, spent her teenage years in Junín before leaving for Buenos Aires to start her acting career.",
+    comoLlegar: "National Route 7, about 3 hours by car.",
+    cuandoIr: "Year-round.",
+    duracion: "Half a day.",
+    comoMoverse: "Downtown and the lagoon walkway are easy on foot or by bike.",
+    itinerario: [
+      { momento: "Morning", actividad: "Junín Lagoon and its walkway." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Museums and the pedestrian shopping street." },
+    ],
+    otrosAtractivos: ["History and Fine Arts Museum", "The house where Eva Perón lived, now a cultural space", "Lagoon walkway", "Municipal Theater"],
+    eventos: ["Founding anniversary, August", "Spring Festival"],
+    dondeComer: ["Restaurants along the lagoon walkway", "Grills and casual eateries downtown"],
+    dondeAlojarse: ["Downtown hotels", "Cabins near the lagoon"],
+    tips: ["Pairs well as a stop toward western Buenos Aires province or La Pampa", "The lagoon walkway is nice for biking or walking", "A good spot to refuel on long trips"],
+    presupuesto: "Low to medium.",
+  },
+  "Azul": {
+    nota: "A hill-country city with Salamone architecture.",
+    historia: "Founded in 1832 as a frontier outpost, Azul grew under the pampas' cattle-ranching boom and the hills surrounding it. During the first half of the 20th century, Italian-Argentine architect Francisco Salamone left a set of monumental Art Deco buildings across the region that today are part of Buenos Aires's architectural heritage. The city also kept its role as a service center for the surrounding countryside. Today Azul combines that architectural heritage with hill-country landscapes little known outside the region.",
+    datoCurioso: "The municipal slaughterhouse and cemetery in Azul, both Francisco Salamone works, are now visited more as monumental architecture than for their original function.",
+    comoLlegar: "National Route 3 or Route 226, about 3h30 by car.",
+    cuandoIr: "Spring and fall for exploring the hill country.",
+    duracion: "A weekend.",
+    comoMoverse: "Downtown is walkable; a car is useful for the hills and Salamone's works on the outskirts.",
+    itinerario: [
+      { momento: "Morning", actividad: "Cathedral and the historic center." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Salamone's works (cemetery, slaughterhouse) and nearby hills." },
+    ],
+    otrosAtractivos: ["Municipal cemetery and slaughterhouse, works by Francisco Salamone", "Azul Cathedral", "Cinco Cerros nature reserve", "Sierras Bayas, with old quarries"],
+    eventos: ["Founding anniversary, August", "Festival of Communities"],
+    dondeComer: ["Restaurants in the historic center", "Traditional grills"],
+    dondeAlojarse: ["Downtown hotels", "Cabins in the nearby hills"],
+    tips: ["Book a guide or tour for Salamone's works, spread across the district", "A good stop on the way to Tandil or the Atlantic coast", "Bring your own car, distances within the district are large"],
+    presupuesto: "Low to medium.",
+  },
+  "San Clemente del Tuyú": {
+    nota: "Family-friendly beaches and a marine theme park.",
+    historia: "San Clemente del Tuyú was founded in 1935 as part of the expansion of beach resorts north of Mar del Plata, on land that had previously been cattle estancias. Its tourism development took a family-oriented, budget-friendly path, unlike other, more exclusive resorts in the area. In 1978 Mundo Marino opened, turning it into a benchmark destination for family tourism with children along the entire Atlantic coast. Today it combines that theme park with long beaches and the Punta Rasa reserve, at the northern tip of the district.",
+    datoCurioso: "Punta Rasa, at the northern tip of San Clemente, is where the Río de la Plata and the Atlantic Ocean meet, and its lighthouse marks that transition.",
+    comoLlegar: "Route 2 and then Route 11, about 3h30 by car.",
+    cuandoIr: "January and February in high season; March for fewer crowds.",
+    duracion: "A weekend or a week.",
+    comoMoverse: "Downtown and the beach area are walkable or bikeable; a car is useful for Punta Rasa.",
+    itinerario: [
+      { momento: "Morning", actividad: "Mundo Marino, a theme park with marine wildlife." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Beach and a walk around Punta Rasa." },
+    ],
+    otrosAtractivos: ["Mundo Marino, a theme park with marine wildlife", "Termas Marinas Park, with salt thermal pools by the sea", "San Antonio Lighthouse, with a panoramic elevator", "Punta Rasa nature reserve"],
+    eventos: ["Summer show season at Mundo Marino", "Sea Festival"],
+    dondeComer: ["Seafood restaurants on the coast", "Grills and pizzerias downtown"],
+    dondeAlojarse: ["Family hotels facing the sea", "Cabins and short-term rental apartments"],
+    tips: ["Book Mundo Marino tickets ahead in high season", "Termas Marinas Park runs year-round, even outside beach season", "One of the more affordable resorts in the area", "Punta Rasa is a great sunset spot, though a bit away from downtown"],
+    presupuesto: "Medium: compared to other resorts in the area it tends to be more affordable; the biggest expense is Mundo Marino admission.",
+  },
+  "Pinamar": {
+    nota: "Dunes, planted forest, and trendy beaches.",
+    historia: "Pinamar was founded in 1943 on a design by architect Jorge Bunge, who envisioned a beach town blended into the landscape of dunes and planted forests, unlike the grid layout of other resorts. That original design, with curved streets that follow the dunes' natural shape, still defines the city's urban identity. Over the decades it became one of the favorite resorts of Buenos Aires's middle and upper classes, with a strong dining and design scene. Today it combines that polished urban feel with long beaches and the forest that gives it its name.",
+    datoCurioso: "The name Pinamar combines \"pino\" (pine) and \"mar\" (sea), referring to the pine forests planted over the dunes to hold the sand in place.",
+    comoLlegar: "Route 2 and Route 11, about 4 hours by car; buses and seasonal flights are also available.",
+    cuandoIr: "January and February in high season; long weekends in spring.",
+    duracion: "A weekend or a week.",
+    comoMoverse: "Downtown is walkable or bikeable; a car or the bike paths are useful for reaching Cariló or Ostende.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach and design-forward beach clubs." },
+      { momento: "Midday", actividad: "Lunch in the shopping district." },
+      { momento: "Afternoon", actividad: "Biking through the dune forest and shopping." },
+    ],
+    otrosAtractivos: ["Municipal forest planted over the dunes", "Avenida Bunge shopping and design district", "Río de las Piedras Nature Reserve", "Ostende, a neighboring resort with an art nouveau history"],
+    eventos: ["National Tourism Festival", "Summer parades and beach events"],
+    dondeComer: ["Chef-driven restaurants in the shopping district", "Grills and pizzerias facing the sea"],
+    dondeAlojarse: ["Boutique and chain hotels facing the sea", "Short-term rental apartments and cabins"],
+    tips: ["Book lodging well ahead for January", "Bike paths connect Pinamar with Cariló and Ostende", "Prices drop quite a bit outside of high season"],
+    presupuesto: "Medium to high: it's one of the pricier resorts on the Atlantic coast in January.",
+  },
+  "Cariló": {
+    nota: "Forest facing the sea, the most exclusive resort.",
+    historia: "Cariló was born in the 1930s as a forested subdivision within a pine and acacia woodland, designed from the start as an exclusive, low-density resort. Unlike other resorts in the area, it kept from the beginning a ban on cutting trees and paving its sand streets, which gave it its characteristic wooded identity. Over the decades it became one of the most expensive and sought-after summer destinations for Buenos Aires's elite. Today it combines that exclusive profile with quiet beaches within the forest.",
+    datoCurioso: "In Cariló, most of the forest's internal streets can't be paved and are kept as sand to preserve the original landscape.",
+    comoLlegar: "Route 2 and Route 11 to Pinamar, then a few more minutes south.",
+    cuandoIr: "January and February, or long weekends in spring and fall.",
+    duracion: "A weekend or a week.",
+    comoMoverse: "It's a place made for biking along the forest's bike paths; there are few paved streets for cars.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach within the forest." },
+      { momento: "Midday", actividad: "Lunch in the shopping area." },
+      { momento: "Afternoon", actividad: "Bike paths among the dunes and design shopping." },
+    ],
+    otrosAtractivos: ["Design shopping circuit (Boulevard Cariló)", "Bike paths among the dunes and forest", "Forest wildlife reserve", "Bird watching"],
+    eventos: ["Cariló Fashion Week, summer", "Design fairs in season"],
+    dondeComer: ["Gourmet restaurants on the boulevard", "Cafés within the forest"],
+    dondeAlojarse: ["High-end boutique hotels", "Rental cabins within the forest"],
+    tips: ["Rent a bike as soon as you arrive, it's the most practical way to get around", "January prices are among the highest on the coast", "A good off-season option for quiet and discounts"],
+    presupuesto: "High: it's one of the most expensive resorts in the province.",
+  },
+  "Santa Teresita": {
+    nota: "Long beaches and a family-friendly atmosphere.",
+    historia: "Santa Teresita developed starting in the 1940s as a beach resort geared toward middle-class family tourism, in contrast with the more exclusive profile of nearby resorts like Pinamar. Its boardwalk and long beaches became the district's main draw. Over time it became one of the favorite destinations for families looking for accessible beaches and good infrastructure. Today it combines that family-friendly profile with a wide range of dining and shopping along the coast.",
+    datoCurioso: "One of the best-known boardwalk promenades in Santa Teresita is named after writer Jorge Bucay, honoring his connection to the city.",
+    comoLlegar: "Route 2 and Route 11, about 4 hours by car.",
+    cuandoIr: "January and February during peak season.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "The boardwalk and downtown are walkable or bikeable.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach." },
+      { momento: "Midday", actividad: "Lunch on the boardwalk." },
+      { momento: "Afternoon", actividad: "Jorge Bucay promenade and shopping." },
+    ],
+    otrosAtractivos: ["Jorge Bucay promenade by the sea", "Breakwater for shore fishing", "Avenida 48 shopping area", "Long beaches for sports"],
+    eventos: ["Carnival parade", "Summer Festival"],
+    dondeComer: ["Restaurants and steakhouses along the boardwalk", "Ice cream shops and cafés on Avenida 48"],
+    dondeAlojarse: ["Family hotels", "Short-term rental apartments"],
+    tips: ["A great choice for families with young kids thanks to its wide beaches", "The breakwater is a good spot for fishing without a boat", "Book ahead in January"],
+    presupuesto: "Low to mid-range: one of the most affordable beach resorts in the area.",
+  },
+  "Villa Gesell": {
+    nota: "Pedestrian street, sand dunes, and coastal nightlife.",
+    historia: "Villa Gesell was founded in 1931 on the initiative of Carlos Idaho Gesell, who planted pines and acacias across the dunes to hold the sand in place and founded a beach town with a strong bohemian and cultural character from the start. That spirit lasted through much of the 20th century, when the town became a gathering point for artists, musicians, and young people. Over time it added more large-scale tourist infrastructure without fully losing that distinct identity. Today it combines extensive dunes, beaches, and an intense nightlife during peak season.",
+    datoCurioso: "Carlos Gesell didn't just found the town: he also brought the first maritime pine and acacia specimens to Argentina to plant across the area's dunes.",
+    comoLlegar: "Route 2 and Route 11, about 4h30 by car.",
+    cuandoIr: "January and February during peak season; March for fewer crowds.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "Downtown is walkable; a 4x4 or ATV tour is the way to reach the Faro Querandí dunes.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach and Av. 3 pedestrian street." },
+      { momento: "Midday", actividad: "Lunch on the pedestrian street." },
+      { momento: "Afternoon", actividad: "Excursion to the Faro Querandí dunes." },
+    ],
+    otrosAtractivos: ["Faro Querandí Nature Reserve and its living dunes", "Pinar del Norte Cultural and Forest Reserve", "Zootemático Park", "Mar de las Pampas and Mar Azul, quieter neighboring beach towns"],
+    eventos: ["Summer theater and arts week", "Carnival parades"],
+    dondeComer: ["Shops along Av. 3 pedestrian street", "Steakhouses and pizzerias facing the sea"],
+    dondeAlojarse: ["Hotels and cabins downtown", "Rental apartments in Mar de las Pampas for more quiet"],
+    tips: ["The Faro Querandí dunes can only be visited on an organized tour, not by private car", "Mar de las Pampas and Mar Azul are quieter alternatives just a few km away", "Book accommodation ahead in January"],
+    presupuesto: "Mid-range: varies by area, with more affordable options than Pinamar or Cariló.",
+  },
+  "Tandil": {
+    nota: "Hills, trekking, and the iconic Piedra Movediza (Moving Rock).",
+    historia: "Tandil was founded in 1823 as a border fort of the time, in the hills that today give the city its distinctive landscape. It grew on the back of cattle ranching and later the cured meats and cheese industry that made it famous nationwide. The original Piedra Movediza, an icon of the city for over a century, broke loose and fell in 1912; today a replica sits in its place on the same hill. Today Tandil combines that heritage with strong hill-based tourism, trekking, and regional food.",
+    datoCurioso: "The original Piedra Movediza balanced on the hillside without falling for generations, until it broke loose in 1912; the one seen today is a replica placed decades later.",
+    comoLlegar: "Route 226, about 4h30 by car; buses and flights also available.",
+    cuandoIr: "Spring and fall for trekking; Holy Week for the religious celebrations.",
+    duracion: "Weekend.",
+    comoMoverse: "Having your own car helps: the attractions are spread far apart and public transport is limited.",
+    itinerario: [
+      { momento: "Morning", actividad: "Piedra Movediza hill." },
+      { momento: "Midday", actividad: "Regional cold cuts and cheese platters." },
+      { momento: "Afternoon", actividad: "Cerro El Centinela with its chairlift and panoramic views." },
+    ],
+    otrosAtractivos: ["Cerro El Centinela, with a chairlift and lookout points", "Lago del Fuerte and Balneario del Sol", "Parque Independencia and Cerro del Libertador", "Artisanal cured meat and cheese factories"],
+    eventos: ["Holy Week, with processions and religious activities", "Tandil Fine Salami Festival"],
+    dondeComer: ["Restaurants serving platters of local cold cuts and cheese", "Steakhouses in the hill area"],
+    dondeAlojarse: ["Cabins in the hills", "Hotels downtown"],
+    tips: ["Bring your own car, there are few buses to the hill attractions", "Buy cold cuts and cheese straight from the factories as souvenirs", "The Piedra Movediza hill has quite a few stairs, wear comfortable shoes"],
+    presupuesto: "Mid-range: cabins and regional food are usually the main expense.",
+  },
+  "Mar del Plata": {
+    nota: "La Feliz: beaches, port, and coastal city life.",
+    historia: "Mar del Plata was born in the 1870s around a meat-salting plant, but by the late 19th century Buenos Aires high society turned it into their quintessential summer resort, building mansions and luxury hotels. In the following decades it became a mass tourism destination for working and middle classes, a shift that earned it the nickname \"the happy city\" of Argentine vacations. Its port, one of the country's most important, always kept a fishing and industrial identity alongside its tourist profile. Today it combines that dual identity, part popular beach resort and part port city, with an intense cultural life all year round.",
+    datoCurioso: "The port of Mar del Plata is home to one of the most visited sea lion colonies in the country, which can be seen up close from the fishermen's pier.",
+    comoLlegar: "Route 2, about 4h30 by car; buses, train, and flights also available.",
+    cuandoIr: "January and February during peak season; long weekends year-round.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "It's a big city: it's best to combine walking downtown with a bus or car to reach the southern beaches.",
+    itinerario: [
+      { momento: "Morning", actividad: "Bristol or Varese beaches." },
+      { momento: "Midday", actividad: "Seafood lunch at the port." },
+      { momento: "Afternoon", actividad: "A walk around the port and the sea lions." },
+    ],
+    otrosAtractivos: ["Port and sea lions", "Torre Tanque, a panoramic lookout tower", "Trapiche Costa & Pampa winery in Chapadmalal, a pioneer in ocean-influenced wines", "Villa Victoria Ocampo (cultural center)"],
+    eventos: ["Theater and show season in January-February", "National Sea Festival"],
+    dondeComer: ["Seafood restaurants at the port", "Ice cream shops and cafés downtown"],
+    dondeAlojarse: ["Beachfront hotels downtown", "Rental apartments in the southern neighborhoods"],
+    tips: ["The southern beaches (Playa Grande, Punta Mogotes) tend to be quieter than downtown", "Book accommodation well ahead in January", "The port makes a great half-day plan, even outside peak season"],
+    presupuesto: "Mid-range: there are options for every budget, from hostels to luxury hotels.",
+  },
+  "Balcarce": {
+    nota: "Hills and a motorsport museum.",
+    historia: "Balcarce was founded in 1873 in an area of hills and fertile land in the southeastern part of the province, which over time became one of the country's leading potato producers. The city gained national fame as the birthplace of Juan Manuel Fangio, Argentina's five-time Formula 1 world champion, whose museum is now the town's biggest tourist draw. That profile pairs with the area's hill landscape, with peaks, streams, and waterfalls little known outside the region. Today Balcarce draws both motorsport fans and those looking for nature and quiet.",
+    datoCurioso: "The Fangio Museum operates in the building of a former family garage and displays original cars that raced and won Formula 1 world championships.",
+    comoLlegar: "Route 226 from Tandil or Route 55 from Mar del Plata, about 5 hours from CABA.",
+    cuandoIr: "Spring and fall for the hills.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the nearby hills and waterfalls.",
+    itinerario: [
+      { momento: "Morning", actividad: "Juan Manuel Fangio Museum." },
+      { momento: "Midday", actividad: "Lunch featuring local potatoes and meats." },
+      { momento: "Afternoon", actividad: "Nearby hills and waterfalls." },
+    ],
+    otrosAtractivos: ["Juan Manuel Fangio Museum", "Cerro El Triunfo Municipal Park", "Nearby hill streams and waterfalls", "Golf course"],
+    eventos: ["National Potato Festival", "Argentine Song Festivals at Cerro El Triunfo"],
+    dondeComer: ["Restaurants serving regional potato-based dishes", "Steakhouses in the hill area"],
+    dondeAlojarse: ["Cabins in the nearby hills", "Hotels downtown"],
+    tips: ["The Fangio Museum is a must-see even for those who don't follow motorsport", "A good stop between Tandil and Mar del Plata", "Ask locals about the nearby waterfalls, they're not well signposted"],
+    presupuesto: "Mid-range.",
+  },
+  "Miramar": {
+    nota: "Forest, quiet beaches, and golf.",
+    historia: "Miramar was founded in 1888 as one of the first beach resorts on the Buenos Aires Atlantic coast, even before Mar del Plata's expansion southward. Over time it earned a reputation as a quieter, family-oriented destination, with an extensive forest nursery that sets it apart from other open-dune beach towns. Its proximity to paleontological sites along the cliffs also gave it a distinct scientific profile. Today it combines quiet beaches, golf, and nature with a much calmer pace than Mar del Plata.",
+    datoCurioso: "The cliffs south of Miramar are a recognized paleontological site, where fossils of South American megafauna such as glyptodonts and giant sloths have been found.",
+    comoLlegar: "Route 2 to Mar del Plata and then Route 11, about 5 hours by car.",
+    cuandoIr: "January and February during peak season; a good quiet destination outside those dates too.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "Downtown and the coast are walkable or bikeable.",
+    itinerario: [
+      { momento: "Morning", actividad: "Florentino Ameghino forest nursery." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Beach and paleontological cliffs." },
+    ],
+    otrosAtractivos: ["Florentino Ameghino forest nursery", "Cliffs with paleontological sites", "Oceanfront golf course", "Forest nature reserve"],
+    eventos: ["Miramar Golf Festival", "Spring Week"],
+    dondeComer: ["Seafood restaurants along the coast", "Cafés downtown"],
+    dondeAlojarse: ["Family hotels facing the sea", "Cabins near the forest nursery"],
+    tips: ["One of the quietest beach resorts in the area, great for resting", "The cliffs are best explored at low tide", "A good option for combining golf and beach"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Necochea": {
+    nota: "Wide beaches and the mouth of the Quequén River.",
+    historia: "Necochea was founded in 1881 as one of the first beach resorts south of Buenos Aires, taking advantage of the mouth of the Quequén River and its long beaches. Parque Miguel Lillo, planted in the early 20th century, became one of the largest man-made forests on the Atlantic coast and the city's great green lung. Over the decades, Necochea developed its own identity, less crowded than Mar del Plata, with a focus on nature and water sports. Today it combines wide beaches, the port of Quequén, and horseback rides along the shore.",
+    datoCurioso: "Parque Miguel Lillo covers more than 600 hectares of planted forest, making it one of the largest on the Buenos Aires Atlantic coast.",
+    comoLlegar: "Route 2 and then Route 88, about 5h30 by car.",
+    cuandoIr: "January and February during peak season.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "Downtown and the coast are walkable or bikeable; a car helps for the port of Quequén.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach by the Quequén River." },
+      { momento: "Midday", actividad: "Seafood lunch at the port." },
+      { momento: "Afternoon", actividad: "Parque Miguel Lillo and a horseback ride along the coast." },
+    ],
+    otrosAtractivos: ["Parque Miguel Lillo", "Puerto Quequén", "Mouth of the Quequén River", "Coastal horseback riding circuit"],
+    eventos: ["Necochea Bike (cycling tourism)", "Sea Festival"],
+    dondeComer: ["Seafood restaurants at the port", "Steakhouses and pizzerias downtown"],
+    dondeAlojarse: ["Beachfront hotels", "Cabins near Parque Miguel Lillo"],
+    tips: ["Parque Miguel Lillo has bike paths, renting a bike is worthwhile", "Beach horseback rides usually go out at sunset", "A quieter, more nature-focused alternative to Mar del Plata"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Sierra de la Ventana": {
+    nota: "Hills, streams, and the historic Cerro Ventana.",
+    historia: "The area developed in the early 20th century around the train station, which brought the first summer-vacationing families drawn by the hill landscape, so different from the rest of the pampas plains. Cerro Tres Picos, the highest peak in Buenos Aires Province, and Cerro Ventana, with its distinctive natural opening, became the region's main trekking draw. Over time, the neighboring town of Villa Ventana added a more wooded, quieter character within the same hill system. Today the area combines trekking, streams, and a much slower pace than the Atlantic coast.",
+    datoCurioso: "Cerro Ventana owes its name to a natural opening in the rock near the summit, through which you can see the landscape on the other side.",
+    comoLlegar: "Route 3 and Route 76, about 6 hours by car; train and buses also available.",
+    cuandoIr: "Spring and fall for trekking, avoiding summer's extreme heat.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is small and walkable; a car is needed to reach the trailheads at the base of the hills.",
+    itinerario: [
+      { momento: "Morning", actividad: "Trek to Cerro Ventana." },
+      { momento: "Midday", actividad: "Hill-style cold cuts platter for lunch." },
+      { momento: "Afternoon", actividad: "Arroyo Sauce Grande to cool off." },
+    ],
+    otrosAtractivos: ["Saldungaray, a nearby town recognized by UN Tourism, with a Salamone-designed cemetery and a hill winery", "Cerro Tres Picos, the highest peak in Buenos Aires Province", "Villa Ventana, a wooded neighboring town", "Ernesto Tornquist Provincial Park"],
+    eventos: ["Hill Lamb Festival", "Spring trekking season"],
+    dondeComer: ["Restaurants serving cold cuts platters and country food", "Cafés in Villa Ventana"],
+    dondeAlojarse: ["Cabins in Villa Ventana", "Country inns in Sierra de la Ventana town"],
+    tips: ["The trek to Cerro Ventana requires good physical condition and hiking shoes", "Check trail conditions before heading out, it closes on very windy days", "Villa Ventana is a quieter base than the main town"],
+    presupuesto: "Mid-range: cabins and regional food are the main expense; trail access is usually free or low-cost.",
+  },
+  "Carhué": {
+    nota: "Hot springs on Lake Epecuén and the ghost town of Villa Epecuén.",
+    historia: "Carhué was founded in 1876 as a border fort of the time, on the boundary between Buenos Aires Province and La Pampa. A few kilometers away, on the shore of Lake Epecuén, Villa Epecuén developed starting in 1920 as a thermal spa town that in its best years drew thousands of tourists attracted by the water's healing properties, comparable to those of the Dead Sea. In 1985 a flood broke through the containment dike and the lake completely submerged the town, which stayed underwater for more than twenty years. When the water receded, it revealed the ghostly ruins of the town, now one of the region's most visited sites.",
+    datoCurioso: "In January 2017, 1,941 people holding hands floated together on Lake Epecuén and set a Guinness World Record, thanks to the water's extremely high salinity, which lets you float effortlessly.",
+    comoLlegar: "Provincial Route 60 from Bolívar and Guaminí, about 6 hours by car from CABA; long-distance buses also available.",
+    cuandoIr: "Year-round for the hot springs; summer adds the outdoor pool with lake water.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown Carhué is walkable; a car or organized tour is best for the Villa Epecuén ruins, about 7 km away.",
+    itinerario: [
+      { momento: "Morning", actividad: "Ruins of Villa Epecuén, the ghost town that lay under the lake." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Thermal pools on Lake Epecuén." },
+    ],
+    otrosAtractivos: ["Ruins of Villa Epecuén, the ghost town", "Dr. Adolfo Alsina Regional Museum", "Works by architect Francisco Salamone in the area", "Bird watching along the lakeshore"],
+    eventos: ["City anniversary", "Summer thermal season with outdoor pool"],
+    dondeComer: ["Restaurants downtown", "Cafés near the lakeside promenade"],
+    dondeAlojarse: ["Hotels with their own thermal spa", "Cabins and campsites by the lake"],
+    tips: ["Wear closed shoes for the Villa Epecuén ruins, the terrain is uneven", "Book your entry to the hot springs, especially on weekends", "It's a long trip from CABA, best planned as a full weekend or combined with Sierra de la Ventana"],
+    presupuesto: "Mid-range: entry to the hot springs and spa lodging are the main expense; the Epecuén ruins are free or very low-cost to access.",
+  },
+  "General Belgrano": {
+    nota: "Termas del Salado, the closest thermal complex to CABA.",
+    historia: "General Belgrano was born in 1871 around the \"Salado\" train station, on the river of the same name, in a fertile farming area of the southern part of the province. For decades it was known mainly as a fishing and riverside relaxation spot, without much tourism development. In 2012, the opening of Termas del Salado, fed by waters discovered in the 1940s during a failed oil drilling attempt, completely changed its profile and made it the closest thermal complex to Buenos Aires City. Today it combines that thermal draw with a quiet small-town pace and the Salado River landscape.",
+    datoCurioso: "The waters of Termas del Salado were discovered by chance in the 1940s, during an oil drilling operation that found no oil but did strike a thermal spring 965 meters down.",
+    comoLlegar: "Ricchieri highway and then Provincial Routes 41 and 29, about 2 hours by car.",
+    cuandoIr: "Year-round; the hot springs operate in any season.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for Bosque Encantado, 13 km away, and the hot springs.",
+    itinerario: [
+      { momento: "Morning", actividad: "Termas del Salado." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Bosque Encantado or the Salado riverside." },
+    ],
+    otrosAtractivos: ["Bosque Encantado, a park designed by Carlos Thays", "Municipal History Museum", "Salado riverside for fishing and kayaking", "Balneario Viejo"],
+    eventos: ["Major Tango and Folk Festival, since 1994"],
+    dondeComer: ["Steakhouses and tea houses downtown", "Restaurants near the hot springs"],
+    dondeAlojarse: ["Hotels and cabins in town (no lodging inside the thermal complex itself)", "Campsites by the river"],
+    tips: ["It's the closest thermal complex to CABA, doable as a day trip", "Check hours, the complex is closed on Tuesdays", "Bosque Encantado is a nice outing besides the hot springs"],
+    presupuesto: "Mid-range: entry to the hot springs varies by age and residency, and is the main expense of the outing.",
+  },
+  "Tapalqué": {
+    nota: "A gaucho-tradition town with its own thermal complex.",
+    historia: "Tapalqué was established at its current site in 1863 by decree of governor Mariano Saavedra, on land that had previously held military garrisons and forts along the frontier line. Its name comes from Mapuche and refers to the reed beds along the stream of the same name. Over time it became a town rooted in gaucho tradition at the heart of the pampas plains. In recent years it added a thermal spring complex that gave its tourism profile new life, without losing the quiet pace of a country town.",
+    datoCurioso: "The Cantón Tapalqué Viejo, an old fort 25 km from downtown, was the site of clashes between indigenous peoples and criollos and still preserves the San Gervasio pulpería (country tavern), founded in 1850.",
+    comoLlegar: "Route 3 to Azul and then Provincial Route 51, about 3h30 by car.",
+    cuandoIr: "Year-round; the Black Cake Festival is a good time to visit.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for Cantón Tapalqué Viejo and the Sierras Bayas.",
+    itinerario: [
+      { momento: "Morning", actividad: "Tapalqué Thermal Complex." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Cantón Tapalqué Viejo and the San Gervasio pulpería." },
+    ],
+    otrosAtractivos: ["Tapalqué Thermal Complex", "Cantón Tapalqué Viejo and San Gervasio Pulpería", "Nearby Sierras Bayas", "Tapalqué stream promenade"],
+    eventos: ["Black Cake Festival"],
+    dondeComer: ["Country-style restaurants downtown", "Cafés by the promenade"],
+    dondeAlojarse: ["Cabins and rural lodging", "Camping by the stream"],
+    tips: ["Pairs well with Azul, about 50 km away", "Book the hot springs ahead on weekends", "A good destination for trekking and horseback rides in the nearby Sierras Bayas"],
+    presupuesto: "Mid-range: entry to the hot springs is the main expense of the outing.",
+  },
+  "Uribelarrea": {
+    nota: "A country town with a dairy heritage and a great food scene.",
+    historia: "Uribelarrea was born in the late 19th century on land donated by its founder, who also equipped the young town with schools, a train station, telegraph, and post office. With the arrival of the railway in 1892 and Italian and Spanish immigration, it became a major dairy hub, with more than a hundred dairy farms and cheesemakers supplying Buenos Aires. After a long period of decline in the mid-20th century, the town was rediscovered in recent decades as a weekend getaway destination, thanks to its time-frozen look. Today it combines that rural past with a great food scene that has made it one of the most visited country towns near CABA.",
+    datoCurioso: "Because of its period look, Uribelarrea was used as a filming location for movies like Leonardo Favio's \"Juan Moreira\" and Alan Parker's \"Evita,\" which left behind the stained-glass windows in the town church.",
+    comoLlegar: "Ezeiza-Cañuelas highway and then Route 205, about 1h30 by car.",
+    cuandoIr: "Thursday through Sunday, when most shops are open; long weekends bring more activity.",
+    duracion: "Full day.",
+    comoMoverse: "The town is small and fully walkable or bikeable.",
+    itinerario: [
+      { momento: "Morning", actividad: "Plaza Centenario, the church, and the old train station." },
+      { momento: "Midday", actividad: "A traditional steakhouse or pulpería." },
+      { momento: "Afternoon", actividad: "Leopoldo Rizzi Regional Farm Machinery Museum and shopping for cheese and cold cuts." },
+    ],
+    otrosAtractivos: ["Leopoldo Rizzi Regional Farm Machinery Museum", "Finca Don Atilio, a vineyard and winery for wine tourism", "Túnel Vegetal, a 200-meter tree-lined path", "Dairy farms and cheesemakers open to visitors in the area"],
+    eventos: ["Cold Cuts and Craft Beer Festival, since 2009"],
+    dondeComer: ["Traditional pulperías and steakhouses", "Country tea houses and gourmet restaurants"],
+    dondeAlojarse: ["Rural lodging and cabins on the outskirts", "Nearby estancias in the Cañuelas district"],
+    tips: ["Go Thursday through Sunday, many places are closed on weekdays", "Long weekends tend to be crowded, best to arrive early", "Buy cheese and cold cuts directly from local producers"],
+    presupuesto: "Low to mid-range: walking around town is free, food is the main expense.",
+  },
+  "Pergamino": {
+    nota: "National Seed Capital, culture, and agribusiness.",
+    historia: "Pergamino was born in the late 16th century as a fort along the royal road to Alto Perú, and was declared a city in 1895. Its location in the heart of the rolling pampas made it a leading agricultural center, with experimental stations and seed companies that earned it the title of National Seed Capital in 1997. Today it combines that agribusiness profile with an active cultural scene and twelve rural villages that are part of the district.",
+    datoCurioso: "Pergamino is home to INTA (National Institute of Agricultural Technology), which serves the farming needs of 44 districts in Buenos Aires Province through its own weather radar.",
+    comoLlegar: "Route 8, about 2h30 by car.",
+    cuandoIr: "Year-round.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the district's rural villages.",
+    itinerario: [
+      { momento: "Morning", actividad: "Main square and San Nicolás de Bari Cathedral." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "City Museum and Historical Archive, Municipal Park." },
+    ],
+    otrosAtractivos: ["City Museum and Historical Archive", "Fine Arts Museum", "Municipal Park", "Twelve rural villages in the district, each with its own festival"],
+    eventos: ["Anniversary of the city's founding, October", "Rural festivals in the district's villages throughout the year"],
+    dondeComer: ["Restaurants in the historic center", "Traditional bodegones"],
+    dondeAlojarse: ["Chain and boutique hotels downtown", "Nearby estancias for rural tourism"],
+    tips: ["A good stop on the way to the north of the country or to Rosario", "Check the weekly cultural events schedule", "The district's rural villages are a nice bonus if you have extra time"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Pehuajó": {
+    nota: "The town of Manuelita the Turtle, lagoons, and quiet.",
+    historia: "Pehuajó was born in 1889 with the arrival of the railway, in an area of marshes that gave it its Guaraní name (\"deep, swampy marsh\"). Over time it became a service hub for the farming and ranching economy of the northwestern part of the province. The town became popular nationwide thanks to \"Manuelita, la Tortuga,\" the children's song by María Elena Walsh that bears its name. Today it combines that popular affection with fishing lagoons and a quiet town layout.",
+    datoCurioso: "María Elena Walsh's song \"Manuelita,\" about a turtle who travels to Paris and returns to Pehuajó, also inspired an animated film that represented Argentina at the 1999 Academy Awards.",
+    comoLlegar: "Route 5, about 4 hours by car.",
+    cuandoIr: "Spring and summer for the lagoons.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable or bikeable; a car helps for the lagoons.",
+    itinerario: [
+      { momento: "Morning", actividad: "Plaza Dardo Rocha and the Manuelita Monument." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "La Salada, El Cuerú, or Las Tres Marías lagoons, fishing for pejerrey." },
+    ],
+    otrosAtractivos: ["Manuelita la Tortuga Monument", "Parque General San Martín, with a lake and islands", "Mario Abelino Polesello Regional Museum", "La Salada, El Cuerú, and Las Tres Marías lagoons"],
+    eventos: ["Founding anniversary"],
+    dondeComer: ["Home-style restaurants downtown", "Traditional steakhouses"],
+    dondeAlojarse: ["Hotels downtown", "Cabins near the lagoons"],
+    tips: ["Bring fishing gear for the lagoons", "Parque San Martín is a nice family outing", "A good stop on the way to La Pampa"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Trenque Lauquen": {
+    nota: "A round lagoon and pejerrey fishing in the western part of the province.",
+    historia: "Trenque Lauquen was founded in 1876 as a military operations base during the expansion of the frontier westward across the pampas, under orders from then Minister of War Adolfo Alsina. Its name means \"round lagoon\" in Mapuche, referring to the body of water that gave rise to the town. Over time it became an important agricultural service center for the western part of the province, at the junction of two key national routes. Today it combines that role as a farm-service city with lagoons well known for sport fishing.",
+    datoCurioso: "Laguna Hinojo Grande, about 25 km from downtown, is known for pejerrey up to 500 grams and draws anglers from all over the country.",
+    comoLlegar: "Route 5, about 5 hours by car.",
+    cuandoIr: "Spring and fall for fishing; year-round for the city.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the lagoons and campsites.",
+    itinerario: [
+      { momento: "Morning", actividad: "Historic center and tree-lined avenues." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Laguna Hinojo Grande, pejerrey fishing." },
+    ],
+    otrosAtractivos: ["Laguna Hinojo Grande", "Squares and avenues with a central promenade", "Local history museum", "Rural cycling routes"],
+    eventos: ["Founding anniversary, April"],
+    dondeComer: ["Restaurants downtown", "Traditional steakhouses"],
+    dondeAlojarse: ["Hotels downtown", "Campsites by Laguna Hinojo Grande"],
+    tips: ["It's a long trip, best planned as a full weekend", "Bring your own fishing gear", "A good stop on the way to La Pampa"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Coronel Suárez": {
+    nota: "Polo capital and estancias in the southwestern part of the province.",
+    historia: "Coronel Suárez was founded in 1871 as a military fort during the southward expansion of the frontier, on the Sauce Corto stream. Over the following decades it became an agricultural center in the southwestern part of the province, with a strong tradition of breeding polo horses that catapulted it to the top of that sport worldwide. The town is also home to silversmiths specializing in fine gaucho-style silverwork. Today it combines that rural, sporting profile with estancias that welcome visitors for horseback rides and country days.",
+    datoCurioso: "Coronel Suárez has produced some of the best polo players in the world, and its estancias still breed horses for the sport.",
+    comoLlegar: "Route 33 or Route 51, about 6 hours by car.",
+    cuandoIr: "Spring and fall.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for estancias and polo tournaments.",
+    itinerario: [
+      { momento: "Morning", actividad: "Downtown and local museums." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "An estancia for horseback riding or a polo match, depending on the season." },
+    ],
+    otrosAtractivos: ["Santa María, a nearby town with Volga German heritage", "Estancias offering horseback rides and carriage tours", "Fine silverwork and gaucho-design workshops", "International-level polo fields"],
+    eventos: ["Polo tournaments, seasonal", "Patron saint festivals"],
+    dondeComer: ["Country-style restaurants", "Traditional steakhouses"],
+    dondeAlojarse: ["Estancias offering lodging", "Hotels downtown"],
+    tips: ["Check the polo tournament calendar before traveling", "Pairs well with Pigüé, very close by", "Buy handmade silverwork as a souvenir"],
+    presupuesto: "Mid to high: estancias and polo activities are usually the main expense.",
+  },
+  "Pigüé": {
+    nota: "A town of French heritage among the Ventania hills.",
+    historia: "Pigüé was founded in 1884 by a group of families from the French region of L'Aveyron, joined by Spanish and Italian immigrants, giving it a European identity unusual for the pampas plains. That origin still shows in its architecture, traditions, and food. Surrounded by the Curamalal and Bravard hill ranges within the Ventania system, it became over time a destination for nature and rural tourism. Today it combines that French heritage with trails, streams, and hill lookout points.",
+    datoCurioso: "Pigüé's French roots live on in institutions like the Spanish Theater, the Italian Society, and the French Society, which keep their period architecture.",
+    comoLlegar: "Ricchieri highway, Route 205, Provincial Route 65, and Route 33, about 6h30 by car.",
+    cuandoIr: "Spring and fall for the hills.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the Curamalal and Bravard hills.",
+    itinerario: [
+      { momento: "Morning", actividad: "Historic center and Nuestra Señora de Luján Parish." },
+      { momento: "Midday", actividad: "Lunch with French influence." },
+      { momento: "Afternoon", actividad: "Trails and lookout points in the Curamalal or Bravard hills." },
+    ],
+    otrosAtractivos: ["Curamalal and Bravard hills", "City Museum and Archive", "Nuestra Señora de Luján Parish", "Hill streams and lookout points"],
+    eventos: ["Food events with French influence", "Cultural festivals throughout the year"],
+    dondeComer: ["Restaurants with French, Spanish, and Italian influence", "Traditional cafés"],
+    dondeAlojarse: ["Rural lodging in the hills", "Hotels downtown"],
+    tips: ["Pairs well with Coronel Suárez, very close by", "Bring hiking shoes for the hills", "Check the schedule for guided walks"],
+    presupuesto: "Mid-range.",
+  },
+  "Tres Arroyos": {
+    nota: "Danish heritage, European-style squares, and the Claromecó beach resort.",
+    historia: "Tres Arroyos was founded in 1884 following an urban layout designed by Dardo Rocha, the same founder of La Plata, inspired by a European style of symmetrical squares. The city owes its name to the confluence of three streams that flow into the Atlantic Ocean. In the late 19th century it received significant Danish and Dutch immigration, which left its mark on local food and traditions. Today it combines that European heritage with the Claromecó beach resort, its main beach, just a few kilometers from downtown.",
+    datoCurioso: "Tres Arroyos' food scene blends pampas tradition with Danish and Dutch recipes, like kringle, a braided sweet bread typical of the Scandinavian community.",
+    comoLlegar: "Route 3 and then Route 228, about 6 hours by car.",
+    cuandoIr: "January and February for the Claromecó beach; year-round for the city.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for Claromecó, about 40 km away.",
+    itinerario: [
+      { momento: "Morning", actividad: "Municipal Palace and Nuestra Señora del Carmen Parish." },
+      { momento: "Midday", actividad: "Lunch with Danish specialties." },
+      { momento: "Afternoon", actividad: "Claromecó beach and its lighthouse." },
+    ],
+    otrosAtractivos: ["Claromecó, the main beach resort, with dunes and a 54-meter lighthouse", "Ángel Cabañas Municipal Park", "Mulazzi Museum", "Fine Arts Museum"],
+    eventos: ["Danish Community Festival", "Carnival parade in Claromecó"],
+    dondeComer: ["Restaurants with Danish and Dutch specialties", "Steakhouses and seafood spots in Claromecó"],
+    dondeAlojarse: ["Hotels in downtown Tres Arroyos", "Cabins and apartments in Claromecó"],
+    tips: ["Claromecó allows vehicle access to certain beach areas", "A good stop on the way to Necochea or Bahía Blanca", "Try Danish kringle at a local café"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Bahía Blanca": {
+    nota: "Port city, culture, and gateway to Patagonia.",
+    historia: "Bahía Blanca was founded in 1828 as a military fort to secure control of the southern part of the province. Its strategic location by the sea eventually made it one of Argentina's most important ports, with a strong industrial and naval identity. The arrival of European immigrants in the late 19th and early 20th centuries left its mark on neighborhoods like Barrio Inglés and on cultural institutions like the Municipal Theater. Today it combines that port and industrial profile with an active university and cultural life, and serves as a gateway to Patagonia.",
+    datoCurioso: "The Port Museum, in Ingeniero White, operates out of a former customs building and tells the story of the immigrants who came to work at the port.",
+    comoLlegar: "Route 3, about 7 hours by car; flights and trains also available.",
+    cuandoIr: "Year-round; often used as a stop on the way to Patagonia or Sierra de la Ventana.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car or bus helps for Ingeniero White and the port.",
+    itinerario: [
+      { momento: "Morning", actividad: "Plaza Rivadavia, the Cathedral, and the Municipal Theater." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Port Museum in Ingeniero White." },
+    ],
+    otrosAtractivos: ["Port Museum in Ingeniero White", "Médanos, 40 minutes away, with Termas de Médanos and Al Este winery (ocean-influenced wines)", "Barrio Inglés", "Parque de Mayo"],
+    eventos: ["Meat History Festival, in General Daniel Cerri, November"],
+    dondeComer: ["Restaurants and cafés in the historic center", "Seafood spots in Ingeniero White"],
+    dondeAlojarse: ["Chain hotels downtown", "Lodging near the bus terminal and airport"],
+    tips: ["A good stop on the way to Sierra de la Ventana or Patagonia", "The Port Museum is free and highly recommended", "It has its own airport, useful if flying in"],
+    presupuesto: "Mid-range: there are options for every budget, typical of a large city.",
+  },
+  "Monte Hermoso": {
+    nota: "Fine sand beaches, almost at the edge of the province.",
+    historia: "Monte Hermoso was founded in the 1940s as a beach resort in the southwestern part of the province, on a stretch of coast with an unusual orientation that lets the sun both rise and set over the sea. Its development came later and on a smaller scale than the resorts in the center of the province, giving it a quieter, more family-oriented character. Over time it became the go-to beach resort for people living in the southern part of the province and in Bahía Blanca. Today it combines fine sand beaches with a strong coastal-town identity.",
+    datoCurioso: "Because of its unusual geographic orientation, Monte Hermoso is one of the few places on the Argentine coast where you can watch both sunrise and sunset over the sea.",
+    comoLlegar: "Route 3 and then Route 78, about 7 hours by car.",
+    cuandoIr: "January and February during peak season.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "Downtown and the beach are walkable or bikeable.",
+    itinerario: [
+      { momento: "Morning", actividad: "Fine sand beach." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Sunset over the sea and the nearby nature reserve." },
+    ],
+    otrosAtractivos: ["River mouth nature reserve", "Municipal forest nursery", "Shore fishing", "Proximity to Bahía Blanca for day trips"],
+    eventos: ["Summer season with beach shows"],
+    dondeComer: ["Seafood restaurants along the coast", "Steakhouses and pizzerias downtown"],
+    dondeAlojarse: ["Beachfront hotels and cabins", "Campsites in the area"],
+    tips: ["One of the quietest beach resorts in the southern part of the province", "Pairs well with Bahía Blanca or Sierra de la Ventana", "A good spot to relax without crowds outside peak season"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Carmen de Patagones": {
+    nota: "The southernmost city in the province, a colonial quarter by the Río Negro.",
+    historia: "Carmen de Patagones was founded in 1779 by order of King Charles III of Spain, as part of the strategy to secure Spanish sovereignty over the southern edge of the territory. In 1827, its residents (farmers, artisans, merchants, and militia members, including people of African descent) held off a Brazilian naval invasion for days without support from the central government, in an episode remembered as a local feat. Over the following decades it became the southernmost city in Buenos Aires Province, linked to Viedma, the capital of Río Negro, by the Río Negro river. Today it preserves one of the best-kept historic quarters in the country, declared a National Historic Town in 2003.",
+    datoCurioso: "The Maragato caves, carved into the sandstone bluffs along the Río Negro, housed the town's first 19th-century settlers and today resemble, in shape, the hobbit homes of fiction.",
+    comoLlegar: "Route 3, about 11 hours by car; buses and flights to Viedma, across the bridge, also available.",
+    cuandoIr: "Spring and summer; April 22 marks the founding anniversary.",
+    duracion: "A long weekend, given how far the trip is.",
+    comoMoverse: "The 24-block historic quarter is walkable; a bridge and local bus connect to Viedma.",
+    itinerario: [
+      { momento: "Morning", actividad: "Fort Tower and the colonial historic quarter." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Maragato Caves and Cerro de la Caballada." },
+    ],
+    otrosAtractivos: ["Emma Nozzi Regional History Museum", "Maragato Caves in the riverside bluffs", "Cerro de la Caballada, a panoramic lookout", "Lift bridge to Viedma"],
+    eventos: ["Founding anniversary, April 22", "Commemoration of the 1827 resistance"],
+    dondeComer: ["River fish restaurants", "Historic bars like Bar del Puerto"],
+    dondeAlojarse: ["Hotels in the historic quarter", "Lodging shared with neighboring Viedma"],
+    tips: ["It's a very long trip from CABA, best combined with a flight to Viedma", "The historic quarter is well signposted for walking tours", "A good base for visiting Viedma too, across the river"],
+    presupuesto: "Mid-range: the biggest expense is usually travel, given how far it is from CABA.",
+  },
+  "Isla Martín García": {
+    nota: "Only reachable by boat: history, a political prison, and the only dry border with Uruguay.",
+    historia: "Discovered in 1516 by the Spanish expedition of Juan Díaz de Solís, the island was disputed for centuries between Spain and Portugal due to its strategic position in the Río de la Plata. From 1900 on it served as a political-military prison and quarantine station, and its cells held figures like Hipólito Yrigoyen, Marcelo T. de Alvear, Juan Domingo Perón, and Arturo Frondizi. In 1973 the Río de la Plata Treaty recognized Argentine sovereignty over the island, and in 1988 it was declared a Multiple-Use Reserve. Today it's the only dry border between Argentina and Uruguay, and it combines nature, history, and a town seemingly frozen in time.",
+    datoCurioso: "The island's so-called \"Barrio Chino\" (Chinatown), with abandoned houses covered in vegetation, has nothing to do with Chinese immigration: the name comes from its maze-like, cluttered look.",
+    comoLlegar: "Only reachable by boat, departing from the Tigre river station or from Dársena Norte in CABA; the crossing takes 2 to 3 hours.",
+    cuandoIr: "Year-round; boats usually run Tuesdays, Thursdays, Saturdays, Sundays, and holidays, depending on the operator.",
+    duracion: "Full day, or overnight if staying at the campsite or inn.",
+    comoMoverse: "The island is toured on foot as part of the guided visit; there are no cars, the whole tour is walked.",
+    itinerario: [
+      { momento: "Morning", actividad: "Boat trip from Tigre and arrival on the island." },
+      { momento: "Midday", actividad: "Guided tour (historic prison, museum, cemetery, Barrio Chino) and lunch." },
+      { momento: "Afternoon", actividad: "Urquiza Theater, Rubén Darío's house, and the quarries, before heading back by boat." },
+    ],
+    otrosAtractivos: ["Former prison that held Yrigoyen, Alvear, Perón, and Frondizi", "Island History Museum", "Urquiza Theater", "Barrio Chino and stone quarries"],
+    eventos: ["Special excursions on national holidays, depending on the boat operator"],
+    dondeComer: ["Restaurante Solís, with a barbecue menu included in most excursions"],
+    dondeAlojarse: ["The island's inn and campsite, for those who want to stay overnight"],
+    tips: ["Book the excursion ahead, there are few departures per week", "Bring ID, it's a border crossing point even though you don't cross into Uruguay", "Wear comfortable shoes, the whole visit is on foot"],
+    presupuesto: "Mid-range: the main expense is the boat fare, which usually includes the guided tour and lunch.",
+  },
+  "Bahía San Blas": {
+    nota: "The southern edge of the province: a paradise for boat fishing and oysters.",
+    historia: "Bahía San Blas developed as a beach village on Isla del Jabalí, at the southern edge of Buenos Aires Province, thanks to the rich fishing grounds in its sheltered waters. Over time it became one of the country's most recognized sport fishing destinations, with thousands of boat fishing trips each season. The bay and its islands were declared a Multiple-Use Nature Reserve for their value as wetland and nesting grounds for shorebirds. Today it combines sport fishing with a seafood-focused food scene centered on oysters, farmed in the nearby town of Los Pocitos.",
+    datoCurioso: "Los Pocitos, a few kilometers from Bahía San Blas, is known as the \"Oyster Capital\" for its oyster farming, one of the area's signature dishes.",
+    comoLlegar: "Route 3 to kilometer 918 and then a roughly 40 km gravel road.",
+    cuandoIr: "October to April, peak sport fishing season.",
+    duracion: "A weekend or longer, given how long the trip is.",
+    comoMoverse: "The town is small and walkable; fishing excursions depart by boat from the local port.",
+    itinerario: [
+      { momento: "Morning", actividad: "Boat or shore fishing excursion." },
+      { momento: "Midday", actividad: "Lunch with oysters and local fish." },
+      { momento: "Afternoon", actividad: "A walk along the sand or rock beaches, depending on the tide." },
+    ],
+    otrosAtractivos: ["Bahía San Blas Multiple-Use Nature Reserve", "Los Pocitos, the \"Oyster Capital\"", "Bay islands (Jabalí, de los Césares, Flamenco)", "Shorebird and La Plata dolphin watching"],
+    eventos: ["Oyster Festival, January"],
+    dondeComer: ["Fish and oyster restaurants in town", "Steakhouses serving Patagonian lamb"],
+    dondeAlojarse: ["Inns and cabins in the village", "Organized campsites"],
+    tips: ["Book the boat fishing excursion ahead during peak season", "It's a very long trip, best combined with Carmen de Patagones", "Check tide times before deciding which beach to visit"],
+    presupuesto: "Mid-range: the main expense is the boat fishing excursion and travel, given how far it is from CABA.",
+  },
+  "Navarro": {
+    nota: "A lagoon, national history, and Buenos Aires-style empanadas.",
+    historia: "Navarro was born in the late 18th century as a fort along the Buenos Aires frontier line, on land then known as \"los pagos de Navarro,\" honoring Captain Miguel Navarro, a companion of Juan de Garay. The town was the setting for one of the darkest episodes in Argentine history: in 1828, after being defeated by Juan Lavalle's forces, then-governor Manuel Dorrego was executed by firing squad on the outskirts of town. Over the following decades, work on the local lagoon turned that tragic episode's setting into a destination for rest and fishing. Today Navarro combines that historical heritage with a 180-hectare lagoon that is its main recreational draw.",
+    datoCurioso: "Manuel Dorrego's execution in 1828 took place at the very spot where the Manuel Dorrego Historical and Biographical Park stands today, commemorating that key episode of 19th-century civil conflict.",
+    comoLlegar: "Acceso Oeste to Luján and then provincial routes, or Route 205 toward Lobos and Route 41; about 2 hours by car.",
+    cuandoIr: "Year-round; spring and summer to enjoy the lagoon.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the lagoon, two blocks from the square, and for the district's rural areas.",
+    itinerario: [
+      { momento: "Morning", actividad: "Manuel Dorrego Historical and Biographical Park and the Alfredo Sabaté Museum." },
+      { momento: "Midday", actividad: "Lunch of Buenos Aires-style empanadas." },
+      { momento: "Afternoon", actividad: "Navarro Lagoon, boat ride or fishing." },
+    ],
+    otrosAtractivos: ["Navarro Lagoon, 180 hectares", "Replica of Fortín San Lorenzo", "Villa Moll, home of the Empanada Festival", "La Protegida general store-museum"],
+    eventos: ["Empanada Festival, in Villa Moll", "Fried Dough Festival", "Dairy Farmer Festival"],
+    dondeComer: ["Country eateries serving Buenos Aires-style empanadas", "Restaurants near the lagoon"],
+    dondeAlojarse: ["Cabins facing the lagoon", "Rural lodging in nearby areas"],
+    tips: ["Go in spring or summer to make the most of the lagoon", "The Empanada Festival in Villa Moll is a good reason to plan your visit", "Combine with Luján or Mercedes, both nearby"],
+    presupuesto: "Low to mid-range: the lagoon and historic park are free, food is the main expense.",
+  },
+  "Lobos": {
+    nota: "A lagoon, polo estancias, and Perón's birthplace.",
+    historia: "The area was settled starting in 1779 around Fortín San Pedro de los Lobos, built by order of viceroy Vértiz to reinforce the frontier line with indigenous peoples. In 1802 Ranchos de Lobos was established, one of the region's first estancias, which gave rise to the town. The district earned a special place in Argentine history as the birthplace of Juan Domingo Perón, born there in 1895. Over time, Lobos became a resting destination centered on its lagoon, with world-class estancias and a strong ranching and dairy tradition.",
+    datoCurioso: "Juan Domingo Perón's birth house, now a museum, is one of the district's most visited historic sites and commemorates the former president's birth in 1895.",
+    comoLlegar: "Route 205, about 1h30 by car.",
+    cuandoIr: "Year-round; winter for pejerrey fishing, summer for water sports.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; the lagoon is 15 km from the town center, a car helps to get there.",
+    itinerario: [
+      { momento: "Morning", actividad: "Juan Domingo Perón's birth house and the historic center." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Lobos Lagoon, pejerrey fishing or water sports." },
+    ],
+    otrosAtractivos: ["Lobos Lagoon, 800 hectares", "Estancia La Candelaria, with a Norman-style castle and a Dutch windmill", "Natural Sciences Museum", "Aeroclub with scenic flights"],
+    eventos: ["Polo and golf tournaments at local estancias, seasonal", "Founding anniversary"],
+    dondeComer: ["Restaurants and steakhouses downtown", "Estancia dining rooms with country menus"],
+    dondeAlojarse: ["High-end estancias like La Candelaria", "Hotels and cabins near the lagoon"],
+    tips: ["Book pejerrey fishing ahead in winter, it's peak season", "Estancias often offer day passes including activities and lunch", "Pairs well with Navarro or San Antonio de Areco, both nearby"],
+    presupuesto: "Mid-range: exploring the town and lagoon is affordable, it goes up if you add a high-end estancia.",
+  },
+  "San Andrés de Giles": {
+    nota: "The Camino Real, pulperías, and the last meeting of Rosas and Quiroga.",
+    historia: "San Andrés de Giles was founded in 1806 along the old Camino Real linking Buenos Aires with Alto Perú, at a crossing of relay stations and estancias in the northwestern part of the province. The nearby Estancia La Merced, known as Posta de Figueroa and built in 1750, was the site of the last meeting between Juan Manuel de Rosas and Facundo Quiroga in 1834, shortly before Quiroga was assassinated. The town was also the birthplace of Argentine former president Héctor J. Cámpora, whose childhood home is preserved as a historic site. Today it combines that heritage with a quiet small-town life and a strong food identity built around its pulperías (country taverns).",
+    datoCurioso: "Posta de Figueroa, a few kilometers from downtown, was the site of the last meeting between Rosas and Quiroga in 1834, before Quiroga was assassinated on his way to Córdoba.",
+    comoLlegar: "Route 7, about 1h30 by car.",
+    cuandoIr: "Year-round; weekends bring more activity to the food scene.",
+    duracion: "Full day.",
+    comoMoverse: "Downtown is walkable; a car helps for Posta de Figueroa and the district's rural villages (Azcuénaga, Villa Ruiz).",
+    itinerario: [
+      { momento: "Morning", actividad: "Historic center, Municipal Palace, and San Andrés Apóstol Church." },
+      { momento: "Midday", actividad: "Lunch at a traditional pulpería." },
+      { momento: "Afternoon", actividad: "Posta de Figueroa or one of the nearby rural villages." },
+    ],
+    otrosAtractivos: ["Estancia La Merced (Posta de Figueroa), from 1750", "Birth house of former president Héctor J. Cámpora", "Villa Ruiz and Azcuénaga, rural villages in the district", "Old train station"],
+    eventos: ["Hornero Bird Festival", "Provincial Camino Real Festival"],
+    dondeComer: ["Traditional pulperías like 2 de Mayo and El Viejo Tropezón", "Steakhouses and bodegones downtown"],
+    dondeAlojarse: ["Estancias and traditional inns", "Lodging downtown"],
+    tips: ["Book a table at the best-known pulperías on weekends", "Combine with Villa Ruiz or Azcuénaga if you have extra time", "A good stop on the way to Areco or Mercedes"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Carmen de Areco": {
+    nota: "The National Pie Festival, Irish heritage, and the Tower of Silence.",
+    historia: "Carmen de Areco was founded in 1812 from a fort built in the late 18th century on the Areco River, along the same frontier line that gave rise to Lobos, Navarro, and Luján. The arrival of Irish immigrants during the 19th century left a distinct mark on the area, still visible in surnames, traditions, and the architecture of estancias and chapels. Over time, the district developed a strong food identity centered on the criollo meat pie, celebrated today with a nationwide festival. Today Carmen de Areco combines that heritage with the rural villages of Gouin and Tres Sargentos, both part of the same tourist circuit.",
+    datoCurioso: "The Tower of Silence, an unusually tall structure in the middle of the local cemetery, is one of the town's most enigmatic sites: its original purpose was never fully clarified.",
+    comoLlegar: "Route 8, about 2 hours by car.",
+    cuandoIr: "Year-round; the National Pie Festival is a good reason to plan your visit.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for Gouin and Tres Sargentos, the district's rural villages.",
+    itinerario: [
+      { momento: "Morning", actividad: "Nuestra Señora del Carmen Church and the Family History Museum." },
+      { momento: "Midday", actividad: "Lunch with criollo meat pie." },
+      { momento: "Afternoon", actividad: "Municipal riverside spot on the Areco River or a visit to Gouin." },
+    ],
+    otrosAtractivos: ["Tower of Silence, in the local cemetery", "Gouin, a rural village with its own Provincial Pie Festival", "Municipal riverside spot on the Areco River", "Family History Museum"],
+    eventos: ["National Pie Festival", "La Matera Fair"],
+    dondeComer: ["Country eateries serving criollo meat pie", "Steakhouses by the Areco River"],
+    dondeAlojarse: ["Ten-hectare municipal campsite", "Rural lodging and nearby estancias"],
+    tips: ["Book ahead for the National Pie Festival, it draws big crowds", "Combine with San Antonio de Areco, very close by", "Visit Gouin and Tres Sargentos if you have extra time"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Suipacha": {
+    nota: "The Cheese Route, with Basque tradition, and the Osobuco Festival.",
+    historia: "Suipacha took its name in honor of the first military victory of the patriot forces in 1810, which took place in Alto Perú, a triumph commemorated at the Historic Monolith in the main square. The arrival of Basque immigrants in the late 19th and early 20th centuries left a strong cheesemaking tradition in the area, which for decades remained a family, artisanal activity. In 2008, a group of local producers organized to boost that tradition as a tourist draw and created the Cheese Route, now the district's great signature feature. Today Suipacha combines that food-focused profile with the quiet pace of a rolling pampas town.",
+    datoCurioso: "The town's name commemorates the Battle of Suipacha of 1810, the first patriot military victory of the wars of independence, even though that battle took place thousands of kilometers away, in what is now Bolivia.",
+    comoLlegar: "Acceso Oeste/Route 7 and then the Luján-Bragado highway/Route 5, about 2 hours by car; a train from Once station is also available.",
+    cuandoIr: "Year-round; July for the Osobuco Festival.",
+    duracion: "Full day.",
+    comoMoverse: "Downtown is walkable; a car helps for the cheese factories along the Cheese Route.",
+    itinerario: [
+      { momento: "Morning", actividad: "Plaza Balcarce, Nuestra Señora del Rosario Church, and the Historic Monolith." },
+      { momento: "Midday", actividad: "Lunch featuring local cheese-based dishes." },
+      { momento: "Afternoon", actividad: "A tour of the Cheese Route, factories, and producers." },
+    ],
+    otrosAtractivos: ["Cheese Route, with factories and producers", "Il Mirtilo, blueberry and berry farms", "Historic train station", "La Escuadra pig and wild boar farm"],
+    eventos: ["Osobuco Festival, July", "Expo Suipacha, a producers' fair"],
+    dondeComer: ["Restaurants serving local cheese-based dishes", "Country eateries"],
+    dondeAlojarse: ["Lodging downtown", "Nearby rural accommodations"],
+    tips: ["Book guided cheese factory tours ahead, especially on weekends", "Il Mirtilo is open Saturdays, Sundays, and holidays from 11 am to 6 pm", "The train to Suipacha runs only a few times a week, worth checking the schedule"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Chacabuco": {
+    nota: "Laguna de Rocha, fishing, and a rustic landscape in the northwest of the province.",
+    historia: "Chacabuco was founded in 1865 and took its name in honor of the Battle of Chacabuco of 1817, a decisive fight for the independence of Chile and Peru, even though it took place thousands of kilometers from this Buenos Aires district. With the arrival of the railway, the city became a service hub for a large farming and ranching area in the northwestern part of the province. Laguna de Rocha, formed by a widening of the Salado River 30 km from downtown, became over time the district's great natural draw. Today Chacabuco combines that quiet agricultural profile with sport fishing and the rustic landscape of its lagoons.",
+    datoCurioso: "The city's name, like that of the battle it honors, has no direct geographic connection to the area: it commemorates a battle fought in 1817 in the Andes mountains, more than a thousand kilometers away.",
+    comoLlegar: "Route 7, about 2h30 to 3 hours by car; a train from Retiro is also available.",
+    cuandoIr: "Spring and fall for fishing; year-round for the city.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for Laguna de Rocha, 30 km away.",
+    itinerario: [
+      { momento: "Morning", actividad: "Historic center and main square." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Laguna de Rocha, fishing for pejerrey and tararira." },
+    ],
+    otrosAtractivos: ["Laguna de Rocha, with shore and boat fishing", "Las Toscas and de los Patos lagoons", "Chacabuco Golf Club, an 18-hole course", "Provincial airfield"],
+    eventos: ["Founding anniversary"],
+    dondeComer: ["Restaurants and steakhouses downtown", "Eateries by the lagoon"],
+    dondeAlojarse: ["Hotels downtown", "Camping by Laguna de Rocha"],
+    tips: ["Bring your own fishing gear or rent boats at the lagoon", "The last stretch to the lagoon is a dirt road, drive carefully", "A good stop on the way to Junín or Bragado"],
+    presupuesto: "Low to mid-range: access to the lagoon is free, travel and food are the main expense.",
+  },
+  "San Bernardo": {
+    nota: "The city of sun and family, with young beaches and nightlife.",
+    historia: "San Bernardo del Tuyú developed starting in the late 1930s, alongside the tourism growth of the entire La Costa district. Its proximity to Mar de Ajó and other beach towns made it a gathering spot for young people from the mid-20th century on, a profile it keeps today. The boiler of the steamship \"Mar del Sur,\" run aground in 1924 during a storm, remains as a testament to the frequent shipwrecks along this coast before tourism took hold. Today San Bernardo is known as \"the city of sun and family,\" offering both family beaches and an active nightlife.",
+    datoCurioso: "The iron boiler of the Argentine steamship Mar del Sur, run aground on the coast in 1924, can still be seen poking out of the waves near Costa Azul, north of San Bernardo.",
+    comoLlegar: "Route 2 to Dolores and then Route 63 and Route 11, or Route 36 and Route 11 via Pipinas; about 4h30 by car.",
+    cuandoIr: "January and February during peak season; December for the National Sun and Family Festival.",
+    duracion: "Weekend or a full week.",
+    comoMoverse: "Downtown and the beach are walkable; a car helps for Mar de Ajó, La Lucila, or Costa Esmeralda.",
+    itinerario: [
+      { momento: "Morning", actividad: "Beach and resorts in San Bernardo." },
+      { momento: "Midday", actividad: "Lunch on the pedestrian street." },
+      { momento: "Afternoon", actividad: "A walk toward Mar de Ajó or Costa Azul, with the Mar del Sur boiler." },
+    ],
+    otrosAtractivos: ["Mar del Sur steamship boiler, in Costa Azul", "Mar de Ajó, a neighboring beach town", "Costa Esmeralda, the district's most exclusive development", "Coastal Observatory"],
+    eventos: ["National Sun and Family Festival, December", "Expo Unión de las Naciones, summer"],
+    dondeComer: ["Restaurants and ice cream shops on the pedestrian street", "Steakhouses and pizzerias facing the sea"],
+    dondeAlojarse: ["Beachfront hotels and apartments", "Cabins near Mar de Ajó"],
+    tips: ["One of the liveliest beaches for nightlife in the La Costa district, plan lodging accordingly", "Walk toward Mar de Ajó or La Lucila for quieter beaches", "Book ahead for the National Sun and Family Festival"],
+    presupuesto: "Low to mid-range: one of the most affordable options in the La Costa district.",
+  },
+  "Adolfo Gonzáles Chaves": {
+    nota: "Another chapter of the Salamone route, in the southeastern part of the province.",
+    historia: "The town was born in 1886 around a Ferrocarril del Sud station, on land donated two decades later by landowner and politician Adolfo Gonzales Chaves, who gave it its name. The district was created in 1916 with land ceded by Juárez, Tres Arroyos, and Necochea. In the second half of the 1930s, architect Francisco Salamone's public works plan left the city with three monumental Art Deco buildings that are now part of the tourist circuit dedicated to his work. Today Gonzales Chaves combines that architectural heritage with an economy based on sunflower and other grain production.",
+    datoCurioso: "The tower of the Municipal Palace, designed by Salamone, was inspired by the tourism pavilion at the 1937 Paris Exposition of Decorative Arts, adapting cutting-edge structural techniques for its time.",
+    comoLlegar: "Route 3, about 6 hours by car.",
+    cuandoIr: "Spring and fall.",
+    duracion: "Half a day, or a stop on a longer trip.",
+    comoMoverse: "Downtown is walkable.",
+    itinerario: [
+      { momento: "Morning", actividad: "Municipal Palace and the old Market, both by Salamone." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Inmaculada Concepción Church and the historic train station." },
+    ],
+    otrosAtractivos: ["Municipal Palace, by Francisco Salamone", "Old Market, now a cultural center", "Tantanakuy Community Park", "1886 train station"],
+    eventos: ["Open classes and guided tours along the Salamone route"],
+    dondeComer: ["Home-style restaurants downtown", "Traditional steakhouses"],
+    dondeAlojarse: ["Hotels downtown", "Nearby estancias"],
+    tips: ["A good stop along the Salamone circuit, together with Azul and Sierra de la Ventana", "Take photos of the Municipal Palace tower, it's the most photographed piece", "Pairs well with Tres Arroyos, 50 km away"],
+    presupuesto: "Low.",
+  },
+  "Escobar": {
+    nota: "Temaikén, the largest biopark in Latin America, and the National Flower Capital.",
+    historia: "Belén de Escobar developed starting in the late 19th century as a flower and fruit production center on the Paraná de las Palmas, thanks to its fertile land and proximity to the river port. The arrival of Japanese immigrants in 1929 left a distinct mark on local horticulture, still visible today in the town's Japanese Garden. In 1964 the city was declared National Flower Capital, in recognition of that flower-growing tradition still preserved along the Flower Route. In 2001, Temaikén opened, now the largest biopark in Latin America, which cemented Escobar as one of the most visited weekend destinations near CABA.",
+    datoCurioso: "The name Temaikén means \"land of life\" in the Tehuelche language, and the biopark recreates habitats from Patagonia, the Mesopotamia region, and Africa for more than 500 species.",
+    comoLlegar: "Panamericana, Escobar branch, about 50 minutes by car.",
+    cuandoIr: "Year-round; Temaikén has reduced hours outside peak season.",
+    duracion: "Full day.",
+    comoMoverse: "Downtown is walkable; a car helps for Temaikén and the Japanese Garden, both a bit farther out.",
+    itinerario: [
+      { momento: "Morning", actividad: "Temaikén, the largest biopark in Latin America." },
+      { momento: "Midday", actividad: "Lunch in downtown Escobar." },
+      { momento: "Afternoon", actividad: "Japanese Garden and the main square, declared National Flower Capital." },
+    ],
+    otrosAtractivos: ["Temaikén, a biopark with Andean condors and marsh deer", "Japanese Garden, with koi fish and themed trails", "Port of Escobar on the Paraná de las Palmas", "Flower Route"],
+    eventos: ["National Flower Festival"],
+    dondeComer: ["Restaurants downtown", "Cafés by the main square"],
+    dondeAlojarse: ["Hotels and spas like Howard Johnson Spa", "Cabins near the delta"],
+    tips: ["Book Temaikén tickets ahead during peak season", "The Japanese Garden is free and a good half-day complement", "Pairs well with Tigre, very close by"],
+    presupuesto: "Mid-range: Temaikén is the main expense of the outing.",
+  },
+  "Campana": {
+    nota: "A nature reserve, boat rides, and a riverside winery.",
+    historia: "Campana developed from the late 19th century as an industrial hub on the Paraná de las Palmas, home to one of the country's first oil refineries and, later, a nationally significant steel plant. That industrial identity coexists with a lesser-known ecotourism side, thanks to the Otamendi Nature Reserve, one of the last remnants of pampas grassland and riverside forest in the area. In recent years it also added a wine tourism circuit with vineyards along the river, unusual for a city with this profile. Today Campana combines that working-class past with boat rides and bird watching.",
+    datoCurioso: "The 3,000-hectare Otamendi Nature Reserve protects one of the few remaining patches of original pampas grassland in the area and is a key spot for watching migratory birds.",
+    comoLlegar: "Route 9 (Panamericana), about 1 hour by car.",
+    cuandoIr: "Year-round; fall and spring for bird watching.",
+    duracion: "Full day.",
+    comoMoverse: "Downtown is walkable; a car helps for the Otamendi Reserve and the vineyards.",
+    itinerario: [
+      { momento: "Morning", actividad: "Otamendi Nature Reserve, bird watching." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Boat ride along the Paraná de las Palmas to the Zárate-Brazo Largo bridge." },
+    ],
+    otrosAtractivos: ["Otamendi Nature Reserve", "Bodega Gamboa, riverside vineyards", "River boat circuit to the Zárate-Brazo Largo bridge", "Campana's delta"],
+    eventos: ["Patron saint festivals and industrial events, seasonal"],
+    dondeComer: ["Restaurants serving criollo and Italian food", "Steakhouses downtown"],
+    dondeAlojarse: ["Hotels downtown", "Cabins near the delta"],
+    tips: ["Book the Bodega Gamboa tour ahead", "The Paraná boat ride is a good half-day plan", "Pairs well with Zárate, very close by"],
+    presupuesto: "Mid-range.",
+  },
+  "Pilar": {
+    nota: "The Malvinas Cenotaph and country-day estancias.",
+    historia: "The Pilar district formed in the early 19th century around a chapel dedicated to the Virgin of Pilar, on land that mixed estancias and small farms near Buenos Aires. For much of the 20th century it kept a rural profile, until the arrival of gated communities starting in the 1990s transformed much of its landscape. In 1992 the Malvinas Cenotaph was inaugurated there, an exact replica of the British military cemetery at Darwin in the Falkland Islands, built to honor the Argentine soldiers who died in the 1982 conflict. Today Pilar combines that memorial site with rural tourism estancias and an intense scene of gated communities and shopping centers.",
+    datoCurioso: "The Malvinas Cenotaph reproduces, in exact shape and dimensions, the Darwin military cemetery established by the United Kingdom on East Falkland, with 649 white crosses bearing the name of each fallen Argentine soldier.",
+    comoLlegar: "Panamericana, Pilar branch, about 50 minutes by car; a train from Retiro (Mitre line) is also available.",
+    cuandoIr: "Year-round; April 2 for the commemorative ceremonies at the Cenotaph.",
+    duracion: "Half a day or full day.",
+    comoMoverse: "A car helps: the district is large and its attractions are spread across several towns.",
+    itinerario: [
+      { momento: "Morning", actividad: "Malvinas Cenotaph, a replica of the Darwin cemetery." },
+      { momento: "Midday", actividad: "Lunch in downtown Pilar." },
+      { momento: "Afternoon", actividad: "A country day at an estancia like Utopía." },
+    ],
+    otrosAtractivos: ["Malvinas Cenotaph, with a Hércules C130 and a Mirage M-5D on display", "Estancia Utopía, a country day with a pool and games", "Villa Rosa, with gated communities and shopping centers", "Historic estancias in the district"],
+    eventos: ["Commemorative ceremonies on April 2 at the Malvinas Cenotaph"],
+    dondeComer: ["Restaurants and bodegones downtown", "Estancia dining rooms with country menus"],
+    dondeAlojarse: ["Hotels near the Panamericana", "Estancias offering lodging"],
+    tips: ["The Malvinas Cenotaph is a memorial site, visit with respect and take your time", "Book the estancia country day ahead on weekends", "A good stop on the way to Capilla del Señor or Exaltación de la Cruz"],
+    presupuesto: "Low to mid-range: the Cenotaph is free, the estancia day is the main expense.",
+  },
+  "Berisso": {
+    nota: "Provincial Capital of the Immigrant, and the Vino de la Costa.",
+    historia: "Berisso grew in the late 19th and early 20th centuries around the meatpacking plants set up at its port on the Río de la Plata, which drew a huge wave of European immigrants who came to work there. That diversity, with more than 26 communities represented, earned it the title of Provincial Capital of the Immigrant and gave rise in 1976 to the Provincial Immigrant Festival, one of the largest ethnic celebrations in the country. The city also holds a central place in Argentine political history: much of the workers' mobilization of October 17, 1945, a founding moment of Peronism, set out from there. Today Berisso combines that industrial and immigrant past with the small-scale cultivation of Vino de la Costa, made with Isabella grapes on the islands of the Río de la Plata.",
+    datoCurioso: "Vino de la Costa is made with the American Isabella grape, grown in the lowlands of Isla Paulino, a tradition brought by Italian immigrants that is now being revived as a local artisanal product.",
+    comoLlegar: "Buenos Aires-La Plata highway and then local avenues, about 1 hour by car.",
+    cuandoIr: "September and October for the Provincial Immigrant Festival.",
+    duracion: "Full day.",
+    comoMoverse: "Downtown is walkable; a car or boat helps for Isla Paulino and the riverside.",
+    itinerario: [
+      { momento: "Morning", actividad: "Museum and Casa de las Colectividades." },
+      { momento: "Midday", actividad: "Lunch featuring food from one of the immigrant communities." },
+      { momento: "Afternoon", actividad: "Riverside promenade and a Vino de la Costa tasting." },
+    ],
+    otrosAtractivos: ["Casa de las Colectividades", "Vino de la Costa, made on Isla Paulino", "Port of Berisso and shipyards", "Municipal Museum"],
+    eventos: ["Provincial Immigrant Festival, September and October", "Symbolic Landing, September 21"],
+    dondeComer: ["Restaurants from the different immigrant communities during the festival", "Steakhouses and fish markets at the port"],
+    dondeAlojarse: ["Hotels in La Plata, very close by", "Local lodging"],
+    tips: ["Plan your visit for September or October if the Immigrant Festival is the goal", "Combine with La Plata or Ensenada, both very close by", "Ask about local Vino de la Costa producers for a tasting"],
+    presupuesto: "Low to mid-range: the Immigrant Festival has free activities, food is the main expense.",
+  },
+  "Ayacucho": {
+    nota: "National Calf Capital, and the only real place in Martín Fierro.",
+    historia: "The Ayacucho district was created in 1865 from land split off from Tandil, Mar Chiquita, and Vecino, and took its name in honor of the Battle of Ayacucho of 1824, the last fought for South American independence, even though it took place thousands of kilometers away in Peru. The city was officially founded in 1866 through the efforts of landowner José Zoilo Miguens. It's the only real place mentioned throughout the entire poem \"Martín Fierro,\" by José Hernández, giving it a special place in Argentine gaucho literature. Today Ayacucho is known as the National Calf Capital, thanks to an economy based on cattle ranching.",
+    datoCurioso: "Ayacucho is the only real geographic place mentioned throughout the poem \"Martín Fierro,\" the masterpiece of Argentine gaucho literature.",
+    comoLlegar: "Provincial Route 29, about 3h45 by car.",
+    cuandoIr: "March or April for the National Calf Festival and Branding Day.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for estancias and the surrounding countryside.",
+    itinerario: [
+      { momento: "Morning", actividad: "Plaza San Martín and Plaza Colón, designed by Carlos Thays." },
+      { momento: "Midday", actividad: "Country-style lunch." },
+      { momento: "Afternoon", actividad: "Regional History Museum or a country day at an estancia." },
+    ],
+    otrosAtractivos: ["Plaza Colón, designed by Carlos Thays, with a statue of Aimé Tschiffely and his horses Gato and Mancha", "Regional History Museum", "San Juan Flour Mill, from 1870", "Club Independiente Community Recreation Complex"],
+    eventos: ["National Calf Festival and Branding Day, since 1969"],
+    dondeComer: ["Country-style restaurants", "Traditional steakhouses"],
+    dondeAlojarse: ["Local estancias", "Hotels downtown"],
+    tips: ["Book ahead for the National Calf Festival, it draws big crowds", "A good stop between Chascomús/Dolores and Tandil or the coast", "Martín Fierro fans can look for references to the poem around town"],
+    presupuesto: "Low to mid-range.",
+  },
+  "Rauch": {
+    nota: "The historic Puente Silva bridge and swimming spots on the Chapaleofú stream.",
+    historia: "The Rauch district was created in 1865 through the efforts of justice of the peace Francisco Mauricio Letamendi, in an area crossed by the Chapaleofú, De los Huesos, and Langueyú streams that flow into the Salado River. The city has since developed a farming and ranching economy, now paired with an INTA experimental station dedicated to research on the Salado basin. Puente Silva, built in 1875 over the Chapaleofú stream, is one of the oldest examples of rural infrastructure in the area and was declared a historically significant monument. Today Rauch combines that rural profile with recreational spots along its streams.",
+    datoCurioso: "Puente Silva, also called Puente de Bovedilla, was built in 1875 and is still preserved as a historic monument over the Chapaleofú stream.",
+    comoLlegar: "Provincial Route 50 or 29, about 3h30 by car.",
+    cuandoIr: "Spring and fall.",
+    duracion: "Half a day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for Puente Silva and the surrounding countryside.",
+    itinerario: [
+      { momento: "Morning", actividad: "The Art Deco Municipal Palace and the Local History Museum." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Balneario Sports Complex by the Chapaleofú stream and Puente Silva." },
+    ],
+    otrosAtractivos: ["Puente Silva, from 1875, over the Chapaleofú stream", "Municipal Palace, in Art Deco style", "Balneario Sports Complex and Municipal Campsite", "Local History Museum"],
+    eventos: ["Rural fairs and activities, seasonal"],
+    dondeComer: ["Restaurants and steakhouses downtown", "Eateries by the municipal swimming spot"],
+    dondeAlojarse: ["Hotels downtown", "Municipal campsite by the stream"],
+    tips: ["A good stop between Chascomús/Ayacucho and Tandil", "The municipal swimming spot is a good option in summer", "Combine with Ayacucho, a short distance away"],
+    presupuesto: "Low.",
+  },
+  "Olavarría": {
+    nota: "Quarries, the largest stained-glass window in Latin America, and boutique wineries.",
+    historia: "Olavarría developed from the late 19th century around the limestone quarries of the Sierras Bayas, which fueled a powerful cement industry still active in the region. The arrival of immigrants from various communities, along with agricultural colonies like San Miguel, Hinojo, and Nievas, gave the area a strong religious and community identity. That devotion is expressed today in more than twenty churches and in the pilgrimage to the Virgen de la Loma during Holy Week. Today Olavarría combines that industrial and religious profile with hill landscapes and boutique vineyards in the district's rural villages.",
+    datoCurioso: "The Sierras Bayas are home to the largest stained-glass window in Latin America, a large-scale work tied to the area's quarrying history.",
+    comoLlegar: "Route 226, about 4h30 by car.",
+    cuandoIr: "Holy Week for the religious pilgrimage; spring and fall for the hills.",
+    duracion: "Weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the Sierras Bayas and the rural colonies.",
+    itinerario: [
+      { momento: "Morning", actividad: "Sierras Bayas and the largest stained-glass window in Latin America." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "A tour of local churches or a visit to a boutique winery in Hinojo." },
+    ],
+    otrosAtractivos: ["Sierras Bayas, with quarries and the great stained-glass window", "Bodega Ita Mallal, vineyards in Hinojo", "Virgen de la Loma, a pilgrimage site", "San Miguel, Hinojo, and Nievas colonies"],
+    eventos: ["Way of the Cross to the Virgen de la Loma, Holy Week"],
+    dondeComer: ["Restaurants downtown", "Eateries in the rural colonies"],
+    dondeAlojarse: ["Hotels downtown", "Cabins in the Sierras Bayas"],
+    tips: ["Book lodging ahead for Holy Week, it's the busiest time", "Combine with Azul or Tandil, both within the same hill system", "Check visiting hours for Bodega Ita Mallal"],
+    presupuesto: "Low to mid-range.",
+  },
+  "General Madariaga": {
+    nota: "The Pago Gaucho, a classic stop on the way to Pinamar and Villa Gesell.",
+    historia: "General Madariaga was founded in 1907 in the southeastern part of the province, on land historically devoted to ranching and surrounded by tala tree groves and lagoons. Its proximity to the beach resorts of Pinamar and Villa Gesell made it, over time, an essential stop on the way to the coast, though it kept its own rural character under the nickname \"Pago Gaucho.\" That country tradition lives on in its bonfires, parades, and rodeo-style riding, and in artisan workshops focused mainly on silverwork. Today it combines that gaucho heritage with sport fishing in its Los Horcones and Salada Grande lagoons.",
+    datoCurioso: "Laguna Salada Grande, nearly 5,500 hectares, is a saltwater lagoon surrounded by tala tree groves, home to otters, capybaras, herons, and swans.",
+    comoLlegar: "Route 2 to Dolores and then Provincial Routes 63, 11, and 56, about 3h30 by car; very close to Pinamar (30 km) and Villa Gesell.",
+    cuandoIr: "Spring and summer for the lagoons; year-round for rural tourism.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; a car helps for the Los Horcones and Salada Grande lagoons.",
+    itinerario: [
+      { momento: "Morning", actividad: "Artisan and silversmith workshops downtown." },
+      { momento: "Midday", actividad: "Lunch with vaquillona con cuero, a local specialty." },
+      { momento: "Afternoon", actividad: "Los Horcones or Salada Grande lagoon, fishing and water sports." },
+    ],
+    otrosAtractivos: ["Laguna Salada Grande, nearly 5,500 hectares", "Laguna Los Horcones, with a fishing and boating club", "Handmade silverwork workshops", "Parque Juan Anchorena"],
+    eventos: ["Gaucho parades and rodeo-style riding, seasonal", "Local folk festivals"],
+    dondeComer: ["Country restaurants serving vaquillona con cuero", "Traditional steakhouses"],
+    dondeAlojarse: ["Rural estancias and inns", "Campsites by the lagoons"],
+    tips: ["A good stop to break up the trip to Pinamar or Villa Gesell", "Book silversmith workshop visits ahead if you want to buy pieces", "Bring fishing gear for the lagoons"],
+    presupuesto: "Low to mid-range.",
+  },
+  "San Nicolás de los Arroyos": {
+    nota: "The City of the Agreement, cradle of the National Constitution.",
+    historia: "San Nicolás de los Arroyos is one of the oldest cities in the province, with settlement dating back to the mid-18th century on the right bank of the Paraná River. On March 2, 1811, its waters were the site of the first naval battle in Argentine history, and in 1819 the General Constituent Congress declared it a city. Its most significant moment came on May 31, 1852, when representatives of fourteen provinces signed the Acuerdo de San Nicolás there, the pact that laid the groundwork for the 1853 National Constitution and earned it the nickname \"City of the Agreement.\" That historic legacy was joined in 1983 by a strong religious profile, following the apparition of the Virgen del Rosario that turned the city into one of the country's major pilgrimage centers.",
+    datoCurioso: "According to the faithful, in 1983 the Virgen del Rosario appeared to a local woman and asked her to have a temple built; since then, the sanctuary receives close to two million pilgrims a year.",
+    comoLlegar: "Route 9, about 2h30 to 3 hours by car; buses from Retiro Terminal also available.",
+    cuandoIr: "Year-round; the anniversaries of the apparition, in September, draw many pilgrims.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "The historic quarter is walkable; a tourist bus connects the main points of interest on one-hour routes.",
+    itinerario: [
+      { momento: "Morning", actividad: "National Casa del Acuerdo Museum and the Rafael de Aguiar Municipal Theater." },
+      { momento: "Midday", actividad: "Lunch downtown." },
+      { momento: "Afternoon", actividad: "Sanctuary of the Virgen del Rosario and the Paraná riverside." },
+    ],
+    otrosAtractivos: ["National Casa del Acuerdo Museum, where the 1852 pact was signed", "Sanctuary of the Virgen del Rosario de San Nicolás", "Rafael de Aguiar Regional Forest and Botanical Park", "El Arenal, a beach and water sports area"],
+    eventos: ["Anniversary of the Acuerdo de San Nicolás, May 31", "Pilgrimages to the Virgen del Rosario, year-round"],
+    dondeComer: ["Fish restaurants along the riverside", "Bars and cafés in the historic center"],
+    dondeAlojarse: ["Hotels downtown", "Pilgrim lodging near the sanctuary"],
+    tips: ["The tourist bus departs from Plaza Mitre on three daily schedules", "Book accommodation ahead if your visit coincides with a pilgrimage date", "The Casa del Acuerdo has free admission"],
+    presupuesto: "Low to mid-range: the main historic and religious sites have free admission.",
+  },
+  "San Miguel del Monte": {
+    nota: "A lagoon five blocks from downtown, and the Rosas Ranch.",
+    historia: "San Miguel del Monte was founded in 1779 as one of the forts along the Buenos Aires frontier line, under the name Guardia del Monte, and became the area's most important military post around 1780 to hold off raids from indigenous peoples. During Juan Manuel de Rosas' government, the area played a major political and military role through the Colorados del Monte, rural militias loyal to the Restorer. That connection survives today in the Rosas Ranch, moved by special truck from the Los Cerrillos estancia to the town center, in what is remembered as the only relocation of a building of this kind in South America. Today San Miguel del Monte is above all synonymous with its lagoon, which, unlike other lagoons in the province, sits just five blocks from downtown.",
+    datoCurioso: "Juan Manuel de Rosas' ranch house wasn't built in town: it was moved whole by truck from the Los Cerrillos estancia, 30 km away, in what's considered the only relocation of a building of this kind in all of South America.",
+    comoLlegar: "Ricchieri highway, Ezeiza-Cañuelas highway, and then Route 3, about 1h50 by car; buses from Retiro Terminal also available.",
+    cuandoIr: "Year-round; spring and summer for water sports on the lagoon.",
+    duracion: "Full day or weekend.",
+    comoMoverse: "Downtown is walkable; the lagoon is just five blocks away, so no car is needed to reach the riverside.",
+    itinerario: [
+      { momento: "Morning", actividad: "Juan Manuel de Rosas Ranch and the Guardia del Monte Museum." },
+      { momento: "Midday", actividad: "Country-style lunch or barbecue by the lagoon." },
+      { momento: "Afternoon", actividad: "Laguna de Monte riverside, kayaking or a boat ride." },
+    ],
+    otrosAtractivos: ["Laguna de Monte, 686 hectares, five blocks from downtown", "Juan Manuel de Rosas Ranch", "Guardia del Monte Municipal Museum", "Paseo de los Artesanos craft market"],
+    eventos: ["Seasonal water sports activities on the lagoon", "Craft fairs along the riverside"],
+    dondeComer: ["Steakhouses and restaurants facing the lagoon", "General stores and country pulperías"],
+    dondeAlojarse: ["Cabins and inns near the riverside", "Campsites by the lagoon"],
+    tips: ["A full lap around the lagoon is over 10 km, great for biking", "Book accommodation ahead on long weekends", "The Guardia del Monte Museum is open Thursday through Sunday and holidays"],
+    presupuesto: "Low to mid-range: access to the lagoon and a walk around town are free, food and any water activity are the main expense.",
+  },
+};
+
+function textoDestino(d) {
+  if (idioma === "es") return d;
+  const traduccion = DESTINOS_EN[d.nombre];
+  return traduccion ? { ...d, ...traduccion } : d;
+}
+
 const CATEGORIAS = [
   { id: "todas", label: "Todas", icon: "map-pin" },
   { id: "playa", label: "Playa", icon: "waves" },
@@ -1298,6 +2533,309 @@ const CATEGORIAS = [
   { id: "pueblo", label: "Pueblo", icon: "landmark" },
   { id: "ciudad", label: "Ciudad", icon: "gauge" },
 ];
+
+const CATEGORIA_LABELS = {
+  es: { todas: "Todas", playa: "Playa", sierra: "Sierra", rio: "Río", campo: "Campo", pueblo: "Pueblo", ciudad: "Ciudad" },
+  en: { todas: "All", playa: "Beach", sierra: "Hills", rio: "River", campo: "Countryside", pueblo: "Town", ciudad: "City" },
+};
+
+// --- Idioma de la interfaz (español / inglés) --------------------------------
+const IDIOMA_KEY = "destinos-ba-idioma";
+
+function cargarIdioma() {
+  try {
+    const guardado = localStorage.getItem(IDIOMA_KEY);
+    if (guardado === "en" || guardado === "es") return guardado;
+  } catch (err) {
+    console.warn("No se pudo leer el idioma guardado:", err);
+  }
+  const idiomaNavegador = (navigator.language || "es").toLowerCase();
+  return idiomaNavegador.startsWith("en") ? "en" : "es";
+}
+
+let idioma = cargarIdioma();
+
+const TEXTOS = {
+  es: {
+    eyebrow: "Provincia de Buenos Aires",
+    tituloH1: "¿A cuántos km<br />querés llegar?",
+    subtituloCaba: "Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.",
+    subtituloUbicacion: "Elegí una distancia desde tu ubicación actual y descubrí pueblos y ciudades turísticas dentro de ese radio.",
+    ubicacionUsar: "Usar mi ubicación en vez de CABA",
+    ubicacionUsando: "Usando tu ubicación (volver a CABA)",
+    ubicacionBuscando: "Buscando tu ubicación...",
+    ubicacionSinSoporte: "Tu navegador no permite acceder a la ubicación.",
+    ubicacionNota: "Las distancias ahora son en línea recta desde donde estás, no por ruta.",
+    ubicacionError: "No pudimos acceder a tu ubicación. Revisá los permisos del navegador e intentá de nuevo.",
+    buscadorPlaceholder: "Buscar por nombre o atractivo (ej: termas, vino, laguna)...",
+    buscarAria: "Buscar",
+    panelDistanciaMax: "Distancia máxima",
+    favoritos: "Favoritos",
+    visitados: "Visitados",
+    sorpresa: "Sorpréndeme",
+    sorpresaSinResultados: "No hay destinos con estos filtros",
+    resumenBtn: "Mi resumen",
+    vistaLista: "Lista",
+    vistaMapa: "Mapa",
+    ordenarPor: "Ordenar por",
+    ordenDistancia: "Distancia",
+    ordenAlfabetico: "Alfabético",
+    ordenCategoria: "Categoría",
+    contadorPlural: "destinos encontrados",
+    contadorSingular: "destino encontrado",
+    vacioBusqueda: (q) => `No encontramos ningún destino que coincida con "${q}" dentro de los filtros elegidos.`,
+    vacioFavoritos: "Todavía no marcaste ningún destino como favorito.",
+    vacioVisitados: "Todavía no marcaste ningún destino como visitado.",
+    vacioGenerico: "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.",
+    compartirFiltrosBtn: "Compartir estos filtros",
+    compartirFiltrosCopiado: "Copiado",
+    footerCaba: "Distancias aproximadas por ruta desde CABA · Datos de referencia, verificá antes de viajar.",
+    footerUbicacion: "Distancias en línea recta desde tu ubicación (no por ruta) · Datos de referencia, verificá antes de viajar.",
+    offline: "Estás sin conexión: el mapa, las fotos y el clima no van a cargar, pero la lista de destinos sigue funcionando con lo que ya tenías guardado.",
+    tuUbicacion: "Vos",
+    tuUbicacionTexto: "tu ubicación",
+    caba: "CABA",
+    kmDesdeCaba: (km) => `${km} km desde CABA`,
+    kmLineaRecta: (km) => `${km} km en línea recta desde tu ubicación`,
+    tiempoEnAuto: (t) => `~${t} en auto`,
+    modalHistoria: "Un poco de historia",
+    modalDatoCurioso: "Dato curioso",
+    modalComoLlegar: "Cómo llegar",
+    modalComoMoverse: "Cómo moverse en el lugar",
+    modalCuandoIr: "Cuándo ir",
+    modalDuracion: "Duración sugerida",
+    modalItinerario: "Itinerario sugerido",
+    modalOtrosAtractivos: "Otros atractivos",
+    modalEventos: "Eventos y fechas especiales",
+    modalDondeComer: "Dónde comer",
+    modalDondeAlojarse: "Dónde alojarse",
+    modalTips: "Tips locales",
+    modalPresupuesto: "Presupuesto estimado",
+    modalClima: "Clima actual",
+    modalCosto: "Costo estimado de combustible y peajes",
+    modalNotaPersonal: "Tu nota personal",
+    notaPersonalPlaceholder: "¿Qué te pareció? Anotá lo que quieras recordar de tu visita...",
+    yaVisitaste: "Ya lo visitaste",
+    visitadoBadge: "Visitado",
+    favAgregar: "Agregar a favoritos",
+    favQuitar: "Quitar de favoritos",
+    visitadoMarcar: "Marcar como visitado",
+    visitadoQuitar: "Quitar marca de visitado",
+    itinerarioAgregar: "Agregar al itinerario",
+    itinerarioQuitar: "Quitar del itinerario",
+    compararAgregar: "Agregar a comparación",
+    compararQuitar: "Quitar de la comparación",
+    copiarGuia: "Copiar guía",
+    compartirGuia: "Compartir guía",
+    cerrarGuia: "Cerrar guía",
+    climaSinDatos: "Sin datos",
+    costoPrecio: "Precio nafta (ARS/litro)",
+    costoConsumo: "Consumo (km/litro)",
+    costoPeaje: "Peaje estimado (ARS cada 100 km)",
+    costoVelocidad: "Velocidad promedio de ruta (km/h)",
+    costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
+    costoCombustible: "Combustible",
+    costoPeajes: "Peajes",
+    costoTotal: "Total estimado",
+    costoTiempoIda: "Tiempo de manejo (solo ida)",
+    costoTiempoTotal: "Tiempo de manejo (ida y vuelta)",
+    itinerarioBarraTexto: (n) => `${n} ${n === 1 ? "destino elegido" : "destinos elegidos"} para el itinerario`,
+    itinerarioVerBtn: "Ver itinerario",
+    itinerarioMinimo: "Elegí al menos 2",
+    itinerarioVaciarAria: "Vaciar selección de itinerario",
+    itinerarioMax: (n) => `Podés armar itinerarios de hasta ${n} paradas. Sacá alguna para agregar otra.`,
+    itinerarioTitulo: "Tu itinerario sugerido",
+    itinerarioDescripcion: (origenNombre) => `Orden calculado para minimizar la distancia total en línea recta, empezando desde ${origenNombre}. No es la ruta real (podés reordenar según rutas y horarios), pero sirve como punto de partida.`,
+    itinerarioDia: (n) => `Día ${n}`,
+    itinerarioParadas: (n) => `${n} paradas`,
+    itinerarioDistanciaTotal: "Distancia total estimada",
+    itinerarioTiempoTotal: "Tiempo de manejo estimado",
+    kmLineaRectaCorto: "km en línea recta",
+    compararBarraTexto: (n) => `${n} ${n === 1 ? "destino elegido" : "destinos elegidos"} para comparar`,
+    compararVerBtn: "Comparar",
+    compararMinimo: "Elegí 1 más",
+    compararVaciarAria: "Vaciar selección de comparación",
+    compararMax: "Solo podés comparar 2 destinos a la vez. Sacá uno primero (desde la barra de abajo) para elegir otro.",
+    compararComparando: "Comparando 2 destinos",
+    compararCategoria: "Categoría",
+    compararDistancia: "Distancia",
+    compararTiempo: "Tiempo en auto",
+    compararDuracion: "Duración sugerida",
+    compararCosto: "Costo estimado (ida y vuelta)",
+    compararPresupuesto: "Presupuesto",
+    compararItinerario: "Itinerario sugerido",
+    resumenTitulo: "Mi resumen",
+    resumenNota: (v, t) => `Visitaste ${v} de ${t} destinos cargados en la app.`,
+    resumenPorCategoria: "Por categoría",
+    resumenFaltantes: (lista) => `Todavía no visitaste ningún destino de: ${lista}.`,
+    resumenCompleto: "¡Ya visitaste al menos un destino de cada categoría!",
+    resumenTuProgreso: "Tu progreso",
+    linkFiltrosResumen: (resumen) => `Mirá esto en Destinos Buenos Aires: ${resumen}`,
+    linkFiltrosMenosDe: (km) => `menos de ${km} km`,
+    linkFiltrosCon: (q) => `con "${q}"`,
+    guiaSeparador: "— Destinos Buenos Aires (guía por distancia)",
+    guiaHistoria: "HISTORIA",
+    guiaDato: "DATO CURIOSO",
+    guiaComoLlegar: "Cómo llegar:",
+    guiaComoMoverse: "Cómo moverse:",
+    guiaCuandoIr: "Cuándo ir:",
+    guiaDuracion: "Duración sugerida:",
+    guiaItinerario: "ITINERARIO SUGERIDO",
+    guiaOtrosAtractivos: "OTROS ATRACTIVOS",
+    guiaEventos: "EVENTOS Y FECHAS ESPECIALES",
+    guiaDondeComer: "DÓNDE COMER",
+    guiaDondeAlojarse: "DÓNDE ALOJARSE",
+    guiaTips: "TIPS LOCALES",
+    guiaPresupuesto: "PRESUPUESTO ESTIMADO:",
+    cambiarAIngles: "Switch to English",
+    cambiarATemaClaro: "Cambiar a tema claro",
+    cambiarATemaOscuro: "Cambiar a tema oscuro",
+    pageTitle: "Destinos Buenos Aires - Guía por distancia",
+    pageDescription: "Encontrá pueblos y ciudades turísticas de la provincia de Buenos Aires según la distancia que quieras viajar.",
+  },
+  en: {
+    eyebrow: "Buenos Aires Province",
+    tituloH1: "How many km<br />do you want to go?",
+    subtituloCaba: "Pick a distance from Buenos Aires City (CABA) and discover towns and tourist cities within that radius.",
+    subtituloUbicacion: "Pick a distance from your current location and discover towns and tourist cities within that radius.",
+    ubicacionUsar: "Use my location instead of CABA",
+    ubicacionUsando: "Using your location (switch back to CABA)",
+    ubicacionBuscando: "Finding your location...",
+    ubicacionSinSoporte: "Your browser doesn't support location access.",
+    ubicacionNota: "Distances are now straight-line from where you are, not by road.",
+    ubicacionError: "We couldn't access your location. Check your browser permissions and try again.",
+    buscadorPlaceholder: "Search by name or attraction (e.g. hot springs, wine, lagoon)...",
+    buscarAria: "Search",
+    panelDistanciaMax: "Maximum distance",
+    favoritos: "Favorites",
+    visitados: "Visited",
+    sorpresa: "Surprise me",
+    sorpresaSinResultados: "No destinations match these filters",
+    resumenBtn: "My summary",
+    vistaLista: "List",
+    vistaMapa: "Map",
+    ordenarPor: "Sort by",
+    ordenDistancia: "Distance",
+    ordenAlfabetico: "Alphabetical",
+    ordenCategoria: "Category",
+    contadorPlural: "destinations found",
+    contadorSingular: "destination found",
+    vacioBusqueda: (q) => `We couldn't find any destination matching "${q}" within the chosen filters.`,
+    vacioFavoritos: "You haven't marked any destination as a favorite yet.",
+    vacioVisitados: "You haven't marked any destination as visited yet.",
+    vacioGenerico: "There are no destinations in that radius with the chosen filter. Try increasing the distance.",
+    compartirFiltrosBtn: "Share these filters",
+    compartirFiltrosCopiado: "Copied",
+    footerCaba: "Approximate road distances from CABA · Reference data, please verify before traveling.",
+    footerUbicacion: "Straight-line distances from your location (not by road) · Reference data, please verify before traveling.",
+    offline: "You're offline: the map, photos, and weather won't load, but the destination list keeps working with what was already saved.",
+    tuUbicacion: "You",
+    tuUbicacionTexto: "your location",
+    caba: "CABA",
+    kmDesdeCaba: (km) => `${km} km from CABA`,
+    kmLineaRecta: (km) => `${km} km in a straight line from your location`,
+    tiempoEnAuto: (t) => `~${t} by car`,
+    modalHistoria: "A bit of history",
+    modalDatoCurioso: "Fun fact",
+    modalComoLlegar: "How to get there",
+    modalComoMoverse: "Getting around",
+    modalCuandoIr: "When to go",
+    modalDuracion: "Suggested duration",
+    modalItinerario: "Suggested itinerary",
+    modalOtrosAtractivos: "Other attractions",
+    modalEventos: "Events and special dates",
+    modalDondeComer: "Where to eat",
+    modalDondeAlojarse: "Where to stay",
+    modalTips: "Local tips",
+    modalPresupuesto: "Estimated budget",
+    modalClima: "Current weather",
+    modalCosto: "Estimated fuel and toll cost",
+    modalNotaPersonal: "Your personal note",
+    notaPersonalPlaceholder: "What did you think? Jot down anything you want to remember about your visit...",
+    yaVisitaste: "You've already been here",
+    visitadoBadge: "Visited",
+    favAgregar: "Add to favorites",
+    favQuitar: "Remove from favorites",
+    visitadoMarcar: "Mark as visited",
+    visitadoQuitar: "Unmark as visited",
+    itinerarioAgregar: "Add to itinerary",
+    itinerarioQuitar: "Remove from itinerary",
+    compararAgregar: "Add to comparison",
+    compararQuitar: "Remove from comparison",
+    copiarGuia: "Copy guide",
+    compartirGuia: "Share guide",
+    cerrarGuia: "Close guide",
+    climaSinDatos: "No data",
+    costoPrecio: "Fuel price (ARS/liter)",
+    costoConsumo: "Consumption (km/liter)",
+    costoPeaje: "Estimated toll (ARS every 100 km)",
+    costoVelocidad: "Average road speed (km/h)",
+    costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
+    costoCombustible: "Fuel",
+    costoPeajes: "Tolls",
+    costoTotal: "Estimated total",
+    costoTiempoIda: "Driving time (one way)",
+    costoTiempoTotal: "Driving time (round trip)",
+    itinerarioBarraTexto: (n) => `${n} ${n === 1 ? "destination" : "destinations"} picked for the itinerary`,
+    itinerarioVerBtn: "View itinerary",
+    itinerarioMinimo: "Pick at least 2",
+    itinerarioVaciarAria: "Clear itinerary selection",
+    itinerarioMax: (n) => `You can plan itineraries of up to ${n} stops. Remove one to add another.`,
+    itinerarioTitulo: "Your suggested itinerary",
+    itinerarioDescripcion: (origenNombre) => `Order calculated to minimize the total straight-line distance, starting from ${origenNombre}. It's not the real route (you can reorder based on roads and schedules), but it's a good starting point.`,
+    itinerarioDia: (n) => `Day ${n}`,
+    itinerarioParadas: (n) => `${n} stops`,
+    itinerarioDistanciaTotal: "Estimated total distance",
+    itinerarioTiempoTotal: "Estimated driving time",
+    kmLineaRectaCorto: "km in a straight line",
+    compararBarraTexto: (n) => `${n} ${n === 1 ? "destination" : "destinations"} picked to compare`,
+    compararVerBtn: "Compare",
+    compararMinimo: "Pick 1 more",
+    compararVaciarAria: "Clear comparison selection",
+    compararMax: "You can only compare 2 destinations at a time. Remove one first (from the bar below) to pick another.",
+    compararComparando: "Comparing 2 destinations",
+    compararCategoria: "Category",
+    compararDistancia: "Distance",
+    compararTiempo: "Time by car",
+    compararDuracion: "Suggested duration",
+    compararCosto: "Estimated cost (round trip)",
+    compararPresupuesto: "Budget",
+    compararItinerario: "Suggested itinerary",
+    resumenTitulo: "My summary",
+    resumenNota: (v, t) => `You've visited ${v} of ${t} destinations in the app.`,
+    resumenPorCategoria: "By category",
+    resumenFaltantes: (lista) => `You haven't visited any destination yet in: ${lista}.`,
+    resumenCompleto: "You've visited at least one destination in every category!",
+    resumenTuProgreso: "Your progress",
+    linkFiltrosResumen: (resumen) => `Check this out on Destinos Buenos Aires: ${resumen}`,
+    linkFiltrosMenosDe: (km) => `less than ${km} km`,
+    linkFiltrosCon: (q) => `with "${q}"`,
+    guiaSeparador: "— Destinos Buenos Aires (distance-based guide)",
+    guiaHistoria: "HISTORY",
+    guiaDato: "FUN FACT",
+    guiaComoLlegar: "How to get there:",
+    guiaComoMoverse: "Getting around:",
+    guiaCuandoIr: "When to go:",
+    guiaDuracion: "Suggested duration:",
+    guiaItinerario: "SUGGESTED ITINERARY",
+    guiaOtrosAtractivos: "OTHER ATTRACTIONS",
+    guiaEventos: "EVENTS AND SPECIAL DATES",
+    guiaDondeComer: "WHERE TO EAT",
+    guiaDondeAlojarse: "WHERE TO STAY",
+    guiaTips: "LOCAL TIPS",
+    guiaPresupuesto: "ESTIMATED BUDGET:",
+    cambiarAIngles: "Cambiar a español",
+    cambiarATemaClaro: "Switch to light theme",
+    cambiarATemaOscuro: "Switch to dark theme",
+    pageTitle: "Buenos Aires Destinations - Distance-based Guide",
+    pageDescription: "Find towns and tourist cities in Buenos Aires Province based on how far you want to travel.",
+  },
+};
+
+function t(clave, ...args) {
+  const valor = (TEXTOS[idioma] && TEXTOS[idioma][clave]) ?? TEXTOS.es[clave];
+  return typeof valor === "function" ? valor(...args) : valor;
+}
 
 const MAX_KM = 1000;
 
@@ -1534,7 +3072,7 @@ function toggleItinerario(nombre) {
     itinerarioSeleccion.delete(nombre);
   } else {
     if (itinerarioSeleccion.size >= ITINERARIO_MAX) {
-      alert(`Podés armar itinerarios de hasta ${ITINERARIO_MAX} paradas. Sacá alguna para agregar otra.`);
+      alert(t("itinerarioMax", ITINERARIO_MAX));
       return;
     }
     itinerarioSeleccion.add(nombre);
@@ -1570,7 +3108,7 @@ function toggleComparacion(nombre) {
     comparacionSeleccion.delete(nombre);
   } else {
     if (comparacionSeleccion.size >= 2) {
-      alert("Solo podés comparar 2 destinos a la vez. Sacá uno primero (desde la barra de abajo) para elegir otro.");
+      alert(t("compararMax"));
       return;
     }
     comparacionSeleccion.add(nombre);
@@ -1605,8 +3143,8 @@ function kmDesdeOrigen(d) {
 function etiquetaDistancia(d) {
   const km = kmDesdeOrigen(d);
   const tiempo = formatearTiempo(tiempoDesdeOrigen(d));
-  const base = origen.esUbicacionUsuario ? `${km} km en línea recta desde tu ubicación` : `${km} km desde CABA`;
-  return `${base} · ~${tiempo} en auto`;
+  const base = origen.esUbicacionUsuario ? t("kmLineaRecta", km) : t("kmDesdeCaba", km);
+  return `${base} · ${t("tiempoEnAuto", tiempo)}`;
 }
 
 // --- Orden óptimo del itinerario: prueba todas las combinaciones posibles ---
@@ -1642,7 +3180,7 @@ function calcularOrdenOptimo(destinos) {
 
   const tramos = [];
   let previo = origen;
-  let previoNombre = origen.esUbicacionUsuario ? "Tu ubicación" : "CABA";
+  let previoNombre = origen.esUbicacionUsuario ? t("tuUbicacion") : t("caba");
   for (const parada of mejorOrden) {
     const kmTramo = Math.round(distanciaHaversine(previo.lat, previo.lng, parada.lat, parada.lng));
     tramos.push({
@@ -1712,6 +3250,9 @@ const el = {
   resumenOverlay: document.getElementById("resumen-overlay"),
   resumenModal: document.getElementById("resumen-modal"),
   offlineBanner: document.getElementById("offline-banner"),
+  idiomaToggle: document.getElementById("idioma-toggle"),
+  eyebrowTexto: document.getElementById("eyebrow-texto"),
+  tituloH1: document.getElementById("titulo-h1"),
 };
 
 // Sincronizar los controles que no se regeneran en cada render() con los
@@ -1760,7 +3301,7 @@ function renderMapa(resultados) {
     fillOpacity: 1,
   })
     .addTo(leafletMap)
-    .bindTooltip(origen.esUbicacionUsuario ? "Vos" : "CABA", {
+    .bindTooltip(origen.esUbicacionUsuario ? t("tuUbicacion") : t("caba"), {
       permanent: true,
       direction: "top",
       className: "mapa-caba-tooltip",
@@ -1837,10 +3378,10 @@ function render() {
 
   el.filtros.innerHTML =
     `<button class="chip chip-fav ${soloFavoritos ? "chip-activo" : ""}" data-fav-toggle="1" aria-pressed="${soloFavoritos ? "true" : "false"}">
-      ${icon("star", 14, "currentColor", soloFavoritos ? "currentColor" : "none")} Favoritos
+      ${icon("star", 14, "currentColor", soloFavoritos ? "currentColor" : "none")} ${t("favoritos")}
     </button>
     <button class="chip chip-visitado ${soloVisitados ? "chip-activo" : ""}" data-visitado-toggle="1" aria-pressed="${soloVisitados ? "true" : "false"}">
-      ${icon(soloVisitados ? "check-circle" : "circle", 14)} Visitados
+      ${icon(soloVisitados ? "check-circle" : "circle", 14)} ${t("visitados")}
     </button>` +
     CATEGORIAS.map(
       (c) => `
@@ -1871,20 +3412,20 @@ function render() {
 
   const resultados = ordenarResultados(calcularResultadosFiltrados());
 
-  el.contador.textContent = `${resultados.length} ${resultados.length === 1 ? "destino encontrado" : "destinos encontrados"}`;
+  el.contador.textContent = `${resultados.length} ${resultados.length === 1 ? t("contadorSingular") : t("contadorPlural")}`;
 
   if (resultados.length === 0) {
     el.lista.style.display = "none";
     el.mapaWrap.style.display = "none";
     el.vacio.style.display = "block";
     if (busqueda) {
-      el.vacio.textContent = `No encontramos ningún destino que coincida con "${busqueda}" dentro de los filtros elegidos.`;
+      el.vacio.textContent = t("vacioBusqueda", busqueda);
     } else if (soloFavoritos) {
-      el.vacio.textContent = "Todavía no marcaste ningún destino como favorito.";
+      el.vacio.textContent = t("vacioFavoritos");
     } else if (soloVisitados) {
-      el.vacio.textContent = "Todavía no marcaste ningún destino como visitado.";
+      el.vacio.textContent = t("vacioVisitados");
     } else {
-      el.vacio.textContent = "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.";
+      el.vacio.textContent = t("vacioGenerico");
     }
   } else if (vista === "mapa") {
     el.vacio.style.display = "none";
@@ -1902,10 +3443,10 @@ function render() {
         return `
       <div class="card ${esVisitado ? "card-visitada" : ""}">
         <div class="card-acciones">
-          <button class="card-check ${esVisitado ? "activo" : ""}" data-visitado="${d.nombre}" aria-label="${esVisitado ? "Quitar marca de visitado" : "Marcar como visitado"}">
+          <button class="card-check ${esVisitado ? "activo" : ""}" data-visitado="${d.nombre}" aria-label="${esVisitado ? t("visitadoQuitar") : t("visitadoMarcar")}">
             ${icon(esVisitado ? "check-circle" : "circle", 18)}
           </button>
-          <button class="card-fav ${esFavorito ? "activo" : ""}" data-fav="${d.nombre}" aria-label="${esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}">
+          <button class="card-fav ${esFavorito ? "activo" : ""}" data-fav="${d.nombre}" aria-label="${esFavorito ? t("favQuitar") : t("favAgregar")}">
             ${icon("star", 18, "currentColor", esFavorito ? "currentColor" : "none")}
           </button>
         </div>
@@ -1919,11 +3460,11 @@ function render() {
             <div class="card-title-row">
               <h3 class="${esVisitado ? "tachado" : ""}">${d.nombre}</h3>
               ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
-              ${esVisitado ? `<span class="card-visitado-badge">${icon("check-circle", 12)} Visitado</span>` : ""}
+              ${esVisitado ? `<span class="card-visitado-badge">${icon("check-circle", 12)} ${t("visitadoBadge")}</span>` : ""}
               ${esVisitado && obtenerNotaPersonal(d.nombre).puntaje > 0 ? `<span class="card-puntaje">${"★".repeat(obtenerNotaPersonal(d.nombre).puntaje)}${"☆".repeat(5 - obtenerNotaPersonal(d.nombre).puntaje)}</span>` : ""}
             </div>
-            <p>${d.nota}</p>
-            <span class="card-link">Ver guía →</span>
+            <p>${textoDestino(d).nota}</p>
+            <span class="card-link">${idioma === "en" ? "View guide →" : "Ver guía →"}</span>
           </div>
         </button>
       </div>`;
@@ -1955,13 +3496,14 @@ function seccionLista(iconName, titulo, items) {
 
 function abrirModal(d) {
   elementoFocoPrevio = document.activeElement;
+  const dt = textoDestino(d);
   const render_estrella = () => {
     const esFav = favoritos.has(d.nombre);
     const btn = el.modal.querySelector("#modal-fav");
     if (btn) {
       btn.classList.toggle("activo", esFav);
       btn.innerHTML = icon("star", 20, "currentColor", esFav ? "currentColor" : "none");
-      btn.setAttribute("aria-label", esFav ? "Quitar de favoritos" : "Agregar a favoritos");
+      btn.setAttribute("aria-label", esFav ? t("favQuitar") : t("favAgregar"));
     }
   };
   const render_visitado = () => {
@@ -1970,7 +3512,7 @@ function abrirModal(d) {
     if (btn) {
       btn.classList.toggle("activo", esVisitado);
       btn.innerHTML = icon(esVisitado ? "check-circle" : "circle", 20);
-      btn.setAttribute("aria-label", esVisitado ? "Quitar marca de visitado" : "Marcar como visitado");
+      btn.setAttribute("aria-label", esVisitado ? t("visitadoQuitar") : t("visitadoMarcar"));
     }
     const badge = el.modal.querySelector("#modal-visitado-badge");
     if (badge) badge.style.display = esVisitado ? "inline-flex" : "none";
@@ -1986,7 +3528,7 @@ function abrirModal(d) {
     contenedorEstrellas.innerHTML = [1, 2, 3, 4, 5]
       .map(
         (n) =>
-          `<button type="button" class="nota-personal-estrella ${n <= datos.puntaje ? "activa" : ""}" data-puntaje="${n}" aria-label="Puntuar con ${n} ${n === 1 ? "estrella" : "estrellas"}">${icon("star", 22, "currentColor", n <= datos.puntaje ? "currentColor" : "none")}</button>`
+          `<button type="button" class="nota-personal-estrella ${n <= datos.puntaje ? "activa" : ""}" data-puntaje="${n}" aria-label="${idioma === "en" ? `Rate ${n} ${n === 1 ? "star" : "stars"}` : `Puntuar con ${n} ${n === 1 ? "estrella" : "estrellas"}`}">${icon("star", 22, "currentColor", n <= datos.puntaje ? "currentColor" : "none")}</button>`
       )
       .join("");
 
@@ -2012,7 +3554,7 @@ function abrirModal(d) {
     if (btn) {
       btn.classList.toggle("activo", enItinerario);
       btn.innerHTML = icon(enItinerario ? "check-circle" : "plus", 20);
-      btn.setAttribute("aria-label", enItinerario ? "Quitar del itinerario" : "Agregar al itinerario");
+      btn.setAttribute("aria-label", enItinerario ? t("itinerarioQuitar") : t("itinerarioAgregar"));
     }
   };
   const render_comparar_btn = () => {
@@ -2020,7 +3562,7 @@ function abrirModal(d) {
     const btn = el.modal.querySelector("#modal-comparar");
     if (btn) {
       btn.classList.toggle("activo", enComparacion);
-      btn.setAttribute("aria-label", enComparacion ? "Quitar de la comparación" : "Agregar a comparación");
+      btn.setAttribute("aria-label", enComparacion ? t("compararQuitar") : t("compararAgregar"));
     }
   };
 
@@ -2028,82 +3570,82 @@ function abrirModal(d) {
     <div class="modal-top">
       <div class="modal-km-badge">${etiquetaDistancia(d)}</div>
       <div class="modal-top-actions">
-        <button id="modal-comparar" aria-label="Agregar a comparación">${icon("columns", 20)}</button>
-        <button id="modal-itinerario" aria-label="Agregar al itinerario"></button>
-        <button id="modal-visitado" aria-label="Marcar como visitado"></button>
-        <button id="modal-fav" aria-label="Agregar a favoritos"></button>
-        <button id="modal-share" aria-label="Compartir guía">${icon("share", 20)}</button>
-        <button id="modal-copy" aria-label="Copiar guía">${icon("copy", 20)}</button>
-        <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
+        <button id="modal-comparar" aria-label="${t("compararAgregar")}">${icon("columns", 20)}</button>
+        <button id="modal-itinerario" aria-label="${t("itinerarioAgregar")}"></button>
+        <button id="modal-visitado" aria-label="${t("visitadoMarcar")}"></button>
+        <button id="modal-fav" aria-label="${t("favAgregar")}"></button>
+        <button id="modal-share" aria-label="${t("compartirGuia")}">${icon("share", 20)}</button>
+        <button id="modal-copy" aria-label="${t("copiarGuia")}">${icon("copy", 20)}</button>
+        <button id="modal-close" aria-label="${t("cerrarGuia")}">${icon("x", 20)}</button>
       </div>
     </div>
     <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
-    <span class="modal-visitado-badge" id="modal-visitado-badge" style="display:none">${icon("check-circle", 12)} Ya lo visitaste</span>
-    <p class="modal-nota">${d.nota}</p>
+    <span class="modal-visitado-badge" id="modal-visitado-badge" style="display:none">${icon("check-circle", 12)} ${t("yaVisitaste")}</span>
+    <p class="modal-nota">${dt.nota}</p>
 
     <div class="modal-nota-personal" id="modal-nota-personal" data-nombre="${d.nombre}" style="display:none">
-      <div class="modal-subhead">${icon("star", 14)} Tu nota personal</div>
+      <div class="modal-subhead">${icon("star", 14)} ${t("modalNotaPersonal")}</div>
       <div class="nota-personal-estrellas" id="nota-personal-estrellas"></div>
-      <textarea id="nota-personal-texto" class="nota-personal-texto" rows="3" placeholder="¿Qué te pareció? Anotá lo que quieras recordar de tu visita..."></textarea>
+      <textarea id="nota-personal-texto" class="nota-personal-texto" rows="3" placeholder="${t("notaPersonalPlaceholder")}"></textarea>
     </div>
 
     <div class="modal-foto" id="modal-foto" data-nombre="${d.nombre}"></div>
 
-    <div class="modal-subhead">${icon("scroll", 14)} Un poco de historia</div>
-    <p class="modal-parrafo">${d.historia}</p>
+    <div class="modal-subhead">${icon("scroll", 14)} ${t("modalHistoria")}</div>
+    <p class="modal-parrafo">${dt.historia}</p>
 
-    <div class="modal-subhead">${icon("lightbulb", 14)} Dato curioso</div>
-    <p class="modal-parrafo">${d.datoCurioso}</p>
+    <div class="modal-subhead">${icon("lightbulb", 14)} ${t("modalDatoCurioso")}</div>
+    <p class="modal-parrafo">${dt.datoCurioso}</p>
 
     <div class="modal-info">
       <div class="info-row">
         ${icon("car", 16, "#7C9473")}
         <div>
-          <div class="info-label">Cómo llegar</div>
-          <div class="info-value">${d.comoLlegar}</div>
+          <div class="info-label">${t("modalComoLlegar")}</div>
+          <div class="info-value">${dt.comoLlegar}</div>
         </div>
       </div>
       <div class="info-row">
         ${icon("compass", 16, "#7C9473")}
         <div>
-          <div class="info-label">Cómo moverse en el lugar</div>
-          <div class="info-value">${d.comoMoverse}</div>
+          <div class="info-label">${t("modalComoMoverse")}</div>
+          <div class="info-value">${dt.comoMoverse}</div>
         </div>
       </div>
       <div class="info-row">
         ${icon("calendar-days", 16, "#7C9473")}
         <div>
-          <div class="info-label">Cuándo ir</div>
-          <div class="info-value">${d.cuandoIr}</div>
+          <div class="info-label">${t("modalCuandoIr")}</div>
+          <div class="info-value">${dt.cuandoIr}</div>
         </div>
       </div>
       <div class="info-row">
         ${icon("clock", 16, "#7C9473")}
         <div>
-          <div class="info-label">Duración sugerida</div>
-          <div class="info-value">${d.duracion}</div>
+          <div class="info-label">${t("modalDuracion")}</div>
+          <div class="info-value">${dt.duracion}</div>
         </div>
       </div>
     </div>
 
-    <div class="modal-subhead">${icon("cloud", 14)} Clima actual</div>
+    <div class="modal-subhead">${icon("cloud", 14)} ${t("modalClima")}</div>
     <div class="modal-clima" id="modal-clima" data-nombre="${d.nombre}"></div>
 
-    <div class="modal-subhead">${icon("sparkles", 14)} Itinerario sugerido</div>
+    <div class="modal-subhead">${icon("sparkles", 14)} ${t("modalItinerario")}</div>
     <ul class="modal-timeline">
-      ${d.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
+      ${dt.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
     </ul>
 
-    ${seccionLista("map-pin", "Otros atractivos", d.otrosAtractivos)}
-    ${seccionLista("calendar-days", "Eventos y fechas especiales", d.eventos)}
-    ${seccionLista("utensils", "Dónde comer", d.dondeComer)}
-    ${seccionLista("bed", "Dónde alojarse", d.dondeAlojarse)}
-    ${seccionLista("map-pin", "Tips locales", d.tips)}
+    ${seccionLista("map-pin", t("modalOtrosAtractivos"), dt.otrosAtractivos)}
+    ${seccionLista("calendar-days", t("modalEventos"), dt.eventos)}
+    ${seccionLista("utensils", t("modalDondeComer"), dt.dondeComer)}
+    ${seccionLista("bed", t("modalDondeAlojarse"), dt.dondeAlojarse)}
+    ${seccionLista("map-pin", t("modalTips"), dt.tips)}
 
-    <div class="modal-subhead">${icon("wallet", 14)} Presupuesto estimado</div>
-    <p class="modal-parrafo modal-presupuesto">${d.presupuesto}</p>
+    <div class="modal-subhead">${icon("wallet", 14)} ${t("modalPresupuesto")}</div>
+    <p class="modal-parrafo modal-presupuesto">${dt.presupuesto}</p>
 
-    <div class="modal-subhead">${icon("car", 14)} Costo estimado de combustible y peajes</div>
+    <div class="modal-subhead">${icon("car", 14)} ${t("modalCosto")}</div>
     <div class="modal-costo" id="modal-costo" data-km="${kmDesdeOrigen(d)}"></div>
   `;
   el.modalOverlay.classList.add("visible");
@@ -2217,38 +3759,40 @@ async function cargarFotoModal(d) {
 const cacheClima = {};
 
 const WMO_CLIMA = {
-  0: { texto: "Despejado", icono: "sun" },
-  1: { texto: "Mayormente despejado", icono: "sun" },
-  2: { texto: "Parcialmente nublado", icono: "cloud-sun" },
-  3: { texto: "Nublado", icono: "cloud" },
-  45: { texto: "Neblina", icono: "cloud-fog" },
-  48: { texto: "Neblina con escarcha", icono: "cloud-fog" },
-  51: { texto: "Llovizna leve", icono: "cloud-rain" },
-  53: { texto: "Llovizna moderada", icono: "cloud-rain" },
-  55: { texto: "Llovizna intensa", icono: "cloud-rain" },
-  56: { texto: "Llovizna helada", icono: "cloud-rain" },
-  57: { texto: "Llovizna helada intensa", icono: "cloud-rain" },
-  61: { texto: "Lluvia leve", icono: "cloud-rain" },
-  63: { texto: "Lluvia moderada", icono: "cloud-rain" },
-  65: { texto: "Lluvia intensa", icono: "cloud-rain" },
-  66: { texto: "Lluvia helada", icono: "cloud-rain" },
-  67: { texto: "Lluvia helada intensa", icono: "cloud-rain" },
-  71: { texto: "Nevada leve", icono: "snowflake" },
-  73: { texto: "Nevada moderada", icono: "snowflake" },
-  75: { texto: "Nevada intensa", icono: "snowflake" },
-  77: { texto: "Granizo fino", icono: "snowflake" },
-  80: { texto: "Chubascos leves", icono: "cloud-rain" },
-  81: { texto: "Chubascos moderados", icono: "cloud-rain" },
-  82: { texto: "Chubascos intensos", icono: "cloud-rain" },
-  85: { texto: "Chubascos de nieve", icono: "snowflake" },
-  86: { texto: "Chubascos de nieve intensos", icono: "snowflake" },
-  95: { texto: "Tormenta eléctrica", icono: "cloud-lightning" },
-  96: { texto: "Tormenta con granizo", icono: "cloud-lightning" },
-  99: { texto: "Tormenta con granizo intenso", icono: "cloud-lightning" },
+  0: { texto: { es: "Despejado", en: "Clear sky" }, icono: "sun" },
+  1: { texto: { es: "Mayormente despejado", en: "Mostly clear" }, icono: "sun" },
+  2: { texto: { es: "Parcialmente nublado", en: "Partly cloudy" }, icono: "cloud-sun" },
+  3: { texto: { es: "Nublado", en: "Cloudy" }, icono: "cloud" },
+  45: { texto: { es: "Neblina", en: "Fog" }, icono: "cloud-fog" },
+  48: { texto: { es: "Neblina con escarcha", en: "Freezing fog" }, icono: "cloud-fog" },
+  51: { texto: { es: "Llovizna leve", en: "Light drizzle" }, icono: "cloud-rain" },
+  53: { texto: { es: "Llovizna moderada", en: "Moderate drizzle" }, icono: "cloud-rain" },
+  55: { texto: { es: "Llovizna intensa", en: "Heavy drizzle" }, icono: "cloud-rain" },
+  56: { texto: { es: "Llovizna helada", en: "Freezing drizzle" }, icono: "cloud-rain" },
+  57: { texto: { es: "Llovizna helada intensa", en: "Heavy freezing drizzle" }, icono: "cloud-rain" },
+  61: { texto: { es: "Lluvia leve", en: "Light rain" }, icono: "cloud-rain" },
+  63: { texto: { es: "Lluvia moderada", en: "Moderate rain" }, icono: "cloud-rain" },
+  65: { texto: { es: "Lluvia intensa", en: "Heavy rain" }, icono: "cloud-rain" },
+  66: { texto: { es: "Lluvia helada", en: "Freezing rain" }, icono: "cloud-rain" },
+  67: { texto: { es: "Lluvia helada intensa", en: "Heavy freezing rain" }, icono: "cloud-rain" },
+  71: { texto: { es: "Nevada leve", en: "Light snow" }, icono: "snowflake" },
+  73: { texto: { es: "Nevada moderada", en: "Moderate snow" }, icono: "snowflake" },
+  75: { texto: { es: "Nevada intensa", en: "Heavy snow" }, icono: "snowflake" },
+  77: { texto: { es: "Granizo fino", en: "Snow grains" }, icono: "snowflake" },
+  80: { texto: { es: "Chubascos leves", en: "Light showers" }, icono: "cloud-rain" },
+  81: { texto: { es: "Chubascos moderados", en: "Moderate showers" }, icono: "cloud-rain" },
+  82: { texto: { es: "Chubascos intensos", en: "Heavy showers" }, icono: "cloud-rain" },
+  85: { texto: { es: "Chubascos de nieve", en: "Snow showers" }, icono: "snowflake" },
+  86: { texto: { es: "Chubascos de nieve intensos", en: "Heavy snow showers" }, icono: "snowflake" },
+  95: { texto: { es: "Tormenta eléctrica", en: "Thunderstorm" }, icono: "cloud-lightning" },
+  96: { texto: { es: "Tormenta con granizo", en: "Thunderstorm with hail" }, icono: "cloud-lightning" },
+  99: { texto: { es: "Tormenta con granizo intenso", en: "Thunderstorm with heavy hail" }, icono: "cloud-lightning" },
 };
 
 function infoClima(codigo) {
-  return WMO_CLIMA[codigo] || { texto: "Sin datos", icono: "cloud" };
+  const entrada = WMO_CLIMA[codigo];
+  if (!entrada) return { texto: t("climaSinDatos"), icono: "cloud" };
+  return { texto: entrada.texto[idioma] || entrada.texto.es, icono: entrada.icono };
 }
 
 async function obtenerClima(d) {
@@ -2280,7 +3824,7 @@ function pintarClima(contenedor, data) {
   const dias = data.daily.time
     .map((fecha, i) => {
       const info = infoClima(data.daily.weather_code[i]);
-      const nombreDia = new Date(`${fecha}T12:00:00`).toLocaleDateString("es-AR", { weekday: "short" });
+      const nombreDia = new Date(`${fecha}T12:00:00`).toLocaleDateString(idioma === "en" ? "en-US" : "es-AR", { weekday: "short" });
       return `
       <div class="clima-dia">
         <span class="clima-dia-nombre">${nombreDia.replace(".", "")}</span>
@@ -2299,7 +3843,7 @@ function pintarClima(contenedor, data) {
       </div>
     </div>
     <div class="clima-pronostico">${dias}</div>
-    <div class="clima-fuente">Datos: Open-Meteo</div>
+    <div class="clima-fuente">${idioma === "en" ? "Data: Open-Meteo" : "Datos: Open-Meteo"}</div>
   `;
 }
 
@@ -2391,34 +3935,34 @@ function renderizarCostoModal(d) {
   contenedor.innerHTML = `
     <div class="costo-inputs">
       <label class="costo-input-wrap">
-        <span>Precio nafta (ARS/litro)</span>
+        <span>${t("costoPrecio")}</span>
         <input type="number" id="costo-precio" min="0" step="1" value="${prefsCosto.precioLitro}" inputmode="decimal" />
       </label>
       <label class="costo-input-wrap">
-        <span>Consumo (km/litro)</span>
+        <span>${t("costoConsumo")}</span>
         <input type="number" id="costo-consumo" min="1" step="0.5" value="${prefsCosto.consumo}" inputmode="decimal" />
       </label>
       <label class="costo-input-wrap">
-        <span>Peaje estimado (ARS cada 100 km)</span>
+        <span>${t("costoPeaje")}</span>
         <input type="number" id="costo-peaje" min="0" step="50" value="${prefsCosto.peajeCada100km}" inputmode="decimal" />
       </label>
       <label class="costo-input-wrap">
-        <span>Velocidad promedio de ruta (km/h)</span>
+        <span>${t("costoVelocidad")}</span>
         <input type="number" id="costo-velocidad" min="20" step="5" value="${prefsCosto.velocidadPromedio}" inputmode="decimal" />
       </label>
     </div>
     <div class="costo-resultado" id="costo-resultado"></div>
-    <div class="costo-nota">Estimado de ida y vuelta (${km * 2} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.</div>
+    <div class="costo-nota">${t("costoNota", km * 2)}</div>
   `;
 
   const actualizarResultado = () => {
     const resultado = calcularCostoViaje(km, prefsCosto);
     document.getElementById("costo-resultado").innerHTML = `
-      <div class="costo-fila"><span>Combustible</span><strong>${formatearARS(resultado.costoCombustible)}</strong></div>
-      <div class="costo-fila"><span>Peajes</span><strong>${formatearARS(resultado.costoPeajes)}</strong></div>
-      <div class="costo-fila costo-total"><span>Total estimado</span><strong>${formatearARS(resultado.costoTotal)}</strong></div>
-      <div class="costo-fila"><span>Tiempo de manejo (solo ida)</span><strong>${formatearTiempo(resultado.tiempoIda)}</strong></div>
-      <div class="costo-fila"><span>Tiempo de manejo (ida y vuelta)</span><strong>${formatearTiempo(resultado.tiempoTotal)}</strong></div>
+      <div class="costo-fila"><span>${t("costoCombustible")}</span><strong>${formatearARS(resultado.costoCombustible)}</strong></div>
+      <div class="costo-fila"><span>${t("costoPeajes")}</span><strong>${formatearARS(resultado.costoPeajes)}</strong></div>
+      <div class="costo-fila costo-total"><span>${t("costoTotal")}</span><strong>${formatearARS(resultado.costoTotal)}</strong></div>
+      <div class="costo-fila"><span>${t("costoTiempoIda")}</span><strong>${formatearTiempo(resultado.tiempoIda)}</strong></div>
+      <div class="costo-fila"><span>${t("costoTiempoTotal")}</span><strong>${formatearTiempo(resultado.tiempoTotal)}</strong></div>
     `;
   };
 
@@ -2447,42 +3991,43 @@ function renderizarCostoModal(d) {
 }
 
 function generarTextoGuia(d) {
+  const dt = textoDestino(d);
   const lineas = [];
   lineas.push(`${d.nombre} — ${etiquetaDistancia(d)}`);
-  lineas.push(d.nota);
+  lineas.push(dt.nota);
   lineas.push("");
-  lineas.push("HISTORIA");
-  lineas.push(d.historia);
+  lineas.push(t("guiaHistoria"));
+  lineas.push(dt.historia);
   lineas.push("");
-  lineas.push("DATO CURIOSO");
-  lineas.push(d.datoCurioso);
+  lineas.push(t("guiaDato"));
+  lineas.push(dt.datoCurioso);
   lineas.push("");
-  lineas.push(`Cómo llegar: ${d.comoLlegar}`);
-  lineas.push(`Cómo moverse: ${d.comoMoverse}`);
-  lineas.push(`Cuándo ir: ${d.cuandoIr}`);
-  lineas.push(`Duración sugerida: ${d.duracion}`);
+  lineas.push(`${t("guiaComoLlegar")} ${dt.comoLlegar}`);
+  lineas.push(`${t("guiaComoMoverse")} ${dt.comoMoverse}`);
+  lineas.push(`${t("guiaCuandoIr")} ${dt.cuandoIr}`);
+  lineas.push(`${t("guiaDuracion")} ${dt.duracion}`);
   lineas.push("");
-  lineas.push("ITINERARIO SUGERIDO");
-  d.itinerario.forEach((paso) => lineas.push(`- ${paso.momento}: ${paso.actividad}`));
+  lineas.push(t("guiaItinerario"));
+  dt.itinerario.forEach((paso) => lineas.push(`- ${paso.momento}: ${paso.actividad}`));
   lineas.push("");
-  lineas.push("OTROS ATRACTIVOS");
-  d.otrosAtractivos.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push(t("guiaOtrosAtractivos"));
+  dt.otrosAtractivos.forEach((item) => lineas.push(`- ${item}`));
   lineas.push("");
-  lineas.push("EVENTOS Y FECHAS ESPECIALES");
-  d.eventos.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push(t("guiaEventos"));
+  dt.eventos.forEach((item) => lineas.push(`- ${item}`));
   lineas.push("");
-  lineas.push("DÓNDE COMER");
-  d.dondeComer.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push(t("guiaDondeComer"));
+  dt.dondeComer.forEach((item) => lineas.push(`- ${item}`));
   lineas.push("");
-  lineas.push("DÓNDE ALOJARSE");
-  d.dondeAlojarse.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push(t("guiaDondeAlojarse"));
+  dt.dondeAlojarse.forEach((item) => lineas.push(`- ${item}`));
   lineas.push("");
-  lineas.push("TIPS LOCALES");
-  d.tips.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push(t("guiaTips"));
+  dt.tips.forEach((item) => lineas.push(`- ${item}`));
   lineas.push("");
-  lineas.push(`PRESUPUESTO ESTIMADO: ${d.presupuesto}`);
+  lineas.push(`${t("guiaPresupuesto")} ${dt.presupuesto}`);
   lineas.push("");
-  lineas.push("— Destinos Buenos Aires (guía por distancia)");
+  lineas.push(t("guiaSeparador"));
   return lineas.join("\n");
 }
 
@@ -2582,12 +4127,12 @@ el.ordenSelect.addEventListener("change", (e) => {
 });
 
 // --- Botón "Sorpréndeme" -----------------------------------------------------
-el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} Sorpréndeme`;
+el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresa")}`;
 el.sorpresaBtn.addEventListener("click", () => {
   const candidatos = calcularResultadosFiltrados();
   if (candidatos.length === 0) {
     const original = el.sorpresaBtn.innerHTML;
-    el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} No hay destinos con estos filtros`;
+    el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresaSinResultados")}`;
     setTimeout(() => {
       el.sorpresaBtn.innerHTML = original;
     }, 2200);
@@ -2615,21 +4160,21 @@ function generarResumenFiltros() {
   if (categoria !== "todas") {
     partes.push(CATEGORIAS.find((c) => c.id === categoria)?.label.toLowerCase() || categoria);
   }
-  partes.push(`menos de ${distancia} km`);
-  if (busqueda) partes.push(`con "${busqueda}"`);
+  partes.push(t("linkFiltrosMenosDe", distancia));
+  if (busqueda) partes.push(t("linkFiltrosCon", busqueda));
   return partes.join(" + ");
 }
 
 async function compartirFiltros() {
   const url = generarURLFiltros();
   const resumen = generarResumenFiltros();
-  const texto = `Mirá esto en Destinos Buenos Aires: ${resumen}`;
+  const texto = t("linkFiltrosResumen", resumen);
   const boton = el.compartirFiltrosBtn;
 
   const mostrarExito = () => {
     if (!boton) return;
     const original = boton.innerHTML;
-    boton.innerHTML = `${icon("check", 16)} Copiado`;
+    boton.innerHTML = `${icon("check", 16)} ${t("compartirFiltrosCopiado")}`;
     boton.classList.add("copiado");
     setTimeout(() => {
       boton.innerHTML = original;
@@ -2656,7 +4201,6 @@ async function compartirFiltros() {
 }
 
 if (el.compartirFiltrosBtn) {
-  el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} Compartir estos filtros`;
   el.compartirFiltrosBtn.addEventListener("click", compartirFiltros);
 }
 
@@ -2706,16 +4250,16 @@ function abrirResumenModal() {
 
   const mensajeFaltantes =
     categoriasSinVisitar.length > 0
-      ? `Todavía no visitaste ningún destino de: ${categoriasSinVisitar.map((c) => c.label.toLowerCase()).join(", ")}.`
-      : "¡Ya visitaste al menos un destino de cada categoría!";
+      ? t("resumenFaltantes", categoriasSinVisitar.map((c) => c.label.toLowerCase()).join(", "))
+      : t("resumenCompleto");
 
   el.resumenModal.innerHTML = `
     <div class="modal-top">
-      <div class="modal-km-badge">Tu progreso</div>
-      <button id="resumen-close" aria-label="Cerrar resumen">${icon("x", 20)}</button>
+      <div class="modal-km-badge">${t("resumenTuProgreso")}</div>
+      <button id="resumen-close" aria-label="${idioma === "en" ? "Close summary" : "Cerrar resumen"}">${icon("x", 20)}</button>
     </div>
-    <h2 class="modal-title" id="resumen-titulo">Mi resumen</h2>
-    <p class="modal-nota">Visitaste ${visitadosCount} de ${total} destinos cargados en la app.</p>
+    <h2 class="modal-title" id="resumen-titulo">${t("resumenTitulo")}</h2>
+    <p class="modal-nota">${t("resumenNota", visitadosCount, total)}</p>
 
     <div class="resumen-total">
       <div class="resumen-total-numero">${porcentaje}%</div>
@@ -2724,7 +4268,7 @@ function abrirResumenModal() {
       </div>
     </div>
 
-    <div class="modal-subhead">${icon("map-pin", 14)} Por categoría</div>
+    <div class="modal-subhead">${icon("map-pin", 14)} ${t("resumenPorCategoria")}</div>
     <div class="resumen-categorias">${filasCategoria}</div>
 
     <p class="modal-parrafo" style="margin-top:16px">${mensajeFaltantes}</p>
@@ -2765,9 +4309,9 @@ function actualizarBarraAcciones() {
       el.filaItinerario.style.display = "none";
     } else {
       el.filaItinerario.style.display = "flex";
-      el.itinerarioBarraTexto.textContent = `${nItinerario} ${nItinerario === 1 ? "destino elegido" : "destinos elegidos"} para el itinerario`;
+      el.itinerarioBarraTexto.textContent = t("itinerarioBarraTexto", nItinerario);
       el.itinerarioVerBtn.disabled = nItinerario < 2;
-      el.itinerarioVerBtn.textContent = nItinerario < 2 ? "Elegí al menos 2" : "Ver itinerario";
+      el.itinerarioVerBtn.textContent = nItinerario < 2 ? t("itinerarioMinimo") : t("itinerarioVerBtn");
     }
   }
 
@@ -2776,9 +4320,9 @@ function actualizarBarraAcciones() {
       el.filaComparar.style.display = "none";
     } else {
       el.filaComparar.style.display = "flex";
-      el.compararBarraTexto.textContent = `${nComparar} ${nComparar === 1 ? "destino elegido" : "destinos elegidos"} para comparar`;
+      el.compararBarraTexto.textContent = t("compararBarraTexto", nComparar);
       el.compararVerBtn.disabled = nComparar < 2;
-      el.compararVerBtn.textContent = nComparar < 2 ? "Elegí 1 más" : "Comparar";
+      el.compararVerBtn.textContent = nComparar < 2 ? t("compararMinimo") : t("compararVerBtn");
     }
   }
 
@@ -2800,36 +4344,36 @@ function abrirItinerarioModal() {
   if (el.accionFlotante) el.accionFlotante.style.visibility = "hidden";
 
   const { tramos, distanciaTotal } = calcularOrdenOptimo(seleccionados);
-  const origenNombre = origen.esUbicacionUsuario ? "tu ubicación" : "CABA";
+  const origenNombre = origen.esUbicacionUsuario ? t("tuUbicacionTexto") : t("caba");
 
   const filas = tramos
     .map(
       (tramo, i) => `
     <div class="itinerario-fila">
-      <div class="itinerario-fila-dia">Día ${i + 1}</div>
+      <div class="itinerario-fila-dia">${t("itinerarioDia", i + 1)}</div>
       <div class="itinerario-fila-info">
         <div class="itinerario-fila-ruta">${tramo.desde} → <strong>${tramo.hasta}</strong></div>
-        <div class="itinerario-fila-km">${tramo.km} km en línea recta · ~${tramo.tiempo}</div>
+        <div class="itinerario-fila-km">${tramo.km} ${t("kmLineaRectaCorto")} · ~${tramo.tiempo}</div>
       </div>
-      <button class="itinerario-fila-quitar" data-quitar="${tramo.hasta}" aria-label="Quitar ${tramo.hasta} del itinerario">${icon("x", 16)}</button>
+      <button class="itinerario-fila-quitar" data-quitar="${tramo.hasta}" aria-label="${idioma === "en" ? `Remove ${tramo.hasta} from the itinerary` : `Quitar ${tramo.hasta} del itinerario`}">${icon("x", 16)}</button>
     </div>`
     )
     .join("");
 
   el.itinerarioModal.innerHTML = `
     <div class="modal-top">
-      <div class="modal-km-badge">${seleccionados.length} paradas</div>
-      <button id="itinerario-close" aria-label="Cerrar itinerario">${icon("x", 20)}</button>
+      <div class="modal-km-badge">${t("itinerarioParadas", seleccionados.length)}</div>
+      <button id="itinerario-close" aria-label="${idioma === "en" ? "Close itinerary" : "Cerrar itinerario"}">${icon("x", 20)}</button>
     </div>
-    <h2 class="modal-title" id="itinerario-titulo">${icon("route", 20)} Tu itinerario sugerido</h2>
-    <p class="modal-nota">Orden calculado para minimizar la distancia total en línea recta, empezando desde ${origenNombre}. No es la ruta real (podés reordenar según rutas y horarios), pero sirve como punto de partida.</p>
+    <h2 class="modal-title" id="itinerario-titulo">${icon("route", 20)} ${t("itinerarioTitulo")}</h2>
+    <p class="modal-nota">${t("itinerarioDescripcion", origenNombre)}</p>
     <div class="itinerario-lista">${filas}</div>
     <div class="itinerario-total">
-      <span>Distancia total estimada</span>
+      <span>${t("itinerarioDistanciaTotal")}</span>
       <strong>${distanciaTotal} km</strong>
     </div>
     <div class="itinerario-total">
-      <span>Tiempo de manejo estimado</span>
+      <span>${t("itinerarioTiempoTotal")}</span>
       <strong>~${formatearTiempo(distanciaTotal / (prefsCosto.velocidadPromedio || 80))}</strong>
     </div>
   `;
@@ -2857,7 +4401,7 @@ if (el.itinerarioVerBtn) {
 
 if (el.itinerarioVaciarBtn) {
   el.itinerarioVaciarBtn.innerHTML = icon("trash", 16);
-  el.itinerarioVaciarBtn.setAttribute("aria-label", "Vaciar selección de itinerario");
+  el.itinerarioVaciarBtn.setAttribute("aria-label", t("itinerarioVaciarAria"));
   el.itinerarioVaciarBtn.addEventListener("click", () => {
     itinerarioSeleccion.clear();
     guardarItinerario();
@@ -2894,6 +4438,8 @@ function abrirCompararModal() {
   if (seleccionados.length < 2) return;
   if (el.accionFlotante) el.accionFlotante.style.visibility = "hidden";
   const [a, b] = seleccionados;
+  const dtA = textoDestino(a);
+  const dtB = textoDestino(b);
 
   const costoA = calcularCostoViaje(kmDesdeOrigen(a), prefsCosto);
   const costoB = calcularCostoViaje(kmDesdeOrigen(b), prefsCosto);
@@ -2905,18 +4451,18 @@ function abrirCompararModal() {
       <td>${valorB}</td>
     </tr>`;
 
-  const itinerarioColumna = (d) => `
+  const itinerarioColumna = (d, dt) => `
     <div class="comparar-itinerario-col">
       <h3>${d.nombre}</h3>
       <ul class="modal-timeline">
-        ${d.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
+        ${dt.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
       </ul>
     </div>`;
 
   el.compararModal.innerHTML = `
     <div class="modal-top">
-      <div class="modal-km-badge">Comparando 2 destinos</div>
-      <button id="comparar-close" aria-label="Cerrar comparación">${icon("x", 20)}</button>
+      <div class="modal-km-badge">${t("compararComparando")}</div>
+      <button id="comparar-close" aria-label="${idioma === "en" ? "Close comparison" : "Cerrar comparación"}">${icon("x", 20)}</button>
     </div>
     <h2 class="modal-title" id="comparar-titulo">${a.nombre} vs. ${b.nombre}</h2>
     <div class="comparar-tabla-wrap">
@@ -2925,23 +4471,23 @@ function abrirCompararModal() {
           <tr><th></th><th>${a.nombre}</th><th>${b.nombre}</th></tr>
         </thead>
         <tbody>
-          ${filaTabla("Categoría", CATEGORIAS.find((c) => c.id === a.categoria)?.label || a.categoria, CATEGORIAS.find((c) => c.id === b.categoria)?.label || b.categoria)}
-          ${filaTabla("Distancia", `${kmDesdeOrigen(a)} km`, `${kmDesdeOrigen(b)} km`)}
-          ${filaTabla("Tiempo en auto", `~${formatearTiempo(tiempoDesdeOrigen(a))}`, `~${formatearTiempo(tiempoDesdeOrigen(b))}`)}
-          ${filaTabla("Duración sugerida", a.duracion, b.duracion)}
-          ${filaTabla("Costo estimado (ida y vuelta)", formatearARS(costoA.costoTotal), formatearARS(costoB.costoTotal))}
+          ${filaTabla(t("compararCategoria"), CATEGORIAS.find((c) => c.id === a.categoria)?.label || a.categoria, CATEGORIAS.find((c) => c.id === b.categoria)?.label || b.categoria)}
+          ${filaTabla(t("compararDistancia"), `${kmDesdeOrigen(a)} km`, `${kmDesdeOrigen(b)} km`)}
+          ${filaTabla(t("compararTiempo"), `~${formatearTiempo(tiempoDesdeOrigen(a))}`, `~${formatearTiempo(tiempoDesdeOrigen(b))}`)}
+          ${filaTabla(t("compararDuracion"), dtA.duracion, dtB.duracion)}
+          ${filaTabla(t("compararCosto"), formatearARS(costoA.costoTotal), formatearARS(costoB.costoTotal))}
         </tbody>
       </table>
     </div>
-    <div class="modal-subhead">${icon("wallet", 14)} Presupuesto</div>
+    <div class="modal-subhead">${icon("wallet", 14)} ${t("compararPresupuesto")}</div>
     <div class="comparar-presupuestos">
-      <p class="modal-parrafo">${a.presupuesto}</p>
-      <p class="modal-parrafo">${b.presupuesto}</p>
+      <p class="modal-parrafo">${dtA.presupuesto}</p>
+      <p class="modal-parrafo">${dtB.presupuesto}</p>
     </div>
-    <div class="modal-subhead">${icon("sparkles", 14)} Itinerario sugerido</div>
+    <div class="modal-subhead">${icon("sparkles", 14)} ${t("compararItinerario")}</div>
     <div class="comparar-itinerarios">
-      ${itinerarioColumna(a)}
-      ${itinerarioColumna(b)}
+      ${itinerarioColumna(a, dtA)}
+      ${itinerarioColumna(b, dtB)}
     </div>
   `;
 
@@ -2958,7 +4504,7 @@ if (el.compararVerBtn) {
 
 if (el.compararVaciarBtn) {
   el.compararVaciarBtn.innerHTML = icon("trash", 16);
-  el.compararVaciarBtn.setAttribute("aria-label", "Vaciar selección de comparación");
+  el.compararVaciarBtn.setAttribute("aria-label", t("compararVaciarAria"));
   el.compararVaciarBtn.addEventListener("click", () => {
     comparacionSeleccion.clear();
     guardarComparacion();
@@ -2997,24 +4543,20 @@ actualizarAvisoConexion();
 // --- Ubicación real del usuario (opcional, en vez de CABA) ------------------
 function actualizarTextosOrigen() {
   if (el.subtituloOrigen) {
-    el.subtituloOrigen.textContent = origen.esUbicacionUsuario
-      ? "Elegí una distancia desde tu ubicación actual y descubrí pueblos y ciudades turísticas dentro de ese radio."
-      : "Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.";
+    el.subtituloOrigen.textContent = origen.esUbicacionUsuario ? t("subtituloUbicacion") : t("subtituloCaba");
   }
   if (el.footerNotaDistancia) {
-    el.footerNotaDistancia.textContent = origen.esUbicacionUsuario
-      ? "Distancias en línea recta desde tu ubicación (no por ruta) · Datos de referencia, verificá antes de viajar."
-      : "Distancias aproximadas por ruta desde CABA · Datos de referencia, verificá antes de viajar.";
+    el.footerNotaDistancia.textContent = origen.esUbicacionUsuario ? t("footerUbicacion") : t("footerCaba");
   }
 }
 
 function actualizarBotonUbicacion() {
   if (!el.ubicacionBtn) return;
   if (origen.esUbicacionUsuario) {
-    el.ubicacionBtn.innerHTML = `${icon("map-pin", 16)} Usando tu ubicación (volver a CABA)`;
+    el.ubicacionBtn.innerHTML = `${icon("map-pin", 16)} ${t("ubicacionUsando")}`;
     el.ubicacionBtn.classList.add("activo");
   } else {
-    el.ubicacionBtn.innerHTML = `${icon("map-pin", 16)} Usar mi ubicación en vez de CABA`;
+    el.ubicacionBtn.innerHTML = `${icon("map-pin", 16)} ${t("ubicacionUsar")}`;
     el.ubicacionBtn.classList.remove("activo");
   }
 }
@@ -3040,11 +4582,11 @@ function usarCaba() {
 
 function solicitarUbicacion() {
   if (!navigator.geolocation) {
-    mostrarNotaUbicacion("Tu navegador no permite acceder a la ubicación.");
+    mostrarNotaUbicacion(t("ubicacionSinSoporte"));
     return;
   }
   const original = el.ubicacionBtn.innerHTML;
-  el.ubicacionBtn.innerHTML = `${icon("compass", 16)} Buscando tu ubicación...`;
+  el.ubicacionBtn.innerHTML = `${icon("compass", 16)} ${t("ubicacionBuscando")}`;
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       origen = {
@@ -3053,14 +4595,14 @@ function solicitarUbicacion() {
         nombre: "tu ubicación",
         esUbicacionUsuario: true,
       };
-      mostrarNotaUbicacion("Las distancias ahora son en línea recta desde donde estás, no por ruta.");
+      mostrarNotaUbicacion(t("ubicacionNota"));
       actualizarBotonUbicacion();
       actualizarTextosOrigen();
       render();
     },
     () => {
       el.ubicacionBtn.innerHTML = original;
-      mostrarNotaUbicacion("No pudimos acceder a tu ubicación. Revisá los permisos del navegador e intentá de nuevo.");
+      mostrarNotaUbicacion(t("ubicacionError"));
     },
     { enableHighAccuracy: true, timeout: 10000, maximumAge: 5 * 60 * 1000 }
   );
@@ -3089,7 +4631,7 @@ function actualizarBotonTema() {
   if (!btnTema) return;
   const esClaro = temaActual() === "light";
   btnTema.innerHTML = icon(esClaro ? "moon" : "sun", 18);
-  btnTema.setAttribute("aria-label", esClaro ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+  btnTema.setAttribute("aria-label", esClaro ? t("cambiarATemaOscuro") : t("cambiarATemaClaro"));
   btnTema.setAttribute("aria-pressed", esClaro ? "true" : "false");
 }
 
@@ -3111,8 +4653,78 @@ if (btnTema) {
   btnTema.addEventListener("click", () => {
     aplicarTema(temaActual() === "light" ? "dark" : "light");
   });
-  actualizarBotonTema();
 }
+
+// --- Idioma de la interfaz (español / inglés) --------------------------------
+function aplicarIdioma() {
+  document.documentElement.setAttribute("lang", idioma === "en" ? "en" : "es-AR");
+  document.title = t("pageTitle");
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", t("pageDescription"));
+
+  CATEGORIAS.forEach((c) => {
+    c.label = CATEGORIA_LABELS[idioma][c.id];
+  });
+
+  if (el.eyebrowTexto) el.eyebrowTexto.textContent = t("eyebrow");
+  if (el.tituloH1) el.tituloH1.innerHTML = t("tituloH1");
+  if (el.buscador) el.buscador.placeholder = t("buscadorPlaceholder");
+  if (el.buscador) el.buscador.parentElement.querySelector(".buscador-btn")?.setAttribute("aria-label", t("buscarAria"));
+
+  const panelLabel = document.querySelector(".panel-head-label");
+  if (panelLabel) panelLabel.textContent = t("panelDistanciaMax");
+
+  const btnVistaLista = el.vistaToggle?.querySelector('[data-vista="lista"]');
+  const btnVistaMapa = el.vistaToggle?.querySelector('[data-vista="mapa"]');
+  if (btnVistaLista) btnVistaLista.textContent = t("vistaLista");
+  if (btnVistaMapa) btnVistaMapa.textContent = t("vistaMapa");
+
+  const ordenLabel = document.querySelector(".orden-label");
+  if (ordenLabel) ordenLabel.textContent = t("ordenarPor");
+  const optDistancia = el.ordenSelect?.querySelector('option[value="distancia"]');
+  const optAlfabetico = el.ordenSelect?.querySelector('option[value="alfabetico"]');
+  const optCategoria = el.ordenSelect?.querySelector('option[value="categoria"]');
+  if (optDistancia) optDistancia.textContent = t("ordenDistancia");
+  if (optAlfabetico) optAlfabetico.textContent = t("ordenAlfabetico");
+  if (optCategoria) optCategoria.textContent = t("ordenCategoria");
+
+  if (el.sorpresaBtn) el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresa")}`;
+  if (el.resumenBtn) el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} ${t("resumenBtn")}`;
+  if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;
+  if (el.offlineBanner) {
+    el.offlineBanner.innerHTML = `${icon("wifi-off", 18)} <span>${t("offline")}</span>`;
+  }
+
+  actualizarTextosOrigen();
+  actualizarBotonUbicacion();
+  actualizarBotonTema();
+  actualizarBarraAcciones();
+
+  if (el.idiomaToggle) {
+    el.idiomaToggle.textContent = idioma === "en" ? "ES" : "EN";
+    el.idiomaToggle.setAttribute("aria-label", idioma === "en" ? "Cambiar a español" : "Switch to English");
+  }
+}
+
+function guardarIdioma(nuevoIdioma) {
+  idioma = nuevoIdioma;
+  try {
+    localStorage.setItem(IDIOMA_KEY, idioma);
+  } catch (err) {
+    console.warn("No se pudo guardar el idioma:", err);
+  }
+  aplicarIdioma();
+  render();
+}
+
+if (el.idiomaToggle) {
+  el.idiomaToggle.addEventListener("click", () => {
+    guardarIdioma(idioma === "en" ? "es" : "en");
+  });
+}
+
+aplicarIdioma();
+actualizarBotonTema();
 
 render();
 

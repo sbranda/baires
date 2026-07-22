@@ -32,11 +32,14 @@
     <div class="offline-banner" id="offline-banner" style="display:none" role="status" aria-live="polite"></div>
 
     <div class="header-row">
-      <div class="eyebrow">Provincia de Buenos Aires</div>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar a tema claro" aria-pressed="false"></button>
+      <div class="eyebrow" id="eyebrow-texto">Provincia de Buenos Aires</div>
+      <div class="header-botones">
+        <button id="idioma-toggle" class="idioma-toggle" aria-label="Switch to English"></button>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar a tema claro" aria-pressed="false"></button>
+      </div>
     </div>
     <div>
-      <h1>¿A cuántos km<br />querés llegar?</h1>
+      <h1 id="titulo-h1">¿A cuántos km<br />querés llegar?</h1>
       <p class="subtitle" id="subtitulo-origen">
         Elegí una distancia desde Buenos Aires (CABA) y descubrí pueblos y ciudades turísticas dentro de ese radio.
       </p>
