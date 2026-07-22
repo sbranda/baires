@@ -1245,6 +1245,27 @@ const DESTINOS = [
     tips: ["Buena parada para romper el viaje camino a Pinamar o Villa Gesell", "Reservar los talleres de plateros con anticipación si se busca comprar piezas", "Llevar equipo de pesca para las lagunas"],
     presupuesto: "Bajo a medio.",
   },
+  {
+    nombre: "San Nicolás de los Arroyos", km: 235, categoria: "rio", lat: -33.3358, lng: -60.2170,
+    nota: "La Ciudad del Acuerdo, cuna de la Constitución Nacional.",
+    historia: "San Nicolás de los Arroyos es una de las ciudades más antiguas de la provincia, con un poblamiento que se remonta a mediados del siglo XVIII sobre la margen derecha del río Paraná. El 2 de marzo de 1811 sus aguas fueron escenario del primer combate naval de la historia argentina, y en 1819 el Congreso General Constituyente la declaró ciudad. Su momento más trascendente llegó el 31 de mayo de 1852, cuando representantes de catorce provincias firmaron allí el Acuerdo de San Nicolás, el pacto que sentó las bases de la Constitución Nacional de 1853 y le valió el apodo de \"Ciudad del Acuerdo\". A ese legado histórico se sumó en 1983 un fuerte perfil religioso, tras la aparición de la Virgen del Rosario que convirtió a la ciudad en uno de los grandes centros de peregrinación del país.",
+    datoCurioso: "Según el relato de los fieles, en 1983 la Virgen del Rosario se apareció a una mujer nicoleña y le encargó la construcción de un templo; desde entonces, el santuario recibe cerca de dos millones de peregrinos por año.",
+    comoLlegar: "Ruta Nacional 9, aproximadamente 2h30 a 3 horas en auto; también hay micros desde la Terminal de Retiro.",
+    cuandoIr: "Todo el año; los aniversarios de la aparición de la Virgen, en septiembre, convocan a muchos peregrinos.",
+    duracion: "Día completo o fin de semana.",
+    comoMoverse: "El casco histórico se recorre a pie; hay un bus turístico que conecta los principales puntos de interés en recorridos de una hora.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Museo Nacional Casa del Acuerdo y Teatro Municipal Rafael de Aguiar." },
+      { momento: "Mediodía", actividad: "Almuerzo en el centro." },
+      { momento: "Tarde", actividad: "Santuario de la Virgen del Rosario y costanera sobre el Paraná." },
+    ],
+    otrosAtractivos: ["Museo Nacional Casa del Acuerdo, donde se firmó el pacto de 1852", "Santuario de la Virgen del Rosario de San Nicolás", "Parque Regional Forestal y Botánico Rafael de Aguiar", "El Arenal, zona de playas y deportes náuticos"],
+    eventos: ["Aniversario del Acuerdo de San Nicolás, 31 de mayo", "Peregrinaciones a la Virgen del Rosario, todo el año"],
+    dondeComer: ["Restaurantes de pescado sobre la costanera", "Bares y confiterías del centro histórico"],
+    dondeAlojarse: ["Hoteles del centro", "Hospedajes para peregrinos cerca del santuario"],
+    tips: ["El bus turístico sale de la Plaza Mitre en tres horarios diarios", "Reservar alojamiento con anticipación si coincide con una fecha de peregrinación", "La Casa del Acuerdo tiene entrada gratuita"],
+    presupuesto: "Bajo a medio: los principales sitios históricos y religiosos son de entrada gratuita.",
+  },
 ];
 
 const CATEGORIAS = [
