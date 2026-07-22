@@ -339,6 +339,24 @@ input:focus-visible {
   text-decoration: none;
 }
 
+.resumen-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
 .chip {
   display: flex;
   align-items: center;
@@ -1299,4 +1317,79 @@ input:focus-visible {
     flex: 1;
     min-width: 0;
   }
+}
+
+/* Modal de resumen de progreso */
+.resumen-total {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.resumen-total-numero {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--rust);
+  flex-shrink: 0;
+  min-width: 70px;
+}
+
+.resumen-total-barra {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--bg-card-border);
+  overflow: hidden;
+}
+
+.resumen-total-progreso {
+  height: 100%;
+  background: var(--rust);
+  border-radius: 999px;
+}
+
+.resumen-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resumen-categoria-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resumen-categoria-nombre {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 90px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--wheat-dim);
+}
+
+.resumen-categoria-barra {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg-card-border);
+  overflow: hidden;
+}
+
+.resumen-categoria-progreso {
+  height: 100%;
+  background: var(--green);
+  border-radius: 999px;
+}
+
+.resumen-categoria-numero {
+  flex-shrink: 0;
+  width: 44px;
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--offwhite);
 }

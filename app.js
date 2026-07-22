@@ -1318,6 +1318,7 @@ const ICONS = {
   copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
   share: '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>',
   link: '<path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/>',
+  "bar-chart": '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
@@ -1674,6 +1675,9 @@ const el = {
   compararOverlay: document.getElementById("comparar-overlay"),
   compararModal: document.getElementById("comparar-modal"),
   compartirFiltrosBtn: document.getElementById("compartir-filtros-btn"),
+  resumenBtn: document.getElementById("resumen-btn"),
+  resumenOverlay: document.getElementById("resumen-overlay"),
+  resumenModal: document.getElementById("resumen-modal"),
 };
 
 // Sincronizar los controles que no se regeneran en cada render() con los
@@ -2582,6 +2586,98 @@ if (el.compartirFiltrosBtn) {
   el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} Compartir estos filtros`;
   el.compartirFiltrosBtn.addEventListener("click", compartirFiltros);
 }
+
+// --- Modal de resumen: cuánto de la provincia recorriste --------------------
+let resumenFocoPrevio = null;
+
+function calcularResumen() {
+  const total = DESTINOS.length;
+  const visitadosCount = DESTINOS.filter((d) => visitados.has(d.nombre)).length;
+  const porcentaje = total > 0 ? Math.round((visitadosCount / total) * 100) : 0;
+
+  const porCategoria = CATEGORIAS.filter((c) => c.id !== "todas").map((c) => {
+    const destinosCategoria = DESTINOS.filter((d) => d.categoria === c.id);
+    const visitadosCategoria = destinosCategoria.filter((d) => visitados.has(d.nombre)).length;
+    return { id: c.id, label: c.label, icon: c.icon, total: destinosCategoria.length, visitados: visitadosCategoria };
+  });
+
+  const categoriasSinVisitar = porCategoria.filter((c) => c.visitados === 0 && c.total > 0);
+
+  return { total, visitadosCount, porcentaje, porCategoria, categoriasSinVisitar };
+}
+
+function cerrarResumenModal() {
+  el.resumenOverlay.classList.remove("visible");
+  if (resumenFocoPrevio && typeof resumenFocoPrevio.focus === "function") {
+    resumenFocoPrevio.focus();
+  }
+}
+
+function abrirResumenModal() {
+  resumenFocoPrevio = document.activeElement;
+  const { total, visitadosCount, porcentaje, porCategoria, categoriasSinVisitar } = calcularResumen();
+
+  const filasCategoria = porCategoria
+    .map((c) => {
+      const pct = c.total > 0 ? Math.round((c.visitados / c.total) * 100) : 0;
+      return `
+      <div class="resumen-categoria-fila">
+        <div class="resumen-categoria-nombre">${icon(c.icon, 14, "#7C9473")} ${c.label}</div>
+        <div class="resumen-categoria-barra">
+          <div class="resumen-categoria-progreso" style="width:${pct}%"></div>
+        </div>
+        <div class="resumen-categoria-numero">${c.visitados}/${c.total}</div>
+      </div>`;
+    })
+    .join("");
+
+  const mensajeFaltantes =
+    categoriasSinVisitar.length > 0
+      ? `Todavía no visitaste ningún destino de: ${categoriasSinVisitar.map((c) => c.label.toLowerCase()).join(", ")}.`
+      : "¡Ya visitaste al menos un destino de cada categoría!";
+
+  el.resumenModal.innerHTML = `
+    <div class="modal-top">
+      <div class="modal-km-badge">Tu progreso</div>
+      <button id="resumen-close" aria-label="Cerrar resumen">${icon("x", 20)}</button>
+    </div>
+    <h2 class="modal-title" id="resumen-titulo">Mi resumen</h2>
+    <p class="modal-nota">Visitaste ${visitadosCount} de ${total} destinos cargados en la app.</p>
+
+    <div class="resumen-total">
+      <div class="resumen-total-numero">${porcentaje}%</div>
+      <div class="resumen-total-barra">
+        <div class="resumen-total-progreso" style="width:${porcentaje}%"></div>
+      </div>
+    </div>
+
+    <div class="modal-subhead">${icon("map-pin", 14)} Por categoría</div>
+    <div class="resumen-categorias">${filasCategoria}</div>
+
+    <p class="modal-parrafo" style="margin-top:16px">${mensajeFaltantes}</p>
+  `;
+
+  el.resumenOverlay.classList.add("visible");
+  document.getElementById("resumen-close").addEventListener("click", cerrarResumenModal);
+  document.getElementById("resumen-close").focus();
+}
+
+if (el.resumenBtn) {
+  el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} Mi resumen`;
+  el.resumenBtn.addEventListener("click", abrirResumenModal);
+}
+
+if (el.resumenOverlay) {
+  el.resumenOverlay.addEventListener("click", (e) => {
+    if (e.target === el.resumenOverlay) cerrarResumenModal();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.resumenOverlay && el.resumenOverlay.classList.contains("visible")) {
+    cerrarResumenModal();
+  }
+});
 
 // --- Barra y modal de itinerario de varios días ------------------------------
 let itinerarioFocoPrevio = null;
