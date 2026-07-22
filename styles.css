@@ -227,31 +227,32 @@ input[type="range"] {
   color: var(--offwhite);
 }
 
-.contador-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
 .contador {
+  margin-bottom: 12px;
   font-size: 0.875rem;
   color: var(--green);
 }
 
 .vista-toggle {
   display: flex;
-  flex-shrink: 0;
+  margin-bottom: 16px;
   border: 1px solid var(--bg-card-border);
-  border-radius: 999px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
 .vista-btn {
-  padding: 5px 14px;
-  font-size: 0.8rem;
+  flex: 1;
+  padding: 9px 0;
+  font-size: 0.85rem;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 0.03em;
+  text-align: center;
   color: var(--wheat-dim);
+}
+
+.vista-btn + .vista-btn {
+  border-left: 1px solid var(--bg-card-border);
 }
 
 .vista-activo {
