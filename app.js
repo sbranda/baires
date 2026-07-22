@@ -1266,6 +1266,27 @@ const DESTINOS = [
     tips: ["El bus turístico sale de la Plaza Mitre en tres horarios diarios", "Reservar alojamiento con anticipación si coincide con una fecha de peregrinación", "La Casa del Acuerdo tiene entrada gratuita"],
     presupuesto: "Bajo a medio: los principales sitios históricos y religiosos son de entrada gratuita.",
   },
+  {
+    nombre: "San Miguel del Monte", km: 112, categoria: "rio", lat: -35.4442, lng: -58.8039,
+    nota: "Laguna a cinco cuadras del centro y el Rancho de Rosas.",
+    historia: "San Miguel del Monte fue fundado en 1779 como uno de los fortines de la línea de frontera bonaerense, bajo el nombre de Guardia del Monte, y llegó a ser el puesto militar más importante de la zona hacia 1780 para contener los malones de los pueblos originarios. Durante el gobierno de Juan Manuel de Rosas, la zona tuvo un fuerte protagonismo político y militar a través de los Colorados del Monte, milicias rurales leales al Restaurador. Ese vínculo se conserva hoy en el Rancho de Rosas, trasladado en un camión especial desde la estancia Los Cerrillos hasta el centro del pueblo, en lo que se recuerda como el único traslado de una construcción de estas características en Sudamérica. Hoy San Miguel del Monte es sobre todo sinónimo de su laguna, que a diferencia de otras lagunas bonaerenses queda a solo cinco cuadras del centro.",
+    datoCurioso: "El Rancho de Juan Manuel de Rosas no se construyó en el pueblo: se trasladó completo en camión desde la estancia Los Cerrillos, a 30 km de distancia, en lo que se considera el único traslado de una construcción de estas características en toda Sudamérica.",
+    comoLlegar: "Autopista Ricchieri, Autopista Ezeiza-Cañuelas y luego Ruta Nacional 3, aproximadamente 1h50 en auto; también hay micros desde la Terminal de Retiro.",
+    cuandoIr: "Todo el año; primavera y verano para los deportes náuticos en la laguna.",
+    duracion: "Día completo o fin de semana.",
+    comoMoverse: "El centro se recorre a pie; la laguna está a solo cinco cuadras, así que no hace falta auto para llegar a la costanera.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Rancho de Juan Manuel de Rosas y Museo Guardia del Monte." },
+      { momento: "Mediodía", actividad: "Almuerzo de campo o parrilla junto a la laguna." },
+      { momento: "Tarde", actividad: "Costanera de la Laguna de Monte, kayak o paseo en bote." },
+    ],
+    otrosAtractivos: ["Laguna de Monte, de 686 hectáreas, a cinco cuadras del centro", "Rancho de Juan Manuel de Rosas", "Museo Municipal Guardia del Monte", "Paseo de los Artesanos"],
+    eventos: ["Actividades náuticas de temporada en la laguna", "Ferias de artesanos en la costanera"],
+    dondeComer: ["Parrillas y restaurantes frente a la laguna", "Almacenes de ramos generales y pulperías de campo"],
+    dondeAlojarse: ["Cabañas y hosterías cerca de la costanera", "Campings junto a la laguna"],
+    tips: ["La vuelta completa a la laguna son más de 10 km, buena para bici", "Reservar alojamiento con anticipación en fines de semana largos", "El Museo Guardia del Monte abre de jueves a domingo y feriados"],
+    presupuesto: "Bajo a medio: el acceso a la laguna y el paseo por el pueblo son gratuitos, el gasto principal es comida y alguna actividad náutica.",
+  },
 ];
 
 const CATEGORIAS = [
@@ -1496,7 +1517,9 @@ function kmDesdeOrigen(d) {
 
 function etiquetaDistancia(d) {
   const km = kmDesdeOrigen(d);
-  return origen.esUbicacionUsuario ? `${km} km en línea recta desde tu ubicación` : `${km} km desde CABA`;
+  const tiempo = formatearTiempo(tiempoDesdeOrigen(d));
+  const base = origen.esUbicacionUsuario ? `${km} km en línea recta desde tu ubicación` : `${km} km desde CABA`;
+  return `${base} · ~${tiempo} en auto`;
 }
 
 // --- Orden óptimo del itinerario: prueba todas las combinaciones posibles ---
@@ -1534,10 +1557,12 @@ function calcularOrdenOptimo(destinos) {
   let previo = origen;
   let previoNombre = origen.esUbicacionUsuario ? "Tu ubicación" : "CABA";
   for (const parada of mejorOrden) {
+    const kmTramo = Math.round(distanciaHaversine(previo.lat, previo.lng, parada.lat, parada.lng));
     tramos.push({
       desde: previoNombre,
       hasta: parada.nombre,
-      km: Math.round(distanciaHaversine(previo.lat, previo.lng, parada.lat, parada.lng)),
+      km: kmTramo,
+      tiempo: formatearTiempo(kmTramo / (prefsCosto.velocidadPromedio || 80)),
     });
     previo = parada;
     previoNombre = parada.nombre;
@@ -1780,6 +1805,7 @@ function render() {
           <div class="card-km">
             <span class="card-km-num">${kmDesdeOrigen(d)}</span>
             <span class="card-km-unit">km</span>
+            <span class="card-km-tiempo">~${formatearTiempo(tiempoDesdeOrigen(d))}</span>
           </div>
           <div class="card-body">
             <div class="card-title-row">
@@ -2137,14 +2163,16 @@ function cargarPreferenciasCosto() {
         precioLitro: Number(datos.precioLitro) || 2050,
         consumo: Number(datos.consumo) || 10,
         peajeCada100km: Number(datos.peajeCada100km) || 1500,
+        velocidadPromedio: Number(datos.velocidadPromedio) || 80,
       };
     }
   } catch (err) {
     console.warn("No se pudieron leer las preferencias de costo guardadas:", err);
   }
   // Valores de referencia: nafta súper YPF CABA ~$2050/litro (julio 2026),
-  // consumo promedio de un auto mediano, y un peaje estimado orientativo.
-  return { precioLitro: 2050, consumo: 10, peajeCada100km: 1500 };
+  // consumo promedio de un auto mediano, un peaje estimado orientativo,
+  // y una velocidad promedio de ruta mixta (autopista + rutas secundarias).
+  return { precioLitro: 2050, consumo: 10, peajeCada100km: 1500, velocidadPromedio: 80 };
 }
 
 function guardarPreferenciasCosto(prefs) {
@@ -2157,12 +2185,35 @@ function guardarPreferenciasCosto(prefs) {
 
 let prefsCosto = cargarPreferenciasCosto();
 
+function formatearTiempo(horasDecimal) {
+  if (!isFinite(horasDecimal) || horasDecimal <= 0) return "—";
+  const totalMinutos = Math.round(horasDecimal * 60);
+  const horas = Math.floor(totalMinutos / 60);
+  const minutos = totalMinutos % 60;
+  if (horas === 0) return `${minutos} min`;
+  if (minutos === 0) return `${horas} h`;
+  return `${horas} h ${minutos} min`;
+}
+
+function tiempoDesdeOrigen(d) {
+  const km = kmDesdeOrigen(d);
+  return km / (prefsCosto.velocidadPromedio || 80);
+}
+
 function calcularCostoViaje(kmIda, prefs) {
   const distanciaTotal = kmIda * 2; // ida y vuelta
   const litros = prefs.consumo > 0 ? distanciaTotal / prefs.consumo : 0;
   const costoCombustible = litros * prefs.precioLitro;
   const costoPeajes = (distanciaTotal / 100) * prefs.peajeCada100km;
-  return { distanciaTotal, costoCombustible, costoPeajes, costoTotal: costoCombustible + costoPeajes };
+  const tiempoIda = prefs.velocidadPromedio > 0 ? kmIda / prefs.velocidadPromedio : 0;
+  return {
+    distanciaTotal,
+    costoCombustible,
+    costoPeajes,
+    costoTotal: costoCombustible + costoPeajes,
+    tiempoIda,
+    tiempoTotal: tiempoIda * 2,
+  };
 }
 
 function formatearARS(numero) {
@@ -2188,9 +2239,13 @@ function renderizarCostoModal(d) {
         <span>Peaje estimado (ARS cada 100 km)</span>
         <input type="number" id="costo-peaje" min="0" step="50" value="${prefsCosto.peajeCada100km}" inputmode="decimal" />
       </label>
+      <label class="costo-input-wrap">
+        <span>Velocidad promedio de ruta (km/h)</span>
+        <input type="number" id="costo-velocidad" min="20" step="5" value="${prefsCosto.velocidadPromedio}" inputmode="decimal" />
+      </label>
     </div>
     <div class="costo-resultado" id="costo-resultado"></div>
-    <div class="costo-nota">Estimado de ida y vuelta (${km * 2} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes varían mucho según la ruta.</div>
+    <div class="costo-nota">Estimado de ida y vuelta (${km * 2} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.</div>
   `;
 
   const actualizarResultado = () => {
@@ -2199,6 +2254,8 @@ function renderizarCostoModal(d) {
       <div class="costo-fila"><span>Combustible</span><strong>${formatearARS(resultado.costoCombustible)}</strong></div>
       <div class="costo-fila"><span>Peajes</span><strong>${formatearARS(resultado.costoPeajes)}</strong></div>
       <div class="costo-fila costo-total"><span>Total estimado</span><strong>${formatearARS(resultado.costoTotal)}</strong></div>
+      <div class="costo-fila"><span>Tiempo de manejo (solo ida)</span><strong>${formatearTiempo(resultado.tiempoIda)}</strong></div>
+      <div class="costo-fila"><span>Tiempo de manejo (ida y vuelta)</span><strong>${formatearTiempo(resultado.tiempoTotal)}</strong></div>
     `;
   };
 
@@ -2214,6 +2271,11 @@ function renderizarCostoModal(d) {
   });
   document.getElementById("costo-peaje").addEventListener("input", (e) => {
     prefsCosto.peajeCada100km = Number(e.target.value) || 0;
+    guardarPreferenciasCosto(prefsCosto);
+    actualizarResultado();
+  });
+  document.getElementById("costo-velocidad").addEventListener("input", (e) => {
+    prefsCosto.velocidadPromedio = Number(e.target.value) || 0;
     guardarPreferenciasCosto(prefsCosto);
     actualizarResultado();
   });
@@ -2393,7 +2455,7 @@ function abrirItinerarioModal() {
       <div class="itinerario-fila-dia">Día ${i + 1}</div>
       <div class="itinerario-fila-info">
         <div class="itinerario-fila-ruta">${tramo.desde} → <strong>${tramo.hasta}</strong></div>
-        <div class="itinerario-fila-km">${tramo.km} km en línea recta</div>
+        <div class="itinerario-fila-km">${tramo.km} km en línea recta · ~${tramo.tiempo}</div>
       </div>
       <button class="itinerario-fila-quitar" data-quitar="${tramo.hasta}" aria-label="Quitar ${tramo.hasta} del itinerario">${icon("x", 16)}</button>
     </div>`
@@ -2411,6 +2473,10 @@ function abrirItinerarioModal() {
     <div class="itinerario-total">
       <span>Distancia total estimada</span>
       <strong>${distanciaTotal} km</strong>
+    </div>
+    <div class="itinerario-total">
+      <span>Tiempo de manejo estimado</span>
+      <strong>~${formatearTiempo(distanciaTotal / (prefsCosto.velocidadPromedio || 80))}</strong>
     </div>
   `;
 
