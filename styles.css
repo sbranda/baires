@@ -282,10 +282,41 @@ input:focus-visible {
   color: var(--on-accent);
 }
 
-.contador {
+.contador-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 12px;
+}
+
+.contador {
   font-size: 0.875rem;
   color: var(--green);
+}
+
+.orden-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.orden-label {
+  font-size: 0.75rem;
+  color: var(--wheat-dim);
+  white-space: nowrap;
+}
+
+.orden-select {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  padding: 6px 8px;
+  min-height: 36px;
+  border-radius: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  color: var(--offwhite);
 }
 
 .vista-toggle {

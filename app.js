@@ -1316,6 +1316,24 @@ let distancia = 400;
 let categoria = "todas";
 let soloFavoritos = false;
 let busqueda = "";
+let orden = "distancia";
+
+function ordenarResultados(lista) {
+  const copia = [...lista];
+  if (orden === "alfabetico") {
+    copia.sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+  } else if (orden === "categoria") {
+    copia.sort((a, b) => {
+      const labelA = CATEGORIAS.find((c) => c.id === a.categoria)?.label || a.categoria;
+      const labelB = CATEGORIAS.find((c) => c.id === b.categoria)?.label || b.categoria;
+      const cmpCategoria = labelA.localeCompare(labelB, "es");
+      return cmpCategoria !== 0 ? cmpCategoria : a.km - b.km;
+    });
+  } else {
+    copia.sort((a, b) => a.km - b.km);
+  }
+  return copia;
+}
 
 function normalizar(texto) {
   return texto
@@ -1378,6 +1396,7 @@ const el = {
   buscadorForm: document.getElementById("form-buscar"),
   filtros: document.getElementById("filtros"),
   contador: document.getElementById("contador"),
+  ordenSelect: document.getElementById("orden-select"),
   vistaToggle: document.getElementById("vista-toggle"),
   lista: document.getElementById("lista"),
   mapaWrap: document.getElementById("mapa-wrap"),
@@ -1512,11 +1531,12 @@ function render() {
     });
   }
 
-  const resultados = DESTINOS.filter((d) => d.km <= distancia)
-    .filter((d) => categoria === "todas" || d.categoria === categoria)
-    .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
-    .filter((d) => !busqueda || normalizar(d.nombre).includes(normalizar(busqueda)))
-    .sort((a, b) => a.km - b.km);
+  const resultados = ordenarResultados(
+    DESTINOS.filter((d) => d.km <= distancia)
+      .filter((d) => categoria === "todas" || d.categoria === categoria)
+      .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
+      .filter((d) => !busqueda || normalizar(d.nombre).includes(normalizar(busqueda)))
+  );
 
   el.contador.textContent = `${resultados.length} ${resultados.length === 1 ? "destino encontrado" : "destinos encontrados"}`;
 
@@ -1782,6 +1802,11 @@ el.buscadorForm.addEventListener("submit", (e) => {
   e.preventDefault();
   busqueda = el.buscador.value;
   el.buscador.blur();
+  render();
+});
+
+el.ordenSelect.addEventListener("change", (e) => {
+  orden = e.target.value;
   render();
 });
 
