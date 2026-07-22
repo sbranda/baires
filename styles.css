@@ -1393,3 +1393,49 @@ input:focus-visible {
   font-size: 0.75rem;
   color: var(--offwhite);
 }
+
+/* Nota personal y puntaje en destinos visitados */
+.modal-nota-personal {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.19);
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.nota-personal-estrellas {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.nota-personal-estrella {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-card-border);
+}
+
+.nota-personal-estrella.activa {
+  color: var(--rust);
+}
+
+.nota-personal-texto {
+  width: 100%;
+  min-height: 70px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  color: var(--offwhite);
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  resize: vertical;
+}
+
+.card-puntaje {
+  font-size: 0.7rem;
+  color: var(--rust);
+  letter-spacing: 1px;
+}

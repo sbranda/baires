@@ -1475,6 +1475,38 @@ function toggleVisitado(nombre) {
 
 let visitados = cargarVisitados();
 
+const NOTAS_PERSONALES_KEY = "destinos-ba-notas-personales";
+
+function cargarNotasPersonales() {
+  try {
+    const raw = localStorage.getItem(NOTAS_PERSONALES_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (err) {
+    console.warn("No se pudieron leer las notas personales guardadas:", err);
+    return {};
+  }
+}
+
+function guardarNotasPersonales() {
+  try {
+    localStorage.setItem(NOTAS_PERSONALES_KEY, JSON.stringify(notasPersonales));
+  } catch (err) {
+    console.warn("No se pudieron guardar las notas personales:", err);
+  }
+}
+
+function obtenerNotaPersonal(nombre) {
+  return notasPersonales[nombre] || { puntaje: 0, nota: "" };
+}
+
+function actualizarNotaPersonal(nombre, cambios) {
+  const actual = obtenerNotaPersonal(nombre);
+  notasPersonales[nombre] = { ...actual, ...cambios };
+  guardarNotasPersonales();
+}
+
+let notasPersonales = cargarNotasPersonales();
+
 const ITINERARIO_KEY = "destinos-ba-itinerario";
 const ITINERARIO_MAX = 6;
 
@@ -1886,6 +1918,7 @@ function render() {
               <h3 class="${esVisitado ? "tachado" : ""}">${d.nombre}</h3>
               ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
               ${esVisitado ? `<span class="card-visitado-badge">${icon("check-circle", 12)} Visitado</span>` : ""}
+              ${esVisitado && obtenerNotaPersonal(d.nombre).puntaje > 0 ? `<span class="card-puntaje">${"★".repeat(obtenerNotaPersonal(d.nombre).puntaje)}${"☆".repeat(5 - obtenerNotaPersonal(d.nombre).puntaje)}</span>` : ""}
             </div>
             <p>${d.nota}</p>
             <span class="card-link">Ver guía →</span>
@@ -1939,6 +1972,37 @@ function abrirModal(d) {
     }
     const badge = el.modal.querySelector("#modal-visitado-badge");
     if (badge) badge.style.display = esVisitado ? "inline-flex" : "none";
+    const notaContenedor = el.modal.querySelector("#modal-nota-personal");
+    if (notaContenedor) notaContenedor.style.display = esVisitado ? "block" : "none";
+  };
+  const render_nota_personal = () => {
+    const contenedorEstrellas = el.modal.querySelector("#nota-personal-estrellas");
+    const textarea = el.modal.querySelector("#nota-personal-texto");
+    if (!contenedorEstrellas || !textarea) return;
+    const datos = obtenerNotaPersonal(d.nombre);
+
+    contenedorEstrellas.innerHTML = [1, 2, 3, 4, 5]
+      .map(
+        (n) =>
+          `<button type="button" class="nota-personal-estrella ${n <= datos.puntaje ? "activa" : ""}" data-puntaje="${n}" aria-label="Puntuar con ${n} ${n === 1 ? "estrella" : "estrellas"}">${icon("star", 22, "currentColor", n <= datos.puntaje ? "currentColor" : "none")}</button>`
+      )
+      .join("");
+
+    contenedorEstrellas.querySelectorAll(".nota-personal-estrella").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const nuevoPuntaje = Number(btn.dataset.puntaje);
+        const actual = obtenerNotaPersonal(d.nombre);
+        // Tocar la misma estrella que ya estaba puesta la quita (para poder "desmarcar")
+        actualizarNotaPersonal(d.nombre, { puntaje: actual.puntaje === nuevoPuntaje ? 0 : nuevoPuntaje });
+        render_nota_personal();
+        if (vista === "lista") render();
+      });
+    });
+
+    textarea.value = datos.nota;
+    textarea.addEventListener("input", (e) => {
+      actualizarNotaPersonal(d.nombre, { nota: e.target.value });
+    });
   };
   const render_itinerario_btn = () => {
     const enItinerario = itinerarioSeleccion.has(d.nombre);
@@ -1974,6 +2038,12 @@ function abrirModal(d) {
     <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
     <span class="modal-visitado-badge" id="modal-visitado-badge" style="display:none">${icon("check-circle", 12)} Ya lo visitaste</span>
     <p class="modal-nota">${d.nota}</p>
+
+    <div class="modal-nota-personal" id="modal-nota-personal" data-nombre="${d.nombre}" style="display:none">
+      <div class="modal-subhead">${icon("star", 14)} Tu nota personal</div>
+      <div class="nota-personal-estrellas" id="nota-personal-estrellas"></div>
+      <textarea id="nota-personal-texto" class="nota-personal-texto" rows="3" placeholder="¿Qué te pareció? Anotá lo que quieras recordar de tu visita..."></textarea>
+    </div>
 
     <div class="modal-foto" id="modal-foto" data-nombre="${d.nombre}"></div>
 
@@ -2039,6 +2109,7 @@ function abrirModal(d) {
   document.getElementById("modal-close").focus();
   render_estrella();
   render_visitado();
+  render_nota_personal();
   render_itinerario_btn();
   render_comparar_btn();
   document.getElementById("modal-fav").addEventListener("click", () => {
