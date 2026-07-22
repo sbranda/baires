@@ -680,6 +680,73 @@ input:focus-visible {
   text-decoration: none;
 }
 
+.modal-clima {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.19);
+  padding: 14px;
+  margin-bottom: 20px;
+  min-height: 40px;
+}
+
+.modal-clima.sin-clima {
+  display: none;
+}
+
+.clima-actual {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.clima-actual-temp {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--offwhite);
+  line-height: 1;
+}
+
+.clima-actual-texto {
+  font-size: 0.8rem;
+  color: var(--wheat-dim);
+  margin-top: 2px;
+}
+
+.clima-pronostico {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--bg-card-border);
+}
+
+.clima-dia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.clima-dia-nombre {
+  font-size: 0.7rem;
+  text-transform: capitalize;
+  color: var(--wheat-dim);
+}
+
+.clima-dia-temp {
+  font-size: 0.7rem;
+  color: var(--offwhite);
+}
+
+.clima-fuente {
+  margin-top: 10px;
+  font-size: 0.65rem;
+  color: var(--wheat-dim);
+  text-align: right;
+}
+
 .modal-info {
   display: flex;
   flex-direction: column;

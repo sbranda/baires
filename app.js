@@ -1298,6 +1298,12 @@ const ICONS = {
   check: '<path d="M20 6 9 17l-5-5"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  cloud: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+  "cloud-sun": '<path d="M12 2v1"/><path d="m4.2 4.2.7.7"/><path d="M2 12h1"/><path d="M17.9 4.9l-.7.7"/><path d="M15.7 9.3A4 4 0 1 0 17.5 17H19a3 3 0 0 0 0-6h-.4"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>',
+  "cloud-rain": '<path d="M4.2 15.1A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 .3 9"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/>',
+  "cloud-lightning": '<path d="M6 16.9A5 5 0 0 1 7 7h1.2a5.5 5.5 0 0 1 10.6 1.5A4.5 4.5 0 0 1 18 17H7Z"/><path d="m13 12-3 5h4l-3 5"/>',
+  "cloud-fog": '<path d="M16.5 17H9a7 7 0 1 1 6.71-9h1.29a4.5 4.5 0 1 1 0 9Z"/><path d="M16 19H7"/><path d="M17 21H9"/>',
+  snowflake: '<path d="M12 2v20"/><path d="m17 5-5 3-5-3"/><path d="m17 19-5-3-5 3"/><path d="M2 12h20"/><path d="m5 7 3 5-3 5"/><path d="m19 7-3 5 3 5"/>',
   scroll: '<path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>',
   utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
   bed: '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
@@ -1669,6 +1675,9 @@ function abrirModal(d) {
       </div>
     </div>
 
+    <div class="modal-subhead">${icon("cloud", 14)} Clima actual</div>
+    <div class="modal-clima" id="modal-clima" data-nombre="${d.nombre}"></div>
+
     <div class="modal-subhead">${icon("sparkles", 14)} Itinerario sugerido</div>
     <ul class="modal-timeline">
       ${d.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
@@ -1693,6 +1702,7 @@ function abrirModal(d) {
   });
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
+  cargarClimaModal(d);
 }
 
 // --- Foto real del destino, vía la API pública de Wikipedia (sin necesidad de cuenta o key) ---
@@ -1768,6 +1778,107 @@ async function cargarFotoModal(d) {
   const contenedorActual = document.getElementById("modal-foto");
   if (contenedorActual && contenedorActual.dataset.nombre === d.nombre) {
     pintarFotoModal(contenedorActual, resultado);
+  }
+}
+
+// --- Clima actual y pronóstico, vía la API pública de Open-Meteo (sin cuenta ni key) ---
+const cacheClima = {};
+
+const WMO_CLIMA = {
+  0: { texto: "Despejado", icono: "sun" },
+  1: { texto: "Mayormente despejado", icono: "sun" },
+  2: { texto: "Parcialmente nublado", icono: "cloud-sun" },
+  3: { texto: "Nublado", icono: "cloud" },
+  45: { texto: "Neblina", icono: "cloud-fog" },
+  48: { texto: "Neblina con escarcha", icono: "cloud-fog" },
+  51: { texto: "Llovizna leve", icono: "cloud-rain" },
+  53: { texto: "Llovizna moderada", icono: "cloud-rain" },
+  55: { texto: "Llovizna intensa", icono: "cloud-rain" },
+  56: { texto: "Llovizna helada", icono: "cloud-rain" },
+  57: { texto: "Llovizna helada intensa", icono: "cloud-rain" },
+  61: { texto: "Lluvia leve", icono: "cloud-rain" },
+  63: { texto: "Lluvia moderada", icono: "cloud-rain" },
+  65: { texto: "Lluvia intensa", icono: "cloud-rain" },
+  66: { texto: "Lluvia helada", icono: "cloud-rain" },
+  67: { texto: "Lluvia helada intensa", icono: "cloud-rain" },
+  71: { texto: "Nevada leve", icono: "snowflake" },
+  73: { texto: "Nevada moderada", icono: "snowflake" },
+  75: { texto: "Nevada intensa", icono: "snowflake" },
+  77: { texto: "Granizo fino", icono: "snowflake" },
+  80: { texto: "Chubascos leves", icono: "cloud-rain" },
+  81: { texto: "Chubascos moderados", icono: "cloud-rain" },
+  82: { texto: "Chubascos intensos", icono: "cloud-rain" },
+  85: { texto: "Chubascos de nieve", icono: "snowflake" },
+  86: { texto: "Chubascos de nieve intensos", icono: "snowflake" },
+  95: { texto: "Tormenta eléctrica", icono: "cloud-lightning" },
+  96: { texto: "Tormenta con granizo", icono: "cloud-lightning" },
+  99: { texto: "Tormenta con granizo intenso", icono: "cloud-lightning" },
+};
+
+function infoClima(codigo) {
+  return WMO_CLIMA[codigo] || { texto: "Sin datos", icono: "cloud" };
+}
+
+async function obtenerClima(d) {
+  if (Object.prototype.hasOwnProperty.call(cacheClima, d.nombre)) {
+    return cacheClima[d.nombre];
+  }
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lng}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=5`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error("Respuesta no OK de Open-Meteo");
+    const data = await resp.json();
+    cacheClima[d.nombre] = data;
+    return data;
+  } catch (err) {
+    cacheClima[d.nombre] = null;
+    return null;
+  }
+}
+
+function pintarClima(contenedor, data) {
+  if (!data || !data.current || !data.daily) {
+    contenedor.classList.add("sin-clima");
+    contenedor.innerHTML = "";
+    return;
+  }
+  contenedor.classList.remove("sin-clima");
+
+  const actual = infoClima(data.current.weather_code);
+  const dias = data.daily.time
+    .map((fecha, i) => {
+      const info = infoClima(data.daily.weather_code[i]);
+      const nombreDia = new Date(`${fecha}T12:00:00`).toLocaleDateString("es-AR", { weekday: "short" });
+      return `
+      <div class="clima-dia">
+        <span class="clima-dia-nombre">${nombreDia.replace(".", "")}</span>
+        ${icon(info.icono, 20, "var(--wheat-dim)")}
+        <span class="clima-dia-temp">${Math.round(data.daily.temperature_2m_max[i])}°/${Math.round(data.daily.temperature_2m_min[i])}°</span>
+      </div>`;
+    })
+    .join("");
+
+  contenedor.innerHTML = `
+    <div class="clima-actual">
+      ${icon(actual.icono, 32, "var(--rust)")}
+      <div>
+        <div class="clima-actual-temp">${Math.round(data.current.temperature_2m)}°C</div>
+        <div class="clima-actual-texto">${actual.texto}</div>
+      </div>
+    </div>
+    <div class="clima-pronostico">${dias}</div>
+    <div class="clima-fuente">Datos: Open-Meteo</div>
+  `;
+}
+
+async function cargarClimaModal(d) {
+  const contenedorInicial = document.getElementById("modal-clima");
+  if (!contenedorInicial) return;
+
+  const data = await obtenerClima(d);
+  const contenedorActual = document.getElementById("modal-clima");
+  if (contenedorActual && contenedorActual.dataset.nombre === d.nombre) {
+    pintarClima(contenedorActual, data);
   }
 }
 
