@@ -1319,6 +1319,7 @@ const ICONS = {
   share: '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>',
   link: '<path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/>',
   "bar-chart": '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>',
+  "wifi-off": '<path d="M12 20h.01"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
@@ -1710,6 +1711,7 @@ const el = {
   resumenBtn: document.getElementById("resumen-btn"),
   resumenOverlay: document.getElementById("resumen-overlay"),
   resumenModal: document.getElementById("resumen-modal"),
+  offlineBanner: document.getElementById("offline-banner"),
 };
 
 // Sincronizar los controles que no se regeneran en cada render() con los
@@ -2977,6 +2979,20 @@ document.addEventListener("keydown", (e) => {
 });
 
 actualizarBarraAcciones();
+
+// --- Aviso de "sin conexión" -------------------------------------------------
+function actualizarAvisoConexion() {
+  if (!el.offlineBanner) return;
+  el.offlineBanner.style.display = navigator.onLine ? "none" : "flex";
+}
+
+if (el.offlineBanner) {
+  el.offlineBanner.innerHTML = `${icon("wifi-off", 18)} <span>Estás sin conexión: el mapa, las fotos y el clima no van a cargar, pero la lista de destinos sigue funcionando con lo que ya tenías guardado.</span>`;
+}
+
+window.addEventListener("online", actualizarAvisoConexion);
+window.addEventListener("offline", actualizarAvisoConexion);
+actualizarAvisoConexion();
 
 // --- Ubicación real del usuario (opcional, en vez de CABA) ------------------
 function actualizarTextosOrigen() {

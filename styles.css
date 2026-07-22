@@ -1439,3 +1439,23 @@ input:focus-visible {
   color: var(--rust);
   letter-spacing: 1px;
 }
+
+/* Aviso de sin conexión */
+.offline-banner {
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  margin: 16px 0;
+  border-radius: 8px;
+  background: rgba(193, 68, 14, 0.14);
+  border: 1px solid var(--rust);
+  color: var(--wheat);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.offline-banner svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--rust);
+}
