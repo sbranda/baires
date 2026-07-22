@@ -1630,6 +1630,8 @@ function abrirModal(d) {
     <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
     <p class="modal-nota">${d.nota}</p>
 
+    <div class="modal-foto" id="modal-foto" data-nombre="${d.nombre}"></div>
+
     <div class="modal-subhead">${icon("scroll", 14)} Un poco de historia</div>
     <p class="modal-parrafo">${d.historia}</p>
 
@@ -1690,6 +1692,64 @@ function abrirModal(d) {
     render_estrella();
   });
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
+  cargarFotoModal(d);
+}
+
+// --- Foto real del destino, vía la API pública de Wikipedia (sin necesidad de cuenta o key) ---
+const cacheImagenesWikipedia = {};
+
+async function buscarImagenWikipedia(nombre) {
+  const intentos = [nombre, `${nombre}, Buenos Aires`, `${nombre} (Buenos Aires)`];
+  for (const intento of intentos) {
+    try {
+      const resp = await fetch(`https://es.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(intento)}`);
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      if (data.type === "disambiguation") continue;
+      if (data.thumbnail && data.thumbnail.source) {
+        return {
+          src: (data.originalimage && data.originalimage.source) || data.thumbnail.source,
+          pageUrl: (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || `https://es.wikipedia.org/wiki/${encodeURIComponent(intento)}`,
+        };
+      }
+    } catch (err) {
+      continue;
+    }
+  }
+  return null;
+}
+
+function pintarFotoModal(contenedor, resultado) {
+  if (!resultado) {
+    contenedor.classList.add("sin-foto");
+    contenedor.innerHTML = "";
+    return;
+  }
+  contenedor.classList.remove("sin-foto");
+  const nombreDestino = contenedor.dataset.nombre;
+  contenedor.innerHTML = `
+    <img src="${resultado.src}" alt="Foto de ${nombreDestino}" loading="lazy" />
+    <a href="${resultado.pageUrl}" target="_blank" rel="noopener noreferrer" class="modal-foto-credito">Foto: Wikipedia</a>
+  `;
+}
+
+async function cargarFotoModal(d) {
+  const contenedorInicial = document.getElementById("modal-foto");
+  if (!contenedorInicial) return;
+
+  if (Object.prototype.hasOwnProperty.call(cacheImagenesWikipedia, d.nombre)) {
+    pintarFotoModal(contenedorInicial, cacheImagenesWikipedia[d.nombre]);
+    return;
+  }
+
+  const resultado = await buscarImagenWikipedia(d.nombre);
+  cacheImagenesWikipedia[d.nombre] = resultado;
+
+  // Si el usuario ya cambió de destino mientras se resolvía la búsqueda, no pisar ese contenido
+  const contenedorActual = document.getElementById("modal-foto");
+  if (contenedorActual && contenedorActual.dataset.nombre === d.nombre) {
+    pintarFotoModal(contenedorActual, resultado);
+  }
 }
 
 function generarTextoGuia(d) {

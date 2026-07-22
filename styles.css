@@ -647,6 +647,39 @@ input:focus-visible {
   color: var(--wheat-dim);
 }
 
+.modal-foto {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: var(--bg-card-border);
+}
+
+.modal-foto.sin-foto {
+  display: none;
+}
+
+.modal-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-foto-credito {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  font-size: 0.65rem;
+  color: var(--on-accent);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
 .modal-info {
   display: flex;
   flex-direction: column;
