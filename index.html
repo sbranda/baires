@@ -69,17 +69,15 @@
       <button class="vista-btn vista-activo" data-vista="lista" aria-pressed="true">Lista</button>
       <button class="vista-btn" data-vista="mapa" aria-pressed="false">Mapa</button>
     </div>
-    <div class="contador-row">
-      <div class="contador" id="contador" aria-live="polite"></div>
-      <div class="orden-wrap">
-        <label for="orden-select" class="orden-label">Ordenar</label>
-        <select id="orden-select" class="orden-select">
-          <option value="distancia">Distancia</option>
-          <option value="alfabetico">Alfabético</option>
-          <option value="categoria">Categoría</option>
-        </select>
-      </div>
+    <div class="orden-wrap">
+      <label for="orden-select" class="orden-label">Ordenar por</label>
+      <select id="orden-select" class="orden-select">
+        <option value="distancia">Distancia</option>
+        <option value="alfabetico">Alfabético</option>
+        <option value="categoria">Categoría</option>
+      </select>
     </div>
+    <div class="contador" id="contador" aria-live="polite"></div>
     <div class="vacio" id="vacio">No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.</div>
     <div class="lista" id="lista"></div>
     <div class="mapa-wrap" id="mapa-wrap" style="display:none">
