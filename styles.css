@@ -261,7 +261,29 @@ input:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
+}
+
+.sorpresa-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px dashed var(--rust);
+  background: transparent;
+  color: var(--rust);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.sorpresa-btn:active {
+  background: rgba(193, 68, 14, 0.12);
 }
 
 .chip {
