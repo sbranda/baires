@@ -2510,6 +2510,7 @@ function actualizarBarraAcciones() {
 
 function cerrarItinerarioModal() {
   el.itinerarioOverlay.classList.remove("visible");
+  if (el.accionFlotante) el.accionFlotante.style.visibility = "visible";
   if (itinerarioFocoPrevio && typeof itinerarioFocoPrevio.focus === "function") {
     itinerarioFocoPrevio.focus();
   }
@@ -2519,6 +2520,7 @@ function abrirItinerarioModal() {
   itinerarioFocoPrevio = document.activeElement;
   const seleccionados = DESTINOS.filter((d) => itinerarioSeleccion.has(d.nombre));
   if (seleccionados.length < 2) return;
+  if (el.accionFlotante) el.accionFlotante.style.visibility = "hidden";
 
   const { tramos, distanciaTotal } = calcularOrdenOptimo(seleccionados);
   const origenNombre = origen.esUbicacionUsuario ? "tu ubicación" : "CABA";
@@ -2603,6 +2605,7 @@ let compararFocoPrevio = null;
 
 function cerrarCompararModal() {
   el.compararOverlay.classList.remove("visible");
+  if (el.accionFlotante) el.accionFlotante.style.visibility = "visible";
   if (compararFocoPrevio && typeof compararFocoPrevio.focus === "function") {
     compararFocoPrevio.focus();
   }
@@ -2612,6 +2615,7 @@ function abrirCompararModal() {
   compararFocoPrevio = document.activeElement;
   const seleccionados = DESTINOS.filter((d) => comparacionSeleccion.has(d.nombre));
   if (seleccionados.length < 2) return;
+  if (el.accionFlotante) el.accionFlotante.style.visibility = "hidden";
   const [a, b] = seleccionados;
 
   const costoA = calcularCostoViaje(kmDesdeOrigen(a), prefsCosto);
