@@ -1294,6 +1294,8 @@ const ICONS = {
   clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
   sparkles: '<path d="m12 3-1.9 5.8L4 11l6.1 2.2L12 19l1.9-5.8L20 11l-6.1-2.2Z"/>',
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
   scroll: '<path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>',
   utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
   bed: '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
@@ -1596,6 +1598,7 @@ function abrirModal(d) {
       <div class="modal-km-badge">${d.km} km desde CABA</div>
       <div class="modal-top-actions">
         <button id="modal-fav" aria-label="Agregar a favoritos"></button>
+        <button id="modal-copy" aria-label="Copiar guía">${icon("copy", 20)}</button>
         <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
       </div>
     </div>
@@ -1660,6 +1663,84 @@ function abrirModal(d) {
     toggleFavorito(d.nombre);
     render_estrella();
   });
+  document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
+}
+
+function generarTextoGuia(d) {
+  const lineas = [];
+  lineas.push(`${d.nombre} — ${d.km} km desde CABA`);
+  lineas.push(d.nota);
+  lineas.push("");
+  lineas.push("HISTORIA");
+  lineas.push(d.historia);
+  lineas.push("");
+  lineas.push("DATO CURIOSO");
+  lineas.push(d.datoCurioso);
+  lineas.push("");
+  lineas.push(`Cómo llegar: ${d.comoLlegar}`);
+  lineas.push(`Cómo moverse: ${d.comoMoverse}`);
+  lineas.push(`Cuándo ir: ${d.cuandoIr}`);
+  lineas.push(`Duración sugerida: ${d.duracion}`);
+  lineas.push("");
+  lineas.push("ITINERARIO SUGERIDO");
+  d.itinerario.forEach((paso) => lineas.push(`- ${paso.momento}: ${paso.actividad}`));
+  lineas.push("");
+  lineas.push("OTROS ATRACTIVOS");
+  d.otrosAtractivos.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push("");
+  lineas.push("EVENTOS Y FECHAS ESPECIALES");
+  d.eventos.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push("");
+  lineas.push("DÓNDE COMER");
+  d.dondeComer.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push("");
+  lineas.push("DÓNDE ALOJARSE");
+  d.dondeAlojarse.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push("");
+  lineas.push("TIPS LOCALES");
+  d.tips.forEach((item) => lineas.push(`- ${item}`));
+  lineas.push("");
+  lineas.push(`PRESUPUESTO ESTIMADO: ${d.presupuesto}`);
+  lineas.push("");
+  lineas.push("— Destinos Buenos Aires (guía por distancia)");
+  return lineas.join("\n");
+}
+
+function copiarGuia(d) {
+  const texto = generarTextoGuia(d);
+  const boton = document.getElementById("modal-copy");
+  const mostrarExito = () => {
+    if (!boton) return;
+    boton.innerHTML = icon("check", 20);
+    boton.classList.add("copiado");
+    setTimeout(() => {
+      boton.innerHTML = icon("copy", 20);
+      boton.classList.remove("copiado");
+    }, 1800);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(mostrarExito).catch(() => copiarConFallback(texto, mostrarExito));
+  } else {
+    copiarConFallback(texto, mostrarExito);
+  }
+}
+
+function copiarConFallback(texto, callback) {
+  try {
+    const textarea = document.createElement("textarea");
+    textarea.value = texto;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    callback();
+  } catch (err) {
+    console.warn("No se pudo copiar la guía:", err);
+  }
 }
 
 function cerrarModal() {

@@ -452,7 +452,10 @@ input[type="range"] {
 /* Modal de guía */
 .modal-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 2000;
   display: none;
   align-items: flex-end;
@@ -512,6 +515,16 @@ input[type="range"] {
 
 #modal-fav.activo {
   color: var(--rust);
+}
+
+#modal-copy {
+  color: var(--wheat-dim);
+  line-height: 0;
+  transition: color 0.15s;
+}
+
+#modal-copy.copiado {
+  color: var(--green);
 }
 
 .modal-title {
