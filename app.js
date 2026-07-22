@@ -1313,6 +1313,9 @@ const ICONS = {
   star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
   circle: '<circle cx="12" cy="12" r="10"/>',
   shuffle: '<path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/>',
+  plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  route: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
   "check-circle": '<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
 };
 
@@ -1433,6 +1436,43 @@ function toggleVisitado(nombre) {
 
 let visitados = cargarVisitados();
 
+const ITINERARIO_KEY = "destinos-ba-itinerario";
+const ITINERARIO_MAX = 6;
+
+function cargarItinerario() {
+  try {
+    const raw = localStorage.getItem(ITINERARIO_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (err) {
+    console.warn("No se pudo leer el itinerario guardado:", err);
+    return new Set();
+  }
+}
+
+function guardarItinerario() {
+  try {
+    localStorage.setItem(ITINERARIO_KEY, JSON.stringify([...itinerarioSeleccion]));
+  } catch (err) {
+    console.warn("No se pudo guardar el itinerario:", err);
+  }
+}
+
+function toggleItinerario(nombre) {
+  if (itinerarioSeleccion.has(nombre)) {
+    itinerarioSeleccion.delete(nombre);
+  } else {
+    if (itinerarioSeleccion.size >= ITINERARIO_MAX) {
+      alert(`Podés armar itinerarios de hasta ${ITINERARIO_MAX} paradas. Sacá alguna para agregar otra.`);
+      return;
+    }
+    itinerarioSeleccion.add(nombre);
+  }
+  guardarItinerario();
+  actualizarBarraItinerario();
+}
+
+let itinerarioSeleccion = cargarItinerario();
+
 const CABA_COORDS = { lat: -34.6037, lng: -58.3816 };
 
 // --- Origen de las distancias: CABA por defecto, o la ubicación real del usuario ---
@@ -1457,6 +1497,53 @@ function kmDesdeOrigen(d) {
 function etiquetaDistancia(d) {
   const km = kmDesdeOrigen(d);
   return origen.esUbicacionUsuario ? `${km} km en línea recta desde tu ubicación` : `${km} km desde CABA`;
+}
+
+// --- Orden óptimo del itinerario: prueba todas las combinaciones posibles ---
+// (viable porque son pocas paradas, hasta 6) y elige la de menor distancia total
+// en línea recta, arrancando desde el origen actual (CABA o la ubicación del usuario).
+function generarPermutaciones(arr) {
+  if (arr.length <= 1) return [arr];
+  const resultado = [];
+  for (let i = 0; i < arr.length; i++) {
+    const resto = [...arr.slice(0, i), ...arr.slice(i + 1)];
+    for (const permutacionResto of generarPermutaciones(resto)) {
+      resultado.push([arr[i], ...permutacionResto]);
+    }
+  }
+  return resultado;
+}
+
+function calcularOrdenOptimo(destinos) {
+  if (destinos.length === 0) return { orden: [], tramos: [], distanciaTotal: 0 };
+  let mejorOrden = destinos;
+  let mejorDistancia = Infinity;
+
+  for (const permutacion of generarPermutaciones(destinos)) {
+    let total = distanciaHaversine(origen.lat, origen.lng, permutacion[0].lat, permutacion[0].lng);
+    for (let i = 0; i < permutacion.length - 1; i++) {
+      total += distanciaHaversine(permutacion[i].lat, permutacion[i].lng, permutacion[i + 1].lat, permutacion[i + 1].lng);
+    }
+    if (total < mejorDistancia) {
+      mejorDistancia = total;
+      mejorOrden = permutacion;
+    }
+  }
+
+  const tramos = [];
+  let previo = origen;
+  let previoNombre = origen.esUbicacionUsuario ? "Tu ubicación" : "CABA";
+  for (const parada of mejorOrden) {
+    tramos.push({
+      desde: previoNombre,
+      hasta: parada.nombre,
+      km: Math.round(distanciaHaversine(previo.lat, previo.lng, parada.lat, parada.lng)),
+    });
+    previo = parada;
+    previoNombre = parada.nombre;
+  }
+
+  return { orden: mejorOrden, tramos, distanciaTotal: Math.round(mejorDistancia) };
 }
 
 const CATEGORIA_COLOR = {
@@ -1491,6 +1578,12 @@ const el = {
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
   modal: document.getElementById("modal"),
+  itinerarioBarra: document.getElementById("itinerario-barra"),
+  itinerarioBarraTexto: document.getElementById("itinerario-barra-texto"),
+  itinerarioVerBtn: document.getElementById("itinerario-ver-btn"),
+  itinerarioVaciarBtn: document.getElementById("itinerario-vaciar-btn"),
+  itinerarioOverlay: document.getElementById("itinerario-overlay"),
+  itinerarioModal: document.getElementById("itinerario-modal"),
 };
 
 el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
@@ -1747,11 +1840,21 @@ function abrirModal(d) {
     const badge = el.modal.querySelector("#modal-visitado-badge");
     if (badge) badge.style.display = esVisitado ? "inline-flex" : "none";
   };
+  const render_itinerario_btn = () => {
+    const enItinerario = itinerarioSeleccion.has(d.nombre);
+    const btn = el.modal.querySelector("#modal-itinerario");
+    if (btn) {
+      btn.classList.toggle("activo", enItinerario);
+      btn.innerHTML = icon(enItinerario ? "check-circle" : "plus", 20);
+      btn.setAttribute("aria-label", enItinerario ? "Quitar del itinerario" : "Agregar al itinerario");
+    }
+  };
 
   el.modal.innerHTML = `
     <div class="modal-top">
       <div class="modal-km-badge">${etiquetaDistancia(d)}</div>
       <div class="modal-top-actions">
+        <button id="modal-itinerario" aria-label="Agregar al itinerario"></button>
         <button id="modal-visitado" aria-label="Marcar como visitado"></button>
         <button id="modal-fav" aria-label="Agregar a favoritos"></button>
         <button id="modal-copy" aria-label="Copiar guía">${icon("copy", 20)}</button>
@@ -1826,6 +1929,7 @@ function abrirModal(d) {
   document.getElementById("modal-close").focus();
   render_estrella();
   render_visitado();
+  render_itinerario_btn();
   document.getElementById("modal-fav").addEventListener("click", () => {
     toggleFavorito(d.nombre);
     render_estrella();
@@ -1833,6 +1937,10 @@ function abrirModal(d) {
   document.getElementById("modal-visitado").addEventListener("click", () => {
     toggleVisitado(d.nombre);
     render_visitado();
+  });
+  document.getElementById("modal-itinerario").addEventListener("click", () => {
+    toggleItinerario(d.nombre);
+    render_itinerario_btn();
   });
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
@@ -2246,6 +2354,110 @@ el.sorpresaBtn.addEventListener("click", () => {
   const elegido = candidatos[Math.floor(Math.random() * candidatos.length)];
   abrirModal(elegido);
 });
+
+// --- Barra y modal de itinerario de varios días ------------------------------
+let itinerarioFocoPrevio = null;
+
+function actualizarBarraItinerario() {
+  if (!el.itinerarioBarra) return;
+  const n = itinerarioSeleccion.size;
+  if (n === 0) {
+    el.itinerarioBarra.style.display = "none";
+    return;
+  }
+  el.itinerarioBarra.style.display = "flex";
+  el.itinerarioBarraTexto.textContent = `${n} ${n === 1 ? "destino elegido" : "destinos elegidos"} para el itinerario`;
+  el.itinerarioVerBtn.disabled = n < 2;
+  el.itinerarioVerBtn.textContent = n < 2 ? "Elegí al menos 2" : "Ver itinerario";
+}
+
+function cerrarItinerarioModal() {
+  el.itinerarioOverlay.classList.remove("visible");
+  if (itinerarioFocoPrevio && typeof itinerarioFocoPrevio.focus === "function") {
+    itinerarioFocoPrevio.focus();
+  }
+}
+
+function abrirItinerarioModal() {
+  itinerarioFocoPrevio = document.activeElement;
+  const seleccionados = DESTINOS.filter((d) => itinerarioSeleccion.has(d.nombre));
+  if (seleccionados.length < 2) return;
+
+  const { tramos, distanciaTotal } = calcularOrdenOptimo(seleccionados);
+  const origenNombre = origen.esUbicacionUsuario ? "tu ubicación" : "CABA";
+
+  const filas = tramos
+    .map(
+      (tramo, i) => `
+    <div class="itinerario-fila">
+      <div class="itinerario-fila-dia">Día ${i + 1}</div>
+      <div class="itinerario-fila-info">
+        <div class="itinerario-fila-ruta">${tramo.desde} → <strong>${tramo.hasta}</strong></div>
+        <div class="itinerario-fila-km">${tramo.km} km en línea recta</div>
+      </div>
+      <button class="itinerario-fila-quitar" data-quitar="${tramo.hasta}" aria-label="Quitar ${tramo.hasta} del itinerario">${icon("x", 16)}</button>
+    </div>`
+    )
+    .join("");
+
+  el.itinerarioModal.innerHTML = `
+    <div class="modal-top">
+      <div class="modal-km-badge">${seleccionados.length} paradas</div>
+      <button id="itinerario-close" aria-label="Cerrar itinerario">${icon("x", 20)}</button>
+    </div>
+    <h2 class="modal-title" id="itinerario-titulo">${icon("route", 20)} Tu itinerario sugerido</h2>
+    <p class="modal-nota">Orden calculado para minimizar la distancia total en línea recta, empezando desde ${origenNombre}. No es la ruta real (podés reordenar según rutas y horarios), pero sirve como punto de partida.</p>
+    <div class="itinerario-lista">${filas}</div>
+    <div class="itinerario-total">
+      <span>Distancia total estimada</span>
+      <strong>${distanciaTotal} km</strong>
+    </div>
+  `;
+
+  el.itinerarioOverlay.classList.add("visible");
+  document.getElementById("itinerario-close").addEventListener("click", cerrarItinerarioModal);
+  document.getElementById("itinerario-close").focus();
+  el.itinerarioModal.querySelectorAll("[data-quitar]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      toggleItinerario(btn.dataset.quitar);
+      if (itinerarioSeleccion.size < 2) {
+        cerrarItinerarioModal();
+      } else {
+        abrirItinerarioModal();
+      }
+    });
+  });
+}
+
+if (el.itinerarioVerBtn) {
+  el.itinerarioVerBtn.addEventListener("click", () => {
+    if (itinerarioSeleccion.size >= 2) abrirItinerarioModal();
+  });
+}
+
+if (el.itinerarioVaciarBtn) {
+  el.itinerarioVaciarBtn.innerHTML = icon("trash", 16);
+  el.itinerarioVaciarBtn.setAttribute("aria-label", "Vaciar selección de itinerario");
+  el.itinerarioVaciarBtn.addEventListener("click", () => {
+    itinerarioSeleccion.clear();
+    guardarItinerario();
+    actualizarBarraItinerario();
+  });
+}
+
+if (el.itinerarioOverlay) {
+  el.itinerarioOverlay.addEventListener("click", (e) => {
+    if (e.target === el.itinerarioOverlay) cerrarItinerarioModal();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.itinerarioOverlay && el.itinerarioOverlay.classList.contains("visible")) {
+    cerrarItinerarioModal();
+  }
+});
+
+actualizarBarraItinerario();
 
 // --- Ubicación real del usuario (opcional, en vez de CABA) ------------------
 function actualizarTextosOrigen() {

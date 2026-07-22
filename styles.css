@@ -685,6 +685,19 @@ input:focus-visible {
   gap: 4px;
 }
 
+#modal-itinerario {
+  color: var(--wheat-dim);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-itinerario.activo {
+  color: var(--rust);
+}
+
 #modal-visitado {
   color: var(--wheat-dim);
   width: 40px;
@@ -1023,4 +1036,132 @@ input:focus-visible {
   letter-spacing: 0.05em;
   color: var(--rust);
   margin-bottom: 2px;
+}
+
+/* Barra flotante e itinerario de varios días */
+.itinerario-barra {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--rust);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.itinerario-barra span {
+  font-size: 0.8rem;
+  color: var(--wheat-dim);
+}
+
+.itinerario-barra-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.itinerario-ver-btn {
+  padding: 8px 14px;
+  min-height: 40px;
+  border-radius: 8px;
+  background: var(--rust);
+  color: var(--on-accent);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.itinerario-ver-btn:disabled {
+  opacity: 0.5;
+}
+
+.itinerario-vaciar-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wheat-dim);
+}
+
+.itinerario-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.itinerario-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.19);
+}
+
+.itinerario-fila-dia {
+  flex-shrink: 0;
+  width: 56px;
+  font-family: "Oswald", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.itinerario-fila-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.itinerario-fila-ruta {
+  font-size: 0.85rem;
+  color: var(--offwhite);
+}
+
+.itinerario-fila-ruta strong {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+
+.itinerario-fila-km {
+  font-size: 0.7rem;
+  color: var(--wheat-dim);
+  margin-top: 2px;
+}
+
+.itinerario-fila-quitar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wheat-dim);
+}
+
+.itinerario-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px dashed var(--bg-card-border);
+  font-size: 0.9rem;
+  color: var(--wheat);
+}
+
+.itinerario-total strong {
+  color: var(--rust);
+  font-size: 1.2rem;
+  font-family: "Oswald", sans-serif;
 }
