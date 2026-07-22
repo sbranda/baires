@@ -1311,6 +1311,8 @@ const ICONS = {
   lightbulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.5 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
   compass: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
   star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  circle: '<circle cx="12" cy="12" r="10"/>',
+  "check-circle": '<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
 };
 
 function icon(name, size = 14, color = "currentColor", fill = "none") {
@@ -1321,6 +1323,7 @@ function icon(name, size = 14, color = "currentColor", fill = "none") {
 let distancia = 400;
 let categoria = "todas";
 let soloFavoritos = false;
+let soloVisitados = false;
 let busqueda = "";
 let orden = "distancia";
 
@@ -1380,6 +1383,38 @@ function toggleFavorito(nombre) {
 }
 
 let favoritos = cargarFavoritos();
+
+const VISITADOS_KEY = "destinos-ba-visitados";
+
+function cargarVisitados() {
+  try {
+    const raw = localStorage.getItem(VISITADOS_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (err) {
+    console.warn("No se pudieron leer los visitados guardados:", err);
+    return new Set();
+  }
+}
+
+function guardarVisitados() {
+  try {
+    localStorage.setItem(VISITADOS_KEY, JSON.stringify([...visitados]));
+  } catch (err) {
+    console.warn("No se pudieron guardar los visitados:", err);
+  }
+}
+
+function toggleVisitado(nombre) {
+  if (visitados.has(nombre)) {
+    visitados.delete(nombre);
+  } else {
+    visitados.add(nombre);
+  }
+  guardarVisitados();
+  render();
+}
+
+let visitados = cargarVisitados();
 
 const CABA_COORDS = { lat: -34.6037, lng: -58.3816 };
 
@@ -1516,6 +1551,9 @@ function render() {
   el.filtros.innerHTML =
     `<button class="chip chip-fav ${soloFavoritos ? "chip-activo" : ""}" data-fav-toggle="1" aria-pressed="${soloFavoritos ? "true" : "false"}">
       ${icon("star", 14, "currentColor", soloFavoritos ? "currentColor" : "none")} Favoritos
+    </button>
+    <button class="chip chip-visitado ${soloVisitados ? "chip-activo" : ""}" data-visitado-toggle="1" aria-pressed="${soloVisitados ? "true" : "false"}">
+      ${icon(soloVisitados ? "check-circle" : "circle", 14)} Visitados
     </button>` +
     CATEGORIAS.map(
       (c) => `
@@ -1536,11 +1574,19 @@ function render() {
       render();
     });
   }
+  const visitadoToggleBtn = el.filtros.querySelector("[data-visitado-toggle]");
+  if (visitadoToggleBtn) {
+    visitadoToggleBtn.addEventListener("click", () => {
+      soloVisitados = !soloVisitados;
+      render();
+    });
+  }
 
   const resultados = ordenarResultados(
     DESTINOS.filter((d) => d.km <= distancia)
       .filter((d) => categoria === "todas" || d.categoria === categoria)
       .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
+      .filter((d) => !soloVisitados || visitados.has(d.nombre))
       .filter((d) => !busqueda || normalizar(d.nombre).includes(normalizar(busqueda)))
   );
 
@@ -1554,6 +1600,8 @@ function render() {
       el.vacio.textContent = `No encontramos ningún destino que coincida con "${busqueda}" dentro de los filtros elegidos.`;
     } else if (soloFavoritos) {
       el.vacio.textContent = "Todavía no marcaste ningún destino como favorito.";
+    } else if (soloVisitados) {
+      el.vacio.textContent = "Todavía no marcaste ningún destino como visitado.";
     } else {
       el.vacio.textContent = "No hay destinos en ese radio con el filtro elegido. Probá aumentar la distancia.";
     }
@@ -1569,11 +1617,17 @@ function render() {
     el.lista.innerHTML = resultados
       .map((d) => {
         const esFavorito = favoritos.has(d.nombre);
+        const esVisitado = visitados.has(d.nombre);
         return `
-      <div class="card">
-        <button class="card-fav ${esFavorito ? "activo" : ""}" data-fav="${d.nombre}" aria-label="${esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}">
-          ${icon("star", 18, "currentColor", esFavorito ? "currentColor" : "none")}
-        </button>
+      <div class="card ${esVisitado ? "card-visitada" : ""}">
+        <div class="card-acciones">
+          <button class="card-check ${esVisitado ? "activo" : ""}" data-visitado="${d.nombre}" aria-label="${esVisitado ? "Quitar marca de visitado" : "Marcar como visitado"}">
+            ${icon(esVisitado ? "check-circle" : "circle", 18)}
+          </button>
+          <button class="card-fav ${esFavorito ? "activo" : ""}" data-fav="${d.nombre}" aria-label="${esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}">
+            ${icon("star", 18, "currentColor", esFavorito ? "currentColor" : "none")}
+          </button>
+        </div>
         <button class="card-open" data-nombre="${d.nombre}">
           <div class="card-km">
             <span class="card-km-num">${d.km}</span>
@@ -1581,8 +1635,9 @@ function render() {
           </div>
           <div class="card-body">
             <div class="card-title-row">
-              <h3>${d.nombre}</h3>
+              <h3 class="${esVisitado ? "tachado" : ""}">${d.nombre}</h3>
               ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
+              ${esVisitado ? `<span class="card-visitado-badge">${icon("check-circle", 12)} Visitado</span>` : ""}
             </div>
             <p>${d.nota}</p>
             <span class="card-link">Ver guía →</span>
@@ -1599,6 +1654,9 @@ function render() {
     });
     el.lista.querySelectorAll(".card-fav").forEach((btn) => {
       btn.addEventListener("click", () => toggleFavorito(btn.dataset.fav));
+    });
+    el.lista.querySelectorAll(".card-check").forEach((btn) => {
+      btn.addEventListener("click", () => toggleVisitado(btn.dataset.visitado));
     });
   }
 }
@@ -1623,17 +1681,30 @@ function abrirModal(d) {
       btn.setAttribute("aria-label", esFav ? "Quitar de favoritos" : "Agregar a favoritos");
     }
   };
+  const render_visitado = () => {
+    const esVisitado = visitados.has(d.nombre);
+    const btn = el.modal.querySelector("#modal-visitado");
+    if (btn) {
+      btn.classList.toggle("activo", esVisitado);
+      btn.innerHTML = icon(esVisitado ? "check-circle" : "circle", 20);
+      btn.setAttribute("aria-label", esVisitado ? "Quitar marca de visitado" : "Marcar como visitado");
+    }
+    const badge = el.modal.querySelector("#modal-visitado-badge");
+    if (badge) badge.style.display = esVisitado ? "inline-flex" : "none";
+  };
 
   el.modal.innerHTML = `
     <div class="modal-top">
       <div class="modal-km-badge">${d.km} km desde CABA</div>
       <div class="modal-top-actions">
+        <button id="modal-visitado" aria-label="Marcar como visitado"></button>
         <button id="modal-fav" aria-label="Agregar a favoritos"></button>
         <button id="modal-copy" aria-label="Copiar guía">${icon("copy", 20)}</button>
         <button id="modal-close" aria-label="Cerrar guía">${icon("x", 20)}</button>
       </div>
     </div>
     <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
+    <span class="modal-visitado-badge" id="modal-visitado-badge" style="display:none">${icon("check-circle", 12)} Ya lo visitaste</span>
     <p class="modal-nota">${d.nota}</p>
 
     <div class="modal-foto" id="modal-foto" data-nombre="${d.nombre}"></div>
@@ -1699,9 +1770,14 @@ function abrirModal(d) {
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
   document.getElementById("modal-close").focus();
   render_estrella();
+  render_visitado();
   document.getElementById("modal-fav").addEventListener("click", () => {
     toggleFavorito(d.nombre);
     render_estrella();
+  });
+  document.getElementById("modal-visitado").addEventListener("click", () => {
+    toggleVisitado(d.nombre);
+    render_visitado();
   });
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);

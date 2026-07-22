@@ -444,6 +444,10 @@ input:focus-visible {
   position: relative;
 }
 
+.card.card-visitada .card-open {
+  opacity: 0.72;
+}
+
 .card-open {
   display: flex;
   align-items: flex-start;
@@ -451,17 +455,23 @@ input:focus-visible {
   width: 100%;
   text-align: left;
   padding: 16px;
-  padding-right: 44px;
+  padding-right: 84px;
   border-radius: 10px;
   background: var(--bg-card);
   border: 1px solid var(--bg-card-border);
 }
 
-.card-fav {
+.card-acciones {
   position: absolute;
   top: 4px;
   right: 4px;
   z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+.card-check,
+.card-fav {
   width: 40px;
   height: 40px;
   display: flex;
@@ -470,8 +480,25 @@ input:focus-visible {
   color: var(--wheat-dim);
 }
 
+.card-check.activo,
 .card-fav.activo {
   color: var(--rust);
+}
+
+.card-title-row h3.tachado {
+  text-decoration: line-through;
+  text-decoration-color: var(--rust);
+  color: var(--wheat-dim);
+}
+
+.card-visitado-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.65rem;
+  color: var(--rust);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .chip-fav.chip-activo {
@@ -509,7 +536,8 @@ input:focus-visible {
 .card-title-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px 8px;
 }
 
 .card-title-row h3 {
@@ -606,6 +634,19 @@ input:focus-visible {
   gap: 4px;
 }
 
+#modal-visitado {
+  color: var(--wheat-dim);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-visitado.activo {
+  color: var(--rust);
+}
+
 #modal-fav {
   color: var(--wheat-dim);
   width: 40px;
@@ -616,6 +657,17 @@ input:focus-visible {
 }
 
 #modal-fav.activo {
+  color: var(--rust);
+}
+
+.modal-visitado-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--rust);
 }
 
