@@ -705,6 +705,19 @@ input:focus-visible {
   color: var(--rust);
 }
 
+#modal-comparar {
+  color: var(--wheat-dim);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-comparar.activo {
+  color: var(--rust);
+}
+
 #modal-visitado {
   color: var(--wheat-dim);
   width: 40px;
@@ -1045,14 +1058,21 @@ input:focus-visible {
   margin-bottom: 2px;
 }
 
-/* Barra flotante e itinerario de varios días */
-.itinerario-barra {
+/* Barra flotante: itinerario y comparación de destinos */
+.accion-flotante {
   position: fixed;
   left: 12px;
   right: 12px;
   bottom: 12px;
   z-index: 1500;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.accion-fila {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
@@ -1061,11 +1081,9 @@ input:focus-visible {
   background: var(--bg-card);
   border: 1px solid var(--rust);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.itinerario-barra span {
+.accion-fila span {
   font-size: 0.8rem;
   color: var(--wheat-dim);
 }
@@ -1171,4 +1189,81 @@ input:focus-visible {
   color: var(--rust);
   font-size: 1.2rem;
   font-family: "Oswald", sans-serif;
+}
+
+/* Modal de comparación de 2 destinos */
+.modal-ancho {
+  max-width: 640px;
+}
+
+.comparar-tabla-wrap {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.comparar-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.comparar-tabla th,
+.comparar-tabla td {
+  padding: 8px 6px;
+  text-align: left;
+  border-bottom: 1px solid var(--bg-card-border);
+}
+
+.comparar-tabla th {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  color: var(--wheat);
+  font-size: 0.85rem;
+}
+
+.comparar-tabla td {
+  color: var(--offwhite);
+}
+
+.comparar-etiqueta {
+  color: var(--wheat-dim);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.comparar-presupuestos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.comparar-presupuestos p {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.19);
+}
+
+.comparar-itinerarios {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comparar-itinerario-col h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1rem;
+  color: var(--wheat);
+  margin: 0 0 8px;
+}
+
+@media (min-width: 560px) {
+  .comparar-itinerarios {
+    flex-direction: row;
+  }
+  .comparar-itinerario-col {
+    flex: 1;
+    min-width: 0;
+  }
 }

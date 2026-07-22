@@ -1337,6 +1337,7 @@ const ICONS = {
   plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
   route: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
   trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  columns: '<rect width="7" height="18" x="3" y="3" rx="1"/><rect width="7" height="18" x="14" y="3" rx="1"/>',
   "check-circle": '<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
 };
 
@@ -1489,10 +1490,46 @@ function toggleItinerario(nombre) {
     itinerarioSeleccion.add(nombre);
   }
   guardarItinerario();
-  actualizarBarraItinerario();
+  actualizarBarraAcciones();
 }
 
 let itinerarioSeleccion = cargarItinerario();
+
+const COMPARAR_KEY = "destinos-ba-comparar";
+
+function cargarComparacion() {
+  try {
+    const raw = localStorage.getItem(COMPARAR_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (err) {
+    console.warn("No se pudo leer la comparación guardada:", err);
+    return new Set();
+  }
+}
+
+function guardarComparacion() {
+  try {
+    localStorage.setItem(COMPARAR_KEY, JSON.stringify([...comparacionSeleccion]));
+  } catch (err) {
+    console.warn("No se pudo guardar la comparación:", err);
+  }
+}
+
+function toggleComparacion(nombre) {
+  if (comparacionSeleccion.has(nombre)) {
+    comparacionSeleccion.delete(nombre);
+  } else {
+    if (comparacionSeleccion.size >= 2) {
+      alert("Solo podés comparar 2 destinos a la vez. Sacá uno primero (desde la barra de abajo) para elegir otro.");
+      return;
+    }
+    comparacionSeleccion.add(nombre);
+  }
+  guardarComparacion();
+  actualizarBarraAcciones();
+}
+
+let comparacionSeleccion = cargarComparacion();
 
 const CABA_COORDS = { lat: -34.6037, lng: -58.3816 };
 
@@ -1603,12 +1640,19 @@ const el = {
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
   modal: document.getElementById("modal"),
-  itinerarioBarra: document.getElementById("itinerario-barra"),
+  accionFlotante: document.getElementById("accion-flotante"),
+  filaItinerario: document.getElementById("fila-itinerario"),
   itinerarioBarraTexto: document.getElementById("itinerario-barra-texto"),
   itinerarioVerBtn: document.getElementById("itinerario-ver-btn"),
   itinerarioVaciarBtn: document.getElementById("itinerario-vaciar-btn"),
   itinerarioOverlay: document.getElementById("itinerario-overlay"),
   itinerarioModal: document.getElementById("itinerario-modal"),
+  filaComparar: document.getElementById("fila-comparar"),
+  compararBarraTexto: document.getElementById("comparar-barra-texto"),
+  compararVerBtn: document.getElementById("comparar-ver-btn"),
+  compararVaciarBtn: document.getElementById("comparar-vaciar-btn"),
+  compararOverlay: document.getElementById("comparar-overlay"),
+  compararModal: document.getElementById("comparar-modal"),
 };
 
 el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
@@ -1875,11 +1919,20 @@ function abrirModal(d) {
       btn.setAttribute("aria-label", enItinerario ? "Quitar del itinerario" : "Agregar al itinerario");
     }
   };
+  const render_comparar_btn = () => {
+    const enComparacion = comparacionSeleccion.has(d.nombre);
+    const btn = el.modal.querySelector("#modal-comparar");
+    if (btn) {
+      btn.classList.toggle("activo", enComparacion);
+      btn.setAttribute("aria-label", enComparacion ? "Quitar de la comparación" : "Agregar a comparación");
+    }
+  };
 
   el.modal.innerHTML = `
     <div class="modal-top">
       <div class="modal-km-badge">${etiquetaDistancia(d)}</div>
       <div class="modal-top-actions">
+        <button id="modal-comparar" aria-label="Agregar a comparación">${icon("columns", 20)}</button>
         <button id="modal-itinerario" aria-label="Agregar al itinerario"></button>
         <button id="modal-visitado" aria-label="Marcar como visitado"></button>
         <button id="modal-fav" aria-label="Agregar a favoritos"></button>
@@ -1956,6 +2009,7 @@ function abrirModal(d) {
   render_estrella();
   render_visitado();
   render_itinerario_btn();
+  render_comparar_btn();
   document.getElementById("modal-fav").addEventListener("click", () => {
     toggleFavorito(d.nombre);
     render_estrella();
@@ -1967,6 +2021,10 @@ function abrirModal(d) {
   document.getElementById("modal-itinerario").addEventListener("click", () => {
     toggleItinerario(d.nombre);
     render_itinerario_btn();
+  });
+  document.getElementById("modal-comparar").addEventListener("click", () => {
+    toggleComparacion(d.nombre);
+    render_comparar_btn();
   });
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
@@ -2420,17 +2478,34 @@ el.sorpresaBtn.addEventListener("click", () => {
 // --- Barra y modal de itinerario de varios días ------------------------------
 let itinerarioFocoPrevio = null;
 
-function actualizarBarraItinerario() {
-  if (!el.itinerarioBarra) return;
-  const n = itinerarioSeleccion.size;
-  if (n === 0) {
-    el.itinerarioBarra.style.display = "none";
-    return;
+function actualizarBarraAcciones() {
+  if (!el.accionFlotante) return;
+  const nItinerario = itinerarioSeleccion.size;
+  const nComparar = comparacionSeleccion.size;
+
+  if (el.filaItinerario) {
+    if (nItinerario === 0) {
+      el.filaItinerario.style.display = "none";
+    } else {
+      el.filaItinerario.style.display = "flex";
+      el.itinerarioBarraTexto.textContent = `${nItinerario} ${nItinerario === 1 ? "destino elegido" : "destinos elegidos"} para el itinerario`;
+      el.itinerarioVerBtn.disabled = nItinerario < 2;
+      el.itinerarioVerBtn.textContent = nItinerario < 2 ? "Elegí al menos 2" : "Ver itinerario";
+    }
   }
-  el.itinerarioBarra.style.display = "flex";
-  el.itinerarioBarraTexto.textContent = `${n} ${n === 1 ? "destino elegido" : "destinos elegidos"} para el itinerario`;
-  el.itinerarioVerBtn.disabled = n < 2;
-  el.itinerarioVerBtn.textContent = n < 2 ? "Elegí al menos 2" : "Ver itinerario";
+
+  if (el.filaComparar) {
+    if (nComparar === 0) {
+      el.filaComparar.style.display = "none";
+    } else {
+      el.filaComparar.style.display = "flex";
+      el.compararBarraTexto.textContent = `${nComparar} ${nComparar === 1 ? "destino elegido" : "destinos elegidos"} para comparar`;
+      el.compararVerBtn.disabled = nComparar < 2;
+      el.compararVerBtn.textContent = nComparar < 2 ? "Elegí 1 más" : "Comparar";
+    }
+  }
+
+  el.accionFlotante.style.display = nItinerario === 0 && nComparar === 0 ? "none" : "flex";
 }
 
 function cerrarItinerarioModal() {
@@ -2507,7 +2582,7 @@ if (el.itinerarioVaciarBtn) {
   el.itinerarioVaciarBtn.addEventListener("click", () => {
     itinerarioSeleccion.clear();
     guardarItinerario();
-    actualizarBarraItinerario();
+    actualizarBarraAcciones();
   });
 }
 
@@ -2523,7 +2598,106 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-actualizarBarraItinerario();
+// --- Modal de comparación de 2 destinos --------------------------------------
+let compararFocoPrevio = null;
+
+function cerrarCompararModal() {
+  el.compararOverlay.classList.remove("visible");
+  if (compararFocoPrevio && typeof compararFocoPrevio.focus === "function") {
+    compararFocoPrevio.focus();
+  }
+}
+
+function abrirCompararModal() {
+  compararFocoPrevio = document.activeElement;
+  const seleccionados = DESTINOS.filter((d) => comparacionSeleccion.has(d.nombre));
+  if (seleccionados.length < 2) return;
+  const [a, b] = seleccionados;
+
+  const costoA = calcularCostoViaje(kmDesdeOrigen(a), prefsCosto);
+  const costoB = calcularCostoViaje(kmDesdeOrigen(b), prefsCosto);
+
+  const filaTabla = (etiqueta, valorA, valorB) => `
+    <tr>
+      <td class="comparar-etiqueta">${etiqueta}</td>
+      <td>${valorA}</td>
+      <td>${valorB}</td>
+    </tr>`;
+
+  const itinerarioColumna = (d) => `
+    <div class="comparar-itinerario-col">
+      <h3>${d.nombre}</h3>
+      <ul class="modal-timeline">
+        ${d.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
+      </ul>
+    </div>`;
+
+  el.compararModal.innerHTML = `
+    <div class="modal-top">
+      <div class="modal-km-badge">Comparando 2 destinos</div>
+      <button id="comparar-close" aria-label="Cerrar comparación">${icon("x", 20)}</button>
+    </div>
+    <h2 class="modal-title" id="comparar-titulo">${a.nombre} vs. ${b.nombre}</h2>
+    <div class="comparar-tabla-wrap">
+      <table class="comparar-tabla">
+        <thead>
+          <tr><th></th><th>${a.nombre}</th><th>${b.nombre}</th></tr>
+        </thead>
+        <tbody>
+          ${filaTabla("Categoría", CATEGORIAS.find((c) => c.id === a.categoria)?.label || a.categoria, CATEGORIAS.find((c) => c.id === b.categoria)?.label || b.categoria)}
+          ${filaTabla("Distancia", `${kmDesdeOrigen(a)} km`, `${kmDesdeOrigen(b)} km`)}
+          ${filaTabla("Tiempo en auto", `~${formatearTiempo(tiempoDesdeOrigen(a))}`, `~${formatearTiempo(tiempoDesdeOrigen(b))}`)}
+          ${filaTabla("Duración sugerida", a.duracion, b.duracion)}
+          ${filaTabla("Costo estimado (ida y vuelta)", formatearARS(costoA.costoTotal), formatearARS(costoB.costoTotal))}
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-subhead">${icon("wallet", 14)} Presupuesto</div>
+    <div class="comparar-presupuestos">
+      <p class="modal-parrafo">${a.presupuesto}</p>
+      <p class="modal-parrafo">${b.presupuesto}</p>
+    </div>
+    <div class="modal-subhead">${icon("sparkles", 14)} Itinerario sugerido</div>
+    <div class="comparar-itinerarios">
+      ${itinerarioColumna(a)}
+      ${itinerarioColumna(b)}
+    </div>
+  `;
+
+  el.compararOverlay.classList.add("visible");
+  document.getElementById("comparar-close").addEventListener("click", cerrarCompararModal);
+  document.getElementById("comparar-close").focus();
+}
+
+if (el.compararVerBtn) {
+  el.compararVerBtn.addEventListener("click", () => {
+    if (comparacionSeleccion.size >= 2) abrirCompararModal();
+  });
+}
+
+if (el.compararVaciarBtn) {
+  el.compararVaciarBtn.innerHTML = icon("trash", 16);
+  el.compararVaciarBtn.setAttribute("aria-label", "Vaciar selección de comparación");
+  el.compararVaciarBtn.addEventListener("click", () => {
+    comparacionSeleccion.clear();
+    guardarComparacion();
+    actualizarBarraAcciones();
+  });
+}
+
+if (el.compararOverlay) {
+  el.compararOverlay.addEventListener("click", (e) => {
+    if (e.target === el.compararOverlay) cerrarCompararModal();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.compararOverlay && el.compararOverlay.classList.contains("visible")) {
+    cerrarCompararModal();
+  }
+});
+
+actualizarBarraAcciones();
 
 // --- Ubicación real del usuario (opcional, en vez de CABA) ------------------
 function actualizarTextosOrigen() {
