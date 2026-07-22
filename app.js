@@ -1317,6 +1317,7 @@ const ICONS = {
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
   copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
   share: '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>',
+  link: '<path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
@@ -1353,6 +1354,20 @@ let soloFavoritos = false;
 let soloVisitados = false;
 let busqueda = "";
 let orden = "distancia";
+
+// Si la app se abrió con un link compartido (con filtros en la URL), los aplicamos
+// antes del primer render. Ver generarURLFiltros()/compartirFiltros() más abajo.
+(function aplicarFiltrosDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  const km = Number(params.get("km"));
+  if (km && km > 0) distancia = Math.min(km, 1000);
+  const cat = params.get("cat");
+  if (cat && CATEGORIAS.some((c) => c.id === cat)) categoria = cat;
+  const q = params.get("q");
+  if (q) busqueda = q;
+  const ord = params.get("orden");
+  if (ord && ["distancia", "alfabetico", "categoria"].includes(ord)) orden = ord;
+})();
 
 function ordenarResultados(lista) {
   const copia = [...lista];
@@ -1619,6 +1634,10 @@ const CATEGORIA_COLOR = {
 };
 
 let vista = "lista";
+{
+  const vistaURL = new URLSearchParams(window.location.search).get("vista");
+  if (vistaURL === "mapa" || vistaURL === "lista") vista = vistaURL;
+}
 
 const el = {
   distanciaValor: document.getElementById("distancia-valor"),
@@ -1654,7 +1673,13 @@ const el = {
   compararVaciarBtn: document.getElementById("comparar-vaciar-btn"),
   compararOverlay: document.getElementById("comparar-overlay"),
   compararModal: document.getElementById("comparar-modal"),
+  compartirFiltrosBtn: document.getElementById("compartir-filtros-btn"),
 };
+
+// Sincronizar los controles que no se regeneran en cada render() con los
+// valores que pudieron llegar por parámetros de URL (link de filtros compartido).
+if (el.buscador) el.buscador.value = busqueda;
+if (el.ordenSelect) el.ordenSelect.value = orden;
 
 el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -2494,6 +2519,69 @@ el.sorpresaBtn.addEventListener("click", () => {
   const elegido = candidatos[Math.floor(Math.random() * candidatos.length)];
   abrirModal(elegido);
 });
+
+// --- Compartir el link con los filtros actuales aplicados --------------------
+function generarURLFiltros() {
+  const params = new URLSearchParams();
+  if (distancia !== 400) params.set("km", distancia);
+  if (categoria !== "todas") params.set("cat", categoria);
+  if (busqueda) params.set("q", busqueda);
+  if (orden !== "distancia") params.set("orden", orden);
+  if (vista !== "lista") params.set("vista", vista);
+  const query = params.toString();
+  const base = window.location.origin + window.location.pathname;
+  return query ? `${base}?${query}` : base;
+}
+
+function generarResumenFiltros() {
+  const partes = [];
+  if (categoria !== "todas") {
+    partes.push(CATEGORIAS.find((c) => c.id === categoria)?.label.toLowerCase() || categoria);
+  }
+  partes.push(`menos de ${distancia} km`);
+  if (busqueda) partes.push(`con "${busqueda}"`);
+  return partes.join(" + ");
+}
+
+async function compartirFiltros() {
+  const url = generarURLFiltros();
+  const resumen = generarResumenFiltros();
+  const texto = `Mirá esto en Destinos Buenos Aires: ${resumen}`;
+  const boton = el.compartirFiltrosBtn;
+
+  const mostrarExito = () => {
+    if (!boton) return;
+    const original = boton.innerHTML;
+    boton.innerHTML = `${icon("check", 16)} Copiado`;
+    boton.classList.add("copiado");
+    setTimeout(() => {
+      boton.innerHTML = original;
+      boton.classList.remove("copiado");
+    }, 1800);
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "Destinos Buenos Aires", text: texto, url });
+      return;
+    } catch (err) {
+      if (err && err.name === "AbortError") return; // el usuario cerró el selector, no hacemos nada más
+      console.warn("No se pudo compartir el link, lo copio al portapapeles como alternativa:", err);
+    }
+  }
+
+  const textoCompleto = `${texto}\n${url}`;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(textoCompleto).then(mostrarExito).catch(() => copiarConFallback(textoCompleto, mostrarExito));
+  } else {
+    copiarConFallback(textoCompleto, mostrarExito);
+  }
+}
+
+if (el.compartirFiltrosBtn) {
+  el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} Compartir estos filtros`;
+  el.compartirFiltrosBtn.addEventListener("click", compartirFiltros);
+}
 
 // --- Barra y modal de itinerario de varios días ------------------------------
 let itinerarioFocoPrevio = null;

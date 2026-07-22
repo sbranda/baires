@@ -315,6 +315,30 @@ input:focus-visible {
   background: rgba(193, 68, 14, 0.12);
 }
 
+.compartir-filtros-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--wheat-dim);
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-decoration-color: var(--bg-card-border);
+}
+
+.compartir-filtros-btn.copiado {
+  color: var(--green);
+  text-decoration: none;
+}
+
 .chip {
   display: flex;
   align-items: center;
