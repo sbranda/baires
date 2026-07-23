@@ -3376,6 +3376,10 @@ const TEXTOS = {
     tamanoGrande: "Tamaño de letra grande (tocar para agrandar más)",
     tamanoMuyGrande: "Tamaño de letra muy grande (tocar para volver al normal)",
     buenMomento: "Buen momento para ir",
+    presupuestoTodos: "Cualquier presupuesto",
+    presupuestoBajo: "$ Bajo",
+    presupuestoMedio: "$$ Medio",
+    presupuestoAlto: "$$$ Alto",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3579,6 +3583,10 @@ const TEXTOS = {
     tamanoGrande: "Large text size (tap to make even bigger)",
     tamanoMuyGrande: "Extra large text size (tap to go back to normal)",
     buenMomento: "Good time to go",
+    presupuestoTodos: "Any budget",
+    presupuestoBajo: "$ Low",
+    presupuestoMedio: "$$ Mid",
+    presupuestoAlto: "$$$ High",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3727,6 +3735,7 @@ function icon(name, size = 14, color = "currentColor", fill = "none") {
 // --- Estado -----------------------------------------------------------------
 let distancia = 400;
 let categoria = "todas";
+let presupuestoFiltro = "todos";
 let soloFavoritos = false;
 let soloVisitados = false;
 let busqueda = "";
@@ -3740,6 +3749,8 @@ let orden = "distancia";
   if (km && km > 0) distancia = Math.min(km, 1000);
   const cat = params.get("cat");
   if (cat && CATEGORIAS.some((c) => c.id === cat)) categoria = cat;
+  const pres = params.get("presupuesto");
+  if (pres && ["bajo", "medio", "alto"].includes(pres)) presupuestoFiltro = pres;
   const q = params.get("q");
   if (q) busqueda = q;
   const ord = params.get("orden");
@@ -4001,6 +4012,18 @@ function esBuenMomentoParaIr(d, fecha) {
   return meses.includes(mesActual);
 }
 
+// Clasifica el presupuesto de cada destino a partir del texto ya escrito
+// (todas las fichas empiezan con "Bajo", "Medio", "Alto" o combinaciones como
+// "Bajo a medio"), sin necesitar un campo aparte para cada uno de los 78.
+function nivelesPresupuesto(d) {
+  const prefijo = d.presupuesto.split(/[:.]/)[0].toLowerCase();
+  const niveles = [];
+  if (/\bbajo\b/.test(prefijo)) niveles.push("bajo");
+  if (/\bmedio\b/.test(prefijo)) niveles.push("medio");
+  if (/\balto\b/.test(prefijo)) niveles.push("alto");
+  return niveles.length ? niveles : ["medio"];
+}
+
 function destinosCercanos(d, cantidad) {
   return DESTINOS.filter((otro) => otro.nombre !== d.nombre)
     .map((otro) => ({ destino: otro, km: Math.round(distanciaHaversine(d.lat, d.lng, otro.lat, otro.lng)) }))
@@ -4131,6 +4154,7 @@ const el = {
   buscador: document.getElementById("buscador"),
   buscadorForm: document.getElementById("form-buscar"),
   filtros: document.getElementById("filtros"),
+  filtrosPresupuesto: document.getElementById("filtros-presupuesto"),
   contador: document.getElementById("contador"),
   ordenSelect: document.getElementById("orden-select"),
   sorpresaBtn: document.getElementById("sorpresa-btn"),
@@ -4338,6 +4362,7 @@ function calcularResultadosFiltrados() {
   const busquedaNormalizada = normalizar(busqueda);
   return DESTINOS.filter((d) => kmDesdeOrigen(d) <= distancia)
     .filter((d) => categoria === "todas" || d.categoria === categoria)
+    .filter((d) => presupuestoFiltro === "todos" || nivelesPresupuesto(d).includes(presupuestoFiltro))
     .filter((d) => !soloFavoritos || favoritos.has(d.nombre))
     .filter((d) => !soloVisitados || visitados.has(d.nombre))
     .filter((d) => coincideBusqueda(d, busquedaNormalizada));
@@ -4401,6 +4426,27 @@ function render() {
     visitadoToggleBtn.addEventListener("click", () => {
       soloVisitados = !soloVisitados;
       render();
+    });
+  }
+
+  const NIVELES_PRESUPUESTO = [
+    { id: "todos", clave: "presupuestoTodos" },
+    { id: "bajo", clave: "presupuestoBajo" },
+    { id: "medio", clave: "presupuestoMedio" },
+    { id: "alto", clave: "presupuestoAlto" },
+  ];
+  if (el.filtrosPresupuesto) {
+    el.filtrosPresupuesto.innerHTML = NIVELES_PRESUPUESTO.map(
+      (n) => `
+      <button class="chip ${presupuestoFiltro === n.id ? "chip-activo" : ""}" data-presupuesto="${n.id}" aria-pressed="${presupuestoFiltro === n.id ? "true" : "false"}">
+        ${t(n.clave)}
+      </button>`
+    ).join("");
+    el.filtrosPresupuesto.querySelectorAll("[data-presupuesto]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        presupuestoFiltro = btn.dataset.presupuesto;
+        render();
+      });
     });
   }
 
@@ -5232,6 +5278,7 @@ function generarURLFiltros() {
   const params = new URLSearchParams();
   if (distancia !== 400) params.set("km", distancia);
   if (categoria !== "todas") params.set("cat", categoria);
+  if (presupuestoFiltro !== "todos") params.set("presupuesto", presupuestoFiltro);
   if (busqueda) params.set("q", busqueda);
   if (orden !== "distancia") params.set("orden", orden);
   if (vista !== "lista") params.set("vista", vista);
@@ -5244,6 +5291,9 @@ function generarResumenFiltros() {
   const partes = [];
   if (categoria !== "todas") {
     partes.push(CATEGORIAS.find((c) => c.id === categoria)?.label.toLowerCase() || categoria);
+  }
+  if (presupuestoFiltro !== "todos") {
+    partes.push(t(presupuestoFiltro === "bajo" ? "presupuestoBajo" : presupuestoFiltro === "medio" ? "presupuestoMedio" : "presupuestoAlto"));
   }
   partes.push(t("linkFiltrosMenosDe", distancia));
   if (busqueda) partes.push(t("linkFiltrosCon", busqueda));
