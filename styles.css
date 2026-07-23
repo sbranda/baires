@@ -647,6 +647,19 @@ input:focus-visible {
   letter-spacing: 0.03em;
 }
 
+.card-nuevo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--rust);
+  color: var(--on-accent);
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .chip-fav.chip-activo {
   background: var(--rust);
   color: var(--on-accent) !important;
