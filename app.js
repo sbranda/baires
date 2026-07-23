@@ -3397,6 +3397,8 @@ const TEXTOS = {
     indiceAtractivos: "Atractivos",
     indiceCosto: "Costo",
     indiceCercanos: "Cerca tuyo",
+    destinoAnterior: "Destino anterior",
+    destinoSiguiente: "Destino siguiente",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3621,6 +3623,8 @@ const TEXTOS = {
     indiceAtractivos: "Attractions",
     indiceCosto: "Cost",
     indiceCercanos: "Nearby",
+    destinoAnterior: "Previous destination",
+    destinoSiguiente: "Next destination",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3712,6 +3716,8 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  "chevron-left": '<path d="m15 18-6-6 6-6"/>',
+  "chevron-right": '<path d="m9 18 6-6-6-6"/>',
   "arrow-up": '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
   printer: '<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>',
   "qr-code": '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
@@ -4201,6 +4207,8 @@ const el = {
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
   modalArribaBtn: document.getElementById("modal-arriba-btn"),
+  modalAnteriorBtn: document.getElementById("modal-anterior-btn"),
+  modalSiguienteBtn: document.getElementById("modal-siguiente-btn"),
   modal: document.getElementById("modal"),
   accionFlotante: document.getElementById("accion-flotante"),
   filaItinerario: document.getElementById("fila-itinerario"),
@@ -4594,8 +4602,33 @@ async function actualizarKmBadgeConRutaReal(token, d) {
   }
 }
 
+let destinoModalActual = null;
+
+function listaNavegacionModal() {
+  return ordenarResultados(calcularResultadosFiltrados());
+}
+
+function actualizarBotonesNavegacion() {
+  if (!el.modalAnteriorBtn || !el.modalSiguienteBtn || !destinoModalActual) return;
+  const lista = listaNavegacionModal();
+  const idx = lista.findIndex((x) => x.nombre === destinoModalActual.nombre);
+  el.modalAnteriorBtn.disabled = idx <= 0;
+  el.modalSiguienteBtn.disabled = idx === -1 || idx >= lista.length - 1;
+}
+
+function navegarDestinoModal(offset) {
+  if (!destinoModalActual) return;
+  const lista = listaNavegacionModal();
+  const idx = lista.findIndex((x) => x.nombre === destinoModalActual.nombre);
+  if (idx === -1) return;
+  const nuevoIdx = idx + offset;
+  if (nuevoIdx < 0 || nuevoIdx >= lista.length) return;
+  abrirModal(lista[nuevoIdx]);
+}
+
 function abrirModal(d) {
   elementoFocoPrevio = document.activeElement;
+  destinoModalActual = d;
   const dt = textoDestino(d);
   const cercanos = destinosCercanos(d, 3);
   const render_estrella = () => {
@@ -4783,6 +4816,7 @@ function abrirModal(d) {
   el.modalOverlay.classList.add("visible");
   el.modal.scrollTop = 0;
   if (el.modalArribaBtn) el.modalArribaBtn.style.display = "none";
+  actualizarBotonesNavegacion();
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
   document.getElementById("modal-close").focus();
   el.modal.querySelectorAll("[data-ir-a]").forEach((btn) => {
@@ -5610,6 +5644,27 @@ if (el.modal) {
   });
 }
 
+// --- Navegar entre guías con flechas anterior/siguiente ----------------------
+if (el.modalAnteriorBtn) {
+  el.modalAnteriorBtn.innerHTML = icon("chevron-left", 22);
+  el.modalAnteriorBtn.setAttribute("aria-label", t("destinoAnterior"));
+  el.modalAnteriorBtn.addEventListener("click", () => navegarDestinoModal(-1));
+}
+
+if (el.modalSiguienteBtn) {
+  el.modalSiguienteBtn.innerHTML = icon("chevron-right", 22);
+  el.modalSiguienteBtn.setAttribute("aria-label", t("destinoSiguiente"));
+  el.modalSiguienteBtn.addEventListener("click", () => navegarDestinoModal(1));
+}
+
+document.addEventListener("keydown", (e) => {
+  if (!el.modalOverlay || !el.modalOverlay.classList.contains("visible")) return;
+  const enCampoDeTexto = ["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName);
+  if (enCampoDeTexto) return;
+  if (e.key === "ArrowLeft") navegarDestinoModal(-1);
+  if (e.key === "ArrowRight") navegarDestinoModal(1);
+});
+
 // --- Sugerir un destino (abre un Issue prellenado en GitHub) ----------------
 const GITHUB_REPO = "sbranda/baires";
 let sugerirFocoPrevio = null;
@@ -6380,6 +6435,8 @@ function aplicarIdioma() {
   if (el.resumenBtn) el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} ${t("resumenBtn")}`;
   if (el.explorarBtn) el.explorarBtn.innerHTML = `${icon("bar-chart", 16)} ${t("explorarBtn")}`;
   if (el.modalArribaBtn) el.modalArribaBtn.setAttribute("aria-label", t("volverArriba"));
+  if (el.modalAnteriorBtn) el.modalAnteriorBtn.setAttribute("aria-label", t("destinoAnterior"));
+  if (el.modalSiguienteBtn) el.modalSiguienteBtn.setAttribute("aria-label", t("destinoSiguiente"));
   if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
   if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;

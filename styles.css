@@ -976,6 +976,45 @@ input:focus-visible {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
+.modal-nav-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: none;
+  background: rgba(16, 25, 19, 0.75);
+  color: var(--wheat);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.modal-nav-btn:disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.modal-nav-anterior {
+  left: 8px;
+}
+
+.modal-nav-siguiente {
+  right: 8px;
+}
+
+@media (min-width: 640px) {
+  .modal-nav-anterior {
+    left: max(8px, calc(50% - 300px));
+  }
+  .modal-nav-siguiente {
+    right: max(8px, calc(50% - 300px));
+  }
+}
+
 @media (min-width: 640px) {
   .modal-overlay { align-items: center; }
   .modal { border-radius: 16px; }
