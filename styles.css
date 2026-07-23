@@ -408,6 +408,67 @@ input:focus-visible {
   letter-spacing: 0.02em;
 }
 
+.explorar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.explorar-stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0 20px;
+}
+
+.explorar-stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.19);
+}
+
+.explorar-stat-label {
+  font-size: 0.75rem;
+  color: var(--wheat-dim);
+}
+
+.explorar-stat-valor {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--rust);
+  flex-shrink: 0;
+}
+
+.explorar-stat-valor-chico {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  color: var(--offwhite);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.explorar-stat-valor-chico span {
+  color: var(--wheat-dim);
+  font-size: 0.75rem;
+}
+
 .sugerir-btn {
   display: flex;
   align-items: center;

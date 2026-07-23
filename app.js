@@ -3380,6 +3380,15 @@ const TEXTOS = {
     presupuestoBajo: "$ Bajo",
     presupuestoMedio: "$$ Medio",
     presupuestoAlto: "$$$ Alto",
+    explorarBtn: "Explorar los números",
+    explorarTitulo: "Explorar los números",
+    explorarSubtitulo: (n) => `${n} destinos cargados en la app, en total.`,
+    explorarPorCategoria: "Destinos por categoría",
+    explorarDistanciaPromedio: "Distancia promedio desde CABA",
+    explorarMasCercano: "El más cercano",
+    explorarMasLejano: "El más lejano",
+    explorarPorPresupuesto: "Por presupuesto",
+    explorarNuevos: (n) => `${n} ${n === 1 ? "destino nuevo" : "destinos nuevos"} sumados en el último mes.`,
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3587,6 +3596,15 @@ const TEXTOS = {
     presupuestoBajo: "$ Low",
     presupuestoMedio: "$$ Mid",
     presupuestoAlto: "$$$ High",
+    explorarBtn: "Explore the numbers",
+    explorarTitulo: "Explore the numbers",
+    explorarSubtitulo: (n) => `${n} destinations loaded in the app, in total.`,
+    explorarPorCategoria: "Destinations by category",
+    explorarDistanciaPromedio: "Average distance from CABA",
+    explorarMasCercano: "The closest one",
+    explorarMasLejano: "The farthest one",
+    explorarPorPresupuesto: "By budget",
+    explorarNuevos: (n) => `${n} new ${n === 1 ? "destination" : "destinations"} added in the last month.`,
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -4183,6 +4201,9 @@ const el = {
   resumenBtn: document.getElementById("resumen-btn"),
   resumenOverlay: document.getElementById("resumen-overlay"),
   resumenModal: document.getElementById("resumen-modal"),
+  explorarBtn: document.getElementById("explorar-btn"),
+  explorarOverlay: document.getElementById("explorar-overlay"),
+  explorarModal: document.getElementById("explorar-modal"),
   offlineBanner: document.getElementById("offline-banner"),
   idiomaToggle: document.getElementById("idioma-toggle"),
   tamanoToggle: document.getElementById("tamano-toggle"),
@@ -5419,6 +5440,123 @@ if (el.resumenBtn) {
   el.resumenBtn.addEventListener("click", abrirResumenModal);
 }
 
+// --- Explorar los números: estadísticas globales del catálogo de destinos ---
+let explorarFocoPrevio = null;
+
+function calcularEstadisticasApp() {
+  const total = DESTINOS.length;
+  const porCategoria = CATEGORIAS.filter((c) => c.id !== "todas").map((c) => ({
+    id: c.id,
+    label: c.label,
+    icon: c.icon,
+    total: DESTINOS.filter((d) => d.categoria === c.id).length,
+  }));
+  const distanciaPromedio = total > 0 ? Math.round(DESTINOS.reduce((s, d) => s + d.km, 0) / total) : 0;
+  const masCercano = DESTINOS.reduce((min, d) => (d.km < min.km ? d : min), DESTINOS[0]);
+  const masLejano = DESTINOS.reduce((max, d) => (d.km > max.km ? d : max), DESTINOS[0]);
+  const porPresupuesto = ["bajo", "medio", "alto"].map((nivel) => ({
+    nivel,
+    total: DESTINOS.filter((d) => nivelesPresupuesto(d).includes(nivel)).length,
+  }));
+  const nuevosCount = DESTINOS.filter((d) => esDestinoNuevo(d)).length;
+  return { total, porCategoria, distanciaPromedio, masCercano, masLejano, porPresupuesto, nuevosCount };
+}
+
+function cerrarExplorarModal() {
+  if (el.explorarOverlay) el.explorarOverlay.classList.remove("visible");
+  if (explorarFocoPrevio && typeof explorarFocoPrevio.focus === "function") {
+    explorarFocoPrevio.focus();
+  }
+}
+
+function abrirExplorarModal() {
+  if (!el.explorarOverlay || !el.explorarModal) return;
+  explorarFocoPrevio = document.activeElement;
+  const { total, porCategoria, distanciaPromedio, masCercano, masLejano, porPresupuesto, nuevosCount } = calcularEstadisticasApp();
+
+  const maxCategoria = Math.max(...porCategoria.map((c) => c.total));
+  const filasCategoria = porCategoria
+    .map(
+      (c) => `
+      <div class="resumen-categoria-fila">
+        <div class="resumen-categoria-nombre">${icon(c.icon, 14, "#7C9473")} ${c.label}</div>
+        <div class="resumen-categoria-barra">
+          <div class="resumen-categoria-progreso" style="width:${maxCategoria > 0 ? Math.round((c.total / maxCategoria) * 100) : 0}%"></div>
+        </div>
+        <div class="resumen-categoria-numero">${c.total}</div>
+      </div>`
+    )
+    .join("");
+
+  const maxPresupuesto = Math.max(...porPresupuesto.map((p) => p.total));
+  const etiquetaNivel = { bajo: t("presupuestoBajo"), medio: t("presupuestoMedio"), alto: t("presupuestoAlto") };
+  const filasPresupuesto = porPresupuesto
+    .map(
+      (p) => `
+      <div class="resumen-categoria-fila">
+        <div class="resumen-categoria-nombre">${etiquetaNivel[p.nivel]}</div>
+        <div class="resumen-categoria-barra">
+          <div class="resumen-categoria-progreso" style="width:${maxPresupuesto > 0 ? Math.round((p.total / maxPresupuesto) * 100) : 0}%"></div>
+        </div>
+        <div class="resumen-categoria-numero">${p.total}</div>
+      </div>`
+    )
+    .join("");
+
+  el.explorarModal.innerHTML = `
+    <div class="modal-top">
+      <div class="modal-km-badge">${t("explorarBtn")}</div>
+      <button id="explorar-close" aria-label="${idioma === "en" ? "Close" : "Cerrar"}">${icon("x", 20)}</button>
+    </div>
+    <h2 class="modal-title" id="explorar-titulo">${t("explorarTitulo")}</h2>
+    <p class="modal-nota">${t("explorarSubtitulo", total)}</p>
+
+    <div class="modal-subhead">${icon("map-pin", 14)} ${t("explorarPorCategoria")}</div>
+    <div class="resumen-categorias">${filasCategoria}</div>
+
+    <div class="explorar-stats-grid">
+      <div class="explorar-stat">
+        <div class="explorar-stat-label">${t("explorarDistanciaPromedio")}</div>
+        <div class="explorar-stat-valor">${distanciaPromedio} km</div>
+      </div>
+      <div class="explorar-stat">
+        <div class="explorar-stat-label">${t("explorarMasCercano")}</div>
+        <div class="explorar-stat-valor-chico">${masCercano.nombre} <span>(${masCercano.km} km)</span></div>
+      </div>
+      <div class="explorar-stat">
+        <div class="explorar-stat-label">${t("explorarMasLejano")}</div>
+        <div class="explorar-stat-valor-chico">${masLejano.nombre} <span>(${masLejano.km} km)</span></div>
+      </div>
+    </div>
+
+    <div class="modal-subhead">${icon("wallet", 14)} ${t("explorarPorPresupuesto")}</div>
+    <div class="resumen-categorias">${filasPresupuesto}</div>
+
+    ${nuevosCount > 0 ? `<p class="modal-parrafo" style="margin-top:16px">${t("explorarNuevos", nuevosCount)}</p>` : ""}
+  `;
+
+  el.explorarOverlay.classList.add("visible");
+  document.getElementById("explorar-close").addEventListener("click", cerrarExplorarModal);
+  document.getElementById("explorar-close").focus();
+}
+
+if (el.explorarBtn) {
+  el.explorarBtn.innerHTML = `${icon("bar-chart", 16)} ${t("explorarBtn")}`;
+  el.explorarBtn.addEventListener("click", abrirExplorarModal);
+}
+
+if (el.explorarOverlay) {
+  el.explorarOverlay.addEventListener("click", (e) => {
+    if (e.target === el.explorarOverlay) cerrarExplorarModal();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.explorarOverlay && el.explorarOverlay.classList.contains("visible")) {
+    cerrarExplorarModal();
+  }
+});
+
 // --- Sugerir un destino (abre un Issue prellenado en GitHub) ----------------
 const GITHUB_REPO = "sbranda/baires";
 let sugerirFocoPrevio = null;
@@ -6187,6 +6325,7 @@ function aplicarIdioma() {
 
   if (el.sorpresaBtn) el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresa")}`;
   if (el.resumenBtn) el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} ${t("resumenBtn")}`;
+  if (el.explorarBtn) el.explorarBtn.innerHTML = `${icon("bar-chart", 16)} ${t("explorarBtn")}`;
   if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
   if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;
