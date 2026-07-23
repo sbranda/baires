@@ -1095,6 +1095,35 @@ input:focus-visible {
   color: var(--offwhite);
 }
 
+.navegar-botones {
+  display: flex;
+  gap: 8px;
+  margin-left: 28px;
+}
+
+.navegar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+  min-height: 38px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.navegar-nota {
+  margin: 4px 0 0 28px;
+  font-size: 0.7rem;
+  color: var(--wheat-dim);
+}
+
 .modal-subhead {
   display: flex;
   align-items: center;

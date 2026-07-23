@@ -3332,6 +3332,9 @@ const TEXTOS = {
     itinerarioRutaReal: "Ruta real por calles",
     itinerarioCalculandoRuta: "Calculando ruta real por calles...",
     itinerarioRutaSinDatos: "No se pudo calcular la ruta real; los tramos y el total muestran distancia en línea recta.",
+    navegarGoogleMaps: "Google Maps",
+    navegarWaze: "Waze",
+    navegarNota: "Abre la app de navegación con indicaciones desde tu ubicación actual.",
     costoPrecio: "Precio nafta (ARS/litro)",
     costoConsumo: "Consumo (km/litro)",
     costoPeaje: "Peaje estimado (ARS cada 100 km)",
@@ -3495,6 +3498,9 @@ const TEXTOS = {
     itinerarioRutaReal: "Real route by road",
     itinerarioCalculandoRuta: "Calculating the real route by road...",
     itinerarioRutaSinDatos: "Couldn't calculate the real route; legs and total show straight-line distance instead.",
+    navegarGoogleMaps: "Google Maps",
+    navegarWaze: "Waze",
+    navegarNota: "Opens the navigation app with directions from your current location.",
     costoPrecio: "Fuel price (ARS/liter)",
     costoConsumo: "Consumption (km/liter)",
     costoPeaje: "Estimated toll (ARS every 100 km)",
@@ -3590,6 +3596,7 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  navigation: '<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
   search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
   map: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>',
   waves: '<path d="M2 6c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><path d="M2 12c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><path d="M2 18c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/>',
@@ -4466,6 +4473,11 @@ function abrirModal(d) {
           <div class="info-value">${dt.comoLlegar}</div>
         </div>
       </div>
+      <div class="navegar-botones">
+        <a class="navegar-btn" href="https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}&travelmode=driving" target="_blank" rel="noopener noreferrer">${icon("map-pin", 16)} ${t("navegarGoogleMaps")}</a>
+        <a class="navegar-btn" href="https://waze.com/ul?ll=${d.lat},${d.lng}&navigate=yes" target="_blank" rel="noopener noreferrer">${icon("navigation", 16)} ${t("navegarWaze")}</a>
+      </div>
+      <p class="navegar-nota">${t("navegarNota")}</p>
       <div class="info-row">
         ${icon("compass", 16, "#7C9473")}
         <div>
