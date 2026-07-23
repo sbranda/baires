@@ -1762,13 +1762,12 @@ input:focus-visible {
 
 /* --- Vista de impresión: solo la guía abierta, en blanco y negro --------- */
 @media print {
-  body * {
-    visibility: hidden;
+  body > *:not(#modal-overlay) {
+    display: none !important;
   }
 
-  #modal-overlay.visible,
-  #modal-overlay.visible * {
-    visibility: visible;
+  #modal-overlay:not(.visible) {
+    display: none !important;
   }
 
   #modal-overlay.visible {
