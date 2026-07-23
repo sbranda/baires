@@ -3399,6 +3399,7 @@ const TEXTOS = {
     indiceCercanos: "Cerca tuyo",
     destinoAnterior: "Destino anterior",
     destinoSiguiente: "Destino siguiente",
+    footerCredito: "Desarrollado por @sebranda",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3625,6 +3626,7 @@ const TEXTOS = {
     indiceCercanos: "Nearby",
     destinoAnterior: "Previous destination",
     destinoSiguiente: "Next destination",
+    footerCredito: "Developed by @sebranda",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -4211,6 +4213,7 @@ const el = {
   ubicacionNota: document.getElementById("ubicacion-nota"),
   subtituloOrigen: document.getElementById("subtitulo-origen"),
   footerNotaDistancia: document.getElementById("footer-nota-distancia"),
+  footerCredito: document.getElementById("footer-credito"),
   slider: document.getElementById("slider"),
   ruler: document.getElementById("ruler"),
   buscador: document.getElementById("buscador"),
@@ -6458,6 +6461,7 @@ function aplicarIdioma() {
   if (el.modalArribaBtn) el.modalArribaBtn.setAttribute("aria-label", t("volverArriba"));
   if (el.modalAnteriorBtn) el.modalAnteriorBtn.setAttribute("aria-label", t("destinoAnterior"));
   if (el.modalSiguienteBtn) el.modalSiguienteBtn.setAttribute("aria-label", t("destinoSiguiente"));
+  if (el.footerCredito) el.footerCredito.textContent = t("footerCredito");
   if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
   if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;

@@ -933,6 +933,15 @@ input:focus-visible {
   color: var(--wheat-dim);
 }
 
+.footer-credito {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 0.7rem;
+  text-align: center;
+  color: var(--wheat-dim);
+  opacity: 0.7;
+}
+
 /* Modal de guía */
 .modal-overlay {
   position: fixed;
