@@ -78,13 +78,20 @@
       <div class="ruler" id="ruler"></div>
     </div>
 
-    <div class="chips" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+    <button id="filtros-toggle-btn" class="filtros-toggle-btn" aria-expanded="false"></button>
 
-    <div class="chips" id="filtros-presupuesto" role="group" aria-label="Filtrar por presupuesto"></div>
+    <div id="filtros-contenedor" class="filtros-contenedor" style="display:none">
+      <div class="chips" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+      <div class="chips" id="filtros-presupuesto" role="group" aria-label="Filtrar por presupuesto"></div>
+    </div>
 
     <button id="sorpresa-btn" class="sorpresa-btn"></button>
 
-    <button id="menu-mas-btn" class="menu-mas-btn" aria-expanded="false"></button>
+    <div class="fila-menu-backup">
+      <button id="menu-mas-btn" class="menu-mas-btn" aria-expanded="false"></button>
+      <button id="backup-btn" class="backup-btn-chico"></button>
+      <input type="file" id="backup-input" accept="application/json,.json" style="display:none" />
+    </div>
 
     <div id="menu-mas-contenedor" class="menu-mas-contenedor" style="display:none">
       <button id="resumen-btn" class="resumen-btn"></button>
@@ -92,9 +99,6 @@
       <button id="explorar-btn" class="explorar-btn"></button>
 
       <button id="sugerir-btn" class="sugerir-btn"></button>
-
-      <button id="backup-btn" class="backup-btn"></button>
-      <input type="file" id="backup-input" accept="application/json,.json" style="display:none" />
     </div>
 
     <div class="vista-toggle" id="vista-toggle" role="group" aria-label="Tipo de vista">

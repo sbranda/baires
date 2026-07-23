@@ -3401,6 +3401,8 @@ const TEXTOS = {
     destinoSiguiente: "Destino siguiente",
     footerCredito: "Desarrollado por @sebranda",
     menuMasBtn: "Más opciones",
+    filtrosToggle: "Filtros",
+    filtrosToggleActivos: (n) => `Filtros (${n})`,
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3629,6 +3631,8 @@ const TEXTOS = {
     destinoSiguiente: "Next destination",
     footerCredito: "Developed by @sebranda",
     menuMasBtn: "More options",
+    filtrosToggle: "Filters",
+    filtrosToggleActivos: (n) => `Filters (${n})`,
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3720,6 +3724,7 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  filter: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
   "more-horizontal": '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
   "chevron-down": '<path d="m6 9 6 6 6-6"/>',
   "chevron-left": '<path d="m15 18-6-6 6-6"/>',
@@ -4224,6 +4229,8 @@ const el = {
   buscadorForm: document.getElementById("form-buscar"),
   filtros: document.getElementById("filtros"),
   filtrosPresupuesto: document.getElementById("filtros-presupuesto"),
+  filtrosToggleBtn: document.getElementById("filtros-toggle-btn"),
+  filtrosContenedor: document.getElementById("filtros-contenedor"),
   contador: document.getElementById("contador"),
   ordenSelect: document.getElementById("orden-select"),
   sorpresaBtn: document.getElementById("sorpresa-btn"),
@@ -4602,6 +4609,7 @@ function render() {
       btn.addEventListener("click", () => toggleVisitado(btn.dataset.visitado));
     });
   }
+  actualizarBotonFiltros();
 }
 
 function seccionLista(iconName, titulo, items, id) {
@@ -6469,8 +6477,12 @@ function aplicarIdioma() {
   if (el.modalSiguienteBtn) el.modalSiguienteBtn.setAttribute("aria-label", t("destinoSiguiente"));
   if (el.footerCredito) el.footerCredito.textContent = t("footerCredito");
   actualizarBotonMenuMas();
+  actualizarBotonFiltros();
   if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
-  if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
+  if (el.backupBtn) {
+    el.backupBtn.innerHTML = icon("download", 18);
+    el.backupBtn.setAttribute("aria-label", t("backupBtn"));
+  }
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;
   if (el.offlineBanner) {
     el.offlineBanner.innerHTML = `${icon("wifi-off", 18)} <span>${t("offline")}</span>`;
@@ -6623,11 +6635,12 @@ function abrirBackupModal() {
 }
 
 if (el.backupBtn) {
-  el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
+  el.backupBtn.innerHTML = icon("download", 18);
+  el.backupBtn.setAttribute("aria-label", t("backupBtn"));
   el.backupBtn.addEventListener("click", abrirBackupModal);
 }
 
-// --- Menú "Más opciones": agrupa Mi resumen / Explorar / Sugerir / Mis datos -
+// --- Menú "Más opciones": agrupa Mi resumen / Explorar / Sugerir --------------
 function actualizarBotonMenuMas() {
   if (!el.menuMasBtn) return;
   const abierto = el.menuMasContenedor && el.menuMasContenedor.style.display !== "none";
@@ -6643,13 +6656,38 @@ if (el.menuMasBtn && el.menuMasContenedor) {
     el.menuMasContenedor.style.display = abierto ? "none" : "flex";
     actualizarBotonMenuMas();
   });
-  // Cerrar el menú al elegir cualquiera de las 4 opciones
-  [el.resumenBtn, el.explorarBtn, el.sugerirBtn, el.backupBtn].forEach((btn) => {
+  // Cerrar el menú al elegir cualquiera de las 3 opciones
+  [el.resumenBtn, el.explorarBtn, el.sugerirBtn].forEach((btn) => {
     if (!btn) return;
     btn.addEventListener("click", () => {
       el.menuMasContenedor.style.display = "none";
       actualizarBotonMenuMas();
     });
+  });
+}
+
+// --- Toggle de filtros: categoría + presupuesto colapsados, con contador ----
+function actualizarBotonFiltros() {
+  if (!el.filtrosToggleBtn) return;
+  const activos = (categoria !== "todas" ? 1 : 0) + (presupuestoFiltro !== "todos" ? 1 : 0);
+  const abierto = el.filtrosContenedor && el.filtrosContenedor.style.display !== "none";
+  const etiqueta = activos > 0 ? t("filtrosToggleActivos", activos) : t("filtrosToggle");
+  el.filtrosToggleBtn.innerHTML = `${icon("filter", 16)} ${etiqueta} ${icon("chevron-down", 14)}`;
+  el.filtrosToggleBtn.setAttribute("aria-expanded", abierto ? "true" : "false");
+  el.filtrosToggleBtn.classList.toggle("filtros-toggle-btn-abierto", !!abierto);
+  el.filtrosToggleBtn.classList.toggle("filtros-toggle-btn-activo", activos > 0);
+}
+
+if (el.filtrosToggleBtn && el.filtrosContenedor) {
+  // Si se llegó con un filtro ya activo (por ejemplo, un link compartido), arranca desplegado
+  if (categoria !== "todas" || presupuestoFiltro !== "todos") {
+    el.filtrosContenedor.style.display = "flex";
+  }
+  actualizarBotonFiltros();
+  el.filtrosToggleBtn.addEventListener("click", () => {
+    const abierto = el.filtrosContenedor.style.display !== "none";
+    el.filtrosContenedor.style.display = abierto ? "none" : "flex";
+    actualizarBotonFiltros();
   });
 }
 

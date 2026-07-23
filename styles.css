@@ -536,15 +536,21 @@ input:focus-visible {
   letter-spacing: 0.02em;
 }
 
+.fila-menu-backup {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
 .menu-mas-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   min-height: 44px;
   padding: 10px 16px;
-  margin-bottom: 12px;
   border-radius: 8px;
   border: 1px dashed var(--bg-card-border);
   background: transparent;
@@ -564,6 +570,56 @@ input:focus-visible {
 
 .menu-mas-contenedor {
   flex-direction: column;
+}
+
+.backup-btn-chico {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px dashed var(--bg-card-border);
+  background: transparent;
+  color: var(--wheat-dim);
+}
+
+.filtros-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.filtros-toggle-btn svg:last-child {
+  transition: transform 0.15s;
+}
+
+.filtros-toggle-btn-abierto svg:last-child {
+  transform: rotate(180deg);
+}
+
+.filtros-toggle-btn-activo {
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.filtros-contenedor {
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
 .backup-mensaje {
