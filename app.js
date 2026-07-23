@@ -2692,6 +2692,10 @@ const TEXTOS = {
     cambiarATemaOscuro: "Cambiar a tema oscuro",
     pageTitle: "Destinos Buenos Aires - Guía por distancia",
     pageDescription: "Encontrá pueblos y ciudades turísticas de la provincia de Buenos Aires según la distancia que quieras viajar.",
+    bienvenidaTitulo: "¿Desde dónde calculamos las distancias?",
+    bienvenidaTexto: "Podemos usar tu ubicación actual (en línea recta) en vez de siempre calcular desde CABA. Podés cambiarlo cuando quieras desde el botón de ubicación.",
+    bienvenidaUsar: "Usar mi ubicación",
+    bienvenidaCaba: "Usar CABA",
   },
   en: {
     eyebrow: "Buenos Aires Province",
@@ -2829,6 +2833,10 @@ const TEXTOS = {
     cambiarATemaOscuro: "Switch to dark theme",
     pageTitle: "Buenos Aires Destinations - Distance-based Guide",
     pageDescription: "Find towns and tourist cities in Buenos Aires Province based on how far you want to travel.",
+    bienvenidaTitulo: "Where should we calculate distances from?",
+    bienvenidaTexto: "We can use your current location (straight-line distance) instead of always calculating from CABA. You can change this anytime from the location button.",
+    bienvenidaUsar: "Use my location",
+    bienvenidaCaba: "Use CABA",
   },
 };
 
@@ -3253,6 +3261,8 @@ const el = {
   idiomaToggle: document.getElementById("idioma-toggle"),
   eyebrowTexto: document.getElementById("eyebrow-texto"),
   tituloH1: document.getElementById("titulo-h1"),
+  bienvenidaOverlay: document.getElementById("bienvenida-overlay"),
+  bienvenidaModal: document.getElementById("bienvenida-modal"),
 };
 
 // Sincronizar los controles que no se regeneran en cada render() con los
@@ -4618,6 +4628,69 @@ if (el.ubicacionBtn) {
     }
   });
 }
+
+// --- Cartel de bienvenida: preguntar una sola vez si usar la ubicación -------
+const BIENVENIDA_KEY = "destinos-ba-bienvenida-ubicacion";
+let bienvenidaFocoPrevio = null;
+
+function cerrarBienvenida() {
+  if (!el.bienvenidaOverlay) return;
+  el.bienvenidaOverlay.classList.remove("visible");
+  try {
+    localStorage.setItem(BIENVENIDA_KEY, "1");
+  } catch (err) {
+    console.warn("No se pudo guardar la preferencia de bienvenida:", err);
+  }
+  if (bienvenidaFocoPrevio && typeof bienvenidaFocoPrevio.focus === "function") {
+    bienvenidaFocoPrevio.focus();
+  }
+}
+
+function mostrarBienvenida() {
+  if (!el.bienvenidaOverlay || !el.bienvenidaModal) return;
+  if (!navigator.geolocation) return; // sin soporte, no tiene sentido preguntar
+
+  let yaPreguntado = false;
+  try {
+    yaPreguntado = localStorage.getItem(BIENVENIDA_KEY) === "1";
+  } catch (err) {
+    yaPreguntado = false;
+  }
+  if (yaPreguntado || origen.esUbicacionUsuario) return;
+
+  bienvenidaFocoPrevio = document.activeElement;
+  el.bienvenidaModal.innerHTML = `
+    <h2 class="modal-title" id="bienvenida-titulo">${t("bienvenidaTitulo")}</h2>
+    <p class="modal-parrafo">${t("bienvenidaTexto")}</p>
+    <div class="bienvenida-acciones">
+      <button id="bienvenida-usar" class="bienvenida-btn bienvenida-btn-principal">${icon("map-pin", 16)} ${t("bienvenidaUsar")}</button>
+      <button id="bienvenida-caba" class="bienvenida-btn">${t("bienvenidaCaba")}</button>
+    </div>
+  `;
+  el.bienvenidaOverlay.classList.add("visible");
+  const btnUsar = document.getElementById("bienvenida-usar");
+  const btnCaba = document.getElementById("bienvenida-caba");
+  btnUsar.focus();
+  btnUsar.addEventListener("click", () => {
+    cerrarBienvenida();
+    solicitarUbicacion();
+  });
+  btnCaba.addEventListener("click", cerrarBienvenida);
+}
+
+if (el.bienvenidaOverlay) {
+  el.bienvenidaOverlay.addEventListener("click", (e) => {
+    if (e.target === el.bienvenidaOverlay) cerrarBienvenida();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.bienvenidaOverlay && el.bienvenidaOverlay.classList.contains("visible")) {
+    cerrarBienvenida();
+  }
+});
+
+setTimeout(mostrarBienvenida, 600);
 
 // --- Tema claro/oscuro -------------------------------------------------------
 const THEME_KEY = "destinos-ba-tema";

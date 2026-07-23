@@ -1270,6 +1270,37 @@ input:focus-visible {
   max-width: 640px;
 }
 
+.modal-chica {
+  max-width: 420px;
+}
+
+.bienvenida-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bienvenida-btn {
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+}
+
+.bienvenida-btn-principal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--rust);
+  color: var(--on-accent);
+  border-color: var(--rust);
+}
+
 .comparar-tabla-wrap {
   overflow-x: auto;
   margin-bottom: 20px;
