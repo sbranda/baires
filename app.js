@@ -3352,6 +3352,8 @@ const TEXTOS = {
     costoConsumo: "Consumo (km/litro)",
     costoPeaje: "Peaje estimado (ARS cada 100 km)",
     costoVelocidad: "Velocidad promedio de ruta (km/h)",
+    costoPersonas: "Cantidad de personas",
+    costoPorPersona: (n) => `Por persona (÷${n})`,
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3531,6 +3533,8 @@ const TEXTOS = {
     costoConsumo: "Consumption (km/liter)",
     costoPeaje: "Estimated toll (ARS every 100 km)",
     costoVelocidad: "Average road speed (km/h)",
+    costoPersonas: "Number of people",
+    costoPorPersona: (n) => `Per person (÷${n})`,
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -4845,6 +4849,7 @@ function cargarPreferenciasCosto() {
         consumo: Number(datos.consumo) || 10,
         peajeCada100km: Number(datos.peajeCada100km) || 1500,
         velocidadPromedio: Number(datos.velocidadPromedio) || 80,
+        personas: Math.max(1, Number(datos.personas) || 1),
       };
     }
   } catch (err) {
@@ -4853,7 +4858,7 @@ function cargarPreferenciasCosto() {
   // Valores de referencia: nafta súper YPF CABA ~$2050/litro (julio 2026),
   // consumo promedio de un auto mediano, un peaje estimado orientativo,
   // y una velocidad promedio de ruta mixta (autopista + rutas secundarias).
-  return { precioLitro: 2050, consumo: 10, peajeCada100km: 1500, velocidadPromedio: 80 };
+  return { precioLitro: 2050, consumo: 10, peajeCada100km: 1500, velocidadPromedio: 80, personas: 1 };
 }
 
 function guardarPreferenciasCosto(prefs) {
@@ -4886,12 +4891,15 @@ function calcularCostoViaje(kmIda, prefs) {
   const litros = prefs.consumo > 0 ? distanciaTotal / prefs.consumo : 0;
   const costoCombustible = litros * prefs.precioLitro;
   const costoPeajes = (distanciaTotal / 100) * prefs.peajeCada100km;
+  const costoTotal = costoCombustible + costoPeajes;
+  const personas = Math.max(1, prefs.personas || 1);
   const tiempoIda = prefs.velocidadPromedio > 0 ? kmIda / prefs.velocidadPromedio : 0;
   return {
     distanciaTotal,
     costoCombustible,
     costoPeajes,
-    costoTotal: costoCombustible + costoPeajes,
+    costoTotal,
+    costoPorPersona: costoTotal / personas,
     tiempoIda,
     tiempoTotal: tiempoIda * 2,
   };
@@ -4924,6 +4932,10 @@ function renderizarCostoModal(d) {
         <span>${t("costoVelocidad")}</span>
         <input type="number" id="costo-velocidad" min="20" step="5" value="${prefsCosto.velocidadPromedio}" inputmode="decimal" />
       </label>
+      <label class="costo-input-wrap">
+        <span>${t("costoPersonas")}</span>
+        <input type="number" id="costo-personas" min="1" step="1" value="${prefsCosto.personas || 1}" inputmode="numeric" />
+      </label>
     </div>
     <div class="costo-resultado" id="costo-resultado"></div>
     <div class="costo-nota">${t("costoNota", km * 2)}</div>
@@ -4931,14 +4943,26 @@ function renderizarCostoModal(d) {
 
   const actualizarResultado = () => {
     const resultado = calcularCostoViaje(km, prefsCosto);
+    const personas = Math.max(1, prefsCosto.personas || 1);
     document.getElementById("costo-resultado").innerHTML = `
       <div class="costo-fila"><span>${t("costoCombustible")}</span><strong>${formatearARS(resultado.costoCombustible)}</strong></div>
       <div class="costo-fila"><span>${t("costoPeajes")}</span><strong>${formatearARS(resultado.costoPeajes)}</strong></div>
       <div class="costo-fila costo-total"><span>${t("costoTotal")}</span><strong>${formatearARS(resultado.costoTotal)}</strong></div>
+      ${
+        personas > 1
+          ? `<div class="costo-fila costo-por-persona"><span>${t("costoPorPersona", personas)}</span><strong>${formatearARS(resultado.costoPorPersona)}</strong></div>`
+          : ""
+      }
       <div class="costo-fila"><span>${t("costoTiempoIda")}</span><strong>${formatearTiempo(resultado.tiempoIda)}</strong></div>
       <div class="costo-fila"><span>${t("costoTiempoTotal")}</span><strong>${formatearTiempo(resultado.tiempoTotal)}</strong></div>
     `;
   };
+
+  document.getElementById("costo-personas").addEventListener("input", (e) => {
+    prefsCosto.personas = Math.max(1, Math.round(Number(e.target.value)) || 1);
+    guardarPreferenciasCosto(prefsCosto);
+    actualizarResultado();
+  });
 
   document.getElementById("costo-precio").addEventListener("input", (e) => {
     prefsCosto.precioLitro = Number(e.target.value) || 0;

@@ -1122,6 +1122,14 @@ input:focus-visible {
   font-size: 1.2rem;
 }
 
+.costo-por-persona {
+  color: var(--green);
+}
+
+.costo-por-persona strong {
+  color: var(--green);
+}
+
 .costo-nota {
   margin-top: 12px;
   font-size: 0.7rem;
