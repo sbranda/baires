@@ -3389,6 +3389,7 @@ const TEXTOS = {
     explorarMasLejano: "El más lejano",
     explorarPorPresupuesto: "Por presupuesto",
     explorarNuevos: (n) => `${n} ${n === 1 ? "destino nuevo" : "destinos nuevos"} sumados en el último mes.`,
+    volverArriba: "Volver arriba",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3605,6 +3606,7 @@ const TEXTOS = {
     explorarMasLejano: "The farthest one",
     explorarPorPresupuesto: "By budget",
     explorarNuevos: (n) => `${n} new ${n === 1 ? "destination" : "destinations"} added in the last month.`,
+    volverArriba: "Back to top",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3696,6 +3698,7 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  "arrow-up": '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
   printer: '<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>',
   "qr-code": '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
   download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
@@ -4183,6 +4186,7 @@ const el = {
   mapaRutaInfo: document.getElementById("mapa-ruta-info"),
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
+  modalArribaBtn: document.getElementById("modal-arriba-btn"),
   modal: document.getElementById("modal"),
   accionFlotante: document.getElementById("accion-flotante"),
   filaItinerario: document.getElementById("fila-itinerario"),
@@ -4754,6 +4758,8 @@ function abrirModal(d) {
     <p class="cercanos-nota">${t("cercanosNota")}</p>
   `;
   el.modalOverlay.classList.add("visible");
+  el.modal.scrollTop = 0;
+  if (el.modalArribaBtn) el.modalArribaBtn.style.display = "none";
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
   document.getElementById("modal-close").focus();
   el.modal.querySelectorAll("[data-cercano]").forEach((btn) => {
@@ -5557,6 +5563,24 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// --- Botón "volver arriba" dentro de la guía ---------------------------------
+const UMBRAL_VOLVER_ARRIBA = 400;
+
+if (el.modalArribaBtn) {
+  el.modalArribaBtn.innerHTML = icon("arrow-up", 20);
+  el.modalArribaBtn.setAttribute("aria-label", t("volverArriba"));
+  el.modalArribaBtn.addEventListener("click", () => {
+    el.modal.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+if (el.modal) {
+  el.modal.addEventListener("scroll", () => {
+    if (!el.modalArribaBtn) return;
+    el.modalArribaBtn.style.display = el.modal.scrollTop > UMBRAL_VOLVER_ARRIBA ? "flex" : "none";
+  });
+}
+
 // --- Sugerir un destino (abre un Issue prellenado en GitHub) ----------------
 const GITHUB_REPO = "sbranda/baires";
 let sugerirFocoPrevio = null;
@@ -6326,6 +6350,7 @@ function aplicarIdioma() {
   if (el.sorpresaBtn) el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresa")}`;
   if (el.resumenBtn) el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} ${t("resumenBtn")}`;
   if (el.explorarBtn) el.explorarBtn.innerHTML = `${icon("bar-chart", 16)} ${t("explorarBtn")}`;
+  if (el.modalArribaBtn) el.modalArribaBtn.setAttribute("aria-label", t("volverArriba"));
   if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
   if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;

@@ -960,6 +960,22 @@ input:focus-visible {
   border: 1px solid var(--bg-card-border);
 }
 
+.modal-arriba-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  z-index: 2001;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: none;
+  background: var(--rust);
+  color: var(--on-accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
 @media (min-width: 640px) {
   .modal-overlay { align-items: center; }
   .modal { border-radius: 16px; }
