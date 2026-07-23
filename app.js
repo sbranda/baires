@@ -3372,6 +3372,9 @@ const TEXTOS = {
     sugerirCuerpoTitulo: "Lugar sugerido",
     sugerirCuerpoMotivo: "Por qué",
     sugerirCuerpoOrigen: "Sugerido desde la app",
+    tamanoNormal: "Tamaño de letra normal (tocar para agrandar)",
+    tamanoGrande: "Tamaño de letra grande (tocar para agrandar más)",
+    tamanoMuyGrande: "Tamaño de letra muy grande (tocar para volver al normal)",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3571,6 +3574,9 @@ const TEXTOS = {
     sugerirCuerpoTitulo: "Suggested place",
     sugerirCuerpoMotivo: "Why",
     sugerirCuerpoOrigen: "Suggested from the app",
+    tamanoNormal: "Normal text size (tap to make bigger)",
+    tamanoGrande: "Large text size (tap to make even bigger)",
+    tamanoMuyGrande: "Extra large text size (tap to go back to normal)",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -4136,6 +4142,7 @@ const el = {
   resumenModal: document.getElementById("resumen-modal"),
   offlineBanner: document.getElementById("offline-banner"),
   idiomaToggle: document.getElementById("idioma-toggle"),
+  tamanoToggle: document.getElementById("tamano-toggle"),
   eyebrowTexto: document.getElementById("eyebrow-texto"),
   tituloH1: document.getElementById("titulo-h1"),
   bienvenidaOverlay: document.getElementById("bienvenida-overlay"),
@@ -6033,6 +6040,46 @@ if (btnTema) {
   });
 }
 
+// --- Tamaño de letra (normal / grande / muy grande) --------------------------
+const TAMANO_KEY = "destinos-ba-tamano-letra";
+const TAMANOS = ["normal", "grande", "muy-grande"];
+
+function tamanoActual() {
+  const attr = document.documentElement.getAttribute("data-tamano");
+  return TAMANOS.includes(attr) ? attr : "normal";
+}
+
+function actualizarBotonTamano() {
+  if (!el.tamanoToggle) return;
+  const actual = tamanoActual();
+  el.tamanoToggle.textContent = "A";
+  el.tamanoToggle.style.fontSize = actual === "normal" ? "0.85rem" : actual === "grande" ? "1rem" : "1.15rem";
+  const clave = actual === "normal" ? "tamanoNormal" : actual === "grande" ? "tamanoGrande" : "tamanoMuyGrande";
+  el.tamanoToggle.setAttribute("aria-label", t(clave));
+}
+
+function aplicarTamano(tamano) {
+  if (tamano === "normal") {
+    document.documentElement.removeAttribute("data-tamano");
+  } else {
+    document.documentElement.setAttribute("data-tamano", tamano);
+  }
+  try {
+    localStorage.setItem(TAMANO_KEY, tamano);
+  } catch (err) {
+    console.warn("No se pudo guardar el tamaño de letra:", err);
+  }
+  actualizarBotonTamano();
+}
+
+if (el.tamanoToggle) {
+  el.tamanoToggle.addEventListener("click", () => {
+    const siguiente = TAMANOS[(TAMANOS.indexOf(tamanoActual()) + 1) % TAMANOS.length];
+    aplicarTamano(siguiente);
+  });
+  actualizarBotonTamano();
+}
+
 // --- Idioma de la interfaz (español / inglés) --------------------------------
 function aplicarIdioma() {
   document.documentElement.setAttribute("lang", idioma === "en" ? "en" : "es-AR");
@@ -6078,6 +6125,7 @@ function aplicarIdioma() {
   actualizarTextosOrigen();
   actualizarBotonUbicacion();
   actualizarBotonTema();
+  actualizarBotonTamano();
   actualizarBarraAcciones();
 
   if (el.idiomaToggle) {

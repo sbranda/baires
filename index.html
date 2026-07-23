@@ -21,6 +21,12 @@
         var tema = guardado || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
         if (tema === "light") document.documentElement.setAttribute("data-theme", "light");
       } catch (err) {}
+      try {
+        var tamano = localStorage.getItem("destinos-ba-tamano-letra");
+        if (tamano === "grande" || tamano === "muy-grande") {
+          document.documentElement.setAttribute("data-tamano", tamano);
+        }
+      } catch (err) {}
     })();
   </script>
 
@@ -34,6 +40,7 @@
     <div class="header-row">
       <div class="eyebrow" id="eyebrow-texto">Provincia de Buenos Aires</div>
       <div class="header-botones">
+        <button id="tamano-toggle" class="tamano-toggle" aria-label="Aumentar tamaño de letra"></button>
         <button id="idioma-toggle" class="idioma-toggle" aria-label="Switch to English"></button>
         <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar a tema claro" aria-pressed="false"></button>
       </div>

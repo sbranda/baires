@@ -16,6 +16,17 @@
   --focus-ring: #F2E8CF;
 }
 
+/* Tamaño de letra ajustable: como el espaciado de toda la app usa px y solo
+   el texto usa rem, escalar acá el tamaño base agranda la letra en todos
+   lados sin romper el layout. */
+[data-tamano="grande"] {
+  font-size: 112.5%;
+}
+
+[data-tamano="muy-grande"] {
+  font-size: 125%;
+}
+
 [data-theme="light"] {
   --bg: #F5F1E6;
   --bg-card: #FFFFFF;
@@ -88,6 +99,22 @@ button {
   border-radius: 999px;
   border: 1px solid var(--bg-card-border);
   color: var(--wheat-dim);
+}
+
+.tamano-toggle {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--bg-card-border);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .idioma-toggle {
