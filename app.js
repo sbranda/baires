@@ -3381,8 +3381,8 @@ const TEXTOS = {
     compararVerBtn: "Comparar",
     compararMinimo: "Elegí 1 más",
     compararVaciarAria: "Vaciar selección de comparación",
-    compararMax: "Solo podés comparar 2 destinos a la vez. Sacá uno primero (desde la barra de abajo) para elegir otro.",
-    compararComparando: "Comparando 2 destinos",
+    compararMax: (n) => `Solo podés comparar hasta ${n} destinos a la vez. Sacá uno primero (desde la barra de abajo) para elegir otro.`,
+    compararComparando: (n) => `Comparando ${n} destinos`,
     compararCategoria: "Categoría",
     compararDistancia: "Distancia",
     compararTiempo: "Tiempo en auto",
@@ -3567,8 +3567,8 @@ const TEXTOS = {
     compararVerBtn: "Compare",
     compararMinimo: "Pick 1 more",
     compararVaciarAria: "Clear comparison selection",
-    compararMax: "You can only compare 2 destinations at a time. Remove one first (from the bar below) to pick another.",
-    compararComparando: "Comparing 2 destinations",
+    compararMax: (n) => `You can only compare up to ${n} destinations at a time. Remove one first (from the bar below) to pick another.`,
+    compararComparando: (n) => `Comparing ${n} destinations`,
     compararCategoria: "Category",
     compararDistancia: "Distance",
     compararTiempo: "Time by car",
@@ -3906,12 +3906,14 @@ function guardarComparacion() {
   }
 }
 
+const COMPARAR_MAX = 3;
+
 function toggleComparacion(nombre) {
   if (comparacionSeleccion.has(nombre)) {
     comparacionSeleccion.delete(nombre);
   } else {
-    if (comparacionSeleccion.size >= 2) {
-      alert(t("compararMax"));
+    if (comparacionSeleccion.size >= COMPARAR_MAX) {
+      alert(t("compararMax", COMPARAR_MAX));
       return;
     }
     comparacionSeleccion.add(nombre);
@@ -5535,21 +5537,20 @@ function abrirCompararModal() {
   const seleccionados = DESTINOS.filter((d) => comparacionSeleccion.has(d.nombre));
   if (seleccionados.length < 2) return;
   if (el.accionFlotante) el.accionFlotante.style.visibility = "hidden";
-  const [a, b] = seleccionados;
-  const dtA = textoDestino(a);
-  const dtB = textoDestino(b);
 
-  const costoA = calcularCostoViaje(kmDesdeOrigen(a), prefsCosto);
-  const costoB = calcularCostoViaje(kmDesdeOrigen(b), prefsCosto);
+  const items = seleccionados.map((d) => ({
+    d,
+    dt: textoDestino(d),
+    costo: calcularCostoViaje(kmDesdeOrigen(d), prefsCosto),
+  }));
 
-  const filaTabla = (etiqueta, valorA, valorB) => `
+  const filaTabla = (etiqueta, valores) => `
     <tr>
       <td class="comparar-etiqueta">${etiqueta}</td>
-      <td>${valorA}</td>
-      <td>${valorB}</td>
+      ${valores.map((v) => `<td>${v}</td>`).join("")}
     </tr>`;
 
-  const itinerarioColumna = (d, dt) => `
+  const itinerarioColumna = ({ d, dt }) => `
     <div class="comparar-itinerario-col">
       <h3>${d.nombre}</h3>
       <ul class="modal-timeline">
@@ -5557,35 +5558,35 @@ function abrirCompararModal() {
       </ul>
     </div>`;
 
+  const titulo = items.map((it) => it.d.nombre).join(" vs. ");
+
   el.compararModal.innerHTML = `
     <div class="modal-top">
-      <div class="modal-km-badge">${t("compararComparando")}</div>
+      <div class="modal-km-badge">${t("compararComparando", items.length)}</div>
       <button id="comparar-close" aria-label="${idioma === "en" ? "Close comparison" : "Cerrar comparación"}">${icon("x", 20)}</button>
     </div>
-    <h2 class="modal-title" id="comparar-titulo">${a.nombre} vs. ${b.nombre}</h2>
+    <h2 class="modal-title" id="comparar-titulo">${titulo}</h2>
     <div class="comparar-tabla-wrap">
       <table class="comparar-tabla">
         <thead>
-          <tr><th></th><th>${a.nombre}</th><th>${b.nombre}</th></tr>
+          <tr><th></th>${items.map((it) => `<th>${it.d.nombre}</th>`).join("")}</tr>
         </thead>
         <tbody>
-          ${filaTabla(t("compararCategoria"), CATEGORIAS.find((c) => c.id === a.categoria)?.label || a.categoria, CATEGORIAS.find((c) => c.id === b.categoria)?.label || b.categoria)}
-          ${filaTabla(t("compararDistancia"), `${kmDesdeOrigen(a)} km`, `${kmDesdeOrigen(b)} km`)}
-          ${filaTabla(t("compararTiempo"), `~${formatearTiempo(tiempoDesdeOrigen(a))}`, `~${formatearTiempo(tiempoDesdeOrigen(b))}`)}
-          ${filaTabla(t("compararDuracion"), dtA.duracion, dtB.duracion)}
-          ${filaTabla(t("compararCosto"), formatearARS(costoA.costoTotal), formatearARS(costoB.costoTotal))}
+          ${filaTabla(t("compararCategoria"), items.map((it) => CATEGORIAS.find((c) => c.id === it.d.categoria)?.label || it.d.categoria))}
+          ${filaTabla(t("compararDistancia"), items.map((it) => `${kmDesdeOrigen(it.d)} km`))}
+          ${filaTabla(t("compararTiempo"), items.map((it) => `~${formatearTiempo(tiempoDesdeOrigen(it.d))}`))}
+          ${filaTabla(t("compararDuracion"), items.map((it) => it.dt.duracion))}
+          ${filaTabla(t("compararCosto"), items.map((it) => formatearARS(it.costo.costoTotal)))}
         </tbody>
       </table>
     </div>
     <div class="modal-subhead">${icon("wallet", 14)} ${t("compararPresupuesto")}</div>
     <div class="comparar-presupuestos">
-      <p class="modal-parrafo">${dtA.presupuesto}</p>
-      <p class="modal-parrafo">${dtB.presupuesto}</p>
+      ${items.map((it) => `<p class="modal-parrafo">${it.dt.presupuesto}</p>`).join("")}
     </div>
     <div class="modal-subhead">${icon("sparkles", 14)} ${t("compararItinerario")}</div>
     <div class="comparar-itinerarios">
-      ${itinerarioColumna(a, dtA)}
-      ${itinerarioColumna(b, dtB)}
+      ${items.map(itinerarioColumna).join("")}
     </div>
   `;
 
