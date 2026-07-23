@@ -380,6 +380,55 @@ input:focus-visible {
   letter-spacing: 0.02em;
 }
 
+.sugerir-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.sugerir-label {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 0.8rem;
+  color: var(--wheat-dim);
+}
+
+.sugerir-input,
+.sugerir-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  color: var(--offwhite);
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+}
+
+.sugerir-textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.sugerir-nota {
+  margin: 12px 0 4px;
+  font-size: 0.7rem;
+  color: var(--wheat-dim);
+  line-height: 1.4;
+}
+
 .chip {
   display: flex;
   align-items: center;
