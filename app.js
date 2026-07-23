@@ -3354,6 +3354,10 @@ const TEXTOS = {
     costoVelocidad: "Velocidad promedio de ruta (km/h)",
     costoPersonas: "Cantidad de personas",
     costoPorPersona: (n) => `Por persona (÷${n})`,
+    verQr: "Ver código QR",
+    qrDescripcion: "Escaneá este código con otro celu para abrir esta guía directamente, sin necesidad de mandar el link por wifi o datos.",
+    qrDescargar: "Descargar imagen",
+    qrCerrar: "Cerrar",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3535,6 +3539,10 @@ const TEXTOS = {
     costoVelocidad: "Average road speed (km/h)",
     costoPersonas: "Number of people",
     costoPorPersona: (n) => `Per person (÷${n})`,
+    verQr: "Show QR code",
+    qrDescripcion: "Scan this code with another phone to open this guide directly, no need to send the link over wifi or data.",
+    qrDescargar: "Download image",
+    qrCerrar: "Close",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3626,6 +3634,7 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  "qr-code": '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
   download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
   upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
   sunrise: '<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M6 18a6 6 0 0 1 12 0"/>',
@@ -4095,6 +4104,8 @@ const el = {
   backupOverlay: document.getElementById("backup-overlay"),
   backupModal: document.getElementById("backup-modal"),
   backupInput: document.getElementById("backup-input"),
+  qrOverlay: document.getElementById("qr-overlay"),
+  qrModal: document.getElementById("qr-modal"),
   tutorialOverlay: document.getElementById("tutorial-overlay"),
   tutorialModal: document.getElementById("tutorial-modal"),
 };
@@ -4510,6 +4521,7 @@ function abrirModal(d) {
         <button id="modal-visitado" aria-label="${t("visitadoMarcar")}"></button>
         <button id="modal-fav" aria-label="${t("favAgregar")}"></button>
         <button id="modal-share" aria-label="${t("compartirGuia")}">${icon("share", 20)}</button>
+        <button id="modal-qr" aria-label="${t("verQr")}">${icon("qr-code", 20)}</button>
         <button id="modal-copy" aria-label="${t("copiarGuia")}">${icon("copy", 20)}</button>
         <button id="modal-close" aria-label="${t("cerrarGuia")}">${icon("x", 20)}</button>
       </div>
@@ -4635,6 +4647,7 @@ function abrirModal(d) {
     render_comparar_btn();
   });
   document.getElementById("modal-share").addEventListener("click", () => compartirGuia(d));
+  document.getElementById("modal-qr").addEventListener("click", () => abrirQrModal(d));
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
   cargarClimaModal(d);
@@ -5860,7 +5873,10 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-setTimeout(mostrarTutorial, 600);
+const vieneDeDestinoDirecto = new URLSearchParams(window.location.search).has("destino");
+if (!vieneDeDestinoDirecto) {
+  setTimeout(mostrarTutorial, 600);
+}
 
 // --- Tema claro/oscuro -------------------------------------------------------
 const THEME_KEY = "destinos-ba-tema";
@@ -6108,3 +6124,82 @@ document.addEventListener("keydown", (e) => {
     cerrarBackupModal();
   }
 });
+
+// --- Código QR para compartir un destino puntual sin depender de wifi -------
+let qrFocoPrevio = null;
+
+function cerrarQrModal() {
+  if (el.qrOverlay) el.qrOverlay.classList.remove("visible");
+  if (qrFocoPrevio && typeof qrFocoPrevio.focus === "function") {
+    qrFocoPrevio.focus();
+  }
+}
+
+function abrirQrModal(d) {
+  if (!el.qrOverlay || !el.qrModal) return;
+  qrFocoPrevio = document.activeElement;
+
+  const url = `${window.location.origin}${window.location.pathname}?destino=${encodeURIComponent(d.nombre)}`;
+
+  el.qrModal.innerHTML = `
+    <h2 class="modal-title" id="qr-titulo">${d.nombre}</h2>
+    <p class="modal-parrafo">${t("qrDescripcion")}</p>
+    <div class="qr-contenedor" id="qr-contenedor"></div>
+    <div class="bienvenida-acciones">
+      <button id="qr-descargar-btn" class="bienvenida-btn bienvenida-btn-principal">${icon("download", 16)} ${t("qrDescargar")}</button>
+      <button id="qr-cerrar-btn" class="bienvenida-btn">${t("qrCerrar")}</button>
+    </div>
+  `;
+
+  el.qrOverlay.classList.add("visible");
+
+  const contenedor = document.getElementById("qr-contenedor");
+  if (typeof QRCode !== "undefined" && contenedor) {
+    contenedor.innerHTML = "";
+    new QRCode(contenedor, {
+      text: url,
+      width: 200,
+      height: 200,
+      colorDark: "#101913",
+      colorLight: "#F2E8CF",
+    });
+  }
+
+  const btnCerrar = document.getElementById("qr-cerrar-btn");
+  btnCerrar.addEventListener("click", cerrarQrModal);
+  btnCerrar.focus();
+  document.getElementById("qr-descargar-btn").addEventListener("click", () => {
+    const canvas = contenedor.querySelector("canvas");
+    if (!canvas) return;
+    const enlace = document.createElement("a");
+    enlace.href = canvas.toDataURL("image/png");
+    enlace.download = `qr-${d.nombre.toLowerCase().replace(/\s+/g, "-")}.png`;
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
+  });
+}
+
+if (el.qrOverlay) {
+  el.qrOverlay.addEventListener("click", (e) => {
+    if (e.target === el.qrOverlay) cerrarQrModal();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.qrOverlay && el.qrOverlay.classList.contains("visible")) {
+    cerrarQrModal();
+  }
+});
+
+// Si la URL trae ?destino=NombreExacto (por ejemplo, al escanear un código QR),
+// abrimos esa guía directamente al cargar la página.
+(function abrirDestinoDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  const nombreDestino = params.get("destino");
+  if (!nombreDestino) return;
+  const encontrado = DESTINOS.find((d) => d.nombre === nombreDestino);
+  if (encontrado) {
+    setTimeout(() => abrirModal(encontrado), 50);
+  }
+})();

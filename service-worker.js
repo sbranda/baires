@@ -1,4 +1,4 @@
-const CACHE_NAME = "destinos-ba-v86";
+const CACHE_NAME = "destinos-ba-v87";
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const ASSETS = [
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
+  "./qrcode.min.js",
 ];
 
 self.addEventListener("install", (event) => {
