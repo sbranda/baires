@@ -1759,3 +1759,73 @@ input:focus-visible {
   margin-top: 2px;
   color: var(--rust);
 }
+
+/* --- Vista de impresión: solo la guía abierta, en blanco y negro --------- */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #modal-overlay.visible,
+  #modal-overlay.visible * {
+    visibility: visible;
+  }
+
+  #modal-overlay.visible {
+    position: static !important;
+    display: block !important;
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  #modal-overlay.visible .modal {
+    position: static !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  #modal-overlay.visible .modal * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #999 !important;
+  }
+
+  .modal-top-actions,
+  .modal-nota-personal,
+  .modal-clima,
+  .modal-costo,
+  .navegar-botones,
+  .navegar-nota,
+  .modal-foto,
+  .cercanos-nota {
+    display: none !important;
+  }
+
+  .modal-title {
+    font-size: 22pt;
+  }
+
+  .modal-subhead {
+    font-size: 12pt;
+    margin-top: 16px;
+    page-break-after: avoid;
+  }
+
+  .modal-parrafo,
+  .info-value,
+  .modal-lista li,
+  .cercano-item {
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .modal-km-badge {
+    border: 1px solid #999;
+  }
+}

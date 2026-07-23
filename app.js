@@ -3358,6 +3358,7 @@ const TEXTOS = {
     qrDescripcion: "Escaneá este código con otro celu para abrir esta guía directamente, sin necesidad de mandar el link por wifi o datos.",
     qrDescargar: "Descargar imagen",
     qrCerrar: "Cerrar",
+    imprimirGuia: "Imprimir guía",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3543,6 +3544,7 @@ const TEXTOS = {
     qrDescripcion: "Scan this code with another phone to open this guide directly, no need to send the link over wifi or data.",
     qrDescargar: "Download image",
     qrCerrar: "Close",
+    imprimirGuia: "Print guide",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3634,6 +3636,7 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  printer: '<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>',
   "qr-code": '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
   download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
   upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
@@ -4522,6 +4525,7 @@ function abrirModal(d) {
         <button id="modal-fav" aria-label="${t("favAgregar")}"></button>
         <button id="modal-share" aria-label="${t("compartirGuia")}">${icon("share", 20)}</button>
         <button id="modal-qr" aria-label="${t("verQr")}">${icon("qr-code", 20)}</button>
+        <button id="modal-imprimir" aria-label="${t("imprimirGuia")}">${icon("printer", 20)}</button>
         <button id="modal-copy" aria-label="${t("copiarGuia")}">${icon("copy", 20)}</button>
         <button id="modal-close" aria-label="${t("cerrarGuia")}">${icon("x", 20)}</button>
       </div>
@@ -4648,6 +4652,7 @@ function abrirModal(d) {
   });
   document.getElementById("modal-share").addEventListener("click", () => compartirGuia(d));
   document.getElementById("modal-qr").addEventListener("click", () => abrirQrModal(d));
+  document.getElementById("modal-imprimir").addEventListener("click", () => window.print());
   document.getElementById("modal-copy").addEventListener("click", () => copiarGuia(d));
   cargarFotoModal(d);
   cargarClimaModal(d);
