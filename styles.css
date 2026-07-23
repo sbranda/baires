@@ -380,6 +380,38 @@ input:focus-visible {
   letter-spacing: 0.02em;
 }
 
+.backup-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.backup-mensaje {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(78, 140, 107, 0.16);
+  color: var(--green);
+  font-size: 0.8rem;
+}
+
+.backup-mensaje-error {
+  background: rgba(193, 68, 14, 0.16);
+  color: var(--rust);
+}
+
 .chip {
   display: flex;
   align-items: center;

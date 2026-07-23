@@ -3339,6 +3339,15 @@ const TEXTOS = {
     modalCercanos: "Cerca de acá también podés visitar",
     cercanosNota: "Distancia en línea recta entre destinos.",
     nuevoBadge: "Nuevo",
+    backupBtn: "Mis datos",
+    backupTitulo: "Mis datos",
+    backupDescripcion: "Tus favoritos, visitados, notas e itinerario viven solo en este navegador. Si cambiás de celular o borrás el caché, se pierden. Hacé una copia para guardarla o pasarla a otro dispositivo.",
+    backupExportar: "Exportar mis datos",
+    backupImportar: "Importar desde un archivo",
+    backupNota: "El archivo se descarga a tu dispositivo; no se manda a ningún servidor.",
+    backupImportarExito: "Datos importados con éxito.",
+    backupImportarError: "No se pudo leer el archivo. Verificá que sea un backup válido de esta app.",
+    backupImportarConfirmar: "Esto va a reemplazar tus favoritos, visitados, notas e itinerario actuales por los del archivo. ¿Continuar?",
     costoPrecio: "Precio nafta (ARS/litro)",
     costoConsumo: "Consumo (km/litro)",
     costoPeaje: "Peaje estimado (ARS cada 100 km)",
@@ -3509,6 +3518,15 @@ const TEXTOS = {
     modalCercanos: "Nearby, you could also visit",
     cercanosNota: "Straight-line distance between destinations.",
     nuevoBadge: "New",
+    backupBtn: "My data",
+    backupTitulo: "My data",
+    backupDescripcion: "Your favorites, visited places, notes, and itinerary only live in this browser. If you switch phones or clear your cache, they're gone. Make a backup to keep or move to another device.",
+    backupExportar: "Export my data",
+    backupImportar: "Import from a file",
+    backupNota: "The file downloads to your device; it's never sent to any server.",
+    backupImportarExito: "Data imported successfully.",
+    backupImportarError: "Couldn't read the file. Check that it's a valid backup from this app.",
+    backupImportarConfirmar: "This will replace your current favorites, visited places, notes, and itinerary with the ones from the file. Continue?",
     costoPrecio: "Fuel price (ARS/liter)",
     costoConsumo: "Consumption (km/liter)",
     costoPeaje: "Estimated toll (ARS every 100 km)",
@@ -3604,6 +3622,8 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+  upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
   sunrise: '<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M6 18a6 6 0 0 1 12 0"/>',
   sunset: '<path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M6 18a6 6 0 0 1 12 0"/>',
   navigation: '<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
@@ -4067,6 +4087,10 @@ const el = {
   tituloH1: document.getElementById("titulo-h1"),
   bienvenidaOverlay: document.getElementById("bienvenida-overlay"),
   bienvenidaModal: document.getElementById("bienvenida-modal"),
+  backupBtn: document.getElementById("backup-btn"),
+  backupOverlay: document.getElementById("backup-overlay"),
+  backupModal: document.getElementById("backup-modal"),
+  backupInput: document.getElementById("backup-input"),
   tutorialOverlay: document.getElementById("tutorial-overlay"),
   tutorialModal: document.getElementById("tutorial-modal"),
 };
@@ -5885,6 +5909,7 @@ function aplicarIdioma() {
 
   if (el.sorpresaBtn) el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresa")}`;
   if (el.resumenBtn) el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} ${t("resumenBtn")}`;
+  if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;
   if (el.offlineBanner) {
     el.offlineBanner.innerHTML = `${icon("wifi-off", 18)} <span>${t("offline")}</span>`;
@@ -5923,11 +5948,139 @@ actualizarBotonTema();
 
 render();
 
-// --- Registro del service worker (PWA) --------------------------------------
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js").catch((err) => {
-      console.warn("No se pudo registrar el service worker:", err);
-    });
+// --- Exportar / importar mis datos (favoritos, visitados, notas, itinerario) -
+const BACKUP_KEYS = [
+  "destinos-ba-favoritos",
+  "destinos-ba-visitados",
+  "destinos-ba-notas-personales",
+  "destinos-ba-itinerario",
+  "destinos-ba-comparar",
+  "destinos-ba-costo-viaje",
+  "destinos-ba-tema",
+  "destinos-ba-idioma",
+];
+let backupFocoPrevio = null;
+
+function exportarDatos() {
+  const datos = {};
+  BACKUP_KEYS.forEach((key) => {
+    const valor = localStorage.getItem(key);
+    if (valor !== null) datos[key] = valor;
+  });
+  const paquete = { app: "destinos-buenos-aires", version: 1, exportadoEn: new Date().toISOString(), datos };
+  const blob = new Blob([JSON.stringify(paquete, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const enlace = document.createElement("a");
+  const fecha = new Date().toISOString().slice(0, 10);
+  enlace.href = url;
+  enlace.download = `destinos-ba-backup-${fecha}.json`;
+  document.body.appendChild(enlace);
+  enlace.click();
+  document.body.removeChild(enlace);
+  URL.revokeObjectURL(url);
+}
+
+function mostrarMensajeBackup(mensaje, esError) {
+  const contenedor = document.getElementById("backup-mensaje");
+  if (!contenedor) return;
+  contenedor.textContent = mensaje;
+  contenedor.classList.toggle("backup-mensaje-error", !!esError);
+  contenedor.style.display = "block";
+}
+
+function importarDatos(archivo) {
+  if (!archivo) return;
+  if (!window.confirm(t("backupImportarConfirmar"))) return;
+
+  const lector = new FileReader();
+  lector.onload = (e) => {
+    try {
+      const paquete = JSON.parse(e.target.result);
+      const datos = paquete && paquete.datos ? paquete.datos : paquete;
+      let restaurados = 0;
+      BACKUP_KEYS.forEach((key) => {
+        if (typeof datos[key] === "string") {
+          localStorage.setItem(key, datos[key]);
+          restaurados++;
+        }
+      });
+      if (restaurados === 0) throw new Error("El archivo no tiene datos reconocibles");
+
+      // Volvemos a cargar todo el estado en memoria desde lo que se acaba de guardar
+      favoritos = cargarFavoritos();
+      visitados = cargarVisitados();
+      notasPersonales = cargarNotasPersonales();
+      itinerarioSeleccion = cargarItinerario();
+      comparacionSeleccion = cargarComparacion();
+      prefsCosto = cargarPreferenciasCosto();
+      idioma = cargarIdioma();
+
+      aplicarIdioma();
+      aplicarTema(localStorage.getItem(THEME_KEY) === "light" ? "light" : "dark");
+      actualizarBarraAcciones();
+      render();
+
+      mostrarMensajeBackup(t("backupImportarExito"), false);
+    } catch (err) {
+      console.warn("No se pudo importar el archivo de backup:", err);
+      mostrarMensajeBackup(t("backupImportarError"), true);
+    }
+  };
+  lector.readAsText(archivo);
+}
+
+function cerrarBackupModal() {
+  if (el.backupOverlay) el.backupOverlay.classList.remove("visible");
+  if (backupFocoPrevio && typeof backupFocoPrevio.focus === "function") {
+    backupFocoPrevio.focus();
+  }
+}
+
+function abrirBackupModal() {
+  if (!el.backupOverlay || !el.backupModal) return;
+  backupFocoPrevio = document.activeElement;
+
+  el.backupModal.innerHTML = `
+    <h2 class="modal-title" id="backup-titulo">${t("backupTitulo")}</h2>
+    <p class="modal-parrafo">${t("backupDescripcion")}</p>
+    <div class="bienvenida-acciones" style="flex-direction:column">
+      <button id="backup-exportar-btn" class="bienvenida-btn bienvenida-btn-principal">${icon("download", 16)} ${t("backupExportar")}</button>
+      <button id="backup-importar-btn" class="bienvenida-btn">${icon("upload", 16)} ${t("backupImportar")}</button>
+    </div>
+    <p class="navegar-nota" style="margin-left:0">${t("backupNota")}</p>
+    <p id="backup-mensaje" class="backup-mensaje" style="display:none"></p>
+  `;
+
+  el.backupOverlay.classList.add("visible");
+  const btnExportar = document.getElementById("backup-exportar-btn");
+  btnExportar.focus();
+  btnExportar.addEventListener("click", exportarDatos);
+  document.getElementById("backup-importar-btn").addEventListener("click", () => {
+    if (el.backupInput) el.backupInput.click();
   });
 }
+
+if (el.backupBtn) {
+  el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
+  el.backupBtn.addEventListener("click", abrirBackupModal);
+}
+
+if (el.backupInput) {
+  el.backupInput.addEventListener("change", (e) => {
+    const archivo = e.target.files && e.target.files[0];
+    importarDatos(archivo);
+    e.target.value = ""; // permite volver a elegir el mismo archivo si hace falta
+  });
+}
+
+if (el.backupOverlay) {
+  el.backupOverlay.addEventListener("click", (e) => {
+    if (e.target === el.backupOverlay) cerrarBackupModal();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.backupOverlay && el.backupOverlay.classList.contains("visible")) {
+    cerrarBackupModal();
+  }
+});

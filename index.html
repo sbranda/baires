@@ -77,6 +77,9 @@
 
     <button id="resumen-btn" class="resumen-btn"></button>
 
+    <button id="backup-btn" class="backup-btn"></button>
+    <input type="file" id="backup-input" accept="application/json,.json" style="display:none" />
+
     <div class="vista-toggle" id="vista-toggle" role="group" aria-label="Tipo de vista">
       <button class="vista-btn vista-activo" data-vista="lista" aria-pressed="true">Lista</button>
       <button class="vista-btn" data-vista="mapa" aria-pressed="false">Mapa</button>
@@ -147,6 +150,10 @@
 
   <div class="modal-overlay" id="bienvenida-overlay">
     <div class="modal modal-chica" id="bienvenida-modal" role="dialog" aria-modal="true" aria-labelledby="bienvenida-titulo"></div>
+  </div>
+
+  <div class="modal-overlay" id="backup-overlay">
+    <div class="modal modal-chica" id="backup-modal" role="dialog" aria-modal="true" aria-labelledby="backup-titulo"></div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
