@@ -3375,6 +3375,7 @@ const TEXTOS = {
     tamanoNormal: "Tamaño de letra normal (tocar para agrandar)",
     tamanoGrande: "Tamaño de letra grande (tocar para agrandar más)",
     tamanoMuyGrande: "Tamaño de letra muy grande (tocar para volver al normal)",
+    buenMomento: "Buen momento para ir",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3577,6 +3578,7 @@ const TEXTOS = {
     tamanoNormal: "Normal text size (tap to make bigger)",
     tamanoGrande: "Large text size (tap to make even bigger)",
     tamanoMuyGrande: "Extra large text size (tap to go back to normal)",
+    buenMomento: "Good time to go",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3980,6 +3982,23 @@ function esDestinoNuevo(d) {
   if (!d.fechaAgregado) return false;
   const dias = (Date.now() - new Date(`${d.fechaAgregado}T00:00:00`).getTime()) / (1000 * 60 * 60 * 24);
   return dias >= 0 && dias <= DIAS_BADGE_NUEVO;
+}
+
+// Meses recomendados por categoría (1=enero...12=diciembre, hemisferio sur).
+// "pueblo" y "ciudad" quedan afuera a propósito: su atractivo no depende de la
+// época del año, así que no tiene sentido destacarlos por temporada.
+const TEMPORADA_POR_CATEGORIA = {
+  playa: [12, 1, 2],
+  rio: [12, 1, 2, 3],
+  sierra: [3, 4, 5, 9, 10, 11],
+  campo: [3, 4, 5, 9, 10, 11],
+};
+
+function esBuenMomentoParaIr(d, fecha) {
+  const meses = TEMPORADA_POR_CATEGORIA[d.categoria];
+  if (!meses) return false;
+  const mesActual = (fecha || new Date()).getMonth() + 1;
+  return meses.includes(mesActual);
 }
 
 function destinosCercanos(d, cantidad) {
@@ -4436,6 +4455,7 @@ function render() {
               <h3 class="${esVisitado ? "tachado" : ""}">${d.nombre}</h3>
               ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
               ${esDestinoNuevo(d) ? `<span class="card-nuevo-badge">${t("nuevoBadge")}</span>` : ""}
+              ${esBuenMomentoParaIr(d) ? `<span class="card-temporada-badge">${icon("sun", 12)} ${t("buenMomento")}</span>` : ""}
               ${esVisitado ? `<span class="card-visitado-badge">${icon("check-circle", 12)} ${t("visitadoBadge")}</span>` : ""}
               ${esVisitado && obtenerNotaPersonal(d.nombre).puntaje > 0 ? `<span class="card-puntaje">${"★".repeat(obtenerNotaPersonal(d.nombre).puntaje)}${"☆".repeat(5 - obtenerNotaPersonal(d.nombre).puntaje)}</span>` : ""}
             </div>
@@ -4579,6 +4599,7 @@ function abrirModal(d) {
     </div>
     <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
     <span class="modal-visitado-badge" id="modal-visitado-badge" style="display:none">${icon("check-circle", 12)} ${t("yaVisitaste")}</span>
+    ${esBuenMomentoParaIr(d) ? `<span class="modal-temporada-badge">${icon("sun", 12)} ${t("buenMomento")}</span>` : ""}
     <p class="modal-nota">${dt.nota}</p>
 
     <div class="modal-nota-personal" id="modal-nota-personal" data-nombre="${d.nombre}" style="display:none">
