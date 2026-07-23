@@ -3602,6 +3602,8 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  sunrise: '<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M6 18a6 6 0 0 1 12 0"/>',
+  sunset: '<path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M6 18a6 6 0 0 1 12 0"/>',
   navigation: '<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
   search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
   map: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>',
@@ -4729,7 +4731,7 @@ async function obtenerClima(d) {
     return cacheClima[d.nombre];
   }
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lng}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=5`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lng}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset&timezone=auto&forecast_days=5`;
     const resp = await fetch(url);
     if (!resp.ok) throw new Error("Respuesta no OK de Open-Meteo");
     const data = await resp.json();
@@ -4741,6 +4743,12 @@ async function obtenerClima(d) {
   }
 }
 
+function formatearHora(isoString) {
+  if (!isoString) return "—";
+  const partes = isoString.split("T");
+  return partes.length > 1 ? partes[1] : isoString;
+}
+
 function pintarClima(contenedor, data) {
   if (!data || !data.current || !data.daily) {
     contenedor.classList.add("sin-clima");
@@ -4750,6 +4758,8 @@ function pintarClima(contenedor, data) {
   contenedor.classList.remove("sin-clima");
 
   const actual = infoClima(data.current.weather_code);
+  const amanecer = data.daily.sunrise ? formatearHora(data.daily.sunrise[0]) : null;
+  const atardecer = data.daily.sunset ? formatearHora(data.daily.sunset[0]) : null;
   const dias = data.daily.time
     .map((fecha, i) => {
       const info = infoClima(data.daily.weather_code[i]);
@@ -4771,6 +4781,14 @@ function pintarClima(contenedor, data) {
         <div class="clima-actual-texto">${actual.texto}</div>
       </div>
     </div>
+    ${
+      amanecer && atardecer
+        ? `<div class="clima-sol">
+      <span>${icon("sunrise", 16, "var(--wheat-dim)")} ${amanecer}</span>
+      <span>${icon("sunset", 16, "var(--wheat-dim)")} ${atardecer}</span>
+    </div>`
+        : ""
+    }
     <div class="clima-pronostico">${dias}</div>
     <div class="clima-fuente">${idioma === "en" ? "Data: Open-Meteo" : "Datos: Open-Meteo"}</div>
   `;
