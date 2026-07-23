@@ -6073,11 +6073,12 @@ function tamanoActual() {
 function actualizarBotonTamano() {
   if (!el.tamanoToggle) return;
   const actual = tamanoActual();
-  el.tamanoToggle.textContent = "A";
-  el.tamanoToggle.style.fontSize = actual === "normal" ? "0.85rem" : actual === "grande" ? "1rem" : "1.15rem";
+  el.tamanoToggle.textContent = actual === "normal" ? "A" : actual === "grande" ? "A+" : "A++";
+  el.tamanoToggle.style.fontSize = "0.75rem";
   const clave = actual === "normal" ? "tamanoNormal" : actual === "grande" ? "tamanoGrande" : "tamanoMuyGrande";
   el.tamanoToggle.setAttribute("aria-label", t(clave));
 }
+
 
 function aplicarTamano(tamano) {
   if (tamano === "normal") {

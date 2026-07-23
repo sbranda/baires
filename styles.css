@@ -103,8 +103,9 @@ button {
 
 .tamano-toggle {
   flex-shrink: 0;
-  width: 40px;
+  min-width: 40px;
   height: 40px;
+  padding: 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
