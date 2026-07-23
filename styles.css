@@ -517,6 +517,36 @@ input:focus-visible {
   color: var(--wheat-dim);
 }
 
+.mapa-ruta-info {
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(193, 68, 14, 0.14);
+  color: var(--wheat);
+  font-size: 0.75rem;
+}
+
+.mapa-ruta-info svg {
+  flex-shrink: 0;
+  color: var(--rust);
+}
+
+.mapa-ruta-info span {
+  flex: 1;
+}
+
+.mapa-ruta-info button {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wheat-dim);
+}
+
 .mapa-leyenda {
   display: flex;
   flex-wrap: wrap;
@@ -1264,6 +1294,30 @@ input:focus-visible {
   font-size: 1.2rem;
   font-family: "Oswald", sans-serif;
 }
+
+.itinerario-ruta-estado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--wheat-dim);
+}
+
+.itinerario-ruta-estado svg {
+  flex-shrink: 0;
+  color: var(--rust);
+}
+
+.itinerario-mapa {
+  width: 100%;
+  height: 220px;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-card-border);
+}
+
 
 /* Modal de comparación de 2 destinos */
 .modal-ancho {

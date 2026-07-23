@@ -3325,6 +3325,13 @@ const TEXTOS = {
     compartirGuia: "Compartir guía",
     cerrarGuia: "Cerrar guía",
     climaSinDatos: "Sin datos",
+    mapaRutaCalculando: "Calculando ruta real...",
+    mapaRutaError: "No se pudo calcular la ruta real, se muestra la línea recta.",
+    mapaRutaCerrar: "Ocultar ruta",
+    rutaFuente: "Ruta calculada por OSRM (datos de OpenStreetMap)",
+    itinerarioRutaReal: "Ruta real por calles",
+    itinerarioCalculandoRuta: "Calculando ruta real por calles...",
+    itinerarioRutaSinDatos: "No se pudo calcular la ruta real; los tramos y el total muestran distancia en línea recta.",
     costoPrecio: "Precio nafta (ARS/litro)",
     costoConsumo: "Consumo (km/litro)",
     costoPeaje: "Peaje estimado (ARS cada 100 km)",
@@ -3481,6 +3488,13 @@ const TEXTOS = {
     compartirGuia: "Share guide",
     cerrarGuia: "Close guide",
     climaSinDatos: "No data",
+    mapaRutaCalculando: "Calculating real route...",
+    mapaRutaError: "Couldn't calculate the real route, showing the straight line instead.",
+    mapaRutaCerrar: "Hide route",
+    rutaFuente: "Route calculated by OSRM (OpenStreetMap data)",
+    itinerarioRutaReal: "Real route by road",
+    itinerarioCalculandoRuta: "Calculating the real route by road...",
+    itinerarioRutaSinDatos: "Couldn't calculate the real route; legs and total show straight-line distance instead.",
     costoPrecio: "Fuel price (ARS/liter)",
     costoConsumo: "Consumption (km/liter)",
     costoPeaje: "Estimated toll (ARS every 100 km)",
@@ -3871,6 +3885,42 @@ function distanciaHaversine(lat1, lng1, lat2, lng2) {
   return R * c;
 }
 
+// --- Ruteo real por calles y rutas (OSRM, servicio público sin API key) -----
+const OSRM_BASE = "https://router.project-osrm.org/route/v1/driving/";
+const cacheRutasOSRM = new Map();
+
+// puntos: array de {lat, lng}, en el orden en que se quiere rutear (origen primero)
+async function obtenerRutaOSRM(puntos) {
+  const clave = puntos.map((p) => `${p.lat.toFixed(4)},${p.lng.toFixed(4)}`).join("|");
+  if (cacheRutasOSRM.has(clave)) return cacheRutasOSRM.get(clave);
+
+  const coords = puntos.map((p) => `${p.lng},${p.lat}`).join(";");
+  const url = `${OSRM_BASE}${coords}?overview=full&geometries=geojson`;
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error(`OSRM respondió ${res.status}`);
+    const data = await res.json();
+    if (data.code !== "Ok" || !data.routes || !data.routes.length) throw new Error("Sin ruta OSRM");
+
+    const ruta = data.routes[0];
+    const resultado = {
+      distanciaKm: ruta.distance / 1000,
+      duracionMin: ruta.duration / 60,
+      coordenadas: ruta.geometry.coordinates.map(([lng, lat]) => [lat, lng]),
+      tramos: ruta.legs.map((tramo) => ({ distanciaKm: tramo.distance / 1000, duracionMin: tramo.duration / 60 })),
+    };
+    cacheRutasOSRM.set(clave, resultado);
+    return resultado;
+  } catch (err) {
+    console.warn("No se pudo obtener la ruta real (OSRM), se usa distancia en línea recta:", err);
+    return null;
+  }
+}
+
 function kmDesdeOrigen(d) {
   if (!origen.esUbicacionUsuario) return d.km;
   return Math.round(distanciaHaversine(origen.lat, origen.lng, d.lat, d.lng));
@@ -3965,6 +4015,7 @@ const el = {
   lista: document.getElementById("lista"),
   mapaWrap: document.getElementById("mapa-wrap"),
   mapaLeyenda: document.getElementById("mapa-leyenda"),
+  mapaRutaInfo: document.getElementById("mapa-ruta-info"),
   vacio: document.getElementById("vacio"),
   modalOverlay: document.getElementById("modal-overlay"),
   modal: document.getElementById("modal"),
@@ -4010,6 +4061,8 @@ el.vistaToggle.querySelectorAll(".vista-btn").forEach((btn) => {
 let leafletMap = null;
 let leafletMarcadores = [];
 let leafletOrigenMarcador = null;
+let leafletRutaLayer = null;
+let rutaSeleccionadaNombre = null;
 
 function initLeafletMap() {
   if (leafletMap) return;
@@ -4029,6 +4082,11 @@ function renderMapa(resultados) {
 
   leafletMarcadores.forEach((m) => leafletMap.removeLayer(m));
   leafletMarcadores = [];
+
+  if (leafletRutaLayer) {
+    leafletMap.removeLayer(leafletRutaLayer);
+    leafletRutaLayer = null;
+  }
 
   if (leafletOrigenMarcador) {
     leafletMap.removeLayer(leafletOrigenMarcador);
@@ -4058,9 +4116,19 @@ function renderMapa(resultados) {
       fillOpacity: 0.9,
     }).addTo(leafletMap);
     marcador.bindPopup(`<strong>${d.nombre}</strong><br>${etiquetaDistancia(d)}`);
-    marcador.on("click", () => abrirModal(d));
+    marcador.on("click", () => {
+      abrirModal(d);
+      mostrarRutaEnMapa(d);
+    });
     leafletMarcadores.push(marcador);
   });
+
+  // Si había una ruta dibujada de un destino que sigue en los resultados, la volvemos a mostrar
+  if (rutaSeleccionadaNombre) {
+    const seleccionado = resultados.find((d) => d.nombre === rutaSeleccionadaNombre);
+    if (seleccionado) mostrarRutaEnMapa(seleccionado, true);
+    else limpiarRutaMapa();
+  }
 
   if (resultados.length > 0) {
     const bounds = L.latLngBounds([
@@ -4078,6 +4146,59 @@ function renderMapa(resultados) {
       return `<div class="mapa-leyenda-item"><span class="mapa-leyenda-dot" style="background:${color}"></span>${cat ? cat.label : catId}</div>`;
     })
     .join("");
+}
+
+async function mostrarRutaEnMapa(d) {
+  rutaSeleccionadaNombre = d.nombre;
+  if (el.mapaRutaInfo) {
+    el.mapaRutaInfo.style.display = "flex";
+    el.mapaRutaInfo.innerHTML = `${icon("route", 14)} <span>${t("mapaRutaCalculando")}</span>`;
+  }
+
+  const resultado = await obtenerRutaOSRM([
+    { lat: origen.lat, lng: origen.lng },
+    { lat: d.lat, lng: d.lng },
+  ]);
+
+  // Si mientras esperábamos la respuesta se cambió de destino o se cerró el mapa, ignoramos este resultado
+  if (rutaSeleccionadaNombre !== d.nombre || !leafletMap) return;
+
+  if (leafletRutaLayer) {
+    leafletMap.removeLayer(leafletRutaLayer);
+    leafletRutaLayer = null;
+  }
+
+  if (!resultado) {
+    if (el.mapaRutaInfo) {
+      el.mapaRutaInfo.innerHTML = `${icon("route", 14)} <span>${t("mapaRutaError")}</span> <button id="mapa-ruta-cerrar" aria-label="${t("mapaRutaCerrar")}">${icon("x", 14)}</button>`;
+      document.getElementById("mapa-ruta-cerrar")?.addEventListener("click", limpiarRutaMapa);
+    }
+    return;
+  }
+
+  leafletRutaLayer = L.polyline(resultado.coordenadas, { color: "#C1440E", weight: 4, opacity: 0.8 }).addTo(leafletMap);
+  leafletMap.fitBounds(leafletRutaLayer.getBounds(), { padding: [30, 30] });
+
+  if (el.mapaRutaInfo) {
+    el.mapaRutaInfo.innerHTML = `
+      ${icon("route", 14)}
+      <span>${d.nombre}: ${Math.round(resultado.distanciaKm)} km · ~${formatearTiempo(resultado.duracionMin / 60)}</span>
+      <button id="mapa-ruta-cerrar" aria-label="${t("mapaRutaCerrar")}">${icon("x", 14)}</button>
+    `;
+    document.getElementById("mapa-ruta-cerrar")?.addEventListener("click", limpiarRutaMapa);
+  }
+}
+
+function limpiarRutaMapa() {
+  rutaSeleccionadaNombre = null;
+  if (leafletRutaLayer && leafletMap) {
+    leafletMap.removeLayer(leafletRutaLayer);
+    leafletRutaLayer = null;
+  }
+  if (el.mapaRutaInfo) {
+    el.mapaRutaInfo.style.display = "none";
+    el.mapaRutaInfo.innerHTML = "";
+  }
 }
 
 function calcularResultadosFiltrados() {
@@ -5069,11 +5190,19 @@ function actualizarBarraAcciones() {
   el.accionFlotante.style.display = nItinerario === 0 && nComparar === 0 ? "none" : "flex";
 }
 
+let leafletItinerarioMap = null;
+let itinerarioTokenActual = 0;
+
 function cerrarItinerarioModal() {
   el.itinerarioOverlay.classList.remove("visible");
   if (el.accionFlotante) el.accionFlotante.style.visibility = "visible";
   if (itinerarioFocoPrevio && typeof itinerarioFocoPrevio.focus === "function") {
     itinerarioFocoPrevio.focus();
+  }
+  itinerarioTokenActual++; // invalida cualquier respuesta de ruta que llegue tarde
+  if (leafletItinerarioMap) {
+    leafletItinerarioMap.remove();
+    leafletItinerarioMap = null;
   }
 }
 
@@ -5083,7 +5212,7 @@ function abrirItinerarioModal() {
   if (seleccionados.length < 2) return;
   if (el.accionFlotante) el.accionFlotante.style.visibility = "hidden";
 
-  const { tramos, distanciaTotal } = calcularOrdenOptimo(seleccionados);
+  const { orden, tramos, distanciaTotal } = calcularOrdenOptimo(seleccionados);
   const origenNombre = origen.esUbicacionUsuario ? t("tuUbicacionTexto") : t("caba");
 
   const filas = tramos
@@ -5093,7 +5222,7 @@ function abrirItinerarioModal() {
       <div class="itinerario-fila-dia">${t("itinerarioDia", i + 1)}</div>
       <div class="itinerario-fila-info">
         <div class="itinerario-fila-ruta">${tramo.desde} → <strong>${tramo.hasta}</strong></div>
-        <div class="itinerario-fila-km">${tramo.km} ${t("kmLineaRectaCorto")} · ~${tramo.tiempo}</div>
+        <div class="itinerario-fila-km" data-km-tramo="${i}">${tramo.km} ${t("kmLineaRectaCorto")} · ~${tramo.tiempo}</div>
       </div>
       <button class="itinerario-fila-quitar" data-quitar="${tramo.hasta}" aria-label="${idioma === "en" ? `Remove ${tramo.hasta} from the itinerary` : `Quitar ${tramo.hasta} del itinerario`}">${icon("x", 16)}</button>
     </div>`
@@ -5110,12 +5239,14 @@ function abrirItinerarioModal() {
     <div class="itinerario-lista">${filas}</div>
     <div class="itinerario-total">
       <span>${t("itinerarioDistanciaTotal")}</span>
-      <strong>${distanciaTotal} km</strong>
+      <strong id="itinerario-distancia-total">${distanciaTotal} km</strong>
     </div>
     <div class="itinerario-total">
       <span>${t("itinerarioTiempoTotal")}</span>
-      <strong>~${formatearTiempo(distanciaTotal / (prefsCosto.velocidadPromedio || 80))}</strong>
+      <strong id="itinerario-tiempo-total">~${formatearTiempo(distanciaTotal / (prefsCosto.velocidadPromedio || 80))}</strong>
     </div>
+    <div class="itinerario-ruta-estado" id="itinerario-ruta-estado">${icon("route", 14)} <span>${t("itinerarioCalculandoRuta")}</span></div>
+    <div class="itinerario-mapa" id="itinerario-mapa"></div>
   `;
 
   el.itinerarioOverlay.classList.add("visible");
@@ -5131,6 +5262,77 @@ function abrirItinerarioModal() {
       }
     });
   });
+
+  itinerarioTokenActual++;
+  cargarRutaRealItinerario(itinerarioTokenActual, orden);
+}
+
+async function cargarRutaRealItinerario(token, orden) {
+  const puntos = [{ lat: origen.lat, lng: origen.lng }, ...orden.map((d) => ({ lat: d.lat, lng: d.lng }))];
+  const resultado = await obtenerRutaOSRM(puntos);
+
+  // Si mientras esperábamos se cerró el modal o se volvió a abrir con otra selección, descartamos esta respuesta
+  if (token !== itinerarioTokenActual) return;
+
+  const estadoEl = document.getElementById("itinerario-ruta-estado");
+  if (!resultado) {
+    if (estadoEl) estadoEl.innerHTML = `${icon("route", 14)} <span>${t("itinerarioRutaSinDatos")}</span>`;
+    return;
+  }
+
+  resultado.tramos.forEach((tramoReal, i) => {
+    const filaKm = el.itinerarioModal.querySelector(`[data-km-tramo="${i}"]`);
+    if (filaKm) {
+      filaKm.textContent = `${Math.round(tramoReal.distanciaKm)} km · ~${formatearTiempo(tramoReal.duracionMin / 60)}`;
+    }
+  });
+
+  const totalEl = document.getElementById("itinerario-distancia-total");
+  const tiempoEl = document.getElementById("itinerario-tiempo-total");
+  if (totalEl) totalEl.textContent = `${Math.round(resultado.distanciaKm)} km`;
+  if (tiempoEl) tiempoEl.textContent = `~${formatearTiempo(resultado.duracionMin / 60)}`;
+  if (estadoEl) estadoEl.innerHTML = `${icon("route", 14)} <span>${t("itinerarioRutaReal")} · ${t("rutaFuente")}</span>`;
+
+  dibujarMapaItinerario(orden, resultado.coordenadas);
+}
+
+function dibujarMapaItinerario(orden, coordenadas) {
+  const contenedor = document.getElementById("itinerario-mapa");
+  if (!contenedor) return;
+  if (leafletItinerarioMap) {
+    leafletItinerarioMap.remove();
+    leafletItinerarioMap = null;
+  }
+  leafletItinerarioMap = L.map(contenedor, { scrollWheelZoom: false });
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(leafletItinerarioMap);
+
+  L.circleMarker([origen.lat, origen.lng], {
+    radius: 7,
+    color: "#101913",
+    weight: 1.5,
+    fillColor: "#F2E8CF",
+    fillOpacity: 1,
+  })
+    .addTo(leafletItinerarioMap)
+    .bindTooltip(origen.esUbicacionUsuario ? t("tuUbicacion") : t("caba"), { permanent: false });
+
+  orden.forEach((d, i) => {
+    L.circleMarker([d.lat, d.lng], {
+      radius: 6,
+      color: "#101913",
+      weight: 1,
+      fillColor: "#C1440E",
+      fillOpacity: 0.9,
+    })
+      .addTo(leafletItinerarioMap)
+      .bindTooltip(`${i + 1}. ${d.nombre}`, { permanent: false });
+  });
+
+  const polyline = L.polyline(coordenadas, { color: "#C1440E", weight: 4, opacity: 0.8 }).addTo(leafletItinerarioMap);
+  leafletItinerarioMap.fitBounds(polyline.getBounds(), { padding: [20, 20] });
 }
 
 if (el.itinerarioVerBtn) {
