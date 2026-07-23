@@ -2549,8 +2549,7 @@ function cargarIdioma() {
   } catch (err) {
     console.warn("No se pudo leer el idioma guardado:", err);
   }
-  const idiomaNavegador = (navigator.language || "es").toLowerCase();
-  return idiomaNavegador.startsWith("en") ? "en" : "es";
+  return "es";
 }
 
 let idioma = cargarIdioma();
