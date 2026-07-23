@@ -536,6 +536,36 @@ input:focus-visible {
   letter-spacing: 0.02em;
 }
 
+.menu-mas-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--bg-card-border);
+  background: transparent;
+  color: var(--wheat-dim);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.menu-mas-btn svg:last-child {
+  transition: transform 0.15s;
+}
+
+.menu-mas-btn-abierto svg:last-child {
+  transform: rotate(180deg);
+}
+
+.menu-mas-contenedor {
+  flex-direction: column;
+}
+
 .backup-mensaje {
   margin-top: 14px;
   padding: 10px 12px;

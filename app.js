@@ -3400,6 +3400,7 @@ const TEXTOS = {
     destinoAnterior: "Destino anterior",
     destinoSiguiente: "Destino siguiente",
     footerCredito: "Desarrollado por @sebranda",
+    menuMasBtn: "Más opciones",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3627,6 +3628,7 @@ const TEXTOS = {
     destinoAnterior: "Previous destination",
     destinoSiguiente: "Next destination",
     footerCredito: "Developed by @sebranda",
+    menuMasBtn: "More options",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -3718,6 +3720,8 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  "more-horizontal": '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+  "chevron-down": '<path d="m6 9 6 6 6-6"/>',
   "chevron-left": '<path d="m15 18-6-6 6-6"/>',
   "chevron-right": '<path d="m9 18 6-6-6-6"/>',
   "arrow-up": '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
@@ -4265,6 +4269,8 @@ const el = {
   backupOverlay: document.getElementById("backup-overlay"),
   backupModal: document.getElementById("backup-modal"),
   backupInput: document.getElementById("backup-input"),
+  menuMasBtn: document.getElementById("menu-mas-btn"),
+  menuMasContenedor: document.getElementById("menu-mas-contenedor"),
   qrOverlay: document.getElementById("qr-overlay"),
   qrModal: document.getElementById("qr-modal"),
   sugerirBtn: document.getElementById("sugerir-btn"),
@@ -6462,6 +6468,7 @@ function aplicarIdioma() {
   if (el.modalAnteriorBtn) el.modalAnteriorBtn.setAttribute("aria-label", t("destinoAnterior"));
   if (el.modalSiguienteBtn) el.modalSiguienteBtn.setAttribute("aria-label", t("destinoSiguiente"));
   if (el.footerCredito) el.footerCredito.textContent = t("footerCredito");
+  actualizarBotonMenuMas();
   if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
   if (el.backupBtn) el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;
@@ -6618,6 +6625,32 @@ function abrirBackupModal() {
 if (el.backupBtn) {
   el.backupBtn.innerHTML = `${icon("download", 16)} ${t("backupBtn")}`;
   el.backupBtn.addEventListener("click", abrirBackupModal);
+}
+
+// --- Menú "Más opciones": agrupa Mi resumen / Explorar / Sugerir / Mis datos -
+function actualizarBotonMenuMas() {
+  if (!el.menuMasBtn) return;
+  const abierto = el.menuMasContenedor && el.menuMasContenedor.style.display !== "none";
+  el.menuMasBtn.innerHTML = `${icon("more-horizontal", 16)} ${t("menuMasBtn")} ${icon("chevron-down", 14)}`;
+  el.menuMasBtn.setAttribute("aria-expanded", abierto ? "true" : "false");
+  el.menuMasBtn.classList.toggle("menu-mas-btn-abierto", !!abierto);
+}
+
+if (el.menuMasBtn && el.menuMasContenedor) {
+  actualizarBotonMenuMas();
+  el.menuMasBtn.addEventListener("click", () => {
+    const abierto = el.menuMasContenedor.style.display !== "none";
+    el.menuMasContenedor.style.display = abierto ? "none" : "flex";
+    actualizarBotonMenuMas();
+  });
+  // Cerrar el menú al elegir cualquiera de las 4 opciones
+  [el.resumenBtn, el.explorarBtn, el.sugerirBtn, el.backupBtn].forEach((btn) => {
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      el.menuMasContenedor.style.display = "none";
+      actualizarBotonMenuMas();
+    });
+  });
 }
 
 if (el.backupInput) {

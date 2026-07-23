@@ -84,14 +84,18 @@
 
     <button id="sorpresa-btn" class="sorpresa-btn"></button>
 
-    <button id="resumen-btn" class="resumen-btn"></button>
+    <button id="menu-mas-btn" class="menu-mas-btn" aria-expanded="false"></button>
 
-    <button id="explorar-btn" class="explorar-btn"></button>
+    <div id="menu-mas-contenedor" class="menu-mas-contenedor" style="display:none">
+      <button id="resumen-btn" class="resumen-btn"></button>
 
-    <button id="sugerir-btn" class="sugerir-btn"></button>
+      <button id="explorar-btn" class="explorar-btn"></button>
 
-    <button id="backup-btn" class="backup-btn"></button>
-    <input type="file" id="backup-input" accept="application/json,.json" style="display:none" />
+      <button id="sugerir-btn" class="sugerir-btn"></button>
+
+      <button id="backup-btn" class="backup-btn"></button>
+      <input type="file" id="backup-input" accept="application/json,.json" style="display:none" />
+    </div>
 
     <div class="vista-toggle" id="vista-toggle" role="group" aria-label="Tipo de vista">
       <button class="vista-btn vista-activo" data-vista="lista" aria-pressed="true">Lista</button>
