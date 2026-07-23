@@ -1434,6 +1434,27 @@ const DESTINOS = [
     tips: ["Es un viaje largo, conviene combinarlo con Trenque Lauquen u otro destino del oeste", "Buen destino para caminatas tranquilas por el Circuito de la Salud", "Consultar horarios del museo local antes de ir"],
     presupuesto: "Bajo.",
   },
+  {
+    nombre: "Marcos Paz", km: 50, categoria: "campo", lat: -34.7761, lng: -58.8391,
+    nota: "Capital Nacional del Jamón Crudo y reservas naturales a solo 50 km de CABA.",
+    historia: "El partido de Marcos Paz se formó a fines del siglo XIX en tierras de estancias del oeste bonaerense, tomando su nombre en homenaje al político y diplomático argentino Marcos Paz. Su cercanía con Buenos Aires y su clima favorable lo convirtieron durante buena parte del siglo XX en una zona de quintas y casas de fin de semana para familias porteñas. La construcción del embalse Ingeniero Roggero, sobre los arroyos que forman el río Reconquista, sumó un atractivo natural que todavía es el gran pulmón verde del partido. Con el tiempo, la producción de fiambres artesanales, en especial el jamón crudo, se convirtió en la principal seña de identidad gastronómica de Marcos Paz, que hoy se promociona oficialmente como su Capital Nacional.",
+    datoCurioso: "Marcos Paz es reconocida oficialmente como la Capital Nacional del Jamón Crudo, gracias a una tradición fiambrera que combina la herencia de inmigrantes europeos con la producción porcina de la zona.",
+    comoLlegar: "Ruta Provincial 40, aproximadamente 50 minutos en auto.",
+    cuandoIr: "Primavera y otoño para las actividades al aire libre.",
+    duracion: "Día completo.",
+    comoMoverse: "El centro se recorre a pie; para el Embalse Roggero y las estancias conviene auto.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Parque Municipal y Lago de Marcos Paz." },
+      { momento: "Mediodía", actividad: "Almuerzo con jamón crudo y fiambres artesanales locales." },
+      { momento: "Tarde", actividad: "Embalse Ingeniero Roggero o Estancia Santa Rita." },
+    ],
+    otrosAtractivos: ["Embalse Ingeniero Roggero, sobre el río Reconquista", "Estancia Santa Rita, con visitas guiadas", "Parque Municipal y Lago de Marcos Paz", "Productores artesanales de jamón crudo y fiambres"],
+    eventos: ["Ferias artesanales y festivales de música y danza, todo el año"],
+    dondeComer: ["Restaurantes y fiambrerías especializadas en jamón crudo", "Comedores de campo"],
+    dondeAlojarse: ["Hospedajes del centro", "Estancias con alojamiento"],
+    tips: ["Comprar jamón crudo artesanal directo de los productores locales", "El Embalse Roggero es una buena opción para pesca y paseos en bici", "Muy cerca de CABA, ideal para una salida de un solo día"],
+    presupuesto: "Bajo a medio.",
+  },
 ];
 
 // --- Traducción al inglés del contenido de cada destino ---------------------
