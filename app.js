@@ -1288,7 +1288,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el acceso a la laguna y el paseo por el pueblo son gratuitos, el gasto principal es comida y alguna actividad náutica.",
   },
   {
-    nombre: "Ramallo", km: 200, categoria: "rio", lat: -33.4972, lng: -60.0169, nuevo: true,
+    nombre: "Ramallo", km: 200, categoria: "rio", lat: -33.4972, lng: -60.0169, fechaAgregado: "2026-07-23",
     nota: "Playas de río, un castillo romántico y el límite con Entre Ríos.",
     historia: "El partido de Ramallo se creó en 1864 con tierras separadas de San Nicolás, San Pedro, Arrecifes y Pergamino, en el extremo noreste de la provincia, sobre la costa del río Paraná. Debe su nombre a Bartolomé Ramallo, uno de los primeros pobladores de la zona. A veinte kilómetros del centro, el poeta Rafael Obligado, autor del poema gauchesco \"Santos Vega\", construyó a comienzos del siglo XX un castillo como homenaje a su esposa, Isabel Gómez Langenheim, hoy uno de los grandes atractivos patrimoniales del partido. Con el tiempo, Ramallo desarrolló una fuerte infraestructura de miniturismo náutico gracias a sus playas de arena sobre el Paraná. Hoy combina ese perfil fluvial con barrancas, cascadas y una intensa vida al aire libre.",
     datoCurioso: "El Castillo de Obligado, a 20 km del centro, fue un proyecto personal del poeta Rafael Obligado como homenaje romántico a su esposa, y no un encargo de gobierno ni de otra familia adinerada.",
@@ -1309,7 +1309,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Salto", km: 180, categoria: "rio", lat: -34.2903, lng: -59.7796, nuevo: true,
+    nombre: "Salto", km: 180, categoria: "rio", lat: -34.2903, lng: -59.7796, fechaAgregado: "2026-07-23",
     nota: "Un salto de agua, el primer molino hidráulico del país y tango.",
     historia: "El poblado nació a mediados del siglo XVIII, cuando el capitán Juan de San Martín estableció la Guardia Avanzada del Salto para contener los avances indígenas en la zona, a la que en 1752 se sumó la Compañía de Blandengues \"La Invencible\". El nombre proviene de un salto de agua producido por afloramientos rocosos en el río homónimo, que aguas abajo se convierte en el río Arrecifes. Durante los siglos XIX y XX se desarrolló una importante actividad agrícola e industrial, de la que todavía se conservan las ruinas de lo que fue el primer molino hidráulico del país. Hoy Salto combina ese patrimonio con un perfil de pueblo tranquilo, tradición religiosa y una fuerte identidad tanguera.",
     datoCurioso: "Las ruinas del Molino Quemado, junto al salto de agua que da nombre al pueblo, pertenecieron al primer molino hidráulico de la Argentina, que llegó a exportar harina a otros países.",
@@ -1330,7 +1330,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Arrecifes", km: 180, categoria: "rio", lat: -34.0611, lng: -60.1097, nuevo: true,
+    nombre: "Arrecifes", km: 180, categoria: "rio", lat: -34.0611, lng: -60.1097, fechaAgregado: "2026-07-23",
     nota: "Cuna de campeones del automovilismo y un monumento al inmigrante único en Latinoamérica.",
     historia: "El primer fortín de Arrecifes se levantó en 1739 junto al río homónimo, en un cruce de caminos coloniales del noreste bonaerense. El poblado creció durante las guerras de la independencia y se consolidó como partido en 1901. A lo largo del siglo XX se ganó el apodo de \"Cuna de Campeones del Automovilismo\", declarado oficialmente por la Legislatura bonaerense, gracias a pilotos oriundos de la zona como José Froilán González, el primer piloto latinoamericano en ganar un Gran Premio de Fórmula 1. Hoy Arrecifes combina ese perfil automovilístico con un balneario municipal sobre el río y un patrimonio histórico centrado en su plaza principal.",
     datoCurioso: "El Monumento al Inmigrante de la plaza central, obra del escultor argentino Leo Vinci, mide más de 7 metros de altura y es único en su tipo en toda Latinoamérica.",
@@ -1351,7 +1351,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Rojas", km: 230, categoria: "campo", lat: -34.1908, lng: -60.7297, nuevo: true,
+    nombre: "Rojas", km: 230, categoria: "campo", lat: -34.1908, lng: -60.7297, fechaAgregado: "2026-07-23",
     nota: "La enigmática Casa Octogonal, una fortaleza rural del siglo XIX.",
     historia: "El partido de Rojas se fundó en 1777 por orden del virrey Vértiz, en una zona de frontera que buscaba asegurar el territorio frente a los pueblos originarios. En ese contexto se construyó, en la zona rural de La Rojera, la llamada Casa Octogonal: una fortaleza de ocho lados, muros gruesos y solo dos puertas, pensada como refugio ante los malones. Con el correr de las décadas, el partido se consolidó como una zona agrícola tranquila del noroeste bonaerense, atravesada por el río Rojas. En los últimos años, el municipio impulsó la puesta en valor de ese río para el turismo activo, con travesías en kayak y actividades al aire libre.",
     datoCurioso: "La Casa Octogonal, a 10 km al norte de la ciudad, tiene ocho lados, muros gruesos, ventanas pequeñas, un aljibe en el centro y solo dos puertas (norte y sur): un diseño pensado como bunker defensivo más que como vivienda.",
@@ -1372,7 +1372,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Bragado", km: 210, categoria: "campo", lat: -35.118, lng: -60.4928, nuevo: true,
+    nombre: "Bragado", km: 210, categoria: "campo", lat: -35.118, lng: -60.4928, fechaAgregado: "2026-07-23",
     nota: "Laguna, arquitectura de principios de siglo y la Fiesta Nacional del Caballo.",
     historia: "Bragado se desarrolló desde fines del siglo XIX como centro de servicios de una amplia zona agrícola del oeste bonaerense, con un fuerte perfil arquitectónico que todavía conserva en su Palacio Municipal y en la iglesia Santa Rosa de Lima. El tenor Florencio Constantino, de gira por el país a comienzos del siglo XX, quedó tan agradecido con la hospitalidad del pueblo que mandó a construir a su costa el Complejo Cultural que hoy lleva su nombre, inaugurado en 1912. Con el tiempo, Bragado desarrolló una fuerte tradición hípica que la llevó a albergar la Fiesta Nacional del Caballo. Hoy combina ese patrimonio arquitectónico con el Parque San Martín y su laguna, el gran espacio verde de la ciudad.",
     datoCurioso: "El Complejo Cultural Florencio Constantino, inaugurado en 1912, fue un regalo del propio tenor ítalo-argentino a la ciudad, en agradecimiento por la calidez con la que fue recibido durante una gira.",
@@ -1393,7 +1393,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Los Toldos", km: 300, categoria: "campo", lat: -34.9917, lng: -61.0333, nuevo: true,
+    nombre: "Los Toldos", km: 300, categoria: "campo", lat: -34.9917, lng: -61.0333, fechaAgregado: "2026-07-23",
     nota: "La infancia de Eva Perón, herencia mapuche y el queso Gouda.",
     historia: "Los Toldos nació a fines del siglo XIX alrededor de una estación del Ferrocarril Oeste, en tierras donde décadas antes se había asentado la tribu mapuche liderada por el cacique Coliqueo, que da origen al nombre del lugar. En 1908 se creó el partido de General Viamonte, en homenaje a un prócer de la independencia, aunque la ciudad cabecera conservó el nombre popular de Los Toldos. El pueblo alcanzó relevancia nacional al ser el lugar donde transcurrió la infancia de Eva Duarte, luego Eva Perón, en una casa humilde con piso de tierra que hoy es museo. A mediados del siglo XX, la llegada de la familia holandesa Doeswijk trajo la receta del queso Gouda, que con el tiempo se convirtió en otro sello distintivo del partido.",
     datoCurioso: "La casa donde Eva Perón vivió parte de su infancia fue declarada Monumento Histórico Nacional en 2002, y en 2019, por el centenario de su nacimiento, se inauguró a su alrededor el actual Museo Provincial Casa Evita.",
@@ -1414,7 +1414,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Florentino Ameghino", km: 430, categoria: "campo", lat: -34.817, lng: -62.45, nuevo: true,
+    nombre: "Florentino Ameghino", km: 430, categoria: "campo", lat: -34.817, lng: -62.45, fechaAgregado: "2026-07-23",
     nota: "Un pueblo tranquilo que homenajea al gran paleontólogo argentino.",
     historia: "El pueblo se fundó en 1910 en tierras que hasta pocas décadas antes habían sido territorio de los pueblos originarios liderados por el cacique Calfulcurá, en el límite noroeste de la provincia. Tomó su nombre en homenaje a Florentino Ameghino, el naturalista y paleontólogo argentino que revolucionó el estudio de los fósiles sudamericanos y cuyos hallazgos en la región todavía atraen a investigadores. La llegada de inmigrantes españoles e italianos dejó su huella en instituciones como la Sociedad Italiana, que hoy funciona como centro cultural y biblioteca. Reclamado por un movimiento popular desde 1912, el partido homónimo recién se creó en 1991, casi ochenta años después. Hoy Florentino Ameghino es un pueblo tranquilo de calles arboladas, con la vida rural como principal motor económico.",
     datoCurioso: "El partido de Florentino Ameghino tardó casi 80 años en crearse desde el primer reclamo popular de 1912: recién se independizó de General Pinto en 1991, por ley de la Legislatura bonaerense.",
@@ -1435,7 +1435,7 @@ const DESTINOS = [
     presupuesto: "Bajo.",
   },
   {
-    nombre: "Marcos Paz", km: 50, categoria: "campo", lat: -34.7761, lng: -58.8391, nuevo: true,
+    nombre: "Marcos Paz", km: 50, categoria: "campo", lat: -34.7761, lng: -58.8391, fechaAgregado: "2026-07-23",
     nota: "Capital Nacional del Jamón Crudo y reservas naturales a solo 50 km de CABA.",
     historia: "El partido de Marcos Paz se formó a fines del siglo XIX en tierras de estancias del oeste bonaerense, tomando su nombre en homenaje al político y diplomático argentino Marcos Paz. Su cercanía con Buenos Aires y su clima favorable lo convirtieron durante buena parte del siglo XX en una zona de quintas y casas de fin de semana para familias porteñas. La construcción del embalse Ingeniero Roggero, sobre los arroyos que forman el río Reconquista, sumó un atractivo natural que todavía es el gran pulmón verde del partido. Con el tiempo, la producción de fiambres artesanales, en especial el jamón crudo, se convirtió en la principal seña de identidad gastronómica de Marcos Paz, que hoy se promociona oficialmente como su Capital Nacional.",
     datoCurioso: "Marcos Paz es reconocida oficialmente como la Capital Nacional del Jamón Crudo, gracias a una tradición fiambrera que combina la herencia de inmigrantes europeos con la producción porcina de la zona.",
@@ -1456,7 +1456,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Carlos Casares", km: 316, categoria: "campo", lat: -35.6167, lng: -61.3833, nuevo: true,
+    nombre: "Carlos Casares", km: 316, categoria: "campo", lat: -35.6167, lng: -61.3833, fechaAgregado: "2026-07-23",
     nota: "Cuna Nacional del Girasol y las Huellas de Fortines a caballo.",
     historia: "El partido de Carlos Casares se formó a fines del siglo XIX en una zona que supo ser frontera con los pueblos originarios, de la que todavía se conservan fortines y relatos de enfrentamientos históricos. Tomó su nombre en homenaje a Carlos Casares, militar y político que participó de las luchas por la independencia. Recibió a inmigrantes españoles, italianos e israelitas, cuya convivencia quedó representada en el propio escudo del partido. Con el correr de las décadas se consolidó como una región agrícola ganadera, con el girasol como cultivo insignia, que lo convirtió en sede permanente de la Fiesta Nacional del Girasol. Hoy combina ese perfil rural con un circuito histórico llamado \"Huellas de Fortines\", que recorre a caballo o en carruaje cien kilómetros de la vieja frontera oeste bonaerense.",
     datoCurioso: "El circuito \"Huellas de Fortines\" propone recorrer 100 kilómetros a caballo o en carruaje, con relatos que recrean los enfrentamientos entre indígenas y militares que definieron la antigua Frontera Oeste de la provincia.",
@@ -1477,7 +1477,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "25 de Mayo", km: 225, categoria: "rio", lat: -35.4319, lng: -60.1725, nuevo: true,
+    nombre: "25 de Mayo", km: 225, categoria: "rio", lat: -35.4319, lng: -60.1725, fechaAgregado: "2026-07-23",
     nota: "La Ciudad del Carnaval, con el único corsódromo fijo de la provincia.",
     historia: "El partido de 25 de Mayo nació en torno al Fortín Mulitas, un puesto militar de la vieja línea de frontera bonaerense, y tomó su nombre actual en homenaje a la Revolución de Mayo de 1810. La laguna que le dio origen al pueblo, hoy conocida como Laguna Mulitas, se convirtió con el tiempo en el gran espacio recreativo de la ciudad. Desde mediados del siglo XX, 25 de Mayo desarrolló una fuerte tradición carnavalera que la llevó a construir el único corsódromo fijo de la provincia de Buenos Aires, lo que le valió el apodo de \"la Ciudad del Carnaval\". Hoy combina esa identidad festiva con el turismo de naturaleza alrededor de sus lagunas.",
     datoCurioso: "25 de Mayo cuenta con el único corsódromo fijo de toda la provincia de Buenos Aires, escenario al aire libre donde cada verano compiten más de 500 bailarines por la corona de la Reina Provincial del Carnaval.",
@@ -1498,7 +1498,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio: el acceso al parque de la laguna es gratuito, el gasto principal es comida y alojamiento.",
   },
   {
-    nombre: "Bolívar", km: 336, categoria: "campo", lat: -36.2333, lng: -61.1167, nuevo: true,
+    nombre: "Bolívar", km: 336, categoria: "campo", lat: -36.2333, lng: -61.1167, fechaAgregado: "2026-07-23",
     nota: "Laguna San Luis, la Pulpería Mira Mar y el escenario de una batalla clave de la Conquista del Desierto.",
     historia: "Bolívar nació en 1869 con la construcción del Fortín San Carlos, durante el avance de la frontera hacia el oeste bonaerense. Apenas tres años después, en 1872, se libró cerca del fuerte la batalla de San Carlos entre las tropas del general Rivas y las del cacique Calfucurá, uno de los enfrentamientos más importantes de la Conquista del Desierto. Con el correr de las décadas, la ciudad se consolidó como centro de una amplia zona agrícola ganadera del centro-norte de la provincia. En 1884, en el paraje rural Mira Mar, la familia vasca Urrutia levantó una pulpería que sigue en manos de sus descendientes y que hoy es una de las últimas de su estilo en pie en la provincia. Hoy Bolívar combina ese patrimonio histórico con la Laguna San Luis, recientemente recuperada como espacio de pesca y deportes náuticos.",
     datoCurioso: "La Pulpería Mira Mar, fundada en 1884 por la familia Urrutia y todavía atendida por sus descendientes, conserva pisos y paredes de barro originales, y hasta la marca de una vieja pelea de facones grabada en una reja.",
@@ -1519,7 +1519,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Ensenada", km: 60, categoria: "rio", lat: -34.8667, lng: -57.9, nuevo: true,
+    nombre: "Ensenada", km: 60, categoria: "rio", lat: -34.8667, lng: -57.9, fechaAgregado: "2026-07-23",
     nota: "Selva subtropical a las puertas de La Plata y kilómetros de playas de río.",
     historia: "Ensenada nació a comienzos del siglo XVIII alrededor de la estancia de la familia Barragán, que dio origen al nombre \"Ensenada de Barragán\" con el que se conoció durante mucho tiempo a la zona. Su bahía natural, resguardada de los vientos, la convirtió en un punto clave para la navegación desde el período colonial, y con el tiempo se transformó en uno de los puertos más importantes del país, con una fuerte identidad industrial y obrera. A pocos minutos del centro urbano se conserva la Reserva Natural Punta Lara, de 450 hectáreas, la selva en galería más austral de la Argentina, con especies subtropicales que sobrevivieron gracias al microclima del río. Hoy Ensenada combina ese perfil portuario e industrial con catorce kilómetros de costa recreativa sobre el Río de la Plata.",
     datoCurioso: "La Reserva Natural Punta Lara es la selva en galería más austral del país: un fragmento de bosque de características subtropicales, con especies como el laurel y el ceibo, que sobrevive gracias al calor que retiene el Río de la Plata.",
@@ -1540,7 +1540,7 @@ const DESTINOS = [
     presupuesto: "Bajo: las playas y la reserva son de acceso gratuito o muy económico.",
   },
   {
-    nombre: "Magdalena", km: 100, categoria: "rio", lat: -35.0333, lng: -57.5167, nuevo: true,
+    nombre: "Magdalena", km: 100, categoria: "rio", lat: -35.0333, lng: -57.5167, fechaAgregado: "2026-07-23",
     nota: "Calles empedradas coloniales, playas de río y una reserva de biosfera de la UNESCO.",
     historia: "El actual partido de Magdalena forma parte de las tierras que Juan de Garay repartió en 1580 bajo el nombre de \"Valle de Santa Ana\", luego conocido como Pago de la Magdalena, una de las jurisdicciones más antiguas del actual territorio bonaerense. Durante el período colonial funcionó como zona de estancias y paso obligado hacia el sur de la provincia, herencia que todavía se nota en su casco urbano de calles empedradas y arquitectura de época. En el siglo XX consolidó su perfil de balneario popular gracias a sus playas de arena fina sobre el Río de la Plata, sin perder el carácter rural y gauchesco del resto del partido. Junto con Punta Indio, buena parte de su territorio integra el Parque Costero del Sur, declarado Reserva de Biosfera por la UNESCO.",
     datoCurioso: "El Parque Costero del Sur, que Magdalena comparte con Punta Indio, fue declarado Reserva de Biosfera por la UNESCO por conservar uno de los últimos relictos de bosque nativo de tala, coronillo y sombra de toro de toda la costa del Río de la Plata.",
@@ -1561,7 +1561,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Punta Indio", km: 150, categoria: "playa", lat: -35.3833, lng: -57.6167, nuevo: true,
+    nombre: "Punta Indio", km: 150, categoria: "playa", lat: -35.3833, lng: -57.6167, fechaAgregado: "2026-07-23",
     nota: "Playas agrestes de agua dulce, cielos sin contaminación lumínica y sitios arqueológicos milenarios.",
     historia: "El partido de Punta Indio se creó en 1994 al independizarse de Magdalena, tomando el nombre de su localidad más representativa, Punta del Indio, aunque su ciudad cabecera es Verónica. La zona conserva alrededor de veinte sitios arqueológicos de pueblos originarios de entre 1600 y 1800 años de antigüedad, una de las mayores concentraciones de este tipo en toda la provincia. Su historia también está ligada al campo y a la Base Aeronaval Punta Indio, y la vieja estación de tren de Verónica, cerrada en 1978, hoy funciona como museo histórico. Junto con Magdalena, buena parte de su territorio integra el Parque Costero del Sur, declarado Reserva de Biosfera por la UNESCO en 1984 por sus exclusivos montes de tala sobre albardones de conchilla.",
     datoCurioso: "Punta Indio conserva unos veinte sitios arqueológicos de pueblos originarios, de entre 1600 y 1800 años de antigüedad, una de las concentraciones más importantes de este tipo en toda la provincia de Buenos Aires.",
@@ -1582,7 +1582,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Las Flores", km: 195, categoria: "campo", lat: -36.033, lng: -59.1, nuevo: true,
+    nombre: "Las Flores", km: 195, categoria: "campo", lat: -36.033, lng: -59.1, fechaAgregado: "2026-07-23",
     nota: "Cuna de campeones del Dakar y una laguna con nombre intrigante.",
     historia: "Las Flores fue fundada en 1839 por decreto de Juan Manuel de Rosas, en el centro de la provincia, sobre el arroyo homónimo que desemboca en el río Salado. Con la llegada del ferrocarril a fines del siglo XIX se convirtió en uno de los nudos ferroviarios más importantes de la provincia, con más de 1.200 empleados en sus talleres y una fuerte identidad obrera en torno a la estación. El actual Palacio Municipal, de 1878, es obra del arquitecto italiano Pedro Petrocchi, autor también de la iglesia Nuestra Señora del Carmen. Con el tiempo, Las Flores se volvió conocida además por sus deportistas: allí nacieron los hermanos Marcos y Alejandro Patronelli, ambos ganadores del Rally Dakar en la categoría cuatriciclos. Hoy combina ese perfil ferroviario e industrial con el Parque Plaza Montero y su laguna, el gran atractivo natural de la ciudad.",
     datoCurioso: "La Laguna del Difunto Manuel, dentro del Parque Plaza Montero, debe su curioso nombre a una vieja leyenda popular sobre un hombre llamado Manuel que habría muerto ahogado en sus aguas.",
@@ -1603,7 +1603,7 @@ const DESTINOS = [
     presupuesto: "Bajo.",
   },
   {
-    nombre: "Maipú", km: 330, categoria: "campo", lat: -36.85, lng: -57.8667, nuevo: true,
+    nombre: "Maipú", km: 330, categoria: "campo", lat: -36.85, lng: -57.8667, fechaAgregado: "2026-07-23",
     nota: "La Laguna Kakel Huincul y un festival de cine de humor único en el país.",
     historia: "Maipú se desarrolló en torno al Fortín Kakel Huincul, construido en 1815 a orillas de la laguna homónima para proteger a los primeros pobladores de los malones y servir de posta a las carretas que iban hacia el sur de la provincia. El pueblo tomó luego el nombre de Maipú en homenaje a la batalla de 1818 que selló la independencia de Chile. La llegada de inmigrantes españoles dejó su huella en el antiguo Prado Español, hoy recuperado como patrimonio local. Desde 2008, Maipú es sede de un festival de cine de humor único en el país, que reúne cortometrajes de más de una decena de países. Hoy combina ese perfil cultural con un fuerte turismo rural centrado en su laguna.",
     datoCurioso: "Junto a la Laguna Kakel Huincul todavía puede verse el llamado \"Cementerio Indio\", vestigio del viejo fortín que en 1815 protegía a los pobladores de los malones.",
@@ -1624,7 +1624,7 @@ const DESTINOS = [
     presupuesto: "Bajo a medio.",
   },
   {
-    nombre: "Castelli", km: 250, categoria: "rio", lat: -36.0833, lng: -57.8, nuevo: true,
+    nombre: "Castelli", km: 250, categoria: "rio", lat: -36.0833, lng: -57.8, fechaAgregado: "2026-07-23",
     nota: "Laguna La Rosita y el castillo de la trágica Felicitas Guerrero.",
     historia: "Castelli se desarrolló como pueblo de la cuenca del río Salado, en una zona de estancias del sudeste bonaerense. Sobre la Autovía 2, cerca del puente que cruza el Salado, se encuentra la Estancia La Raquel, una construcción con forma de castillo medieval de colores llamativos que perteneció a la familia de Felicitas Guerrero, la célebre heredera bonaerense asesinada en 1872 en un crimen pasional que todavía es recordado como uno de los episodios más resonantes de la alta sociedad porteña del siglo XIX. Con el tiempo, el pueblo desarrolló su identidad alrededor de la Laguna La Rosita, a dos kilómetros del casco urbano. Hoy Castelli combina ese patrimonio de estancias con la pesca deportiva y el ritmo tranquilo de un pueblo de la Pampa Húmeda.",
     datoCurioso: "La Estancia La Raquel, con forma de castillo medieval, perteneció a la familia de Felicitas Guerrero, la heredera cuyo asesinato en 1872 por un pretendiente despechado conmocionó a la sociedad porteña de la época.",
@@ -3941,6 +3941,15 @@ function distanciaHaversine(lat1, lng1, lat2, lng2) {
 }
 
 // Devuelve los destinos más cercanos a "d" (no desde el origen del usuario, sino entre los dos lugares)
+const DIAS_BADGE_NUEVO = 30;
+
+// El badge "Nuevo" se calcula solo a partir de la fecha de alta: no hace falta sacarlo a mano.
+function esDestinoNuevo(d) {
+  if (!d.fechaAgregado) return false;
+  const dias = (Date.now() - new Date(`${d.fechaAgregado}T00:00:00`).getTime()) / (1000 * 60 * 60 * 24);
+  return dias >= 0 && dias <= DIAS_BADGE_NUEVO;
+}
+
 function destinosCercanos(d, cantidad) {
   return DESTINOS.filter((otro) => otro.nombre !== d.nombre)
     .map((otro) => ({ destino: otro, km: Math.round(distanciaHaversine(d.lat, d.lng, otro.lat, otro.lng)) }))
@@ -4390,7 +4399,7 @@ function render() {
             <div class="card-title-row">
               <h3 class="${esVisitado ? "tachado" : ""}">${d.nombre}</h3>
               ${icon(CATEGORIAS.find((c) => c.id === d.categoria)?.icon || "map-pin", 14, "#7C9473")}
-              ${d.nuevo ? `<span class="card-nuevo-badge">${t("nuevoBadge")}</span>` : ""}
+              ${esDestinoNuevo(d) ? `<span class="card-nuevo-badge">${t("nuevoBadge")}</span>` : ""}
               ${esVisitado ? `<span class="card-visitado-badge">${icon("check-circle", 12)} ${t("visitadoBadge")}</span>` : ""}
               ${esVisitado && obtenerNotaPersonal(d.nombre).puntaje > 0 ? `<span class="card-puntaje">${"★".repeat(obtenerNotaPersonal(d.nombre).puntaje)}${"☆".repeat(5 - obtenerNotaPersonal(d.nombre).puntaje)}</span>` : ""}
             </div>
