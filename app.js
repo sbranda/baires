@@ -3390,6 +3390,13 @@ const TEXTOS = {
     explorarPorPresupuesto: "Por presupuesto",
     explorarNuevos: (n) => `${n} ${n === 1 ? "destino nuevo" : "destinos nuevos"} sumados en el último mes.`,
     volverArriba: "Volver arriba",
+    indiceRapido: "Ir directo a una sección",
+    indiceHistoria: "Historia",
+    indiceLlegar: "Cómo llegar",
+    indiceItinerario: "Itinerario",
+    indiceAtractivos: "Atractivos",
+    indiceCosto: "Costo",
+    indiceCercanos: "Cerca tuyo",
     costoNota: (km) => `Estimado de ida y vuelta (${km} km en total). Ajustá los valores según tu vehículo y los precios del día; los peajes y el tiempo real varían mucho según la ruta y el tránsito.`,
     costoCombustible: "Combustible",
     costoPeajes: "Peajes",
@@ -3607,6 +3614,13 @@ const TEXTOS = {
     explorarPorPresupuesto: "By budget",
     explorarNuevos: (n) => `${n} new ${n === 1 ? "destination" : "destinations"} added in the last month.`,
     volverArriba: "Back to top",
+    indiceRapido: "Jump to a section",
+    indiceHistoria: "History",
+    indiceLlegar: "Getting there",
+    indiceItinerario: "Itinerary",
+    indiceAtractivos: "Attractions",
+    indiceCosto: "Cost",
+    indiceCercanos: "Nearby",
     costoNota: (km) => `Round-trip estimate (${km} km total). Adjust the values for your vehicle and today's prices; tolls and real travel time vary a lot by route and traffic.`,
     costoCombustible: "Fuel",
     costoPeajes: "Tolls",
@@ -4552,9 +4566,9 @@ function render() {
   }
 }
 
-function seccionLista(iconName, titulo, items) {
+function seccionLista(iconName, titulo, items, id) {
   return `
-    <div class="modal-subhead">${icon(iconName, 14)} ${titulo}</div>
+    <div class="modal-subhead"${id ? ` id="${id}"` : ""}>${icon(iconName, 14)} ${titulo}</div>
     <ul class="modal-lista">
       ${items.map((it) => `<li>${it}</li>`).join("")}
     </ul>
@@ -4673,6 +4687,15 @@ function abrirModal(d) {
     ${esBuenMomentoParaIr(d) ? `<span class="modal-temporada-badge">${icon("sun", 12)} ${t("buenMomento")}</span>` : ""}
     <p class="modal-nota">${dt.nota}</p>
 
+    <div class="modal-indice" id="modal-indice" role="group" aria-label="${t("indiceRapido")}">
+      <button data-ir-a="modal-seccion-historia">${t("indiceHistoria")}</button>
+      <button data-ir-a="modal-seccion-llegar">${t("indiceLlegar")}</button>
+      <button data-ir-a="modal-seccion-itinerario">${t("indiceItinerario")}</button>
+      <button data-ir-a="modal-seccion-atractivos">${t("indiceAtractivos")}</button>
+      <button data-ir-a="modal-seccion-costo">${t("indiceCosto")}</button>
+      <button data-ir-a="modal-seccion-cercanos">${t("indiceCercanos")}</button>
+    </div>
+
     <div class="modal-nota-personal" id="modal-nota-personal" data-nombre="${d.nombre}" style="display:none">
       <div class="modal-subhead">${icon("star", 14)} ${t("modalNotaPersonal")}</div>
       <div class="nota-personal-estrellas" id="nota-personal-estrellas"></div>
@@ -4681,13 +4704,13 @@ function abrirModal(d) {
 
     <div class="modal-foto" id="modal-foto" data-nombre="${d.nombre}"></div>
 
-    <div class="modal-subhead">${icon("scroll", 14)} ${t("modalHistoria")}</div>
+    <div class="modal-subhead" id="modal-seccion-historia">${icon("scroll", 14)} ${t("modalHistoria")}</div>
     <p class="modal-parrafo">${dt.historia}</p>
 
     <div class="modal-subhead">${icon("lightbulb", 14)} ${t("modalDatoCurioso")}</div>
     <p class="modal-parrafo">${dt.datoCurioso}</p>
 
-    <div class="modal-info">
+    <div class="modal-info" id="modal-seccion-llegar">
       <div class="info-row">
         ${icon("car", 16, "#7C9473")}
         <div>
@@ -4726,12 +4749,12 @@ function abrirModal(d) {
     <div class="modal-subhead">${icon("cloud", 14)} ${t("modalClima")}</div>
     <div class="modal-clima" id="modal-clima" data-nombre="${d.nombre}"></div>
 
-    <div class="modal-subhead">${icon("sparkles", 14)} ${t("modalItinerario")}</div>
+    <div class="modal-subhead" id="modal-seccion-itinerario">${icon("sparkles", 14)} ${t("modalItinerario")}</div>
     <ul class="modal-timeline">
       ${dt.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
     </ul>
 
-    ${seccionLista("map-pin", t("modalOtrosAtractivos"), dt.otrosAtractivos)}
+    ${seccionLista("map-pin", t("modalOtrosAtractivos"), dt.otrosAtractivos, "modal-seccion-atractivos")}
     ${seccionLista("calendar-days", t("modalEventos"), dt.eventos)}
     ${seccionLista("utensils", t("modalDondeComer"), dt.dondeComer)}
     ${seccionLista("bed", t("modalDondeAlojarse"), dt.dondeAlojarse)}
@@ -4740,10 +4763,10 @@ function abrirModal(d) {
     <div class="modal-subhead">${icon("wallet", 14)} ${t("modalPresupuesto")}</div>
     <p class="modal-parrafo modal-presupuesto">${dt.presupuesto}</p>
 
-    <div class="modal-subhead">${icon("car", 14)} ${t("modalCosto")}</div>
+    <div class="modal-subhead" id="modal-seccion-costo">${icon("car", 14)} ${t("modalCosto")}</div>
     <div class="modal-costo" id="modal-costo" data-km="${kmDesdeOrigen(d)}"></div>
 
-    <div class="modal-subhead">${icon("map-pin", 14)} ${t("modalCercanos")}</div>
+    <div class="modal-subhead" id="modal-seccion-cercanos">${icon("map-pin", 14)} ${t("modalCercanos")}</div>
     <div class="cercanos-lista">
       ${cercanos
         .map(
@@ -4762,6 +4785,12 @@ function abrirModal(d) {
   if (el.modalArribaBtn) el.modalArribaBtn.style.display = "none";
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
   document.getElementById("modal-close").focus();
+  el.modal.querySelectorAll("[data-ir-a]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const destino = document.getElementById(btn.dataset.irA);
+      if (destino) destino.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
   el.modal.querySelectorAll("[data-cercano]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const otro = DESTINOS.find((x) => x.nombre === btn.dataset.cercano);

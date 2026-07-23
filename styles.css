@@ -1115,6 +1115,33 @@ input:focus-visible {
   color: var(--wheat-dim);
 }
 
+.modal-indice {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--bg-card-border);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.modal-indice::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-indice button {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--wheat-dim);
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
 .modal-foto {
   position: relative;
   width: 100%;
