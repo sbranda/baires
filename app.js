@@ -3293,6 +3293,7 @@ const TEXTOS = {
     caba: "CABA",
     kmDesdeCaba: (km) => `${km} km desde CABA`,
     kmLineaRecta: (km) => `${km} km en línea recta desde tu ubicación`,
+    kmPorRuta: (km) => `${km} km por ruta`,
     tiempoEnAuto: (t) => `~${t} en auto`,
     modalHistoria: "Un poco de historia",
     modalDatoCurioso: "Dato curioso",
@@ -3459,6 +3460,7 @@ const TEXTOS = {
     caba: "CABA",
     kmDesdeCaba: (km) => `${km} km from CABA`,
     kmLineaRecta: (km) => `${km} km in a straight line from your location`,
+    kmPorRuta: (km) => `${km} km by road`,
     tiempoEnAuto: (t) => `~${t} by car`,
     modalHistoria: "A bit of history",
     modalDatoCurioso: "Fun fact",
@@ -4362,6 +4364,25 @@ function seccionLista(iconName, titulo, items) {
   `;
 }
 
+let modalRutaTokenActual = 0;
+
+async function actualizarKmBadgeConRutaReal(token, d) {
+  const resultado = await obtenerRutaOSRM([
+    { lat: origen.lat, lng: origen.lng },
+    { lat: d.lat, lng: d.lng },
+  ]);
+
+  // Si mientras esperábamos se cerró el modal o se abrió otro destino, descartamos esta respuesta
+  if (token !== modalRutaTokenActual) return;
+  if (!resultado) return; // sin conexión o falló OSRM: se queda con la estimación que ya se mostraba
+
+  const badge = el.modal.querySelector(".modal-km-badge");
+  if (badge) {
+    const kmReal = Math.round(resultado.distanciaKm);
+    badge.textContent = `${t("kmPorRuta", kmReal)} · ${t("tiempoEnAuto", formatearTiempo(resultado.duracionMin / 60))}`;
+  }
+}
+
 function abrirModal(d) {
   elementoFocoPrevio = document.activeElement;
   const dt = textoDestino(d);
@@ -4529,6 +4550,8 @@ function abrirModal(d) {
   render_nota_personal();
   render_itinerario_btn();
   render_comparar_btn();
+  modalRutaTokenActual++;
+  actualizarKmBadgeConRutaReal(modalRutaTokenActual, d);
   document.getElementById("modal-fav").addEventListener("click", () => {
     toggleFavorito(d.nombre);
     render_estrella();
@@ -4965,6 +4988,7 @@ function cerrarModal() {
   if (elementoFocoPrevio && typeof elementoFocoPrevio.focus === "function") {
     elementoFocoPrevio.focus();
   }
+  modalRutaTokenActual++;
 }
 
 el.modalOverlay.addEventListener("click", (e) => {
