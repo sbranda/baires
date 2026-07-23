@@ -3336,6 +3336,8 @@ const TEXTOS = {
     navegarGoogleMaps: "Google Maps",
     navegarWaze: "Waze",
     navegarNota: "Abre la app de navegación con indicaciones desde tu ubicación actual.",
+    modalCercanos: "Cerca de acá también podés visitar",
+    cercanosNota: "Distancia en línea recta entre destinos.",
     costoPrecio: "Precio nafta (ARS/litro)",
     costoConsumo: "Consumo (km/litro)",
     costoPeaje: "Peaje estimado (ARS cada 100 km)",
@@ -3503,6 +3505,8 @@ const TEXTOS = {
     navegarGoogleMaps: "Google Maps",
     navegarWaze: "Waze",
     navegarNota: "Opens the navigation app with directions from your current location.",
+    modalCercanos: "Nearby, you could also visit",
+    cercanosNota: "Straight-line distance between destinations.",
     costoPrecio: "Fuel price (ARS/liter)",
     costoConsumo: "Consumption (km/liter)",
     costoPeaje: "Estimated toll (ARS every 100 km)",
@@ -3892,6 +3896,14 @@ function distanciaHaversine(lat1, lng1, lat2, lng2) {
     Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
+}
+
+// Devuelve los destinos más cercanos a "d" (no desde el origen del usuario, sino entre los dos lugares)
+function destinosCercanos(d, cantidad) {
+  return DESTINOS.filter((otro) => otro.nombre !== d.nombre)
+    .map((otro) => ({ destino: otro, km: Math.round(distanciaHaversine(d.lat, d.lng, otro.lat, otro.lng)) }))
+    .sort((a, b) => a.km - b.km)
+    .slice(0, cantidad);
 }
 
 // --- Ruteo real por calles y rutas (OSRM, servicio público sin API key) -----
@@ -4386,6 +4398,7 @@ async function actualizarKmBadgeConRutaReal(token, d) {
 function abrirModal(d) {
   elementoFocoPrevio = document.activeElement;
   const dt = textoDestino(d);
+  const cercanos = destinosCercanos(d, 3);
   const render_estrella = () => {
     const esFav = favoritos.has(d.nombre);
     const btn = el.modal.querySelector("#modal-fav");
@@ -4541,10 +4554,30 @@ function abrirModal(d) {
 
     <div class="modal-subhead">${icon("car", 14)} ${t("modalCosto")}</div>
     <div class="modal-costo" id="modal-costo" data-km="${kmDesdeOrigen(d)}"></div>
+
+    <div class="modal-subhead">${icon("map-pin", 14)} ${t("modalCercanos")}</div>
+    <div class="cercanos-lista">
+      ${cercanos
+        .map(
+          ({ destino, km }) => `
+        <button class="cercano-item" data-cercano="${destino.nombre}">
+          <span class="cercano-nombre">${destino.nombre}</span>
+          <span class="cercano-km">${km} km</span>
+        </button>`
+        )
+        .join("")}
+    </div>
+    <p class="cercanos-nota">${t("cercanosNota")}</p>
   `;
   el.modalOverlay.classList.add("visible");
   document.getElementById("modal-close").addEventListener("click", cerrarModal);
   document.getElementById("modal-close").focus();
+  el.modal.querySelectorAll("[data-cercano]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const otro = DESTINOS.find((x) => x.nombre === btn.dataset.cercano);
+      if (otro) abrirModal(otro);
+    });
+  });
   render_estrella();
   render_visitado();
   render_nota_personal();

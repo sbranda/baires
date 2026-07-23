@@ -1146,6 +1146,42 @@ input:focus-visible {
   margin-bottom: 4px;
 }
 
+.cercanos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.cercano-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-card-border);
+  background: var(--bg-card);
+  color: var(--offwhite);
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.cercano-km {
+  flex-shrink: 0;
+  color: var(--rust);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.85rem;
+}
+
+.cercanos-nota {
+  font-size: 0.7rem;
+  color: var(--wheat-dim);
+  margin-bottom: 20px;
+}
+
 .modal-lista {
   list-style: none;
   margin: 0 0 20px;
