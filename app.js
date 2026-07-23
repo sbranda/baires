@@ -1392,6 +1392,27 @@ const DESTINOS = [
     tips: ["Reservar alojamiento con anticipación para la Fiesta Nacional del Caballo", "El recorrido arquitectónico por el centro se puede hacer con guía municipal, consultar días disponibles", "Buena escala camino a Trenque Lauquen o Pehuajó"],
     presupuesto: "Bajo a medio.",
   },
+  {
+    nombre: "Los Toldos", km: 300, categoria: "campo", lat: -34.9917, lng: -61.0333,
+    nota: "La infancia de Eva Perón, herencia mapuche y el queso Gouda.",
+    historia: "Los Toldos nació a fines del siglo XIX alrededor de una estación del Ferrocarril Oeste, en tierras donde décadas antes se había asentado la tribu mapuche liderada por el cacique Coliqueo, que da origen al nombre del lugar. En 1908 se creó el partido de General Viamonte, en homenaje a un prócer de la independencia, aunque la ciudad cabecera conservó el nombre popular de Los Toldos. El pueblo alcanzó relevancia nacional al ser el lugar donde transcurrió la infancia de Eva Duarte, luego Eva Perón, en una casa humilde con piso de tierra que hoy es museo. A mediados del siglo XX, la llegada de la familia holandesa Doeswijk trajo la receta del queso Gouda, que con el tiempo se convirtió en otro sello distintivo del partido.",
+    datoCurioso: "La casa donde Eva Perón vivió parte de su infancia fue declarada Monumento Histórico Nacional en 2002, y en 2019, por el centenario de su nacimiento, se inauguró a su alrededor el actual Museo Provincial Casa Evita.",
+    comoLlegar: "Ruta Nacional 7 y luego rutas provinciales, aproximadamente 4 horas en auto.",
+    cuandoIr: "Octubre para el Festival del Queso Gouda; todo el año para el resto de los atractivos.",
+    duracion: "Día completo o fin de semana.",
+    comoMoverse: "El centro se recorre a pie; para la estancia La Unión y el monasterio benedictino conviene auto.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Museo Provincial Casa Evita, casa natal de Eva Perón." },
+      { momento: "Mediodía", actividad: "Almuerzo con productos locales, entre ellos el queso Gouda." },
+      { momento: "Tarde", actividad: "Casa Cultural Mapuche y Monasterio Benedictino Santa María de Los Toldos." },
+    ],
+    otrosAtractivos: ["Museo Provincial Casa Evita, casa natal de Eva Perón", "Casa Cultural Mapuche, con la herencia del cacique Coliqueo", "Monasterio Benedictino Santa María de Los Toldos", "Ruta del queso Gouda, de tradición holandesa"],
+    eventos: ["Festival del Queso Gouda, octubre", "Año Nuevo Mapuche, 27 y 28 de junio"],
+    dondeComer: ["Restaurantes y queserías con productos locales", "Comedores de campo en los alrededores"],
+    dondeAlojarse: ["Hoteles y hospedajes del centro", "Hospedería del monasterio benedictino"],
+    tips: ["Reservar la visita al Museo Casa Evita, suele tener guías disponibles", "El queso Gouda local es un buen souvenir para llevar", "Es un viaje largo, conviene planearlo como fin de semana completo"],
+    presupuesto: "Bajo a medio.",
+  },
 ];
 
 // --- Traducción al inglés del contenido de cada destino ---------------------
