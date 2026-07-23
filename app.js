@@ -3823,6 +3823,27 @@ function normalizar(texto) {
     .trim();
 }
 
+// Envuelve en <mark> las coincidencias de la búsqueda activa dentro de un texto,
+// sin importar mayúsculas ni acentos, pero mostrando el texto tal cual estaba escrito.
+function resaltarBusqueda(texto) {
+  if (!busqueda || !texto) return texto;
+  const consulta = normalizar(busqueda);
+  if (!consulta) return texto;
+  const normalizado = normalizar(texto);
+  let resultado = "";
+  let cursor = 0;
+  let idx = normalizado.indexOf(consulta, cursor);
+  if (idx === -1) return texto;
+  while (idx !== -1) {
+    resultado += texto.slice(cursor, idx);
+    resultado += `<mark class="busqueda-resaltada">${texto.slice(idx, idx + consulta.length)}</mark>`;
+    cursor = idx + consulta.length;
+    idx = normalizado.indexOf(consulta, cursor);
+  }
+  resultado += texto.slice(cursor);
+  return resultado;
+}
+
 function textoBuscableDestino(d) {
   return [d.nombre, d.nota, d.datoCurioso, ...(d.otrosAtractivos || []), ...(d.eventos || [])].join(" ");
 }
@@ -4578,7 +4599,7 @@ function seccionLista(iconName, titulo, items, id) {
   return `
     <div class="modal-subhead"${id ? ` id="${id}"` : ""}>${icon(iconName, 14)} ${titulo}</div>
     <ul class="modal-lista">
-      ${items.map((it) => `<li>${it}</li>`).join("")}
+      ${items.map((it) => `<li>${resaltarBusqueda(it)}</li>`).join("")}
     </ul>
   `;
 }
@@ -4718,7 +4739,7 @@ function abrirModal(d) {
     <h2 class="modal-title" id="modal-title-el">${d.nombre}</h2>
     <span class="modal-visitado-badge" id="modal-visitado-badge" style="display:none">${icon("check-circle", 12)} ${t("yaVisitaste")}</span>
     ${esBuenMomentoParaIr(d) ? `<span class="modal-temporada-badge">${icon("sun", 12)} ${t("buenMomento")}</span>` : ""}
-    <p class="modal-nota">${dt.nota}</p>
+    <p class="modal-nota">${resaltarBusqueda(dt.nota)}</p>
 
     <div class="modal-indice" id="modal-indice" role="group" aria-label="${t("indiceRapido")}">
       <button data-ir-a="modal-seccion-historia">${t("indiceHistoria")}</button>
@@ -4738,17 +4759,17 @@ function abrirModal(d) {
     <div class="modal-foto" id="modal-foto" data-nombre="${d.nombre}"></div>
 
     <div class="modal-subhead" id="modal-seccion-historia">${icon("scroll", 14)} ${t("modalHistoria")}</div>
-    <p class="modal-parrafo">${dt.historia}</p>
+    <p class="modal-parrafo">${resaltarBusqueda(dt.historia)}</p>
 
     <div class="modal-subhead">${icon("lightbulb", 14)} ${t("modalDatoCurioso")}</div>
-    <p class="modal-parrafo">${dt.datoCurioso}</p>
+    <p class="modal-parrafo">${resaltarBusqueda(dt.datoCurioso)}</p>
 
     <div class="modal-info" id="modal-seccion-llegar">
       <div class="info-row">
         ${icon("car", 16, "#7C9473")}
         <div>
           <div class="info-label">${t("modalComoLlegar")}</div>
-          <div class="info-value">${dt.comoLlegar}</div>
+          <div class="info-value">${resaltarBusqueda(dt.comoLlegar)}</div>
         </div>
       </div>
       <div class="navegar-botones">
@@ -4760,21 +4781,21 @@ function abrirModal(d) {
         ${icon("compass", 16, "#7C9473")}
         <div>
           <div class="info-label">${t("modalComoMoverse")}</div>
-          <div class="info-value">${dt.comoMoverse}</div>
+          <div class="info-value">${resaltarBusqueda(dt.comoMoverse)}</div>
         </div>
       </div>
       <div class="info-row">
         ${icon("calendar-days", 16, "#7C9473")}
         <div>
           <div class="info-label">${t("modalCuandoIr")}</div>
-          <div class="info-value">${dt.cuandoIr}</div>
+          <div class="info-value">${resaltarBusqueda(dt.cuandoIr)}</div>
         </div>
       </div>
       <div class="info-row">
         ${icon("clock", 16, "#7C9473")}
         <div>
           <div class="info-label">${t("modalDuracion")}</div>
-          <div class="info-value">${dt.duracion}</div>
+          <div class="info-value">${resaltarBusqueda(dt.duracion)}</div>
         </div>
       </div>
     </div>
@@ -4784,7 +4805,7 @@ function abrirModal(d) {
 
     <div class="modal-subhead" id="modal-seccion-itinerario">${icon("sparkles", 14)} ${t("modalItinerario")}</div>
     <ul class="modal-timeline">
-      ${dt.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${paso.actividad}</li>`).join("")}
+      ${dt.itinerario.map((paso) => `<li><span class="timeline-momento">${paso.momento}</span>${resaltarBusqueda(paso.actividad)}</li>`).join("")}
     </ul>
 
     ${seccionLista("map-pin", t("modalOtrosAtractivos"), dt.otrosAtractivos, "modal-seccion-atractivos")}
@@ -4794,7 +4815,7 @@ function abrirModal(d) {
     ${seccionLista("map-pin", t("modalTips"), dt.tips)}
 
     <div class="modal-subhead">${icon("wallet", 14)} ${t("modalPresupuesto")}</div>
-    <p class="modal-parrafo modal-presupuesto">${dt.presupuesto}</p>
+    <p class="modal-parrafo modal-presupuesto">${resaltarBusqueda(dt.presupuesto)}</p>
 
     <div class="modal-subhead" id="modal-seccion-costo">${icon("car", 14)} ${t("modalCosto")}</div>
     <div class="modal-costo" id="modal-costo" data-km="${kmDesdeOrigen(d)}"></div>
