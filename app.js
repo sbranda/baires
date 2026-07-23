@@ -1413,6 +1413,27 @@ const DESTINOS = [
     tips: ["Reservar la visita al Museo Casa Evita, suele tener guías disponibles", "El queso Gouda local es un buen souvenir para llevar", "Es un viaje largo, conviene planearlo como fin de semana completo"],
     presupuesto: "Bajo a medio.",
   },
+  {
+    nombre: "Florentino Ameghino", km: 430, categoria: "campo", lat: -34.817, lng: -62.45,
+    nota: "Un pueblo tranquilo que homenajea al gran paleontólogo argentino.",
+    historia: "El pueblo se fundó en 1910 en tierras que hasta pocas décadas antes habían sido territorio de los pueblos originarios liderados por el cacique Calfulcurá, en el límite noroeste de la provincia. Tomó su nombre en homenaje a Florentino Ameghino, el naturalista y paleontólogo argentino que revolucionó el estudio de los fósiles sudamericanos y cuyos hallazgos en la región todavía atraen a investigadores. La llegada de inmigrantes españoles e italianos dejó su huella en instituciones como la Sociedad Italiana, que hoy funciona como centro cultural y biblioteca. Reclamado por un movimiento popular desde 1912, el partido homónimo recién se creó en 1991, casi ochenta años después. Hoy Florentino Ameghino es un pueblo tranquilo de calles arboladas, con la vida rural como principal motor económico.",
+    datoCurioso: "El partido de Florentino Ameghino tardó casi 80 años en crearse desde el primer reclamo popular de 1912: recién se independizó de General Pinto en 1991, por ley de la Legislatura bonaerense.",
+    comoLlegar: "Ruta Nacional 188, aproximadamente 5h30 en auto.",
+    cuandoIr: "Primavera y otoño.",
+    duracion: "Medio día, o parada en un viaje más largo.",
+    comoMoverse: "El centro se recorre a pie.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Estación Hesley y Circuito de la Salud." },
+      { momento: "Mediodía", actividad: "Almuerzo en el centro." },
+      { momento: "Tarde", actividad: "Museo local y edificio de la Sociedad Española." },
+    ],
+    otrosAtractivos: ["Estación Hesley, antigua estación de ferrocarril", "Circuito de la Salud, paseo arbolado e iluminado", "Sociedad Italiana, hoy centro cultural y biblioteca", "Anfiteatro municipal, con espectáculos de verano"],
+    eventos: ["Espectáculos de verano en el anfiteatro municipal"],
+    dondeComer: ["Restaurantes y comedores del centro"],
+    dondeAlojarse: ["Hospedajes del centro"],
+    tips: ["Es un viaje largo, conviene combinarlo con Trenque Lauquen u otro destino del oeste", "Buen destino para caminatas tranquilas por el Circuito de la Salud", "Consultar horarios del museo local antes de ir"],
+    presupuesto: "Bajo.",
+  },
 ];
 
 // --- Traducción al inglés del contenido de cada destino ---------------------
