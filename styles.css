@@ -1301,6 +1301,48 @@ input:focus-visible {
   border-color: var(--rust);
 }
 
+.tutorial-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: rgba(193, 68, 14, 0.14);
+  color: var(--rust);
+}
+
+.tutorial-puntos {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 16px 0;
+}
+
+.tutorial-punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--bg-card-border);
+}
+
+.tutorial-punto.activo {
+  background: var(--rust);
+  width: 18px;
+}
+
+.tutorial-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tutorial-acciones .bienvenida-btn {
+  flex: 1;
+}
+
 .comparar-tabla-wrap {
   overflow-x: auto;
   margin-bottom: 20px;

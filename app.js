@@ -2696,6 +2696,21 @@ const TEXTOS = {
     bienvenidaTexto: "Podemos usar tu ubicación actual (en línea recta) en vez de siempre calcular desde CABA. Podés cambiarlo cuando quieras desde el botón de ubicación.",
     bienvenidaUsar: "Usar mi ubicación",
     bienvenidaCaba: "Usar CABA",
+    tutorialSaltar: "Saltear",
+    tutorialSiguiente: "Siguiente",
+    tutorialEmpezar: "Empezar",
+    tutorialAnterior: "Atrás",
+    tutorialPasoDe: (n, total) => `${n} de ${total}`,
+    tutorial1Titulo: "¡Bienvenido!",
+    tutorial1Texto: "Elegí una distancia desde CABA (o desde tu ubicación) y descubrí pueblos y ciudades de toda la provincia de Buenos Aires.",
+    tutorial2Titulo: "Buscá y filtrá",
+    tutorial2Texto: "Buscá por nombre o por atractivo (como \"termas\" o \"vino\"), y combinalo con los filtros de categoría y el slider de distancia.",
+    tutorial3Titulo: "Lista o mapa",
+    tutorial3Texto: "Mirá los resultados en lista o en un mapa real. Cada guía trae clima, una foto, el itinerario sugerido y el costo estimado del viaje.",
+    tutorial4Titulo: "Guardá tus favoritos",
+    tutorial4Texto: "Marcá los que más te gusten con la estrella, tachá los que ya visitaste, y dejales tu propia nota y puntaje.",
+    tutorial5Titulo: "Armá tu viaje",
+    tutorial5Texto: "Elegí varios destinos para armar un itinerario de varios días, o compará dos lugares lado a lado antes de decidir.",
   },
   en: {
     eyebrow: "Buenos Aires Province",
@@ -2837,6 +2852,21 @@ const TEXTOS = {
     bienvenidaTexto: "We can use your current location (straight-line distance) instead of always calculating from CABA. You can change this anytime from the location button.",
     bienvenidaUsar: "Use my location",
     bienvenidaCaba: "Use CABA",
+    tutorialSaltar: "Skip",
+    tutorialSiguiente: "Next",
+    tutorialEmpezar: "Get started",
+    tutorialAnterior: "Back",
+    tutorialPasoDe: (n, total) => `${n} of ${total}`,
+    tutorial1Titulo: "Welcome!",
+    tutorial1Texto: "Pick a distance from CABA (or from your location) and discover towns and cities across Buenos Aires Province.",
+    tutorial2Titulo: "Search and filter",
+    tutorial2Texto: "Search by name or by attraction (like \"hot springs\" or \"wine\"), and combine it with the category filters and the distance slider.",
+    tutorial3Titulo: "List or map",
+    tutorial3Texto: "View results as a list or on a real map. Every guide includes weather, a photo, a suggested itinerary, and the estimated trip cost.",
+    tutorial4Titulo: "Save your favorites",
+    tutorial4Texto: "Mark the ones you like with the star, cross off the ones you've visited, and leave your own note and rating.",
+    tutorial5Titulo: "Plan your trip",
+    tutorial5Texto: "Pick several destinations to build a multi-day itinerary, or compare two places side by side before deciding.",
   },
 };
 
@@ -2850,6 +2880,8 @@ const MAX_KM = 1000;
 // --- Iconos SVG mínimos (stroke, estilo lucide) ---------------------------
 const ICONS = {
   "map-pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  map: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>',
   waves: '<path d="M2 6c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><path d="M2 12c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><path d="M2 18c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/>',
   mountain: '<path d="m8 21 4-13 4 13"/><path d="m2 21 7-17 4 8.5"/><path d="M14.5 12 18 5l4 16"/>',
   sailboat: '<path d="M2 20a5 5 0 0 0 8 0"/><path d="M11 20 8 3l7 8"/><path d="M13 20 3 12l10-2"/>',
@@ -3263,6 +3295,8 @@ const el = {
   tituloH1: document.getElementById("titulo-h1"),
   bienvenidaOverlay: document.getElementById("bienvenida-overlay"),
   bienvenidaModal: document.getElementById("bienvenida-modal"),
+  tutorialOverlay: document.getElementById("tutorial-overlay"),
+  tutorialModal: document.getElementById("tutorial-modal"),
 };
 
 // Sincronizar los controles que no se regeneran en cada render() con los
@@ -4690,7 +4724,107 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-setTimeout(mostrarBienvenida, 600);
+// --- Tutorial de bienvenida (solo la primera vez) ----------------------------
+const TUTORIAL_KEY = "destinos-ba-tutorial-visto";
+const TUTORIAL_PASOS = [
+  { icono: "map-pin", tituloKey: "tutorial1Titulo", textoKey: "tutorial1Texto" },
+  { icono: "search", tituloKey: "tutorial2Titulo", textoKey: "tutorial2Texto" },
+  { icono: "map", tituloKey: "tutorial3Titulo", textoKey: "tutorial3Texto" },
+  { icono: "star", tituloKey: "tutorial4Titulo", textoKey: "tutorial4Texto" },
+  { icono: "route", tituloKey: "tutorial5Titulo", textoKey: "tutorial5Texto" },
+];
+let tutorialPasoActual = 0;
+let tutorialFocoPrevio = null;
+
+function cerrarTutorial(alTerminar) {
+  if (el.tutorialOverlay) el.tutorialOverlay.classList.remove("visible");
+  try {
+    localStorage.setItem(TUTORIAL_KEY, "1");
+  } catch (err) {
+    console.warn("No se pudo guardar la preferencia de tutorial:", err);
+  }
+  if (tutorialFocoPrevio && typeof tutorialFocoPrevio.focus === "function") {
+    tutorialFocoPrevio.focus();
+  }
+  if (alTerminar) setTimeout(mostrarBienvenida, 300);
+}
+
+function renderizarPasoTutorial() {
+  if (!el.tutorialModal) return;
+  const total = TUTORIAL_PASOS.length;
+  const paso = TUTORIAL_PASOS[tutorialPasoActual];
+  const esUltimo = tutorialPasoActual === total - 1;
+  const esPrimero = tutorialPasoActual === 0;
+
+  const puntos = TUTORIAL_PASOS.map((_, i) => `<span class="tutorial-punto ${i === tutorialPasoActual ? "activo" : ""}"></span>`).join("");
+
+  el.tutorialModal.innerHTML = `
+    <div class="tutorial-icono">${icon(paso.icono, 32)}</div>
+    <h2 class="modal-title" id="tutorial-titulo">${t(paso.tituloKey)}</h2>
+    <p class="modal-parrafo">${t(paso.textoKey)}</p>
+    <div class="tutorial-puntos">${puntos}</div>
+    <div class="tutorial-acciones">
+      ${esPrimero ? `<button id="tutorial-saltar" class="bienvenida-btn">${t("tutorialSaltar")}</button>` : `<button id="tutorial-atras" class="bienvenida-btn">${t("tutorialAnterior")}</button>`}
+      <button id="tutorial-siguiente" class="bienvenida-btn bienvenida-btn-principal">${esUltimo ? t("tutorialEmpezar") : t("tutorialSiguiente")}</button>
+    </div>
+  `;
+
+  const btnSiguiente = document.getElementById("tutorial-siguiente");
+  btnSiguiente.focus();
+  btnSiguiente.addEventListener("click", () => {
+    if (esUltimo) {
+      cerrarTutorial(true);
+    } else {
+      tutorialPasoActual++;
+      renderizarPasoTutorial();
+    }
+  });
+  const btnSaltar = document.getElementById("tutorial-saltar");
+  if (btnSaltar) btnSaltar.addEventListener("click", () => cerrarTutorial(true));
+  const btnAtras = document.getElementById("tutorial-atras");
+  if (btnAtras) {
+    btnAtras.addEventListener("click", () => {
+      tutorialPasoActual--;
+      renderizarPasoTutorial();
+    });
+  }
+}
+
+function mostrarTutorial() {
+  if (!el.tutorialOverlay || !el.tutorialModal) {
+    setTimeout(mostrarBienvenida, 300);
+    return;
+  }
+  let yaVisto = false;
+  try {
+    yaVisto = localStorage.getItem(TUTORIAL_KEY) === "1";
+  } catch (err) {
+    yaVisto = false;
+  }
+  if (yaVisto) {
+    setTimeout(mostrarBienvenida, 300);
+    return;
+  }
+
+  tutorialFocoPrevio = document.activeElement;
+  tutorialPasoActual = 0;
+  el.tutorialOverlay.classList.add("visible");
+  renderizarPasoTutorial();
+}
+
+if (el.tutorialOverlay) {
+  el.tutorialOverlay.addEventListener("click", (e) => {
+    if (e.target === el.tutorialOverlay) cerrarTutorial(true);
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && el.tutorialOverlay && el.tutorialOverlay.classList.contains("visible")) {
+    cerrarTutorial(true);
+  }
+});
+
+setTimeout(mostrarTutorial, 600);
 
 // --- Tema claro/oscuro -------------------------------------------------------
 const THEME_KEY = "destinos-ba-tema";
