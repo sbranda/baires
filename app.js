@@ -1329,6 +1329,27 @@ const DESTINOS = [
     tips: ["El Salto de Agua y las ruinas del molino están uno frente al otro, buena parada fotográfica", "Combinar con Arrecifes o Rojas si hay tiempo extra", "Buena escala camino al noroeste de la provincia"],
     presupuesto: "Bajo a medio.",
   },
+  {
+    nombre: "Arrecifes", km: 180, categoria: "rio", lat: -34.0611, lng: -60.1097,
+    nota: "Cuna de campeones del automovilismo y un monumento al inmigrante único en Latinoamérica.",
+    historia: "El primer fortín de Arrecifes se levantó en 1739 junto al río homónimo, en un cruce de caminos coloniales del noreste bonaerense. El poblado creció durante las guerras de la independencia y se consolidó como partido en 1901. A lo largo del siglo XX se ganó el apodo de \"Cuna de Campeones del Automovilismo\", declarado oficialmente por la Legislatura bonaerense, gracias a pilotos oriundos de la zona como José Froilán González, el primer piloto latinoamericano en ganar un Gran Premio de Fórmula 1. Hoy Arrecifes combina ese perfil automovilístico con un balneario municipal sobre el río y un patrimonio histórico centrado en su plaza principal.",
+    datoCurioso: "El Monumento al Inmigrante de la plaza central, obra del escultor argentino Leo Vinci, mide más de 7 metros de altura y es único en su tipo en toda Latinoamérica.",
+    comoLlegar: "Ruta Nacional 8, kilómetro 176, aproximadamente 2h30 en auto.",
+    cuandoIr: "Primavera y verano para las actividades náuticas en el río.",
+    duracion: "Día completo o fin de semana.",
+    comoMoverse: "El centro se recorre a pie; el balneario y el circuito ribereño quedan a pocos metros del casco urbano.",
+    itinerario: [
+      { momento: "Mañana", actividad: "Plaza Bartolomé Mitre, Monumento al Inmigrante e Iglesia San José de los Arrecifes." },
+      { momento: "Mediodía", actividad: "Almuerzo en el centro." },
+      { momento: "Tarde", actividad: "Balneario municipal, ruinas del Viejo Molino y el Tajamar." },
+    ],
+    otrosAtractivos: ["Ruinas del Viejo Molino harinero y su represa (el Tajamar), sobre el río Arrecifes", "Museo Automovilístico José Froilán González", "Monumento al Inmigrante, de más de 7 metros", "Circuito ribereño para canotaje y kayak"],
+    eventos: ["Homenajes a pilotos locales de automovilismo", "Actividades náuticas de temporada en el balneario"],
+    dondeComer: ["Restaurantes del centro", "Comedores junto al balneario municipal"],
+    dondeAlojarse: ["Cabañas y hospedajes del centro", "Camping junto al río"],
+    tips: ["El circuito ribereño (balneario, ruinas del molino, Tajamar) se puede recorrer en un paseo de medio día", "Buena escala camino a Salto o San Antonio de Areco", "Los fanáticos del automovilismo pueden buscar las tumbas de pilotos locales en el cementerio"],
+    presupuesto: "Bajo a medio.",
+  },
 ];
 
 // --- Traducción al inglés del contenido de cada destino ---------------------
