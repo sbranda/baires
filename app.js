@@ -2710,19 +2710,6 @@ const TEXTOS = {
     tutorial4Texto: "Marcá los que más te gusten con la estrella, tachá los que ya visitaste, y dejales tu propia nota y puntaje.",
     tutorial5Titulo: "Armá tu viaje",
     tutorial5Texto: "Elegí varios destinos para armar un itinerario de varios días, o compará dos lugares lado a lado antes de decidir.",
-    sugerirBtn: "Sugerir un destino",
-    sugerirTitulo: "Sugerir un destino",
-    sugerirDescripcion: "¿Falta algún pueblo o ciudad de la provincia? Contanos cuál y por qué, y lo vamos a revisar para ver si lo sumamos.",
-    sugerirNombreLabel: "Nombre del lugar",
-    sugerirNombrePlaceholder: "Ej: Chascomús, Villa Gesell...",
-    sugerirMotivoLabel: "¿Por qué te parece un buen destino? (opcional)",
-    sugerirMotivoPlaceholder: "Algo que sepas del lugar, un atractivo puntual, etc.",
-    sugerirEnviar: "Sugerir en GitHub",
-    sugerirCancelar: "Cancelar",
-    sugerirNota: "Se abre GitHub en otra pestaña, con un borrador ya armado. Hace falta tener cuenta de GitHub para enviarlo.",
-    sugerirCuerpoTitulo: "Lugar sugerido",
-    sugerirCuerpoMotivo: "Por qué",
-    sugerirCuerpoOrigen: "Sugerido desde la app",
   },
   en: {
     eyebrow: "Buenos Aires Province",
@@ -2879,19 +2866,6 @@ const TEXTOS = {
     tutorial4Texto: "Mark the ones you like with the star, cross off the ones you've visited, and leave your own note and rating.",
     tutorial5Titulo: "Plan your trip",
     tutorial5Texto: "Pick several destinations to build a multi-day itinerary, or compare two places side by side before deciding.",
-    sugerirBtn: "Suggest a destination",
-    sugerirTitulo: "Suggest a destination",
-    sugerirDescripcion: "Is a town or city in the province missing? Tell us which one and why, and we'll look into adding it.",
-    sugerirNombreLabel: "Place name",
-    sugerirNombrePlaceholder: "E.g.: Chascomús, Villa Gesell...",
-    sugerirMotivoLabel: "Why do you think it's a good destination? (optional)",
-    sugerirMotivoPlaceholder: "Anything you know about the place, a specific attraction, etc.",
-    sugerirEnviar: "Suggest on GitHub",
-    sugerirCancelar: "Cancel",
-    sugerirNota: "This opens GitHub in another tab, with a draft already filled in. You'll need a GitHub account to submit it.",
-    sugerirCuerpoTitulo: "Suggested place",
-    sugerirCuerpoMotivo: "Why",
-    sugerirCuerpoOrigen: "Suggested from the app",
   },
 };
 
@@ -3322,9 +3296,6 @@ const el = {
   bienvenidaModal: document.getElementById("bienvenida-modal"),
   tutorialOverlay: document.getElementById("tutorial-overlay"),
   tutorialModal: document.getElementById("tutorial-modal"),
-  sugerirBtn: document.getElementById("sugerir-btn"),
-  sugerirOverlay: document.getElementById("sugerir-overlay"),
-  sugerirModal: document.getElementById("sugerir-modal"),
 };
 
 // Sincronizar los controles que no se regeneran en cada render() con los
@@ -4356,81 +4327,6 @@ if (el.resumenBtn) {
   el.resumenBtn.addEventListener("click", abrirResumenModal);
 }
 
-// --- Sugerir un destino (abre un Issue prellenado en GitHub) ----------------
-const GITHUB_REPO = "sbranda/baires";
-let sugerirFocoPrevio = null;
-
-function cerrarSugerirModal() {
-  if (el.sugerirOverlay) el.sugerirOverlay.classList.remove("visible");
-  if (sugerirFocoPrevio && typeof sugerirFocoPrevio.focus === "function") {
-    sugerirFocoPrevio.focus();
-  }
-}
-
-function abrirSugerirModal() {
-  if (!el.sugerirOverlay || !el.sugerirModal) return;
-  sugerirFocoPrevio = document.activeElement;
-
-  el.sugerirModal.innerHTML = `
-    <h2 class="modal-title" id="sugerir-titulo">${t("sugerirTitulo")}</h2>
-    <p class="modal-parrafo">${t("sugerirDescripcion")}</p>
-    <label class="sugerir-label" for="sugerir-nombre">${t("sugerirNombreLabel")}</label>
-    <input type="text" id="sugerir-nombre" class="sugerir-input" placeholder="${t("sugerirNombrePlaceholder")}" />
-    <label class="sugerir-label" for="sugerir-motivo">${t("sugerirMotivoLabel")}</label>
-    <textarea id="sugerir-motivo" class="sugerir-textarea" rows="3" placeholder="${t("sugerirMotivoPlaceholder")}"></textarea>
-    <p class="sugerir-nota">${t("sugerirNota")}</p>
-    <div class="bienvenida-acciones">
-      <button id="sugerir-enviar" class="bienvenida-btn bienvenida-btn-principal">${t("sugerirEnviar")}</button>
-      <button id="sugerir-cancelar" class="bienvenida-btn">${t("sugerirCancelar")}</button>
-    </div>
-  `;
-
-  el.sugerirOverlay.classList.add("visible");
-  const inputNombre = document.getElementById("sugerir-nombre");
-  inputNombre.focus();
-
-  document.getElementById("sugerir-cancelar").addEventListener("click", cerrarSugerirModal);
-  document.getElementById("sugerir-enviar").addEventListener("click", () => {
-    const nombre = inputNombre.value.trim();
-    if (!nombre) {
-      inputNombre.focus();
-      return;
-    }
-    const motivo = document.getElementById("sugerir-motivo").value.trim();
-
-    const titulo = `${idioma === "en" ? "Suggestion" : "Sugerencia"}: ${nombre}`;
-    const cuerpo = [
-      `**${t("sugerirCuerpoTitulo")}:** ${nombre}`,
-      "",
-      `**${t("sugerirCuerpoMotivo")}:** ${motivo || "-"}`,
-      "",
-      `---`,
-      `*${t("sugerirCuerpoOrigen")}*`,
-    ].join("\n");
-
-    const url = `https://github.com/${GITHUB_REPO}/issues/new?title=${encodeURIComponent(titulo)}&body=${encodeURIComponent(cuerpo)}&labels=sugerencia-destino`;
-    window.open(url, "_blank", "noopener,noreferrer");
-    cerrarSugerirModal();
-  });
-}
-
-if (el.sugerirBtn) {
-  el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
-  el.sugerirBtn.addEventListener("click", abrirSugerirModal);
-}
-
-if (el.sugerirOverlay) {
-  el.sugerirOverlay.addEventListener("click", (e) => {
-    if (e.target === el.sugerirOverlay) cerrarSugerirModal();
-  });
-}
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && el.sugerirOverlay && el.sugerirOverlay.classList.contains("visible")) {
-    cerrarSugerirModal();
-  }
-});
-
 if (el.resumenOverlay) {
   el.resumenOverlay.addEventListener("click", (e) => {
     if (e.target === el.resumenOverlay) cerrarResumenModal();
@@ -5000,7 +4896,6 @@ function aplicarIdioma() {
 
   if (el.sorpresaBtn) el.sorpresaBtn.innerHTML = `${icon("shuffle", 16)} ${t("sorpresa")}`;
   if (el.resumenBtn) el.resumenBtn.innerHTML = `${icon("bar-chart", 16)} ${t("resumenBtn")}`;
-  if (el.sugerirBtn) el.sugerirBtn.innerHTML = `${icon("lightbulb", 16)} ${t("sugerirBtn")}`;
   if (el.compartirFiltrosBtn) el.compartirFiltrosBtn.innerHTML = `${icon("link", 14)} ${t("compartirFiltrosBtn")}`;
   if (el.offlineBanner) {
     el.offlineBanner.innerHTML = `${icon("wifi-off", 18)} <span>${t("offline")}</span>`;
