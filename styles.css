@@ -1117,13 +1117,16 @@ input:focus-visible {
 
 .modal-top {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
+  gap: 6px 10px;
   margin-bottom: 4px;
 }
 
 .modal-km-badge {
   display: inline-block;
+  flex-shrink: 0;
   padding: 2px 8px;
   margin-bottom: 8px;
   font-size: 10px;
@@ -1145,7 +1148,9 @@ input:focus-visible {
 
 .modal-top-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 4px;
 }
 
